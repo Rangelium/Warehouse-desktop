@@ -3,15 +3,9 @@ const path = require("path");
 
 const { app, BrowserWindow, screen, ipcMain, Menu, globalShortcut } = electron;
 const { MyCustomMenu } = require("./tools/customMenu");
+const { connConfig } = require("./tools/ConnectionConfig");
 const { sha256 } = require("./tools/sha256");
 const mssql = require("mssql");
-
-// DataBase
-let config = {
-	user: "oper",
-	password: "fox12",
-	server: "172.16.3.42",
-};
 
 // ====================================================================================
 //  														  Initialization part
@@ -50,9 +44,7 @@ app.on("window-all-closed", function () {
 
 // Main login fuction
 ipcMain.on("userLoginClick", (e, userLoginData) => {
-	config.database = "main";
-
-	let pool = new mssql.ConnectionPool(config);
+	let pool = new mssql.ConnectionPool(connConfig);
 	let poolConnect = pool.connect();
 
 	let username = userLoginData.username;
@@ -225,21 +217,3 @@ function startAnbarForm() {
 		});
 	});
 }
-// ====================================================================================
-//  															  Anbar Pages Part
-// ====================================================================================
-
-ipcMain.on("logsTable", (event, arg) => {
-	config.database = "main";
-
-	let pool = new mssql.ConnectionPool(config);
-	let poolConnect = pool.connect();
-
-	poolConnect
-		.then((pool) => {
-			pool.request().execute("dbo.exec_all_logs", (err, res) => {
-				event.reply("logsTableReply", res.recordset);
-			});
-		})
-		.catch((err) => console.log(err));
-});
