@@ -210,25 +210,17 @@ function startAnbarForm() {
 						app.quit();
 					},
 				},
-				// Remove for production
-				{
-					label: "DevTools",
-					shortcut: "Ctrl+I",
-					click: function () {
-						mainWindow.webContents.toggleDevTools();
-					},
-				},
-				{
-					label: "Reload",
-					shortcut: "Ctrl+R",
-					click: function () {
-						startAnbarForm();
-					},
-				},
 			],
 		});
 
 		// Show menu in browser window
 		AppMenu.renderMenu();
+
+		globalShortcut.register("Ctrl+R", function () {
+			startAnbarForm();
+		});
+		globalShortcut.register("Ctrl+I", () => {
+			mainWindow.webContents.toggleDevTools();
+		});
 	});
 }
