@@ -17,7 +17,6 @@ function openPage(name) {
 	// Set actrive item in anbar
 	$(".nav-link").attr("data-active", "false");
 	if ($(`.nav-link[data-name=${name}]`).length === 0) {
-		console.log($(`[data-name=${name}]`));
 		$(`[data-name=${name}]`).parent().parent().attr("data-active", "true");
 	} else {
 		$(`.nav-link[data-name=${name}]`).attr("data-active", "true");
@@ -101,7 +100,7 @@ ipcRenderer.on("createNavBar", (e, menuItems) => {
 			}
 			dropdown += "</ul>";
 			parent.append(dropdown);
-			$(".dropdown").css("max-height", menuItems[i].submenu.length * 50);
+			// $(".dropdown").css("max-height", menuItems[i].submenu.length * 50);
 
 			for (let j = 0; j < parent.children().last().children().length; j++) {
 				$(parent.children().last().children()[j]).click(function () {
@@ -158,12 +157,11 @@ ipcRenderer.on("createNavBar", (e, menuItems) => {
 	openPage("anbarInfo");
 });
 
-
 // Generate Table Function
-function generateTableHead(table, columnNames){
+function generateTableHead(table, columnNames) {
 	let thead = table.createTHead();
 	let headRow = thead.insertRow();
-	for(let name in columnNames){
+	for (let name in columnNames) {
 		let th = document.createElement("th");
 		let text = document.createTextNode(columnNames[name]);
 		th.appendChild(text);
@@ -171,10 +169,10 @@ function generateTableHead(table, columnNames){
 	}
 }
 
-function generateTable(table, data){
-	for(let element of data){
+function generateTable(table, data) {
+	for (let element of data) {
 		let row = table.insertRow();
-		for(key in element){
+		for (key in element) {
 			let cell = row.insertCell();
 			let text = document.createTextNode(element[key]);
 			cell.appendChild(text);

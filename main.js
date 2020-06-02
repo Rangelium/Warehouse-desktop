@@ -29,9 +29,11 @@ app.on("ready", () => {
 			nodeIntegration: true,
 		},
 	});
-	mainWindow.webContents.openDevTools();
+
 	// Remove buil in menu
 	Menu.setApplicationMenu(null);
+
+	// Starting Login Form
 	startLoginForm();
 });
 
@@ -235,9 +237,9 @@ ipcMain.on("logsTable", (event, arg) => {
 
 	poolConnect
 		.then((pool) => {
-			pool.request()
-				.execute("dbo.exec_all_logs", (err, res) => {
-					event.reply("logsTableReply", res.recordset)
-				})
-		}).catch((err) => console.log(err))
-})
+			pool.request().execute("dbo.exec_all_logs", (err, res) => {
+				event.reply("logsTableReply", res.recordset);
+			});
+		})
+		.catch((err) => console.log(err));
+});
