@@ -1,0 +1,248 @@
+nav {
+	display: flex;
+	justify-content: space-between;
+	background-color: $nav-bar-background-color;
+
+	.nav-links {
+		// Width will be 80% if settings would be added
+		width: 100%;
+		height: 100%;
+		display: flex;
+		padding: 0 20px;
+		justify-content: space-between;
+		align-items: center;
+
+		.nav-link {
+			width: fit-content;
+			padding: 6px 0;
+			border-radius: 1px;
+			background-color: transparent;
+			position: relative;
+			cursor: pointer;
+
+			&::after {
+				content: "";
+				display: block;
+				position: absolute;
+				right: 200%;
+				bottom: 0;
+				width: 0;
+				height: 2px;
+				background-color: $nav-bar-items-underline-color;
+			}
+
+			&:hover::after {
+				animation: navUnderLine 0.4s 1 forwards;
+			}
+
+			&:hover p {
+				color: $nav-bar-items-text-hover-color;
+			}
+
+			p {
+				color: $nav-bar-items-text-color;
+				font-weight: 500;
+				font-size: 1.4rem;
+				transition: 0.4s;
+				user-select: none;
+			}
+		}
+
+		.nav-link[data-hasDropdown="true"] {
+			position: relative;
+			display: flex;
+			justify-content: center;
+
+			&:hover .dropdown {
+				height: fit-content;
+				top: calc(100% - 2px);
+				opacity: 1;
+			}
+
+			.dropdown {
+				position: absolute;
+				top: 50%;
+				right: 50%;
+				transform: translateX(50%);
+				width: fit-content;
+				height: 0;
+				background-color: $nav-bar-dropdown-background-color;
+				opacity: 0;
+				transition: 0.6s;
+				overflow: hidden;
+
+				li {
+					width: 100%;
+					height: fit-content;
+					padding: 15px 10px;
+					border-bottom: 2px solid $nav-bar-dropdown-items-border-color;
+					border-right: 2px solid $nav-bar-dropdown-items-border-color;
+					border-left: 2px solid $nav-bar-dropdown-items-border-color;
+					border-collapse: collapse;
+					background-color: $nav-bar-dropdown-items-background-color;
+					transition: 0.4s;
+					display: flex;
+					justify-content: center;
+
+					&:first-child {
+						border-top: 2px solid $nav-bar-items-underline-color;
+					}
+
+					&:hover {
+						background-color: $nav-bar-dropdown-items-background-hover-color;
+					}
+					&:hover p {
+						color: $nav-bar-dropdown-items-text-hover-color;
+					}
+
+					p {
+						color: $nav-bar-dropdown-items-text-color;
+						font-size: 1.3rem;
+						font-weight: 500;
+						transition: 0.4s;
+						white-space: nowrap;
+					}
+				}
+			}
+		}
+
+		.nav-link[data-active="true"] {
+			p {
+				color: $nav-bar-items-text-hover-color;
+			}
+
+			&::after {
+				animation: navUnderLine 0.6s 1 forwards;
+			}
+		}
+	}
+
+	// If settings added
+	.settings-container {
+		width: 15%;
+		padding-right: 15px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		position: relative;
+		transition: 0.4s;
+
+		.settings {
+			width: 100px;
+			padding: 9px 14px;
+			background-color: $nav-bar-settings-button-background-color;
+			border-radius: 20px;
+			cursor: pointer;
+			transition: 0.4s;
+			z-index: 10;
+			display: flex;
+			justify-content: center;
+			position: relative;
+
+			&:hover {
+				background-color: $nav-bar-settings-button-background-hover-color;
+			}
+			&:hover::after {
+				background-color: $nav-bar-settings-button-background-hover-color;
+			}
+			&:hover p {
+				color: $nav-bar-settings-button-text-hover-color;
+			}
+
+			&::after {
+				content: "";
+				display: block;
+				width: 90%;
+				height: 10px;
+				background-color: $nav-bar-settings-button-background-color;
+				position: absolute;
+				top: calc(100% - 10px);
+				transition: 0.4s;
+				border-bottom-right-radius: 100px;
+				border-bottom-left-radius: 100px;
+			}
+
+			p {
+				color: $nav-bar-settings-button-text-color;
+				font-size: 1.3rem;
+				transition: 0.4s;
+				font-weight: bold;
+				user-select: none;
+			}
+		}
+
+		.settings[data-isClicked="true"] {
+			width: 100%;
+			border-bottom-left-radius: 0;
+			border-bottom-right-radius: 0;
+			background-color: $nav-bar-settings-button-background-click-color;
+			position: relative;
+
+			&::after {
+				top: 100%;
+				opacity: 1;
+				background-color: $nav-bar-settings-button-background-click-color;
+				width: 100%;
+				border-bottom-right-radius: 0;
+				border-bottom-left-radius: 0;
+			}
+
+			p {
+				color: $nav-bar-settings-button-text-click-color;
+			}
+		}
+
+		.dropdown {
+			width: calc(100% - 15px);
+			height: 0;
+			top: 100%;
+			left: 0;
+			position: absolute;
+			background-color: $nav-bar-settings-dropdown-background-color;
+			transition: 0.4s;
+			transition-delay: 0.4s;
+			overflow: hidden;
+			border-bottom-right-radius: 20px;
+			border-bottom-left-radius: 20px;
+
+			li {
+				background-color: $nav-bar-settings-dropdown-item-background-color;
+				transition: 0.4s;
+				cursor: pointer;
+				padding: 10px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				margin-bottom: 5px;
+
+				&:hover {
+					background-color: $nav-bar-settings-dropdown-item-background-hover-color;
+				}
+				&:hover p {
+					color: $nav-bar-settings-dropdown-text-hover-color;
+				}
+				p {
+					font-size: 1.4rem;
+					color: $nav-bar-settings-dropdown-text-color;
+					transition: 0.4s;
+					font-weight: 400;
+				}
+			}
+		}
+
+		.dropdown[data-isOpened="true"] {
+			height: 400px;
+		}
+	}
+}
+
+@keyframes navUnderLine {
+	0% {
+		width: 0;
+		right: 200%;
+	}
+	100% {
+		width: 100%;
+		right: 0;
+	}
+}

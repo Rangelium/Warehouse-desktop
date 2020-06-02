@@ -1,0 +1,154 @@
+.login-container {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: $login-for-background-color;
+	position: relative;
+
+	.bg-img {
+		background-image: url($login-form-background-image-path);
+		background-repeat: no-repeat;
+		background-size: cover;
+
+		width: 100%;
+		height: 100%;
+		z-index: -1;
+		position: absolute;
+		top: 0;
+		left: 0;
+
+		filter: saturate(20%) opacity(80%);
+	}
+
+	form {
+		width: 30%;
+		height: 70%;
+		padding: 20px 0;
+		background-color: $login-form-form-background-color;
+		overflow: hidden;
+		border-radius: 20px;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-around;
+		align-items: center;
+
+		.app-container {
+			flex-grow: 1;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			h1 {
+				color: $login-form-app-name-color;
+				font-weight: bold;
+				font-size: 3rem;
+				user-select: none;
+			}
+			h2 {
+				color: $login-form-login-word-color;
+				margin-top: 15px;
+				font-size: 1.7rem;
+				user-select: none;
+			}
+		}
+
+		.data-container {
+			flex-grow: 2;
+			width: 80%;
+			position: relative;
+
+			.invalidData {
+				font-weight: bold;
+				font-size: 1.3rem;
+				text-align: center;
+				color: $login-form-wrong-data-info-text-color;
+				position: absolute;
+				top: 65%;
+				left: 50%;
+				transform: translateX(-50%);
+				opacity: 0;
+				transition: 0.6s;
+				user-select: none;
+				pointer-events: none;
+				// width: fit-content;
+			}
+
+			.username p,
+			.password p {
+				color: $login-form-label-for-input-color;
+				user-select: none;
+				position: absolute;
+				pointer-events: none;
+				font-size: 1.2rem;
+				top: 50%;
+				left: 5px;
+				transform: translateY(-50%);
+				transition: 0.4s;
+			}
+			.username input,
+			.password input {
+				width: 100%;
+				outline: none;
+				border: none;
+				background-color: $login-form-input-background-color;
+				font-size: 1.2rem;
+				padding: 5px 10px;
+				transition: 0.2s;
+				color: black;
+
+				&:focus {
+					background-color: $login-form-input-background-focus-color;
+					color: $login-form-input-text-color;
+				}
+				&:focus + p {
+					top: -3px;
+					left: -10px;
+					color: $login-form-label-for-input-focus-color;
+				}
+			}
+			input[data-active="true"] {
+				background-color: $login-form-input-background-focus-color;
+				color: $login-form-input-text-color;
+			}
+			input[data-active="true"] + p {
+				top: -3px;
+				left: -10px;
+				color: $login-form-label-for-input-focus-color;
+			}
+
+			.username {
+				position: relative;
+				padding: 10px 0;
+			}
+
+			.password {
+				position: relative;
+				padding: 10px 0;
+				margin-top: 10px;
+			}
+		}
+
+		.btn-container {
+			flex-grow: 1;
+			button {
+				font-size: 2rem;
+				font-weight: bold;
+				padding: 15px 25px;
+				background-color: $login-form-submit-btn-background-color;
+				border-radius: 20px;
+				border: none;
+				outline: none;
+				user-select: none;
+				transition: 0.4s;
+				color: $login-form-submit-btn-text-color;
+				cursor: pointer;
+
+				&:hover {
+					background-color: $login-form-submit-btn-background-hover-color;
+					color: $login-form-submit-btn-text-hover-color;
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			http-equiv="Content-Security-Policy"
+			content="default-src 'self'; script-src 'self'"
+		/>
+		<meta
+			http-equiv="X-Content-Security-Policy"
+			content="default-src 'self'; script-src 'self'"
+		/>
+		<link rel="stylesheet" href="../stylesGlobal/css/main.css" />
+		<title>Login to Anbar</title>
+	</head>
+	<body>
+		<div class="login-container">
+			<div class="bg-img"></div>
+			<form>
+				<div class="app-container">
+					<h1>Anbar app</h1>
+					<h2>Login:</h2>
+				</div>
+
+				<div class="data-container">
+					<div class="username">
+						<input type="text" id="username" autofocus />
+						<p>Username:</p>
+					</div>
+
+					<div class="password">
+						<input type="password" id="password" />
+						<p>Password:</p>
+					</div>
+					<p class="invalidData">Wrong username or password!</p>
+				</div>
+
+				<div class="btn-container">
+					<button type="submit">Login</button>
+				</div>
+			</form>
+		</div>
+		<p>Copyright 2020-2021 Created by Emin Azadov, MIT Licence</p>
+		<script src="login.js"></script>
+	</body>
+</html>
