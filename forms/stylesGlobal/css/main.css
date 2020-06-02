@@ -582,6 +582,15 @@ nav .settings-container .dropdown[data-isOpened="true"] {
   }
 }
 
+.dataTable {
+  table-layout: fixed;
+  background-color: #bdbdbd;
+  width: 70%;
+  height: 500px;
+  overflow: hidden;
+  margin: 0 auto;
+}
+
 .anbarInfo {
   background-color: #7c7c7c;
 }

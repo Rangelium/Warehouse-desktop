@@ -29,10 +29,9 @@ app.on("ready", () => {
 			nodeIntegration: true,
 		},
 	});
-
+	mainWindow.webContents.openDevTools();
 	// Remove buil in menu
 	Menu.setApplicationMenu(null);
-
 	startLoginForm();
 });
 
@@ -232,3 +231,21 @@ function startAnbarForm() {
 		AppMenu.renderMenu();
 	});
 }
+// ====================================================================================
+//  															  Anbar Pages Part
+// ====================================================================================
+
+ipcMain.on("logsTable", (event, arg) => {
+	config.database = "main";
+
+	let pool = new mssql.ConnectionPool(config);
+	let poolConnect = pool.connect();
+
+	poolConnect
+		.then((pool) => {
+			pool.request()
+				.execute("dbo.exec_all_logs", (err, res) => {
+					event.reply("logsTableReply", res.recordset)
+				})
+		}).catch((err) => console.log(err))
+})
