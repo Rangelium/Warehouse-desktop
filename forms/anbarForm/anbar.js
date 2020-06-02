@@ -3,6 +3,16 @@ const { ipcRenderer, BrowserWindow } = electron;
 window.$ = window.jQuery = require("jquery");
 
 // ====================================================================================
+//  													   Connection system part
+// ====================================================================================
+
+const { ConnectionPool } = require("mssql");
+const { connConfig } = require("../../tools/ConnectionConfig");
+
+let pool = new ConnectionPool(connConfig);
+let poolConnect = pool.connect();
+
+// ====================================================================================
 //  														Switch pages system part
 // ====================================================================================
 
@@ -100,7 +110,10 @@ ipcRenderer.on("createNavBar", (e, menuItems) => {
 			}
 			dropdown += "</ul>";
 			parent.append(dropdown);
-			// $(".dropdown").css("max-height", menuItems[i].submenu.length * 50);
+			$(".settings-container > .dropdown").css(
+				"max-height",
+				menuItems[i].submenu.length * 50
+			);
 
 			for (let j = 0; j < parent.children().last().children().length; j++) {
 				$(parent.children().last().children()[j]).click(function () {
