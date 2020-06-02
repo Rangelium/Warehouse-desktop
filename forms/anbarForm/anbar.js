@@ -169,26 +169,3 @@ ipcRenderer.on("createNavBar", (e, menuItems) => {
 	// Set Anbar info page as starting
 	openPage("anbarInfo");
 });
-
-// Generate Table Function
-function generateTableHead(table, columnNames) {
-	let thead = table.createTHead();
-	let headRow = thead.insertRow();
-	for (let name in columnNames) {
-		let th = document.createElement("th");
-		let text = document.createTextNode(columnNames[name]);
-		th.appendChild(text);
-		headRow.appendChild(th);
-	}
-}
-
-function generateTable(table, data) {
-	for (let element of data) {
-		let row = table.insertRow();
-		for (key in element) {
-			let cell = row.insertCell();
-			let text = document.createTextNode(element[key]);
-			cell.appendChild(text);
-		}
-	}
-}
