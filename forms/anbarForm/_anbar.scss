@@ -58,6 +58,21 @@ nav {
 				top: calc(100% - 2px);
 				opacity: 1;
 			}
+			&:hover::before {
+				transform: rotate(90deg);
+				color: $nav-bar-has-dropdown-hover-color;
+			}
+
+			&::before {
+				content: "\25B6";
+				color: $nav-bar-has-dropdown-color;
+				display: inline-block;
+				margin-right: 6px;
+				position: relative;
+				top: 3px;
+				// transform: rotate(90deg);
+				transition: 0.4s;
+			}
 
 			.dropdown {
 				position: absolute;
@@ -247,7 +262,7 @@ nav {
 	}
 }
 
-.dataTable{
+.dataTable {
 	table-layout: fixed;
 	background-color: rgb(189, 189, 189);
 	width: 70%;

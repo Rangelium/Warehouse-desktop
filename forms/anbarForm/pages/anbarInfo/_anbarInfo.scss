@@ -1,3 +1,58 @@
 .anbarInfo {
-	background-color: rgb(124, 124, 124);
+	background-color: $anbar-info-background-color;
+	display: flex;
+
+	.treeViewContainer {
+		background-color: $anbar-info-tree-view-background-color;
+		overflow-y: scroll;
+		overflow-x: hidden;
+		direction: rtl;
+
+		.searchContainer {
+			position: sticky;
+			top: 0;
+
+			p {
+				font-family: sans-serif;
+				position: absolute;
+				display: block;
+				top: 50%;
+				transform: translateY(-50%);
+				right: 10px;
+				font-size: 1.5rem;
+				cursor: pointer;
+				z-index: 100;
+				color: $anbar-info-search-box-sign-color;
+				transition: 0.4s;
+
+				&::hover {
+					color: rgb(116, 113, 113);
+					transform: scale(1.2);
+				}
+			}
+
+			#searchInputBox {
+				direction: ltr;
+				width: 100%;
+				padding: 10px;
+				font-size: 1.3rem;
+				outline: none;
+				border: 3px solid $anbar-info-search-box-border-color;
+				transition: 0.4s;
+				background-color: $anbar-info-search-box-background-color;
+				font-weight: 500;
+				color: $anbar-info-search-box-text-color;
+
+				&::placeholder {
+					color: $anbar-info-search-box-placeholder-color;
+					font-weight: bold;
+				}
+
+				&:focus,
+				&:hover {
+					border: 3px solid $anbar-info-search-box-border-hover-color;
+				}
+			}
+		}
+	}
 }

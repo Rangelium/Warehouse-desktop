@@ -34,6 +34,8 @@ $nav-bar-background-color: #24252a;
 $nav-bar-items-text-color: #edf0f1;
 $nav-bar-items-text-hover-color: #0088a9;
 $nav-bar-items-underline-color: #ffffff;
+$nav-bar-has-dropdown-color: #0088a9;
+$nav-bar-has-dropdown-hover-color: #ffffff;
 
 $nav-bar-dropdown-background-color: #0087a97c;
 $nav-bar-dropdown-items-background-color: #0087a97c;
@@ -54,3 +56,19 @@ $nav-bar-settings-dropdown-item-background-color: #a1e600;
 $nav-bar-settings-dropdown-item-background-hover-color: #679202;
 $nav-bar-settings-dropdown-text-color: rgba(0, 0, 0, 0.623);
 $nav-bar-settings-dropdown-text-hover-color: black;
+
+// Anbar Info colors
+$anbar-info-background-color: rgb(124, 124, 124);
+
+$anbar-info-tree-view-background-color: rgba(110, 68, 9, 0.404);
+$anbar-info-tree-view-scrollbar-color: #0088a9;
+$anbar-info-tree-view-items-text-color: rgb(12, 4, 4);
+$anbar-info-tree-view-items-text-hover-color: rgb(231, 231, 231);
+$anbar-info-tree-view-items-has-dropdown-color: #000;
+
+$anbar-info-search-box-background-color: rgba(110, 68, 9, 0.404);
+$anbar-info-search-box-text-color: #fff;
+$anbar-info-search-box-sign-color: #fff;
+$anbar-info-search-box-placeholder-color: #ffffff;
+$anbar-info-search-box-border-color: transparent;
+$anbar-info-search-box-border-hover-color: rgb(9, 172, 236);
