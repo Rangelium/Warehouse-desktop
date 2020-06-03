@@ -29,6 +29,7 @@ app.on("ready", () => {
 
 	// Starting Login Form
 	startLoginForm();
+	// startAnbarForm();
 });
 
 // Quit when all windows are closed.

@@ -48,6 +48,124 @@ body main {
   src: url("../fonts/Roboto-Regular.ttf") format("truetype");
 }
 
+.treeViewContainer {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  direction: rtl;
+  /* Let's get this party started */
+  /* Track */
+  /* Handle */
+}
+
+.treeViewContainer::-webkit-scrollbar {
+  width: 10px;
+}
+
+.treeViewContainer::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+          box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  border-radius: 10px;
+}
+
+.treeViewContainer::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  border-radius: 10px;
+  background: #0088a9;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+          box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+}
+
+.treeView {
+  padding: 0 70px 0 0;
+}
+
+.treeView p {
+  color: #0c0404;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+  cursor: pointer;
+}
+
+.treeView p:hover {
+  color: #e7e7e7;
+}
+
+.treeView p[data-isSelected="true"] {
+  color: #e7e7e7;
+}
+
+.treeView .tv-cont li {
+  padding-left: 30px;
+}
+
+.treeView .tv-cont span {
+  padding: 2px 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+.treeView .tv-cont span::after {
+  content: "\25B6";
+  color: #000;
+  display: inline-block;
+  margin-right: 6px;
+  -webkit-transform: rotate(90deg);
+          transform: rotate(90deg);
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.treeView .tv-cont span p {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  font-weight: bold;
+  font-size: 1.3rem;
+}
+
+.treeView .tv-cont span[data-isExpanded="false"]::after {
+  -webkit-transform: rotate(0);
+          transform: rotate(0);
+}
+
+.treeView .tv-product {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  padding: 1px 0;
+}
+
+.treeView .tv-product p {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  font-size: 1.1rem;
+}
+
+.treeView ul[data-isExpanded="true"] {
+  display: block;
+}
+
+.treeView ul[data-isExpanded="false"] {
+  display: none;
+}
+
 .login-container {
   width: 100%;
   height: 100%;
@@ -344,6 +462,23 @@ nav .nav-links .nav-link[data-hasDropdown="true"]:hover .dropdown {
   opacity: 1;
 }
 
+nav .nav-links .nav-link[data-hasDropdown="true"]:hover::before {
+  -webkit-transform: rotate(90deg);
+          transform: rotate(90deg);
+  color: #ffffff;
+}
+
+nav .nav-links .nav-link[data-hasDropdown="true"]::before {
+  content: "\25B6";
+  color: #0088a9;
+  display: inline-block;
+  margin-right: 6px;
+  position: relative;
+  top: 3px;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
 nav .nav-links .nav-link[data-hasDropdown="true"] .dropdown {
   position: absolute;
   top: 50%;
@@ -593,5 +728,81 @@ nav .settings-container .dropdown[data-isOpened="true"] {
 
 .anbarInfo {
   background-color: #7c7c7c;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.anbarInfo .treeViewContainer {
+  background-color: rgba(110, 68, 9, 0.404);
+  overflow-y: scroll;
+  overflow-x: hidden;
+  direction: rtl;
+}
+
+.anbarInfo .treeViewContainer .searchContainer {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+}
+
+.anbarInfo .treeViewContainer .searchContainer p {
+  font-family: sans-serif;
+  position: absolute;
+  display: block;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  right: 10px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  z-index: 100;
+  color: #fff;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.anbarInfo .treeViewContainer .searchContainer p::hover {
+  color: #747171;
+  -webkit-transform: scale(1.2);
+          transform: scale(1.2);
+}
+
+.anbarInfo .treeViewContainer .searchContainer #searchInputBox {
+  direction: ltr;
+  width: 100%;
+  padding: 10px;
+  font-size: 1.3rem;
+  outline: none;
+  border: 3px solid transparent;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  background-color: rgba(110, 68, 9, 0.404);
+  font-weight: 500;
+  color: #fff;
+}
+
+.anbarInfo .treeViewContainer .searchContainer #searchInputBox::-webkit-input-placeholder {
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.anbarInfo .treeViewContainer .searchContainer #searchInputBox:-ms-input-placeholder {
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.anbarInfo .treeViewContainer .searchContainer #searchInputBox::-ms-input-placeholder {
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.anbarInfo .treeViewContainer .searchContainer #searchInputBox::placeholder {
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.anbarInfo .treeViewContainer .searchContainer #searchInputBox:focus, .anbarInfo .treeViewContainer .searchContainer #searchInputBox:hover {
+  border: 3px solid #09acec;
 }
 /*# sourceMappingURL=main.css.map */
