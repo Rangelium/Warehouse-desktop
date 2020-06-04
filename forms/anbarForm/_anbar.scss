@@ -264,9 +264,36 @@ nav {
 
 .dataTable {
 	table-layout: fixed;
-	background-color: rgb(189, 189, 189);
+	border-collapse: collapse;
+	background-color: $dataTable-background-color;
 	width: 70%;
-	height: 500px;
-	overflow: hidden;
+	height: 90%;
 	margin: 0 auto;
+	td, th{
+		border: 1px solid blue;
+		padding: 8px;
+		height: 30px;
+		width: 25%;
+	}
+}
+
+.tbody{
+	&::-webkit-scrollbar {
+		width: 10px;
+	}
+
+	/* Track */
+	&::-webkit-scrollbar-track {
+		box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+		border-radius: 10px;
+		border-radius: 10px;
+	}
+
+	/* Handle */
+	&::-webkit-scrollbar-thumb {
+		border-radius: 10px;
+		border-radius: 10px;
+		background: $anbar-info-tree-view-scrollbar-color;
+		box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+	}
 }
