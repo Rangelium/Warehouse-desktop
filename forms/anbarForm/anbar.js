@@ -7,6 +7,7 @@ window.$ = window.jQuery = require("jquery");
 // ====================================================================================
 
 const { MyTreeView } = require("../../tools/TreeView");
+const moment = require("moment");
 
 // ====================================================================================
 //  													   Connection system part

@@ -81,6 +81,7 @@ function startLoginForm() {
 	// Load login Form
 	mainWindow.loadFile(path.join(__dirname, "forms/loginForm/login.html"));
 
+	globalShortcut.unregisterAll();
 	mainWindow.webContents.once("dom-ready", () => {});
 }
 
