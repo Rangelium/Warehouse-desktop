@@ -1,3 +1,7 @@
+// =====================================================================================
+//                                Anbar Overall Info part
+// =====================================================================================
+
 // Function to show Overall info
 function showOverallInfo() {
 	new Promise((resolve, reject) => {
@@ -48,6 +52,10 @@ $("#showOverallInfo").click(function () {
 	}
 });
 
+// =====================================================================================
+//                                   TreeView part
+// =====================================================================================
+
 // Function to feel Tree
 function feelTree(data) {
 	treeView = new MyTreeView(data);
@@ -71,6 +79,7 @@ function feelTree(data) {
 			span.attr("data-isExpanded", "true");
 		}
 	});
+
 	$(".tv-name").click(function () {
 		$(".tv-name").attr("data-isSelected", "false");
 		$(this).attr("data-isSelected", "true");
@@ -78,6 +87,48 @@ function feelTree(data) {
 		showProductInfo(treeView.giveDataOfElement($(this)));
 	});
 }
+
+$("#expandTreeView").click(function () {
+	$(this).attr("data-isClicked", "true");
+	setTimeout(function () {
+		$("#expandTreeView").attr("data-isClicked", "false");
+	}, 600);
+
+	let arr = $(".treeView  span");
+	let arr2 = $(".treeView  ul");
+	for (let i = 0; i < arr.length; i++) {
+		$(arr[i]).attr("data-isexpanded", "true");
+		$(arr2[i]).attr("data-isexpanded", "true");
+	}
+});
+$("#closeTreeView").click(function () {
+	$(this).attr("data-isClicked", "true");
+	setTimeout(function () {
+		$("#closeTreeView").attr("data-isClicked", "false");
+	}, 600);
+
+	let arr = $(".treeView  span");
+	let arr2 = $(".treeView  ul");
+	for (let i = 1; i < arr.length; i++) {
+		$(arr[i]).attr("data-isexpanded", "false");
+		$(arr2[i]).attr("data-isexpanded", "false");
+	}
+});
+
+// Handle onclick hideShowTreeView
+$("#hideShowTreeView").click(function () {
+	if ($(this).attr("data-isClicked") == "true") {
+		$(this).attr("data-isClicked", "false");
+		$(".treeViewContainer").css("display", "block");
+	} else {
+		$(this).attr("data-isClicked", "true");
+		$(".treeViewContainer").css("display", "none");
+	}
+});
+
+// =====================================================================================
+//                                   Search box part
+// =====================================================================================
 
 // Search box part
 $("#clearSearchBox").click(() => {
@@ -110,12 +161,95 @@ $("#searchInputBox").focusout(function () {
 	}
 });
 
-// Show product details
-function showProductInfo(productData) {
-	console.log(productData);
+// =====================================================================================
+//                                SingleProductInfo part
+// =====================================================================================
+
+function fillSingleProductTable(data) {
+	$(".singleProductTable").remove();
+
+	$(".table-data").append("<table class='singleProductTable'></table>");
+	$(".singleProductTable").append("<thead></thead>");
+	$(".singleProductTable").append("<tbody></tbody>");
+
+	$(".singleProductTable > thead").append(`<th>Title:</th>`);
+	$(".singleProductTable > thead").append(`<th>Quantity:</th>`);
+	$(".singleProductTable > thead").append(`<th>Price:</th>`);
+	$(".singleProductTable > thead").append(`<th>Currency:</th>`);
+	// $(".singleProductTable > thead").append(`<th>Original price:</th>`);
+	// $(".singleProductTable > thead").append(`<th>Original currency:</th>`);
+	$(".singleProductTable > thead").append(`<th>Current date:</th>`);
+	$(".singleProductTable > thead").append(`<th>Expiration date</th>`);
+	$(".singleProductTable > thead").append(`<th>Status</th>`);
+	$(".singleProductTable > thead").append(`<th>Performed by:</th>`);
+	$(".singleProductTable > thead").append(`<th>Cell:</th>`);
+
+	data.forEach((el) => {
+		let row = "<tr>";
+
+		row += `<td>${el.title}</td>`;
+		row += `<td>${el.quantity}</td>`;
+		row += `<td>${el.price}</td>`;
+		row += `<td>${el.currency}</td>`;
+		// row += `<td>${el.original_price}</td>`;
+		// row += `<td>${el.original_currency}</td>`;
+		row += `<td title="${moment(el.cur_date).format("Da MMMM YYYY, h:mm:ss")}">${moment(
+			el.cur_date
+		).format("Da MMMM YYYY")}</td>`;
+		row += `<td title="${moment(el.exp_date).format("Da MMMM YYYY, h:mm:ss")}">${moment(
+			el.exp_date
+		).format("Da MMMM YYYY")}</td>`;
+		row += `<td>${el.is_out ? "Removed" : "Added"}</td>`;
+		row += `<td>${el.performed_by}</td>`;
+		row += `<td>${el.product_cell}</td>`;
+
+		row += "</tr>";
+		$(".singleProductTable > tbody").append(row);
+	});
 }
 
-// Functions on start
+async function showProductInfo(productData) {
+	// Check if already opened
+	if ($("#singleProductId").html() == productData.product_id) {
+		$("#singleProductId").html("");
+		$(".singleProductInfo").css("opacity", "0");
+		$(".singleProductInfo").css("pointer-events", "unset");
+
+		let tmp = $(".treeView .tv-name");
+		for (let i = 0; i < tmp.length; i++) {
+			$(tmp[i]).attr("data-isselected", "false");
+		}
+		return;
+	}
+
+	$("#singleProductName").html(productData.title);
+	$("#singleProductId").html(productData.product_id);
+
+	let table_product = await new Promise((resolve, reject) => {
+		poolConnect.then((pool) => {
+			pool
+				.request()
+				.input("product_id", productData.product_id)
+				.execute("dbo.main_tree_click_table", (err, res) => {
+					resolve(res.recordset);
+				});
+		});
+	});
+
+	let data = [];
+	table_product.forEach((el) => {
+		data.push(el);
+	});
+
+	fillSingleProductTable(data);
+	$(".singleProductInfo").css("opacity", "1");
+	$(".singleProductInfo").css("pointer-events", "unset");
+}
+
+// =====================================================================================
+//                                On start functions
+// =====================================================================================
+
 // Load treeView from start
 poolConnect.then((pool) => {
 	pool.request().execute("dbo.warehouse_tree_select", (err, res) => {
