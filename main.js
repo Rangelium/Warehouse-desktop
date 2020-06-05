@@ -6,6 +6,7 @@ const { MyCustomMenu } = require("./tools/customMenu");
 const { connConfig } = require("./tools/ConnectionConfig");
 const { sha256 } = require("./tools/sha256");
 const mssql = require("mssql");
+// require("events").EventEmitter.defaultMaxListeners = Infinity;
 
 // ====================================================================================
 //  														  Initialization part
@@ -212,6 +213,7 @@ function startAnbarForm() {
 		AppMenu.renderMenu();
 
 		globalShortcut.register("Ctrl+R", function () {
+			ipcMain.removeAllListeners();
 			startAnbarForm();
 		});
 		globalShortcut.register("Ctrl+I", () => {
