@@ -166,6 +166,68 @@ body main {
   display: none;
 }
 
+.btn-type1 {
+  padding: 10px 20px;
+  position: relative;
+  border: 2px solid #1dc4ee;
+  border-radius: 10px;
+  outline: none;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  overflow: hidden;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+  background-color: #9cdef841;
+}
+
+.btn-type1:hover {
+  background-color: #00aff541;
+  -webkit-transform: scale(1.05);
+          transform: scale(1.05);
+}
+
+.btn-type1::after {
+  content: "";
+  position: absolute;
+  width: 0px;
+  height: 0px;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  z-index: -1;
+  background-color: white;
+  border-radius: 50%;
+  -webkit-transition: 0.8s;
+  transition: 0.8s;
+}
+
+.btn-type1 p {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: white;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  -webkit-transition-delay: 0.6s;
+          transition-delay: 0.6s;
+}
+
+.btn-type1[data-isClicked="true"] {
+  border: 2px solid black;
+}
+
+.btn-type1[data-isClicked="true"]::after {
+  width: 200px;
+  height: 200px;
+}
+
+.btn-type1[data-isClicked="true"] p {
+  color: black;
+}
+
 .login-container {
   width: 100%;
   height: 100%;
@@ -399,6 +461,7 @@ nav .nav-links {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  z-index: 10000;
 }
 
 nav .nav-links .nav-link {
@@ -562,6 +625,7 @@ nav .settings-container {
   position: relative;
   -webkit-transition: 0.4s;
   transition: 0.4s;
+  z-index: 10000;
 }
 
 nav .settings-container .settings {
@@ -727,10 +791,13 @@ nav .settings-container .dropdown[data-isOpened="true"] {
 }
 
 .anbarInfo {
-  background-color: #7c7c7c;
+  background-color: #a8a4a4;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
 .anbarInfo .treeViewContainer {
@@ -754,25 +821,23 @@ nav .settings-container .dropdown[data-isOpened="true"] {
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%);
   right: 10px;
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   cursor: pointer;
   z-index: 100;
-  color: #fff;
+  color: #b6b0b0;
   -webkit-transition: 0.4s;
   transition: 0.4s;
 }
 
-.anbarInfo .treeViewContainer .searchContainer p::hover {
-  color: #747171;
-  -webkit-transform: scale(1.2);
-          transform: scale(1.2);
+.anbarInfo .treeViewContainer .searchContainer p:hover {
+  color: #fff;
 }
 
 .anbarInfo .treeViewContainer .searchContainer #searchInputBox {
   direction: ltr;
   width: 100%;
   padding: 10px;
-  font-size: 1.3rem;
+  font-size: 1.45rem;
   outline: none;
   border: 3px solid transparent;
   -webkit-transition: 0.4s;
@@ -804,5 +869,388 @@ nav .settings-container .dropdown[data-isOpened="true"] {
 
 .anbarInfo .treeViewContainer .searchContainer #searchInputBox:focus, .anbarInfo .treeViewContainer .searchContainer #searchInputBox:hover {
   border: 3px solid #09acec;
+}
+
+.anbarInfo .data {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  border-left: 3px solid #3a3838;
+  z-index: 0;
+}
+
+.anbarInfo .data .smallNav {
+  background-color: rgba(110, 68, 9, 0.404);
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 0 7px;
+}
+
+.anbarInfo .data .smallNav::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  background-color: rgba(110, 68, 9, 0.404);
+}
+
+.anbarInfo .data .smallNav #showOverallInfo {
+  z-index: 100;
+  border: 2px solid #1dc4ee;
+  background-color: #9cdef841;
+}
+
+.anbarInfo .data .smallNav #showOverallInfo:hover {
+  background-color: #00aff541;
+}
+
+.anbarInfo .data .smallNav #showOverallInfo::after {
+  background-color: white;
+}
+
+.anbarInfo .data .smallNav #showOverallInfo p {
+  color: white;
+}
+
+.anbarInfo .data .smallNav #showOverallInfo[data-isClicked="true"] {
+  border: 2px solid #000;
+}
+
+.anbarInfo .data .smallNav #showOverallInfo[data-isClicked="true"]::after {
+  width: 200px;
+  height: 200px;
+}
+
+.anbarInfo .data .smallNav #showOverallInfo[data-isClicked="true"] p {
+  color: #000;
+}
+
+.anbarInfo .data .smallNav #showOverallInfo[data-isClicked="false"]::after {
+  -webkit-transition-delay: 0.5s;
+          transition-delay: 0.5s;
+}
+
+.anbarInfo .data .screenInfo {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  background-color: transparent;
+  position: relative;
+}
+
+.anbarInfo .data .screenInfo .info {
+  z-index: -1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 40%;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  padding: 20px 30px;
+}
+
+.anbarInfo .data .screenInfo .info p {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  color: #e7e4e4;
+  font-size: 1.5rem;
+  text-shadow: 2px 2px 8px #797575, -2px -2px 8px white;
+}
+
+.anbarInfo .data .screenInfo .info p span {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.anbarInfo .data .screenInfo .info .text {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.anbarInfo .data .screenInfo .overall-info {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  overflow: hidden;
+  position: absolute;
+  background-color: white;
+}
+
+.anbarInfo .data .screenInfo .overall-info .overall-info-data {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.anbarInfo .data .screenInfo .overall-info .overall-info-data h2 {
+  padding: 15px;
+  font-size: 1.9rem;
+  color: black;
+}
+
+.anbarInfo .data .screenInfo .overall-info .overall-info-data p {
+  color: #000;
+  padding: 5px;
+  font-size: 1.2rem;
+}
+
+.anbarInfo .data .screenInfo .overall-info .overall-info-data p span {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #2e2727;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+  cursor: default;
+}
+
+.anbarInfo .data .screenInfo .overall-info .overall-info-data p span:hover {
+  color: #000;
+}
+
+.anbarInfo .data .screenInfo .overall-info .overall-info-data .upper-text {
+  width: 100%;
+  height: 40%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.anbarInfo .data .screenInfo .overall-info .overall-info-data .lover-text {
+  height: 60%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+.anbarInfo .data .screenInfo .overall-info .overall-info-data .lover-text .left-text,
+.anbarInfo .data .screenInfo .overall-info .overall-info-data .lover-text .right-text {
+  padding: 0 50px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.anbarInfo .data .screenInfo .overall-info[data-isShoving="true"] {
+  -webkit-animation: showAnimatedBox 0.6s 1 forwards ease-in;
+          animation: showAnimatedBox 0.6s 1 forwards ease-in;
+}
+
+.anbarInfo .data .screenInfo .overall-info[data-isShoving="true"] .overall-info-data {
+  pointer-events: all;
+  -webkit-animation: showOverallInfoData 0.6s 1 0.5s forwards;
+          animation: showOverallInfoData 0.6s 1 0.5s forwards;
+}
+
+.anbarInfo .data .screenInfo .overall-info[data-isShoving="false"] {
+  width: 100%;
+  height: 100%;
+  -webkit-animation: hideAnimatedBox 0.6s 0.5s 1 forwards;
+          animation: hideAnimatedBox 0.6s 0.5s 1 forwards;
+}
+
+.anbarInfo .data .screenInfo .overall-info[data-isShoving="false"] .overall-info-data {
+  pointer-events: none;
+  -webkit-animation: hideOverallInfoData 0.6s 1 forwards;
+          animation: hideOverallInfoData 0.6s 1 forwards;
+}
+
+@-webkit-keyframes showAnimatedBox {
+  from {
+    top: -30px;
+    left: 70px;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+  }
+  to {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+  }
+}
+
+@keyframes showAnimatedBox {
+  from {
+    top: -30px;
+    left: 70px;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+  }
+  to {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+  }
+}
+
+@-webkit-keyframes hideAnimatedBox {
+  from {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+  }
+  to {
+    top: -30px;
+    left: 70px;
+    width: 0;
+    height: 0;
+    border-radius: 30%;
+  }
+}
+
+@keyframes hideAnimatedBox {
+  from {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+  }
+  to {
+    top: -30px;
+    left: 70px;
+    width: 0;
+    height: 0;
+    border-radius: 30%;
+  }
+}
+
+@-webkit-keyframes showOverallInfoData {
+  from {
+    opacity: 0;
+    top: -50px;
+  }
+  to {
+    opacity: 1;
+    top: 0;
+  }
+}
+
+@keyframes showOverallInfoData {
+  from {
+    opacity: 0;
+    top: -50px;
+  }
+  to {
+    opacity: 1;
+    top: 0;
+  }
+}
+
+@-webkit-keyframes hideOverallInfoData {
+  from {
+    opacity: 1;
+    top: 0;
+  }
+  to {
+    opacity: 0;
+    top: -50px;
+  }
+}
+
+@keyframes hideOverallInfoData {
+  from {
+    opacity: 1;
+    top: 0;
+  }
+  to {
+    opacity: 0;
+    top: -50px;
+  }
 }
 /*# sourceMappingURL=main.css.map */

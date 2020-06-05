@@ -1,8 +1,51 @@
-// Load treeView from start
-poolConnect.then((pool) => {
-	pool.request().execute("dbo.warehouse_tree_select", (err, res) => {
-		feelTree(res.recordset);
+// Function to show Overall info
+function showOverallInfo() {
+	new Promise((resolve, reject) => {
+		poolConnect.then((pool) => {
+			pool.request().execute("dbo.dashboard", (err, res) => {
+				resolve(res.recordset[0]);
+			});
+		});
+	}).then((data) => {
+		$("#products_quantity").html(data.quantity);
+		$("#products_remaining").html(data.remaining_products);
+		$("#anbar_total_cost").html(data.cost);
+
+		$("#add_product_name").html(data.last_in_name);
+		$("#add_product_date").html(
+			moment(data.last_in_date).format("MMMM Do YYYY, h:mm:ss")
+		);
+		$("#add_product_price").html(data.last_in_price);
+		$("#add_product_quantity").html(data.last_in_quantity);
+		$("#add_product_total_price").html(data.last_in_price_total);
+		$("#add_product_currency").html(data.last_in_currency);
+
+		$("#rm_product_name").html(data.last_out_name);
+		$("#rm_product_date").html(
+			moment(data.last_out_date).format("MMMM Do YYYY, h:mm:ss")
+		);
+		$("#rm_product_price").html(data.last_out_price);
+		$("#rm_product_quantity").html(data.last_out_quantity);
+		$("#rm_product_total_price").html(data.last_out_price_total);
+		$("#rm_product_currency").html(data.last_out_currency);
+
+		// Show box after loading content
+		$("#showOverallInfo").attr("data-isClicked", "true");
+		$(".overall-info").attr("data-isShoving", "true");
 	});
+}
+// Function to hide Overall info
+function hideOverallInfo() {
+	$("#showOverallInfo").attr("data-isClicked", "false");
+	$(".overall-info").attr("data-isShoving", "false");
+}
+// Handle onclick showOverallInfo
+$("#showOverallInfo").click(function () {
+	if ($(this).attr("data-isClicked") == "true") {
+		hideOverallInfo();
+	} else {
+		showOverallInfo();
+	}
 });
 
 // Function to feel Tree
@@ -10,7 +53,7 @@ function feelTree(data) {
 	treeView = new MyTreeView(data);
 	treeView.showTree("treeViewContainer");
 
-	// Set const width
+	// Set const width to tree width not change while closing dropdown
 	$(".treeViewContainer").css("width", $(".treeViewContainer").width());
 
 	// Handling clicks
@@ -46,6 +89,7 @@ $("#clearSearchBox").click(() => {
 	});
 });
 $("#searchInputBox").keyup(function () {
+	if ($(this).val().trim() === "") return;
 	poolConnect.then((pool) => {
 		pool
 			.request()
@@ -56,6 +100,7 @@ $("#searchInputBox").keyup(function () {
 	});
 });
 $("#searchInputBox").focusout(function () {
+	if ($(this).val().trim() === "") $(this).val("");
 	if ($(this).val() === "") {
 		poolConnect.then((pool) => {
 			pool.request().execute("dbo.warehouse_tree_select", (err, res) => {
@@ -69,3 +114,14 @@ $("#searchInputBox").focusout(function () {
 function showProductInfo(productData) {
 	console.log(productData);
 }
+
+// Functions on start
+// Load treeView from start
+poolConnect.then((pool) => {
+	pool.request().execute("dbo.warehouse_tree_select", (err, res) => {
+		feelTree(res.recordset);
+	});
+});
+
+// Set const width
+$(".smallNav").css("height", $(".searchContainer").height());

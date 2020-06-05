@@ -11,6 +11,7 @@ nav {
 		padding: 0 20px;
 		justify-content: space-between;
 		align-items: center;
+		z-index: 10000;
 
 		.nav-link {
 			width: fit-content;
@@ -141,6 +142,7 @@ nav {
 		align-items: center;
 		position: relative;
 		transition: 0.4s;
+		z-index: 10000;
 
 		.settings {
 			width: 100px;
