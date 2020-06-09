@@ -34,8 +34,8 @@ poolConnect.then((pool) => {
 			let row = "<tr>";
 			row += `<td>${el.operation}</td>`;
 			row += `<td>${el.usedrow}</td>`;
-			row +=  `<td title="${moment(el.cur_date).format("Da MMMM YYYY, h:mm:ss")}">${moment(
-				el.cur_date
+			row +=  `<td title="${moment(el.wTime).format("Da MMMM YYYY, h:mm:ss")}">${moment(
+				el.wTime
 			).format("Da MMMM YYYY")}</td>`;
 			row += `<td>${el.username}</td>`;
 
