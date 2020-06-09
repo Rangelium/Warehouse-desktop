@@ -1,17 +1,35 @@
-.logs{
+// td.sellersTableElement, th.sellersTableElement{
+//   border: 1px solid blue;
+//   padding: 8px;
+//   width: 100px;
+// }
+
+// #sellersTable{
+//   margin-top: 30px;
+//   tr{
+//     height: max-content;
+//   }
+//   tbody{
+//     height: 100%;
+//     overflow-y: scroll;
+//   }
+// }
+.sellers{
   background-color: $anbar-info-background-color;
 }
 
+.sellersContainer{
+  position: relative;
+}
 
-
-.logsProductInfo {
-  margin-top: 2%;
+.sellersProductInfo {
+  margin-top: 5%;
   position: absolute;
   width: 80%;
-  height: 80%;
+  // height: 80%;
   top: 50%;
-  left: 10%;
-  transform: translate(0%, -50%);
+  left: 50%;
+  transform: translate(-50%, 65%);
   background-color: $anbar-info-background-color;
 
   opacity: 0;
@@ -23,7 +41,7 @@
   justify-content: center;
   align-items: center;
 
-  .logs-text-data {
+  .sellers-text-data {
     display: flex;
     flex-grow: 1;
     flex-direction: column;
@@ -65,14 +83,14 @@
     }
   }
 
-  .logs-table-data {
+  .sellers-table-data {
     width: 100%;
-    height: 100%;
-    transition: 0.4s;
-    position: relative;
-    
+    height: 60%;
     overflow-y: scroll;
     overflow-x: hidden;
+    transition: 0.4s;
+    position: relative;
+
 
     &::-webkit-scrollbar {
       width: 10px;
@@ -91,7 +109,7 @@
       box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
     }
 
-    .logsProductTable {
+    .sellersProductTable {
       width: 100%;
       border-collapse: collapse;
       position: relative;

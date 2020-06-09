@@ -27,7 +27,8 @@ app.on("ready", () => {
 
 	// Remove buil in menu
 	Menu.setApplicationMenu(null);
-
+	//Dev Tools
+	mainWindow.webContents.openDevTools();
 	// Starting Login Form
 	startLoginForm();
 	// startAnbarForm();
@@ -153,6 +154,13 @@ function startAnbarForm() {
 							mainWindow.webContents.send("changeAnbarPage", "treasury");
 						},
 					},
+					{
+						label: "Sellers",
+						name: "sellers",
+						click: function() {
+							mainWindow.webContents.send("changeAnbarPage", "sellers");
+						}
+					}
 				],
 			},
 			// Reports(Hesabatlar)
