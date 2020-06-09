@@ -177,8 +177,7 @@ ipcRenderer.on("createNavBar", (e, menuItems) => {
 	openPage("anbarInfo");
 });
 
-
-// Generate Table Function For Logs Currency Exchange UserList Measurments 
+// Generate Table Function For Logs Currency Exchange UserList Measurments
 function generateTableHead(table, columnNames) {
 	let thead = table.createTHead();
 	let headRow = thead.insertRow();

@@ -206,6 +206,21 @@ function fillSingleProductTable(data) {
 		row += "</tr>";
 		$(".singleProductTable > tbody").append(row);
 	});
+
+	// Fill empty tables
+	if (data.length < 5) {
+		for (let i = 0; i < 9 - data.length; i++) {
+			let row = "<tr style='height: 40px'>";
+
+			for (let j = 0; j < 9; j++) {
+				row += "<td></td>";
+			}
+
+			row += "</tr>";
+
+			$(".singleProductTable > tbody").append(row);
+		}
+	}
 }
 
 async function showProductInfo(productData) {
