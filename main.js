@@ -15,6 +15,8 @@ const mssql = require("mssql");
 // Initializing windows
 let mainWindow;
 
+global.USER = "Not Authorized";
+
 // Create mainWindow
 app.on("ready", () => {
 	mainWindow = new BrowserWindow({
@@ -28,7 +30,7 @@ app.on("ready", () => {
 	// Remove buil in menu
 	Menu.setApplicationMenu(null);
 	//Dev Tools
-	mainWindow.webContents.openDevTools();
+	// mainWindow.webContents.openDevTools();
 	// Starting Login Form
 	startLoginForm();
 	// startAnbarForm();
@@ -60,6 +62,12 @@ ipcMain.on("userLoginClick", (e, userLoginData) => {
 				.input("password", mssql.NVarChar(250), password)
 				.execute("dbo.user_login_check", (err, res) => {
 					if (res.recordset[0][""] == 1) {
+						pool
+							.request()
+							.input("username", mssql.NVarChar(250), username)
+							.execute("dbo.user_select_info", (err, res) => {
+								global.USER = res.recordset[0];
+							})
 						startAnbarForm();
 						return;
 					} else {
