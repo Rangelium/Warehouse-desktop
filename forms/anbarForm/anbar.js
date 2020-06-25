@@ -8,13 +8,14 @@ window.$ = window.jQuery = require("jquery");
 
 const { MyTreeView } = require("../../tools/TreeView");
 const moment = require("moment");
-
+var USER = electron.remote.getGlobal("USER");
 // ====================================================================================
 //  													   Connection system part
 // ====================================================================================
 
 const mssql = require("mssql");
 const { connConfig } = require("../../tools/ConnectionConfig");
+
 
 let pool = new mssql.ConnectionPool(connConfig);
 let poolConnect = pool.connect();
@@ -199,8 +200,4 @@ function generateTable(table, data) {
 			cell.appendChild(text);
 		}
 	}
-}
-
-function makeTable(table, data){
-
 }

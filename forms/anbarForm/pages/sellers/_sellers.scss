@@ -1,22 +1,8 @@
-// td.sellersTableElement, th.sellersTableElement{
-//   border: 1px solid blue;
-//   padding: 8px;
-//   width: 100px;
-// }
-
-// #sellersTable{
-//   margin-top: 30px;
-//   tr{
-//     height: max-content;
-//   }
-//   tbody{
-//     height: 100%;
-//     overflow-y: scroll;
-//   }
-// }
 .sellers{
   background-color: $anbar-info-background-color;
 }
+
+// Sellers Table Part
 
 .sellersContainer{
   position: relative;
@@ -165,4 +151,122 @@
       }
     }
   }
+}
+
+.selected{
+  // border: 3px solid rgb(3, 3, 24);
+  background: rgb(131, 181, 228) !important;
+}
+
+// Sellers Input Part
+
+.sellersButtons{
+  position: absolute;
+  transform: translate(90%, 100%);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 35vw;
+}
+
+.sellersInputButton{
+  background-color: rgb(45, 201, 39);
+  color: black;
+  font-size: 24px;
+  width: 15vw;
+  border: 1px solid black;
+  padding: 10px;
+  box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 0.308);
+  cursor: pointer;
+  outline: none;
+}
+
+.sellersDeleteButton{
+  background-color: rgb(228, 46, 46);
+  color: black;
+  font-size: 24px;
+  width: 15vw;
+  border: 1px solid black;
+  padding: 10px;
+  box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 0.308);
+  cursor: pointer;
+  outline: none;
+}
+
+.sellersPopUpContainer{
+  background:rgba(0,0,0,.4);
+  // cursor:pointer;
+  display:none;
+  height:100%;
+  position:fixed;
+  text-align:center;
+  top:0;
+  width:100%;
+  z-index:10000;
+  .helper{
+    display:inline-block;
+    height:100%;
+    vertical-align:middle;
+  }
+}
+
+.sellersPopUpContainer > div {
+  background-color: #fff;
+  box-shadow: 10px 10px 60px #555;
+  display: inline-block;
+  height: auto;
+  max-width: 551px;
+  min-height: 100px;
+  vertical-align: middle;
+  width: 50%;
+  position: relative;
+  border-radius: 8px;
+  padding: 15px 5%;
+}
+
+.sellersPopupCloseButton {
+  background-color: #fff;
+  border: 3px solid #999;
+  border-radius: 50px;
+  cursor: pointer;
+  display: inline-block;
+  font-family: arial;
+  font-weight: bold;
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  font-size: 25px;
+  line-height: 23px;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+}
+
+.inputForm{
+  font-size: 30px;
+  width: 90%;
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: start !important;
+  p{
+    font-size: 26px;
+  }
+}
+
+.inputField{
+  padding: 5px;
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+
+.addSellersButton{
+  margin-top: 10px;
+  padding: 10px;
+  font-size: 30px;
+  background-color: rgb(45, 201, 39);
+  cursor: pointer;
+  border: 2px solid black;
 }
