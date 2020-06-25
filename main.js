@@ -156,7 +156,7 @@ function startAnbarForm() {
 						},
 					},
 					{
-						label: "Treasury",
+						label: "Exchange",
 						name: "treasury",
 						click: function () {
 							mainWindow.webContents.send("changeAnbarPage", "treasury");
