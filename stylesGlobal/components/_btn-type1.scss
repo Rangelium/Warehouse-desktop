@@ -1,0 +1,57 @@
+.btn-type1 {
+	padding: 10px 20px;
+	position: relative;
+
+	border: 2px solid #1dc4ee;
+	border-radius: 10px;
+
+	outline: none;
+	cursor: pointer;
+	user-select: none;
+	overflow: hidden;
+	transition: 0.2s;
+
+	background-color: #9cdef841;
+
+	&:hover {
+		background-color: #00aff541;
+		transform: scale(1.05);
+	}
+
+	&::after {
+		content: "";
+		position: absolute;
+		width: 0px;
+		height: 0px;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		z-index: -1;
+
+		background-color: white;
+		border-radius: 50%;
+
+		transition: 0.8s;
+	}
+
+	p {
+		font-size: 1.1rem;
+		font-weight: 500;
+		color: white;
+		transition: 0.3s;
+		transition-delay: 0.6s;
+	}
+}
+
+.btn-type1[data-isClicked="true"] {
+	&::after {
+		width: 200px;
+		height: 200px;
+	}
+
+	border: 2px solid black;
+
+	p {
+		color: black;
+	}
+}

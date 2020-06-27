@@ -1,0 +1,85 @@
+<aside class="treeViewContainer">
+	<div class="searchContainer">
+		<input type="text" placeholder="Type to search" id="searchInputBox" />
+		<p id="clearSearchBox">✖</p>
+	</div>
+</aside>
+<section class="anbarAddData">
+	<div class="smallNav">
+    <div class="btn-type1" id="addNewProductBtn"><p>Add product</p></div>
+    <div class="btn-type1" id="changeNameBtn"><p>Change name</p></div>
+    <div class="btn-type1" id="hideShowTreeView"><p>Hide/Show TreeView</p></div>
+		<div class="btn-type1" id="expandTreeView"><p>Expand TreeView</p></div>
+		<div class="btn-type1" id="closeTreeView"><p>Close TreeView</p></div>
+  </div>
+  
+  <div class="anbarAddPages">
+    <div class="anbarAddAddNewProduct">
+      <h1>Coming Soon</h1>
+    </div>
+    <div class="anbarAddChangeName">
+      <div class="up">
+        <p>Previous name: <span id="productPrevName"></span></p>
+      </div>
+      <div class="down">
+        <p>New name: </p>
+        <input id="changeNameNewName" type="text" placeholder="Type new name here">
+      </div>
+      <div class="submit">
+        <button id="submitChangeName">Submit</button>
+      </div>
+    </div>
+    <div class="anbarAddMainAddProduct">
+      <div class="productName">
+        <p id="productName"></p>
+      </div>
+      <div class="details">
+        <div class="left">
+          <div class="row">
+            <p>Amount of product:</p>
+            <input id="amountOfProduct" type="number" min="1">
+          </div>
+          <div class="row">
+            <p>Price:</p>
+            <input id="productPrice" type="number" min="1">
+          </div>
+          <div class="row">
+            <p>Current date:</p>
+            <input id="productCurrDate" type="date">
+          </div>
+          <div class="row">
+            <p>Expiration date:</p>
+            <input id="productExpDate" type="date">
+          </div>
+        </div>
+        <div class="right">
+          <div class="row">
+            <p>Cluster:</p>
+            <select id="productCluster">
+            </select>
+          </div>
+          <div class="row">
+            <p>Currency:</p>
+            <select id="productCurrency">
+            </select>
+          </div>
+          <div class="row">
+            <p>Product Cell:</p>
+            <input id="productCell" type="number" min="1">
+          </div>
+          <div class="row">
+            <p>VOEN:</p>
+            <input id="productVOEN" type="number" min="1">
+          </div>
+        </div>
+      </div>
+      <div class="reason">
+        <p>Reason:</p>
+        <textarea id="productReason" cols="30" rows="10"></textarea>
+      </div>
+      <div class="btns">
+        <button id="submitMainAddProduct">Add product</button>
+      </div>
+    </div>
+  </div>
+</section>

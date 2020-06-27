@@ -1,0 +1,464 @@
+.login-section{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	pointer-events: all;
+	opacity: 1;
+	transition: 0.8s;
+	z-index: 1000000;
+
+	.login-container {
+		width: 100%;
+		height: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background-color: $login-for-background-color;
+		position: relative;
+	
+		.bg-img {
+			background-image: url($login-form-background-image-path);
+			background-repeat: no-repeat;
+			background-size: cover;
+	
+			width: 100%;
+			height: 100%;
+			z-index: -1;
+			position: absolute;
+			top: 0;
+			left: 0;
+	
+			filter: saturate(20%) opacity(80%);
+		}
+	
+		form {
+			width: 30%;
+			height: 70%;
+			padding: 20px 0;
+			background-color: $login-form-form-background-color;
+			overflow: hidden;
+			border-radius: 20px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-around;
+			align-items: center;
+	
+			.app-container {
+				flex-grow: 1;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				h1 {
+					color: $login-form-app-name-color;
+					font-weight: bold;
+					font-size: 3rem;
+					user-select: none;
+				}
+				h2 {
+					color: $login-form-login-word-color;
+					margin-top: 15px;
+					font-size: 1.7rem;
+					user-select: none;
+				}
+			}
+	
+			.data-container {
+				flex-grow: 2;
+				width: 80%;
+				position: relative;
+	
+				.invalidData {
+					font-weight: bold;
+					font-size: 1.3rem;
+					text-align: center;
+					color: $login-form-wrong-data-info-text-color;
+					position: absolute;
+					top: 65%;
+					left: 50%;
+					transform: translateX(-50%);
+					opacity: 0;
+					transition: 0.6s;
+					user-select: none;
+					pointer-events: none;
+					// width: fit-content;
+				}
+	
+				.username p,
+				.password p {
+					color: $login-form-label-for-input-color;
+					user-select: none;
+					position: absolute;
+					pointer-events: none;
+					font-size: 1.2rem;
+					top: 50%;
+					left: 5px;
+					transform: translateY(-50%);
+					transition: 0.4s;
+				}
+				.username input,
+				.password input {
+					width: 100%;
+					outline: none;
+					border: none;
+					background-color: $login-form-input-background-color;
+					font-size: 1.2rem;
+					padding: 5px 10px;
+					transition: 0.2s;
+					color: black;
+	
+					&:focus {
+						background-color: $login-form-input-background-focus-color;
+						color: $login-form-input-text-color;
+					}
+					&:focus + p {
+						top: -3px;
+						left: -10px;
+						color: $login-form-label-for-input-focus-color;
+					}
+				}
+				input[data-active="true"] {
+					background-color: $login-form-input-background-focus-color;
+					color: $login-form-input-text-color;
+				}
+				input[data-active="true"] + p {
+					top: -3px;
+					left: -10px;
+					color: $login-form-label-for-input-focus-color;
+				}
+	
+				.username {
+					position: relative;
+					padding: 10px 0;
+				}
+	
+				.password {
+					position: relative;
+					padding: 10px 0;
+					margin-top: 10px;
+				}
+			}
+	
+			.btn-container {
+				flex-grow: 1;
+				button {
+					font-size: 2rem;
+					font-weight: bold;
+					padding: 15px 25px;
+					background-color: $login-form-submit-btn-background-color;
+					border-radius: 20px;
+					border: none;
+					outline: none;
+					user-select: none;
+					transition: 0.4s;
+					color: $login-form-submit-btn-text-color;
+					cursor: pointer;
+	
+					&:hover {
+						background-color: $login-form-submit-btn-background-hover-color;
+						color: $login-form-submit-btn-text-hover-color;
+					}
+				}
+			}
+		}
+	}
+}
+
+
+nav {
+	display: flex;
+	justify-content: space-between;
+	background-color: $nav-bar-background-color;
+
+	.nav-links {
+		// Width will be 80% if settings would be added
+		width: 100%;
+		height: 100%;
+		display: flex;
+		padding: 0 20px;
+		justify-content: space-between;
+		align-items: center;
+		z-index: 10000;
+
+		.nav-link {
+			width: fit-content;
+			padding: 6px 0;
+			border-radius: 1px;
+			background-color: transparent;
+			position: relative;
+			cursor: pointer;
+
+			&::after {
+				content: "";
+				display: block;
+				position: absolute;
+				right: 200%;
+				bottom: 0;
+				width: 0;
+				height: 2px;
+				background-color: $nav-bar-items-underline-color;
+			}
+
+			&:hover::after {
+				animation: navUnderLine 0.4s 1 forwards;
+			}
+
+			&:hover p {
+				color: $nav-bar-items-text-hover-color;
+			}
+
+			p {
+				color: $nav-bar-items-text-color;
+				font-weight: 500;
+				font-size: 1.4rem;
+				transition: 0.4s;
+				user-select: none;
+			}
+		}
+
+		.nav-link[data-hasDropdown="true"] {
+			position: relative;
+			display: flex;
+			justify-content: center;
+
+			&:hover .dropdown {
+				height: fit-content;
+				top: calc(100% - 2px);
+				opacity: 1;
+			}
+			&:hover::before {
+				transform: rotate(90deg);
+				color: $nav-bar-has-dropdown-hover-color;
+			}
+
+			&::before {
+				content: "\25B6";
+				color: $nav-bar-has-dropdown-color;
+				display: inline-block;
+				margin-right: 6px;
+				position: relative;
+				top: 3px;
+				// transform: rotate(90deg);
+				transition: 0.4s;
+			}
+
+			.dropdown {
+				position: absolute;
+				top: 50%;
+				right: 50%;
+				transform: translateX(50%);
+				width: fit-content;
+				height: 0;
+				background-color: $nav-bar-dropdown-background-color;
+				opacity: 0;
+				transition: 0.6s;
+				overflow: hidden;
+
+				li {
+					width: 100%;
+					height: fit-content;
+					padding: 15px 10px;
+					border-bottom: 2px solid $nav-bar-dropdown-items-border-color;
+					border-right: 2px solid $nav-bar-dropdown-items-border-color;
+					border-left: 2px solid $nav-bar-dropdown-items-border-color;
+					border-collapse: collapse;
+					background-color: $nav-bar-dropdown-items-background-color;
+					transition: 0.4s;
+					display: flex;
+					justify-content: center;
+
+					&:first-child {
+						border-top: 2px solid $nav-bar-items-underline-color;
+					}
+
+					&:hover {
+						background-color: $nav-bar-dropdown-items-background-hover-color;
+					}
+					&:hover p {
+						color: $nav-bar-dropdown-items-text-hover-color;
+					}
+
+					p {
+						color: $nav-bar-dropdown-items-text-color;
+						font-size: 1.3rem;
+						font-weight: 500;
+						transition: 0.4s;
+						white-space: nowrap;
+					}
+				}
+			}
+		}
+
+		.nav-link[data-active="true"] {
+			p {
+				color: $nav-bar-items-text-hover-color;
+			}
+
+			&::after {
+				animation: navUnderLine 0.6s 1 forwards;
+			}
+		}
+	}
+
+	// If settings added
+	.settings-container {
+		width: 15%;
+		padding-right: 15px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		position: relative;
+		transition: 0.4s;
+		z-index: 10000;
+
+		.settings {
+			width: 100px;
+			padding: 9px 14px;
+			background-color: $nav-bar-settings-button-background-color;
+			border-radius: 20px;
+			cursor: pointer;
+			transition: 0.4s;
+			z-index: 10;
+			display: flex;
+			justify-content: center;
+			position: relative;
+
+			&:hover {
+				background-color: $nav-bar-settings-button-background-hover-color;
+			}
+			&:hover::after {
+				background-color: $nav-bar-settings-button-background-hover-color;
+			}
+			&:hover p {
+				color: $nav-bar-settings-button-text-hover-color;
+			}
+
+			&::after {
+				content: "";
+				display: block;
+				width: 90%;
+				height: 10px;
+				background-color: $nav-bar-settings-button-background-color;
+				position: absolute;
+				top: calc(100% - 10px);
+				transition: 0.4s;
+				border-bottom-right-radius: 100px;
+				border-bottom-left-radius: 100px;
+			}
+
+			p {
+				color: $nav-bar-settings-button-text-color;
+				font-size: 1.3rem;
+				transition: 0.4s;
+				font-weight: bold;
+				user-select: none;
+			}
+		}
+
+		.settings[data-isClicked="true"] {
+			width: 100%;
+			border-bottom-left-radius: 0;
+			border-bottom-right-radius: 0;
+			background-color: $nav-bar-settings-button-background-click-color;
+			position: relative;
+
+			&::after {
+				top: 100%;
+				opacity: 1;
+				background-color: $nav-bar-settings-button-background-click-color;
+				width: 100%;
+				border-bottom-right-radius: 0;
+				border-bottom-left-radius: 0;
+			}
+
+			p {
+				color: $nav-bar-settings-button-text-click-color;
+			}
+		}
+
+		.dropdown {
+			width: calc(100% - 15px);
+			height: 0;
+			top: 100%;
+			left: 0;
+			position: absolute;
+			background-color: $nav-bar-settings-dropdown-background-color;
+			transition: 0.4s;
+			transition-delay: 0.4s;
+			overflow: hidden;
+			border-bottom-right-radius: 20px;
+			border-bottom-left-radius: 20px;
+
+			li {
+				background-color: $nav-bar-settings-dropdown-item-background-color;
+				transition: 0.4s;
+				cursor: pointer;
+				padding: 10px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				margin-bottom: 5px;
+
+				&:hover {
+					background-color: $nav-bar-settings-dropdown-item-background-hover-color;
+				}
+				&:hover p {
+					color: $nav-bar-settings-dropdown-text-hover-color;
+				}
+				p {
+					font-size: 1.4rem;
+					color: $nav-bar-settings-dropdown-text-color;
+					transition: 0.4s;
+					font-weight: 400;
+				}
+			}
+		}
+
+		.dropdown[data-isOpened="true"] {
+			height: 400px;
+		}
+	}
+}
+
+@keyframes navUnderLine {
+	0% {
+		width: 0;
+		right: 200%;
+	}
+	100% {
+		width: 100%;
+		right: 0;
+	}
+}
+
+.dataTable {
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4), 0 6px 20px 0 rgba(0, 0, 0, 0.3);
+	table-layout: fixed;
+	border-collapse: collapse;
+	background-color: $dataTable-background-color;
+	width: 70%;
+	height: 90%;
+	margin: 0 auto;
+}
+
+.tbody{
+	&::-webkit-scrollbar {
+		width: 10px;
+	}
+
+	/* Track */
+	&::-webkit-scrollbar-track {
+		box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+		border-radius: 10px;
+		border-radius: 10px;
+	}
+
+	/* Handle */
+	&::-webkit-scrollbar-thumb {
+		border-radius: 10px;
+		border-radius: 10px;
+		background: $anbar-info-tree-view-scrollbar-color;
+		box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+	}
+}

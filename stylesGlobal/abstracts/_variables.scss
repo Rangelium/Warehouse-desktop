@@ -1,0 +1,97 @@
+// -----------------------------------------------------------------------------
+// This file contains all application-wide Sass variables.
+// -----------------------------------------------------------------------------
+
+// -----------------------------------------------------------------------------
+//                             Login Form Colors
+// -----------------------------------------------------------------------------
+$login-form-background-image-path: "../imgs/login_BG.jpg";
+// Set transparent if want img as background
+$login-for-background-color: transparent;
+
+$login-form-form-background-color: #3f3d3d;
+$login-form-app-name-color: #0088a9;
+$login-form-login-word-color: #ffffff;
+$login-form-label-for-input-color: #000000;
+$login-form-label-for-input-focus-color: #ffffff;
+$login-form-input-background-color: rgb(187, 183, 183);
+$login-form-input-background-focus-color: #0e6636a9;
+$login-form-input-text-color: black;
+$login-form-input-text-focus-color: white;
+
+$login-form-submit-btn-background-color: #0088a9;
+$login-form-submit-btn-background-hover-color: #0e6636;
+$login-form-submit-btn-text-color: #000000;
+$login-form-submit-btn-text-hover-color: #ffffff;
+
+$login-form-wrong-data-info-text-color: rgb(241, 34, 34);
+
+// -----------------------------------------------------------------------------
+//                             Anbar Form Colors
+// -----------------------------------------------------------------------------
+// Nav bar Colors
+$nav-bar-background-color: #24252a;
+$nav-bar-items-text-color: #edf0f1;
+$nav-bar-items-text-hover-color: #0088a9;
+$nav-bar-items-underline-color: #ffffff;
+$nav-bar-has-dropdown-color: #0088a9;
+$nav-bar-has-dropdown-hover-color: #ffffff;
+
+$nav-bar-dropdown-background-color: #0087a97c;
+$nav-bar-dropdown-items-background-color: #0087a97c;
+$nav-bar-dropdown-items-background-hover-color: #0087a9;
+$nav-bar-dropdown-items-border-color: #ffffffaf;
+$nav-bar-dropdown-items-text-color: #000000;
+$nav-bar-dropdown-items-text-hover-color: #ffffff;
+
+$nav-bar-settings-button-background-color: #0088a9;
+$nav-bar-settings-button-background-hover-color: #a1e600;
+$nav-bar-settings-button-background-click-color: #a1e600;
+$nav-bar-settings-button-text-color: #edf0f1;
+$nav-bar-settings-button-text-hover-color: #141414;
+$nav-bar-settings-button-text-click-color: #141414;
+
+$nav-bar-settings-dropdown-background-color: #a1e600;
+$nav-bar-settings-dropdown-item-background-color: #a1e600;
+$nav-bar-settings-dropdown-item-background-hover-color: #679202;
+$nav-bar-settings-dropdown-text-color: rgba(0, 0, 0, 0.623);
+$nav-bar-settings-dropdown-text-hover-color: black;
+
+// Anbar Info colors
+$anbar-info-background-color: rgb(168, 164, 164);
+
+$anbar-info-default-screeniInfo-info-text-color: rgb(231, 228, 228);
+
+$anbar-info-tree-view-background-color: rgba(110, 68, 9, 0.404);
+$anbar-info-tree-view-scrollbar-color: #0088a9;
+$anbar-info-tree-view-items-text-color: rgb(12, 4, 4);
+$anbar-info-tree-view-items-text-hover-color: rgb(231, 231, 231);
+$anbar-info-tree-view-items-has-dropdown-color: #000;
+
+$anbar-info-search-box-background-color: rgba(110, 68, 9, 0.404);
+$anbar-info-search-box-text-color: #fff;
+$anbar-info-search-box-sign-color: rgb(182, 176, 176);
+$anbar-info-search-box-sign-hover-color: #fff;
+$anbar-info-search-box-placeholder-color: #ffffff;
+$anbar-info-search-box-border-color: transparent;
+$anbar-info-search-box-border-hover-color: rgb(9, 172, 236);
+
+$anbar-info-data-dividing-line-color: rgb(58, 56, 56);
+
+$anbar-info-small-nav-background-color: $anbar-info-search-box-background-color;
+$anbar-info-small-nav-btn-background-color: #9cdef841;
+$anbar-info-small-nav-btn-background-hover-color: #00aff541;
+$anbar-info-small-nav-btn-background-clicked-color: white;
+$anbar-info-small-nav-btn-border-color: #1dc4ee;
+$anbar-info-small-nav-btn-border-clicked-color: #000;
+$anbar-info-small-nav-btn-text-color: white;
+$anbar-info-small-nav-btn-text-clicked-color: #000;
+
+$anbar-info-overall-data-background-color: $anbar-info-small-nav-btn-background-clicked-color;
+$anbar-info-overall-data-header-text-color: rgb(0, 0, 0);
+$anbar-info-overall-data-text-color: #000;
+$anbar-info-overall-data-values-color: rgb(46, 39, 39);
+$anbar-info-overall-data-values-hover-color: #000;
+
+// Data table JAFAR
+$dataTable-background-color: rgb(189, 189, 189);
