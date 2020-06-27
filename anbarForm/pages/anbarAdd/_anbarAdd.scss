@@ -1,0 +1,334 @@
+.anbarAdd{
+  background-color: $anbar-info-background-color;
+	display: flex;
+
+	.treeViewContainer {
+		background-color: $anbar-info-tree-view-background-color;
+		overflow-y: scroll;
+		overflow-x: hidden;
+		direction: rtl;
+
+		.searchContainer {
+			position: sticky;
+			top: 0;
+
+			p {
+				font-family: sans-serif;
+				position: absolute;
+				display: block;
+				top: 50%;
+				transform: translateY(-50%);
+				right: 10px;
+				font-size: 1.8rem;
+				cursor: pointer;
+				z-index: 100;
+				color: $anbar-info-search-box-sign-color;
+				transition: 0.4s;
+
+				&:hover {
+					color: $anbar-info-search-box-sign-hover-color;
+					// transform: scale(1.1);
+				}
+			}
+
+			#searchInputBox {
+				direction: ltr;
+				width: 100%;
+				padding: 10px;
+				font-size: 1.45rem;
+				outline: none;
+				border: 3px solid $anbar-info-search-box-border-color;
+				transition: 0.4s;
+				background-color: $anbar-info-search-box-background-color;
+				font-weight: 500;
+				color: $anbar-info-search-box-text-color;
+
+				&::placeholder {
+					color: $anbar-info-search-box-placeholder-color;
+					font-weight: bold;
+				}
+
+				&:focus,
+				&:hover {
+					border: 3px solid $anbar-info-search-box-border-hover-color;
+				}
+			}
+		}
+  }
+  
+  .anbarAddData{
+    display: flex;
+		flex-direction: column;
+		flex-grow: 1;
+		border-left: 3px solid $anbar-info-data-dividing-line-color;
+
+    .smallNav {
+      background-color: $anbar-info-small-nav-background-color;
+      position: relative;
+      display: flex;
+      align-items: center;
+      padding: 0 7px;
+  
+      &::before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 10;
+  
+        background-color: $anbar-info-small-nav-background-color;
+      }
+  
+      #showOverallInfo,
+      #hideShowTreeView,
+      #expandTreeView,
+      #closeTreeView,
+      #changeNameBtn,
+      #addNewProductBtn {
+        z-index: 100;
+        border: 2px solid $anbar-info-small-nav-btn-border-color;
+        background-color: $anbar-info-small-nav-btn-background-color;
+        margin-right: 10px;
+  
+        &:hover {
+          background-color: $anbar-info-small-nav-btn-background-hover-color;
+        }
+  
+        &::after {
+          background-color: $anbar-info-small-nav-btn-background-clicked-color;
+        }
+  
+        p {
+          color: $anbar-info-small-nav-btn-text-color;
+        }
+      }
+  
+      #showOverallInfo[data-isClicked="true"],
+      #hideShowTreeView[data-isClicked="true"],
+      #expandTreeView[data-isClicked="true"],
+      #closeTreeView[data-isClicked="true"],
+      #changeNameBtn[data-isClicked="true"],
+      #addNewProductBtn[data-isClicked="true"] {
+        &::after {
+          width: 230px;
+          height: 230px;
+        }
+  
+        border: 2px solid $anbar-info-small-nav-btn-border-clicked-color;
+  
+        p {
+          color: $anbar-info-small-nav-btn-text-clicked-color;
+        }
+      }
+  
+      #showOverallInfo[data-isClicked="false"] {
+        &::after {
+          transition-delay: $overall-box-fade-out-animation-delay;
+        }
+      }
+    }
+  
+    .anbarAddPages{
+      width: 100%;
+      height: 100%;
+
+      .anbarAddAddNewProduct{
+        position: relative;
+        top: 0;
+        left: 0;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+
+        display: none;
+        opacity: 0;
+        pointer-events: none;
+
+        transition: 0.6s opacity;
+      }
+      .anbarAddAddNewProduct[isActive="true"]{
+        display: block;
+        opacity: 1;
+        pointer-events: all;
+      }
+  
+      .anbarAddMainAddProduct{
+        position: relative;
+        top: 0;
+        left: 0;
+        
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+        
+        display: none;
+        opacity: 0;
+        pointer-events: none;
+        
+        transition: 0.6s opacity;
+
+        .productName{
+          padding-top: 30px;
+          width: 100%;
+          height: 15%;
+          text-align: center;
+          
+          p{
+            font-size: 1.6rem;
+            font-weight: bold;
+            text-decoration: underline;
+          }
+        }
+
+        .details{
+          width: 100%;
+          height: 45%;
+          display: flex;
+
+          .right,
+          .left{
+            padding-right: 30px;
+            padding-left: 30px;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            width: 50%;
+            height: 100%;
+
+            input{
+              outline: none;
+              font-size: 1.2rem;
+              font-weight: bold;
+              width: 170px;
+            }
+
+            select{
+              width: 170px;
+              outline: none;
+              font-size: 1.2rem;
+              font-weight: bold;
+            }
+          }
+        }
+
+        .reason{
+          padding: 5px;
+          width: 100%;
+          height: 25%;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+
+          textarea{
+            resize: none;
+            width: 60%;
+            height: 60%;
+
+            outline: none;
+            font-size: 1.2rem;
+          }
+        }
+
+        .btns{
+          width: 100%;
+          height: 15%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          #submitMainAddProduct{
+            padding: 10px 15px;
+            cursor: pointer;
+          }
+        }
+      }
+      .anbarAddMainAddProduct[isActive="true"]{
+        display: flex;
+        opacity: 1;
+        pointer-events: all;
+      }
+
+      .anbarAddChangeName{
+        opacity: 0;
+        pointer-events: none;
+
+        position: absolute;
+        left: 100px;
+        top: 100px;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: left;
+        padding: 15px 20px;
+        background-color: rgb(100, 69, 10);
+        transition: 0.6s opacity;
+        border: 2px solid black;
+        border-radius: 10%;
+
+        &::before{
+          position: absolute;
+          left: -15px;
+          top: 50%;
+          content: "\25B6";
+          font-size: 1.2rem;
+          color: black;
+          display: inline-block;
+          transform: rotate(180deg);
+        }
+
+        p{
+          color: white;
+          padding: 5px 5px 10px 5px;
+          font-size: 1.3rem;
+
+          span{
+            color: inherit;
+            font-size: inherit;
+            font-weight: bold;
+          }
+        }
+
+        .down{
+          display: flex;
+
+          input{
+            font-size: 1.3rem;
+            font-weight: bold;
+            outline: none;
+          }
+        }
+        .submit{
+          button{
+            font-size: 1.3rem;
+            outline: none;
+            background-color: transparent;
+            padding: 4px 7px;
+            border: 2px solid white;
+            color: white;
+            cursor: pointer;
+            transition: 0.4s;
+            
+            &:hover{
+              transform: scale(1.1);
+              background-color: rgb(190, 189, 189);
+            }
+          }
+        }
+      }
+      .anbarAddChangeName[isActive="true"]{
+        opacity: 1;
+        pointer-events: all;
+      }
+    }
+  }
+}

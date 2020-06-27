@@ -1,0 +1,30 @@
+{
+	"name": "anbar-electron",
+	"version": "1.0.0",
+	"description": "Anbar app on Electron.js",
+	"main": "main.js",
+	"scripts": {
+		"start": "electron .",
+		"watch": "nodemon --exec 'electron .'"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Rangelium/Anbar-electron.git"
+	},
+	"author": "Emin and Jafar",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/Rangelium/Anbar-electron/issues"
+	},
+	"homepage": "https://github.com/Rangelium/Anbar-electron#readme",
+	"dependencies": {
+		"jquery": "^3.5.1",
+		"moment": "^2.26.0",
+		"mssql": "^6.2.0"
+	},
+	"devDependencies": {
+		"electron": "^9.0.0",
+		"electron-packager": "^14.2.1",
+		"nodemon": "^2.0.4"
+	}
+}

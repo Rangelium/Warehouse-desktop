@@ -1,0 +1,132 @@
+.anbarRemove{
+  background-color: $anbar-info-background-color;
+	display: flex;
+	// justify-content: space-between;
+
+	.treeViewContainer {
+		background-color: $anbar-info-tree-view-background-color;
+		overflow-y: scroll;
+		overflow-x: hidden;
+		direction: rtl;
+
+		.searchContainer {
+			position: sticky;
+			top: 0;
+
+			p {
+				font-family: sans-serif;
+				position: absolute;
+				display: block;
+				top: 50%;
+				transform: translateY(-50%);
+				right: 10px;
+				font-size: 1.8rem;
+				cursor: pointer;
+				z-index: 100;
+				color: $anbar-info-search-box-sign-color;
+				transition: 0.4s;
+
+				&:hover {
+					color: $anbar-info-search-box-sign-hover-color;
+					// transform: scale(1.1);
+				}
+			}
+
+			#searchInputBox {
+				direction: ltr;
+				width: 100%;
+				padding: 10px;
+				font-size: 1.45rem;
+				outline: none;
+				border: 3px solid $anbar-info-search-box-border-color;
+				transition: 0.4s;
+				background-color: $anbar-info-search-box-background-color;
+				font-weight: 500;
+				color: $anbar-info-search-box-text-color;
+
+				&::placeholder {
+					color: $anbar-info-search-box-placeholder-color;
+					font-weight: bold;
+				}
+
+				&:focus,
+				&:hover {
+					border: 3px solid $anbar-info-search-box-border-hover-color;
+				}
+			}
+		}
+  }
+  
+  .anbarRemoveData{
+    display: flex;
+		flex-direction: column;
+		flex-grow: 1;
+		border-left: 3px solid $anbar-info-data-dividing-line-color;
+
+    .smallNav {
+      background-color: $anbar-info-small-nav-background-color;
+      position: relative;
+      display: flex;
+      align-items: center;
+      padding: 0 7px;
+  
+      &::before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 10;
+  
+        background-color: $anbar-info-small-nav-background-color;
+      }
+  
+      #showOverallInfo,
+      #hideShowTreeView,
+      #expandTreeView,
+      #closeTreeView {
+        z-index: 100;
+        border: 2px solid $anbar-info-small-nav-btn-border-color;
+        background-color: $anbar-info-small-nav-btn-background-color;
+        margin-right: 10px;
+  
+        &:hover {
+          background-color: $anbar-info-small-nav-btn-background-hover-color;
+        }
+  
+        &::after {
+          background-color: $anbar-info-small-nav-btn-background-clicked-color;
+        }
+  
+        p {
+          color: $anbar-info-small-nav-btn-text-color;
+        }
+      }
+  
+      #showOverallInfo[data-isClicked="true"],
+      #hideShowTreeView[data-isClicked="true"],
+      #expandTreeView[data-isClicked="true"],
+      #closeTreeView[data-isClicked="true"] {
+        &::after {
+          width: 230px;
+          height: 230px;
+        }
+  
+        border: 2px solid $anbar-info-small-nav-btn-border-clicked-color;
+  
+        p {
+          color: $anbar-info-small-nav-btn-text-clicked-color;
+        }
+      }
+  
+      #showOverallInfo[data-isClicked="false"] {
+        &::after {
+          transition-delay: $overall-box-fade-out-animation-delay;
+        }
+      }
+    }
+  }
+
+}

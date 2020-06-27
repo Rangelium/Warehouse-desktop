@@ -1,0 +1,466 @@
+$overall-data-show-top-shift: -50px;
+$overall-data-animation-time: 0.4s;
+$overall-data-fade-in-animation-delay: $overall-data-animation-time + 0.1;
+
+$overall-box-top-shift: -30px;
+$overall-box-left-shift: 70px;
+$overall-box-animation-time: 0.6s;
+$overall-box-fade-out-animation-delay: $overall-data-fade-in-animation-delay;
+
+.anbarInfo {
+	background-color: $anbar-info-background-color;
+	display: flex;
+	// justify-content: space-between;
+
+	.treeViewContainer {
+		background-color: $anbar-info-tree-view-background-color;
+		overflow-y: scroll;
+		overflow-x: hidden;
+		direction: rtl;
+
+		.searchContainer {
+			position: sticky;
+			top: 0;
+
+			p {
+				font-family: sans-serif;
+				position: absolute;
+				display: block;
+				top: 50%;
+				transform: translateY(-50%);
+				right: 10px;
+				font-size: 1.8rem;
+				cursor: pointer;
+				z-index: 100;
+				color: $anbar-info-search-box-sign-color;
+				transition: 0.4s;
+
+				&:hover {
+					color: $anbar-info-search-box-sign-hover-color;
+					// transform: scale(1.1);
+				}
+			}
+
+			#searchInputBox {
+				direction: ltr;
+				width: 100%;
+				padding: 10px;
+				font-size: 1.45rem;
+				outline: none;
+				border: 3px solid $anbar-info-search-box-border-color;
+				transition: 0.4s;
+				background-color: $anbar-info-search-box-background-color;
+				font-weight: 500;
+				color: $anbar-info-search-box-text-color;
+
+				&::placeholder {
+					color: $anbar-info-search-box-placeholder-color;
+					font-weight: bold;
+				}
+
+				&:focus,
+				&:hover {
+					border: 3px solid $anbar-info-search-box-border-hover-color;
+				}
+			}
+		}
+	}
+
+	.data {
+		display: flex;
+		flex-direction: column;
+		flex-grow: 1;
+		border-left: 3px solid $anbar-info-data-dividing-line-color;
+
+		.smallNav {
+			background-color: $anbar-info-small-nav-background-color;
+			position: relative;
+			display: flex;
+			align-items: center;
+			padding: 0 7px;
+
+			&::before {
+				content: "";
+				display: block;
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				z-index: 10;
+
+				background-color: $anbar-info-small-nav-background-color;
+			}
+
+			#showOverallInfo,
+			#hideShowTreeView,
+			#expandTreeView,
+			#closeTreeView {
+				z-index: 100;
+				border: 2px solid $anbar-info-small-nav-btn-border-color;
+				background-color: $anbar-info-small-nav-btn-background-color;
+				margin-right: 10px;
+
+				&:hover {
+					background-color: $anbar-info-small-nav-btn-background-hover-color;
+				}
+
+				&::after {
+					background-color: $anbar-info-small-nav-btn-background-clicked-color;
+				}
+
+				p {
+					color: $anbar-info-small-nav-btn-text-color;
+				}
+			}
+
+			#showOverallInfo[data-isClicked="true"],
+			#hideShowTreeView[data-isClicked="true"],
+			#expandTreeView[data-isClicked="true"],
+			#closeTreeView[data-isClicked="true"] {
+				&::after {
+					width: 230px;
+					height: 230px;
+				}
+
+				border: 2px solid $anbar-info-small-nav-btn-border-clicked-color;
+
+				p {
+					color: $anbar-info-small-nav-btn-text-clicked-color;
+				}
+			}
+
+			#showOverallInfo[data-isClicked="false"] {
+				&::after {
+					transition-delay: $overall-box-fade-out-animation-delay;
+				}
+			}
+		}
+
+		.screenInfo {
+			flex-grow: 1;
+			background-color: transparent;
+			position: relative;
+			z-index: 10;
+
+			.info {
+				z-index: -1;
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
+				align-items: center;
+
+				height: 40%;
+				width: fit-content;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+
+				padding: 20px 30px;
+
+				p {
+					user-select: none;
+					color: $anbar-info-default-screeniInfo-info-text-color;
+					font-size: 1.5rem;
+					text-shadow: 2px 2px 8px rgb(121, 117, 117), -2px -2px 8px rgb(255, 255, 255);
+
+					span {
+						font-size: 1.5rem;
+						font-weight: bold;
+					}
+				}
+
+				.text {
+					display: flex;
+					flex-direction: column;
+					align-items: center;
+					justify-content: center;
+				}
+			}
+
+			.overall-info {
+				flex-grow: 1;
+				overflow: hidden;
+
+				position: absolute;
+				background-color: $anbar-info-overall-data-background-color;
+
+				.overall-info-data {
+					position: absolute;
+					left: 0;
+					width: 100%;
+					height: 100%;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					flex-direction: column;
+
+					opacity: 0;
+					pointer-events: none;
+
+					h2 {
+						padding: 15px;
+						font-size: 1.9rem;
+						color: $anbar-info-overall-data-header-text-color;
+					}
+					p {
+						color: $anbar-info-overall-data-text-color;
+						padding: 5px;
+						font-size: 1.2rem;
+
+						span {
+							font-size: 1.3rem;
+							font-weight: bold;
+							color: $anbar-info-overall-data-values-color;
+							transition: 0.2s;
+							cursor: default;
+
+							&:hover {
+								color: $anbar-info-overall-data-values-hover-color;
+							}
+						}
+					}
+
+					.upper-text {
+						width: 100%;
+						height: 40%;
+						display: flex;
+						flex-direction: column;
+						justify-content: center;
+						align-items: center;
+					}
+
+					.lover-text {
+						height: 60%;
+						display: flex;
+						flex-direction: row;
+
+						.left-text,
+						.right-text {
+							padding: 0 50px;
+							display: flex;
+							flex-direction: column;
+							justify-content: flex-start;
+							align-items: center;
+						}
+					}
+				}
+			}
+			.overall-info[data-isShoving="true"] {
+				animation: showAnimatedBox $overall-box-animation-time 1 forwards ease-in;
+
+				.overall-info-data {
+					pointer-events: all;
+					animation: showOverallInfoData $overall-box-animation-time 1
+						$overall-data-fade-in-animation-delay forwards;
+				}
+			}
+			.overall-info[data-isShoving="false"] {
+				width: 100%;
+				height: 100%;
+				animation: hideAnimatedBox $overall-box-animation-time
+					$overall-box-fade-out-animation-delay 1 forwards;
+
+				.overall-info-data {
+					pointer-events: none;
+					animation: hideOverallInfoData $overall-box-animation-time 1 forwards;
+				}
+			}
+
+			@keyframes showAnimatedBox {
+				from {
+					top: $overall-box-top-shift;
+					left: $overall-box-left-shift;
+					width: 0;
+					height: 0;
+					border-radius: 50%;
+				}
+				to {
+					top: 0;
+					left: 0;
+					width: 100%;
+					height: 100%;
+					border-radius: 0;
+				}
+			}
+			@keyframes hideAnimatedBox {
+				from {
+					top: 0;
+					left: 0;
+					width: 100%;
+					height: 100%;
+					border-radius: 0;
+				}
+				to {
+					top: $overall-box-top-shift;
+					left: $overall-box-left-shift;
+					width: 0;
+					height: 0;
+					border-radius: 30%;
+				}
+			}
+			@keyframes showOverallInfoData {
+				from {
+					opacity: 0;
+					top: $overall-data-show-top-shift;
+				}
+				to {
+					opacity: 1;
+					top: 0;
+				}
+			}
+			@keyframes hideOverallInfoData {
+				from {
+					opacity: 1;
+					top: 0;
+				}
+				to {
+					opacity: 0;
+					top: $overall-data-show-top-shift;
+				}
+			}
+		}
+
+		.singleProductInfo {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			background-color: $anbar-info-background-color;
+			z-index: -1;
+
+			opacity: 0;
+			pointer-events: none;
+			transition: 0.6s;
+
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+
+			.text-data {
+				display: flex;
+				flex-grow: 1;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				// height: 30%;
+				width: 100%;
+
+				h2 {
+					margin-bottom: 10px;
+					font-size: 1.6rem;
+					color: black;
+					user-select: none;
+
+					span {
+						font-size: 1.6rem;
+					}
+				}
+
+				p {
+					color: black;
+					font-size: 1.2rem;
+					user-select: none;
+
+					span {
+						font-size: 1.2rem;
+					}
+				}
+
+				span {
+					user-select: initial;
+					color: rgb(59, 59, 59);
+					transition: 0.2s;
+					cursor: default;
+
+					&:hover {
+						color: white;
+					}
+				}
+			}
+
+			.table-data {
+				width: 100%;
+				height: 30%;
+				overflow-y: scroll;
+				overflow-x: hidden;
+				transition: 0.4s;
+				position: relative;
+
+				&:hover {
+					height: 60%;
+				}
+
+				&::-webkit-scrollbar {
+					width: 10px;
+				}
+				/* Track */
+				&::-webkit-scrollbar-track {
+					box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+					border-radius: 10px;
+					border-radius: 10px;
+				}
+				/* Handle */
+				&::-webkit-scrollbar-thumb {
+					border-radius: 10px;
+					border-radius: 10px;
+					background: rgb(121, 121, 121);
+					box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+				}
+
+				.singleProductTable {
+					width: 100%;
+					border-collapse: collapse;
+					position: relative;
+
+					thead {
+						th {
+							cursor: default;
+							font-size: 1.2rem;
+							padding: 0 10px;
+
+							border-top: 2px solid black;
+							border-bottom: 3px solid black;
+							border-right: 2px solid black;
+
+							background-color: transparent;
+						}
+					}
+					tbody {
+						tr {
+							// height: 60px;
+							background-color: rgba(231, 182, 113, 0.568);
+							transition: 0.4s;
+
+							td {
+								padding: 5px 10px;
+								text-align: center;
+								font-size: 1.1rem;
+								cursor: default;
+								user-select: none;
+
+								border-top: 2px solid black;
+								border-bottom: 2px solid black;
+								border-left: 2px solid rgb(36, 36, 36);
+								border-right: 2px solid rgb(36, 36, 36);
+
+								&:last-child {
+									border-right: none;
+								}
+							}
+
+							&:nth-child(odd) {
+								background-color: rgba(156, 95, 9, 0.61);
+							}
+
+							&:hover {
+								background-color: white;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

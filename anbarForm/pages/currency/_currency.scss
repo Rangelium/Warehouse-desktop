@@ -1,0 +1,209 @@
+.currency{
+  background-color: $anbar-info-background-color;
+}
+
+// currency Table Part
+
+
+.currencyProductInfo {
+  // margin-top: 5%;
+  position: absolute;
+  width: 80%;
+  height: 100%;
+  top: 50%;
+  left: 10%;
+  transform: translate(0%, -40%);
+  background-color: $anbar-info-background-color;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.6s;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .currency-text-data {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    // height: 30%;
+    width: 100%;
+
+    h2 {
+      margin-bottom: 10px;
+      font-size: 1.6rem;
+      color: black;
+      user-select: none;
+
+      span {
+        font-size: 1.6rem;
+      }
+    }
+
+    p {
+      color: black;
+      font-size: 1.2rem;
+      user-select: none;
+
+      span {
+        font-size: 1.2rem;
+      }
+    }
+
+    span {
+      user-select: initial;
+      color: rgb(59, 59, 59);
+      transition: 0.2s;
+      cursor: default;
+
+      &:hover {
+        color: white;
+      }
+    }
+  }
+
+  .currency-table-data {
+    width: 100%;
+    height: 60%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    transition: 0.4s;
+    position: relative;
+
+
+    &::-webkit-scrollbar {
+      width: 10px;
+    }
+    /* Track */
+    &::-webkit-scrollbar-track {
+      box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+      border-radius: 10px;
+      border-radius: 10px;
+    }
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      border-radius: 10px;
+      background: rgb(121, 121, 121);
+      box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+    }
+
+    .currencyProductTable {
+      width: 100%;
+      border-collapse: collapse;
+      position: relative;
+
+      thead {
+        th {
+          cursor: default;
+          font-size: 1.2rem;
+          padding: 0 10px;
+
+          border-top: 2px solid black;
+          border-bottom: 3px solid black;
+          border-right: 2px solid black;
+          
+          background-color: transparent;
+          &:nth-child(1){
+            border-left: 2px solid black;
+          }
+        }
+        
+      }
+      tbody {
+        tr {
+          // height: 60px;
+          background-color: rgba(231, 182, 113, 0.568);
+          transition: 0.4s;
+
+          td {
+            padding: 5px 10px;
+            text-align: center;
+            font-size: 1.1rem;
+            cursor: default;
+            user-select: none;
+
+            border-top: 2px solid black;
+            border-bottom: 2px solid black;
+            border-left: 2px solid rgb(36, 36, 36);
+            border-right: 2px solid rgb(36, 36, 36);
+
+            &:last-child {
+              border-right: none;
+            }
+          }
+
+          &:nth-child(odd) {
+            background-color: rgba(156, 95, 9, 0.61);
+          }
+
+          &:hover {
+            background-color: white;
+          }
+        }
+      }
+    }
+  }
+}
+
+
+// currency Input Part
+
+.currencyButtons{
+  position: absolute;
+  transform: translate(20%, 100%);
+  margin: 0 auto !important;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 70vw;
+  z-index: 1000;
+}
+
+.currencyInputButton{
+  background-color: rgb(45, 201, 39);
+  color: black;
+  font-size: 24px;
+  width: 15vw;
+  border: 1px solid black;
+  padding: 10px;
+  box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 0.308);
+  cursor: pointer;
+  outline: none;
+}
+
+.currencyDeleteButton{
+  background-color: rgb(228, 46, 46);
+  color: black;
+  font-size: 24px;
+  width: 15vw;
+  border: 1px solid black;
+  padding: 10px;
+  box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 0.308);
+  cursor: pointer;
+  outline: none;
+}
+
+.currencyInputField{
+  padding: 5px;
+  border: 1px solid black;
+  font-size: 24px;
+  margin-bottom: 5px;
+  outline: none;
+  &:focus{
+    outline: 1px solid rgb(7, 7, 65);
+    box-shadow: 0px 0px 10px rgba(26, 26, 116, 0.829);
+  }
+}
+
+.addcurrencyButton{
+  margin-top: 10px;
+  padding: 10px;
+  font-size: 30px;
+  background-color: rgb(45, 201, 39);
+  cursor: pointer;
+  border: 2px solid black;
+}

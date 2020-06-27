@@ -1,0 +1,12 @@
+{
+	"editor.tabSize": 2,
+	"prettier.useTabs": true,
+
+	"liveSassCompile.settings.formats": [
+		{
+			"format": "expanded",
+			"extensionName": ".css",
+			"savePath": "~/css"
+		}
+	],
+}
