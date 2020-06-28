@@ -276,7 +276,7 @@ $("#submitMainAddProduct").click(function () {
 	poolConnect.then((pool) => {
 		pool
 			.request()
-			.input("product_id", productDataGlobal.id)
+			.input("product_id", productDataGlobal.product_id)
 			.input("quantity", $("#amountOfProduct").val())
 			.input("is_out", 0)
 			.input("price", $("#productPrice").val())
