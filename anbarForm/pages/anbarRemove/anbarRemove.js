@@ -27,10 +27,20 @@ function feelTree(data) {
 	});
 
 	$(".tv-name").click(function () {
+		if($(this).attr("data-isSelected") === "true"){
+			$(".tv-name").attr("data-isSelected", "false");
+			$(this).attr("data-isSelected", "false");
+
+			$(".productTableInfo").css({opacity: 0, "pointer-events": "none"})
+			$(".removeProductForm").css({opacity: 0, "pointer-events": "none"})
+			return;
+		}
+		$(".productTableInfo").css({opacity: 0, "pointer-events": "none"})
+			$(".removeProductForm").css({opacity: 0, "pointer-events": "none"})
 		$(".tv-name").attr("data-isSelected", "false");
 		$(this).attr("data-isSelected", "true");
 
-		showProductInfo(treeView.giveDataOfElement($(this)));
+		showProductTableInfo(treeView.giveDataOfElement($(this)));
 	});
 }
 
@@ -108,9 +118,103 @@ $("#searchInputBox").focusout(function () {
 });
 
 // =====================================================================================
-//                                SingleProductInfo part
+//                                  Anbar Remove part
 // =====================================================================================
 
+var lastProdData;
+
+function fillTable(data) {
+	$(".singleProductTable").remove();
+
+	$(".anbar-remove-table-data").append("<table class='singleProductTable'></table>");
+	$(".singleProductTable").append("<thead></thead>");
+	$(".singleProductTable").append("<tbody></tbody>");
+
+	$(".singleProductTable > thead").append(`<th>Title:</th>`);
+	$(".singleProductTable > thead").append(`<th>Quantity:</th>`);
+	$(".singleProductTable > thead").append(`<th>Unit:</th>`);
+	$(".singleProductTable > thead").append(`<th>Price:</th>`);
+	$(".singleProductTable > thead").append(`<th>Currency:</th>`);
+	$(".singleProductTable > thead").append(`<th>Original price:</th>`);
+	$(".singleProductTable > thead").append(`<th>Original currency:</th>`);
+	$(".singleProductTable > thead").append(`<th>Expiration date</th>`);
+	$(".singleProductTable > thead").append(`<th>Status</th>`);
+	$(".singleProductTable > thead").append(`<th>Performed by:</th>`);
+	$(".singleProductTable > thead").append(`<th>Cell:</th>`);
+
+	data.forEach((el) => {
+		let row = "<tr class='anbarRemoveRow'>";
+
+		row += `<td>${el.title}</td>`;
+		row += `<td>${el.left}</td>`;
+		row += `<td>${el.unit}</td>`;
+		row += `<td>${el.price}</td>`;
+		row += `<td>${el.currency}</td>`;
+		row += `<td>${el.original_price}</td>`;
+		row += `<td>${el.original_currency}</td>`;
+		row += `<td title="${moment(el.exp_date).format("Da MMMM YYYY, h:mm:ss")}">${moment(
+			el.exp_date
+		).format("Da MMMM YYYY")}</td>`;
+		row += `<td>${el.is_out ? "Removed" : "Added"}</td>`;
+		row += `<td>${el.performed_by}</td>`;
+		row += `<td>${el.product_cell}</td>`;
+
+		row += "</tr>";
+		$(".singleProductTable > tbody").append(row);
+	});
+
+	// Fill empty tables
+	if (data.length < 10) {
+		for (let i = 0; i < 14 - data.length; i++) {
+			let row = "<tr style='height: 40px'>";
+
+			for (let j = 0; j < 11; j++) {
+				row += "<td></td>";
+			}
+
+			row += "</tr>";
+
+			$(".singleProductTable > tbody").append(row);
+		}
+	}
+
+	$(".anbarRemoveRow").dblclick(function (){
+		console.log($(this))
+		showRemoveProductForm($(this))
+	})
+}
+
+function showRemoveProductForm(){
+	$(".productTableInfo").css({opacity: 0, "pointer-events": "none"})
+
+	// Here
+
+	$(".removeProductForm").css({ opacity: 1, "pointer-events": "all" });
+}
+
+$("#returnToTableBtn").click(() => {
+	showProductTableInfo(lastProdData);
+	$(".removeProductForm").css({opacity: 0, "pointer-events": "none"})
+})
+
+async function showProductTableInfo(productData) {
+	lastProdData = productData;
+	$("#productTitle").html(productData.title)
+
+	let tableData = await new Promise((resolve, reject) => {
+		poolConnect.then((pool) => {
+			pool
+				.request()
+				.input("product_id", productData.product_id)
+				.execute("dbo.main_tree_click_info", (err, res) => {
+					resolve(res.recordset);
+				});
+		});
+	});
+
+	fillTable(tableData);
+	$(".productTableInfo").css({ opacity: 1, "pointer-events": "all" });
+}
 
 // =====================================================================================
 //                                  On start functions
