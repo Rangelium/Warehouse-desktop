@@ -2,7 +2,7 @@ var currencySelectedId = "";
 
 function fillTable(){
 	poolConnect.then((pool) => {
-		pool.request().execute("dbo.currency_select_full", (err, res) => {
+		pool.request().execute("dbo.currency_select", (err, res) => {
 			data = []
 			for(let i of res.recordset){
 				data.push(i);

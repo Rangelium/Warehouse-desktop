@@ -77,7 +77,7 @@ $(".addSellersButton").on("click", () => {
 	}
 	poolConnect.then((pool) => {
 		pool.request()
-				.input("title", mssql.NVarChar(250), title)
+				.input("seller", mssql.NVarChar(250), title)
 				.input("firstname", mssql.NVarChar(250), firstname)
 				.input("lastname", mssql.NVarChar(250), lastname)
 				.input("patronymic", mssql.NVarChar(250), patronymic)
@@ -87,7 +87,8 @@ $(".addSellersButton").on("click", () => {
 				.input("p_address", mssql.NVarChar(250), p_address)
 				.execute("dbo.product_sellers_insert", (err, res)=>{
 					$("input").val("");
-					console.log("Successfully inserted");
+					console.log(err);
+					fillTable();
 				})
 	})
 });

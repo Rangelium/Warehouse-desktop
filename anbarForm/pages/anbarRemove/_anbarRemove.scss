@@ -1,249 +1,514 @@
+$base-spacing-unit: 24px;
+$half-spacing-unit: $base-spacing-unit / 2;
+
+$color-alpha: #1772FF;
+$color-form-highlight: black;
+
+
+$session-table-header-background-color: #8d560d;
+$session-table-row-bacground-color: white;
+
+$session-info-table-header-background-color: #8d560d;
+$session-info-table-row-bacground-color: white;
+
 .anbarRemove{
   background-color: $anbar-info-background-color;
-	display: flex;
-	// justify-content: space-between;
+  display: flex;
+  flex-direction: column;
 
-	.treeViewContainer {
-		background-color: $anbar-info-tree-view-background-color;
-		overflow-y: scroll;
-		overflow-x: hidden;
-		direction: rtl;
-
-		.searchContainer {
-			position: sticky;
-			top: 0;
-
-			p {
-				font-family: sans-serif;
-				position: absolute;
-				display: block;
-				top: 50%;
-				transform: translateY(-50%);
-				right: 10px;
-				font-size: 1.8rem;
-				cursor: pointer;
-				z-index: 100;
-				color: $anbar-info-search-box-sign-color;
-				transition: 0.4s;
-
-				&:hover {
-					color: $anbar-info-search-box-sign-hover-color;
-					// transform: scale(1.1);
-				}
-			}
-
-			#searchInputBox {
-				direction: ltr;
-				width: 100%;
-				padding: 10px;
-				font-size: 1.45rem;
-				outline: none;
-				border: 3px solid $anbar-info-search-box-border-color;
-				transition: 0.4s;
-				background-color: $anbar-info-search-box-background-color;
-				font-weight: 500;
-				color: $anbar-info-search-box-text-color;
-
-				&::placeholder {
-					color: $anbar-info-search-box-placeholder-color;
-					font-weight: bold;
-				}
-
-				&:focus,
-				&:hover {
-					border: 3px solid $anbar-info-search-box-border-hover-color;
-				}
-			}
-		}
+  .sessionSelected{
+    // border-color: rgb(52, 52, 160) !important;
+    // box-shadow: 0px 0px 10px 10px rgba(54, 93, 219, 0.589);
+    border-color: rgb(17, 17, 148) !important;
+    box-shadow: 4px 4px 4px 0px rgba(1, 0, 66, 0.644);
+    border-radius: 0 !important;
   }
-  
-  .anbarRemoveData{
-    display: flex;
-		flex-direction: column;
-		flex-grow: 1;
-		border-left: 3px solid $anbar-info-data-dividing-line-color;
 
-    .smallNav {
-      background-color: $anbar-info-small-nav-background-color;
-      position: relative;
+  .sessionsPart{
+    overflow: hidden;
+    flex: 1;
+    transition: ease-out 200ms;
+    &:hover{
+      flex: 2;
+      transition: ease-in 200ms;
+    }
+    button.createSessionPartButton{
+      font-size: 18px;
+      background-color: rgb(143, 177, 240);
+      padding: 10px;
+      border: 1px solid black;
+      cursor: pointer;
+      margin-top: 10px;
+      margin-left: 10px;
+      outline: none;
+    }
+    .sessionSelectionPart{
       display: flex;
+      flex-direction: column;
       align-items: center;
-      padding: 0 7px;
-  
-      &::before {
-        content: "";
-        display: block;
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 10;
-  
-        background-color: $anbar-info-small-nav-background-color;
-      }
-  
-      #showOverallInfo,
-      #hideShowTreeView,
-      #expandTreeView,
-      #closeTreeView {
-        z-index: 100;
-        border: 2px solid $anbar-info-small-nav-btn-border-color;
-        background-color: $anbar-info-small-nav-btn-background-color;
-        margin-right: 10px;
-  
-        &:hover {
-          background-color: $anbar-info-small-nav-btn-background-hover-color;
-        }
-  
-        &::after {
-          background-color: $anbar-info-small-nav-btn-background-clicked-color;
-        }
-  
-        p {
-          color: $anbar-info-small-nav-btn-text-color;
+      .sessionsInputs{
+        width: 45vw;
+        display: flex;
+        justify-content: space-between;
+        margin: 5vh auto;
+        .sessionsInputBlock{
+          display: flex;
+          flex-direction: column;
         }
       }
-  
-      #showOverallInfo[data-isClicked="true"],
-      #hideShowTreeView[data-isClicked="true"],
-      #expandTreeView[data-isClicked="true"],
-      #closeTreeView[data-isClicked="true"] {
-        &::after {
-          width: 230px;
-          height: 230px;
+    }
+    .sessionCreatePart{
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      .sessionInputBlock{
+        display: flex;
+        flex-direction: column;
+      }
+      .sessionGetBack{
+        align-self: flex-start;
+        justify-self: self-start;
+        margin-left: 5vw;
+      }
+    }
+    label{
+      font-size: 20px;
+      font-weight: bold;
+    }
+    input.sessionsDateInput{
+      margin-top: 3vh;
+      font-size: 25px;
+      width: 20vw;
+      cursor: pointer;
+      padding: 5px;
+      &:focus,
+      &:active{
+        outline: 2px solid rgb(33, 33, 116);
+      }
+    }
+    .sessionListPart{
+      display: none;
+      margin-top: 5vh;
+      height: 50vh;
+      .sessionGetBack{
+        margin-bottom: -5vh;
+        margin-left: 5vw;
+      }
+      .sessionTables{
+        overflow-y: scroll;
+        width: 60%;
+        max-height: 50vh;
+        padding: 20px 40px;
+        margin: 0 auto;
+        .sessionContainer{
+          max-width: 100%;
+          margin-right:auto;
+          margin-left:auto;
+          display:flex;
+          justify-content:center;
+          align-items:center;
+          border-radius: 13px;
+          &:not(:first-child){
+            margin-top: 15px;
+          }
+          cursor: pointer;
         }
-  
-        border: 2px solid $anbar-info-small-nav-btn-border-clicked-color;
-  
-        p {
-          color: $anbar-info-small-nav-btn-text-clicked-color;
+        .sessionTable{
+          width: 100%;
+          border: 3px solid $color-form-highlight;
+          border-radius: 13px;
+        }
+        .sessionTableHeader{
+          display: flex;
+          width: 100%;
+          color: whitesmoke;
+          background:  $session-table-header-background-color;
+          border-top-left-radius: 10px;
+          border-top-right-radius: 10px;
+          padding: ($half-spacing-unit * 1.5) 0;
+        }
+
+        .sessionTableRow{
+          display: flex;
+          background: $session-table-row-bacground-color;
+          width: 100%;
+          padding: ($half-spacing-unit * 1.5) 0;
+          border-bottom-left-radius: 10px;
+          border-bottom-right-radius: 10px;
+        }
+        .sessionTableData, .sessionHeaderItem{
+          flex: 1 1 20%;
+          text-align: center;
+        }
+
+        .sessionHeaderItem{
+          text-transform: uppercase;
+        }
+
+        &::-webkit-scrollbar {
+          width: 10px;
+        }
+        /* Track */
+        &::-webkit-scrollbar-track {
+          box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+          border-radius: 10px;
+          border-radius: 10px;
+        }
+        /* Handle */
+        &::-webkit-scrollbar-thumb {
+          border-radius: 10px;
+          border-radius: 10px;
+          background: rgb(121, 121, 121);
+          box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
         }
       }
-  
-      #showOverallInfo[data-isClicked="false"] {
-        &::after {
-          transition-delay: $overall-box-fade-out-animation-delay;
+    }
+  }
+  .sessionsInfoPart{
+    overflow: hidden;
+    border-top: 1px solid rgb(36, 35, 35);
+    flex: 1;
+    transition: ease-out 200ms;
+    &:hover{
+      flex: 2;
+      transition: ease-in 200ms;
+    }
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .addNewSessionInfo{
+      align-self: flex-end;
+      display: none;
+      position: absolute;
+      // display: flex;
+      flex-direction: column;
+      bottom: 0;
+      button{
+        background-color: rgb(26, 201, 26);
+        font-size: 24px;
+        padding: 10px 20px;
+        margin-bottom: 5vh;
+        margin-right: 1vw;
+        border: 1px solid black;
+        cursor: pointer;
+      }
+    }
+
+    .sessionInfoList{
+      display: none;
+      margin-top: 5vh;
+      height: 50vh;
+      .sessionInfoTables{
+        overflow-y: scroll;
+        width: 80%;
+        max-height: 50vh;
+        padding: 15px 30px;
+        margin: 0 auto;
+        .sessionInfoContainer{
+          max-width: 100%;
+          margin-right:auto;
+          margin-left:auto;
+          display:flex;
+          justify-content:center;
+          align-items:center;
+          border-radius: 13px;
+          &:not(:first-child){
+            margin-top: 15px;
+          }
+          cursor: pointer;
+        }
+        .sessionInfoTable{
+          width: 100%;
+          border: 3px solid $color-form-highlight;
+          border-radius: 13px;
+        }
+        .sessionInfoTableHeader{
+          display: flex;
+          font-size: 16px !important;
+          width: 100%;
+          color: whitesmoke;
+          background:  $session-info-table-header-background-color;
+          border-top-left-radius: 10px;
+          border-top-right-radius: 10px;
+          padding: ($half-spacing-unit * 1.5) 0;
+        }
+
+        .sessionInfoTableRow{
+          display: flex;
+          background: $session-info-table-row-bacground-color;
+          width: 100%;
+          // font-size: 24px;
+          padding: ($half-spacing-unit * 1.5) 0;
+          border-bottom-left-radius: 10px;
+          border-bottom-right-radius: 10px;
+        }
+        .sessionInfoTableData, .sessionInfoHeaderItem{
+          flex: 1 1 20%;
+          text-align: center;
+        }
+
+        .sessionInfoHeaderItem{
+          text-transform: uppercase;
+        }
+
+        &::-webkit-scrollbar {
+          width: 10px;
+        }
+        /* Track */
+        &::-webkit-scrollbar-track {
+          box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+          border-radius: 10px;
+          border-radius: 10px;
+        }
+        /* Handle */
+        &::-webkit-scrollbar-thumb {
+          border-radius: 10px;
+          border-radius: 10px;
+          background: rgb(121, 121, 121);
+          box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+        }
+      }
+    }
+  }
+  button.sessionAcceptButton{
+    margin:10px auto;
+    background-color: rgb(75, 204, 75);
+    font-size: 24px;
+    padding: 15px 0;
+    width: 20vw;
+    border: 1px solid black;
+    cursor: pointer;
+    outline: none;
+  }
+  button.getBackButton{
+    background-color: rgb(165, 112, 42);
+    font-size: 20px;
+    padding: 5px;
+    cursor: pointer;
+    border: 1px solid black;
+    outline: none;
+  }
+
+  .sessionsInfoNewInputs{
+    flex: 1;
+    overflow: hidden;
+    transition: ease-out 200ms;
+    display: none;
+    // display: flex;
+    flex-direction: column;
+    .sessionInfoNewGetBack{
+      align-self: flex-start;
+      button{
+        background-color: rgb(165, 112, 42);
+        border: 1px solid black;
+        font-size: 24px;
+        padding: 10px;
+        cursor: pointer;
+        margin-top: 3vh;
+        margin-left: 2vw;
+      }
+    }
+    .sessionInfoInputWrapper{
+      align-self: center;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      width: 65vw;
+    }
+    .sessionInfoInputBlock{
+      display: flex;
+      flex-direction: column;
+    }
+
+    input.sessionInfoNewInput{
+      margin-top: 5px;
+      font-size: 20px;
+      width: 15vw;
+      cursor: pointer;
+      padding: 5px;
+      height: 5vh;
+      &:focus,
+      &:active{
+        outline: 2px solid rgb(33, 33, 116);
+      }
+    }
+    select.sessionInfoSelectCurrency{
+      background-color: white;
+      font-size: 18px;
+      padding: 5px;
+      margin-top: 5px;
+      height: 5vh;
+      width: 15vw;
+      border: 1px solid black;
+      outline: none;
+      text-align: center;
+      cursor: pointer;
+      option{
+        outline: none;
+        font-size: 16px;
+        text-align: center;
+        background: rgb(199, 199, 199);
+        cursor: pointer;
+        &:hover{
+          cursor: pointer;
+        }
+      }
+    }
+    .submitSessionInfo{
+      margin-top: 5vh;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      button{
+        margin: 0 auto;
+        background-color: rgb(75, 204, 75);
+        border: 1px solid black;
+        font-size: 34px;
+        padding: 10px 20px;
+        cursor: pointer;
+        outline: none;
+      }
+    }
+    &:hover{
+      flex: 2;
+      transition: ease-in 200ms;
+    }
+
+  }
+  .sessionsInfoSearch{
+    display: none;
+    border-top: 1px solid rgb(36, 35, 35);
+    flex: 1;
+    overflow: hidden;
+    transition: ease-out 200ms;
+    .sessionsInfoSearchInputBlock{
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-content: center;
+      height: 20vh;
+      margin-top: 10vh;
+      input.infoSearchInput{
+        font-size: 24px;
+        padding: 10px;
+        width: 20vw;
+        border-radius: 2px;
+        border: 1px solid black;
+        cursor: pointer;
+        &:active,
+        &:focus{
+          outline: 2px solid rgb(33, 33, 116);
+        }
+      }
+      button.infoSearchSubmit{
+        align-self: center;
+        border: 1px solid black;
+        border-radius: 2px;
+        background-color: rgb(121, 121, 209);
+        font-size: 24px;
+        padding: 10px 20px;
+        width: 20vw;
+        outline: none;
+        cursor: pointer;
+        &:hover{
+          border-width: 2px;
         }
       }
     }
 
-    .anbarRemovePages{
-      position: relative;
-      width: 100%;
-      height: 100%;
+    .sessionSearchResult{
+      display: none;
+      margin-top: 5vh;
+      height: 50vh;
+      .sessionSearchTables{
+        overflow-y: scroll;
+        width: 70%;
+        max-height: 50vh;
+        padding: 15px 30px;
+        margin: 0 auto;
+        .sessionSearchContainer{
+          max-width: 100%;
+          margin-right:auto;
+          margin-left:auto;
+          display:flex;
+          justify-content:center;
+          align-items:center;
+          border-radius: 13px;
+          &:not(:first-child){
+            margin-top: 15px;
+          }
+          cursor: pointer;
+        }
+        .sessionSearchTable{
+          width: 100%;
+          border: 3px solid $color-form-highlight;
+          border-radius: 13px;
+        }
+        .sessionSearchTableHeader{
+          display: flex;
+          font-size: 16px !important;
+          width: 100%;
+          color: whitesmoke;
+          background:  $session-info-table-header-background-color;
+          border-top-left-radius: 10px;
+          border-top-right-radius: 10px;
+          padding: ($half-spacing-unit * 1.5) 0;
+        }
 
-      .productTableInfo{
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-
-        transition: 0.4s;
-        opacity: 0;
-        pointer-events: none;
-
-        p{
-          padding-top: 25px;
-          padding-bottom: 35px;
+        .sessionSearchTableRow{
+          display: flex;
+          background: $session-info-table-row-bacground-color;
+          width: 100%;
+          // font-size: 24px;
+          padding: ($half-spacing-unit * 1.5) 0;
+          border-bottom-left-radius: 10px;
+          border-bottom-right-radius: 10px;
+        }
+        .sessionSearchTableData, .sessionSearchHeaderItem{
+          flex: 1 1 20%;
           text-align: center;
-          font-size: 1.4rem;
-          font-weight: bold;
-          width: 100%;
         }
 
-        .anbar-remove-table-data {
-          width: 100%;
-          height: 100%;
-          overflow-y: scroll;
-          overflow-x: hidden;
-          transition: 0.4s;
-          position: relative;
-  
-          &::-webkit-scrollbar {
-            width: 10px;
-          }
-          /* Track */
-          &::-webkit-scrollbar-track {
-            box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-            border-radius: 10px;
-            border-radius: 10px;
-          }
-          /* Handle */
-          &::-webkit-scrollbar-thumb {
-            border-radius: 10px;
-            border-radius: 10px;
-            background: rgb(121, 121, 121);
-            box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
-          }
-  
-          .singleProductTable {
-            width: 100%;
-            border-collapse: collapse;
-            position: relative;
-  
-            thead {
-              th {
-                cursor: default;
-                font-size: 1.2rem;
-                padding: 0 10px;
-  
-                border-top: 2px solid black;
-                border-bottom: 3px solid black;
-                border-right: 2px solid black;
-  
-                background-color: transparent;
-              }
-            }
-            tbody {
-              tr {
-                cursor: pointer;
-                // height: 60px;
-                background-color: rgba(231, 182, 113, 0.568);
-                transition: 0.4s;
-  
-                td {
-                  padding: 5px 10px;
-                  text-align: center;
-                  font-size: 1.1rem;
-                  cursor: default;
-                  user-select: none;
-  
-                  border-top: 2px solid black;
-                  border-bottom: 2px solid black;
-                  border-left: 2px solid rgb(36, 36, 36);
-                  border-right: 2px solid rgb(36, 36, 36);
-  
-                  &:last-child {
-                    border-right: none;
-                  }
-                }
-  
-                &:nth-child(odd) {
-                  background-color: rgba(156, 95, 9, 0.61);
-                }
-  
-                &:hover {
-                  background-color: white;
-                }
-              }
-            }
-          }
+        .sessionSearchHeaderItem{
+          text-transform: uppercase;
+        }
+
+        &::-webkit-scrollbar {
+          width: 10px;
+        }
+        /* Track */
+        &::-webkit-scrollbar-track {
+          box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+          border-radius: 10px;
+          border-radius: 10px;
+        }
+        /* Handle */
+        &::-webkit-scrollbar-thumb {
+          border-radius: 10px;
+          border-radius: 10px;
+          background: rgb(121, 121, 121);
+          box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
         }
       }
-    
-      .removeProductForm{
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-
-        transition: 0.4s;
-        opacity: 0;
-        pointer-events: none;
+    }
+    .sessionSearchGetBack{
+      display: none;
+      position: absolute;
+      button{
+        background-color: rgb(165, 112, 42);
+        border: 1px solid black;
+        font-size: 24px;
+        padding: 10px;
+        cursor: pointer;
+        margin-top: 3vh;
+        margin-left: 2vw;
       }
+    }
+    &:hover{
+      flex: 2;
+      transition: ease-in 200ms;
     }
   }
 }
