@@ -1,11 +1,12 @@
 var exchangeSelectedId = -1;
 poolConnect.then((pool) => {
   pool.request()
-    .execute("dbo.currency_select_full", (err, res) => {
+    .execute("dbo.currency_select", (err, res) => {
       let data = []
       for(let i of res.recordset){
         data.push(i);
       }
+      console.log(res);
       for(let result of data){
         $("#currencyId").append($("<option>", {value: result["id"], text: result["title"]}));
       }
@@ -15,7 +16,8 @@ poolConnect.then((pool) => {
 function fillTable(){
 	poolConnect.then((pool) => {
 		pool.request().execute("dbo.exchange_rate_select", (err, res) => {
-      data = []
+      data = [];
+      console.log(res);
 			for(let i of res.recordset){
 				data.push(i);
 			}
