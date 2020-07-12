@@ -12,6 +12,11 @@ const { MyTreeView } = require("../tools/TreeView");
 const moment = require("moment");
 var USER
 
+// setTimeout(() => {
+// 	userLoggedIn()
+// 	$(".nav-link[data-name='anbarAdd']").click()
+// }, 160)
+
 // ====================================================================================
 //  													   Connection system part
 // ====================================================================================
@@ -36,6 +41,7 @@ function showLoginForm(){
 	$(".login-section").css("opacity", "1")
 	$(".login-section").css("pointer-events", "all")
 }
+
 // Main login process
 $("form").submit((e) => {
 	e.preventDefault();

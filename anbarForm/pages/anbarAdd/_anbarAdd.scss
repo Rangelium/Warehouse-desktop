@@ -1,335 +1,834 @@
-.anbarAdd{
-  background-color: $anbar-info-background-color;
-	display: flex;
+.anbarAddData {
+	width: 100vw;
+	height: 100vh;
+	background-color: rgb(168, 164, 164);
+	position: relative;
 
-	.treeViewContainer {
-		background-color: $anbar-info-tree-view-background-color;
-		overflow-y: scroll;
-		overflow-x: hidden;
-		direction: rtl;
+	.anbarAdd-container {
+		position: relative;
+		height: 100%;
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		overflow-y: hidden;
+		transition: 0.4s;
+		filter: brightness(100%);
 
-		.searchContainer {
-			position: sticky;
+		.anbarAddInfo{
+			pointer-events: none;
+			position: absolute;
 			top: 0;
+			right: 0;
+			z-index: 10000000;
+			width: 35%;
+			height: 35%;
 
-			p {
-				font-family: sans-serif;
+			.closedState{
+				pointer-events: all;
+				$circle-radius: 140px;
 				position: absolute;
-				display: block;
-				top: 50%;
-				transform: translateY(-50%);
-				right: 10px;
-				font-size: 1.8rem;
+				top: -$circle-radius / 2;
+				right: -$circle-radius / 2;
+				width: $circle-radius;
+				height: $circle-radius;
+				border-radius: 50%;
+				background-color: white;
+				opacity: 1;
+				transition: 0.5s all, 0.4s background-color;
 				cursor: pointer;
-				z-index: 100;
-				color: $anbar-info-search-box-sign-color;
-				transition: 0.4s;
 
-				&:hover {
-					color: $anbar-info-search-box-sign-hover-color;
-					// transform: scale(1.1);
+				&:hover{
+					background-color: #0088a9;
+
+					img{
+						transform: scale(1.1) translate(-20%, -75%);
+					}
+				}
+
+				img{
+					position: absolute;
+					top: 80%;
+					left: 25%;
+					transform: translate(-20%, -75%);
+					user-select: none;
+					width: 45px;
+					transition: 0.2s;
+					opacity: 1;
 				}
 			}
 
-			#searchInputBox {
-				direction: ltr;
+			.closedState[data-isClicked=True]{
 				width: 100%;
-				padding: 10px;
-				font-size: 1.45rem;
-				outline: none;
-				border: 3px solid $anbar-info-search-box-border-color;
-				transition: 0.4s;
-				background-color: $anbar-info-search-box-background-color;
-				font-weight: 500;
-				color: $anbar-info-search-box-text-color;
+				height: 100%;
+				background-color: #0088a9;
+				border-radius: 0;
+				border-bottom-left-radius: 30%;
+				top: 0;
+				right: 0;
 
-				&::placeholder {
-					color: $anbar-info-search-box-placeholder-color;
-					font-weight: bold;
+				img{
+					opacity: 0;
+					pointer-events: none;
+				}
+			}
+
+			.openedState{
+				pointer-events: none;
+				opacity: 0;
+				position: absolute;
+				top: 0;
+				right: 0;
+				background-color: #0088a9;
+				width: 100%;
+				height: 100%;
+				overflow: hidden;
+				border-bottom-left-radius: 20%;
+				transition: 0.2s;
+
+				.container{
+					padding: 20px;
+
+					h1{
+						width: 100%;
+						text-align: center;
+						color: white;
+						font-size: 1.5rem;
+						font-weight: 500;
+						padding-bottom: 25px;
+					}
+	
+					ul{
+						position: relative;
+						left: 7px;
+						width: 100%;
+						text-align: center;
+						
+						li{
+							color: black;
+							font-size: 1.1rem;
+							font-weight: 300;
+							transition: 0.3s;
+							cursor: default;
+							list-style: disc;
+							padding-bottom: 5px;
+	
+							&:hover{
+								color: white;
+							}
+						}
+					}
+				}
+			}
+
+			.openedState[data-isClicked=True]{
+				opacity: 1;
+				pointer-events: all;
+				z-index: 100000;
+			}
+		}
+
+		#optionsMenu {
+			position: absolute;
+			top: 0;
+			left: 0;
+			z-index: 1000000;
+			background-color: red;
+
+			.optionsBtn {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 0;
+				height: 0;
+				opacity: 0;
+				background-color: rgb(25, 190, 202);
+				border-radius: 50%;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				transition: 0.5s all, 0.6s left;
+				cursor: pointer;
+
+				img {
+					width: 65%;
+					transition: 0.4s;
 				}
 
-				&:focus,
 				&:hover {
-					border: 3px solid $anbar-info-search-box-border-hover-color;
+					background-color: white;
+
+					img {
+						transform: scale(1.1);
+					}
+				}
+			}
+
+			.optionsBtn[data-isActive="True"] {
+				transition: 0.5s all, 0.6s left;
+				width: 35px;
+				height: 35px;
+				opacity: 1;
+			}
+			#optionsNew[data-isActive="True"] {
+				top: -40px;
+			}
+			#optionsDelete[data-isActive="True"] {
+				left: 33px;
+			}
+
+			.optionsBtn[data-isActive="False"] {
+				transition: 0s;
+			}
+		}
+
+		.bulks {
+			width: 100%;
+			height: 50%;
+			background: transparent;
+			padding-top: 15px;
+			overflow: hidden;
+
+			.bulksSmallMenu {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+
+				.bulksDate {
+					display: flex;
+					justify-content: space-between;
+					align-items: center;
+					width: 40%;
+
+					.groupDate {
+						display: inherit;
+						justify-content: space-around;
+						align-items: center;
+
+						p {
+							color: black;
+							font-size: 1.3rem;
+							font-weight: 700;
+							user-select: none;
+							margin-right: 5px;
+						}
+
+						input {
+							outline: none;
+							background-color: transparent;
+							color: black;
+							border: 2px solid black;
+							font-size: 1.1rem;
+							font-weight: bold;
+							transition: 0.2s all, 0.4s transform;
+							width: 70%;
+							cursor: pointer;
+
+							&:hover {
+								color: white;
+								border: 2px solid white;
+								transform: scale(1.1);
+							}
+						}
+					}
+				}
+			}
+
+			.bulks-table {
+				padding-top: 15px;
+				width: 100%;
+				height: 100%;
+				overflow-y: scroll;
+				overflow-x: hidden;
+				transition: 0.4s;
+				position: relative;
+
+				&::-webkit-scrollbar {
+					width: 10px;
+				}
+				/* Track */
+				&::-webkit-scrollbar-track {
+					box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+					border-radius: 10px;
+					border-radius: 10px;
+				}
+				/* Handle */
+				&::-webkit-scrollbar-thumb {
+					border-radius: 10px;
+					border-radius: 10px;
+					background: rgb(121, 121, 121);
+					box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+				}
+
+				.anbarAddBulksTable {
+					width: 100%;
+					border-collapse: collapse;
+					position: relative;
+
+					thead {
+						th {
+							cursor: default;
+							font-size: 1.2rem;
+							padding: 0 10px;
+
+							border-top: 2px solid black;
+							border-bottom: 3px solid black;
+							border-right: 2px solid black;
+
+							background-color: transparent;
+						}
+					}
+					tbody {
+						tr {
+							// height: 60px;
+							background-color: rgba(231, 182, 113, 0.568);
+							transition: 0.4s;
+
+							td {
+								padding: 5px 10px;
+								text-align: center;
+								font-size: 1.1rem;
+								cursor: default;
+								user-select: none;
+
+								border-top: 2px solid black;
+								border-bottom: 2px solid black;
+								border-left: 2px solid rgb(36, 36, 36);
+								border-right: 2px solid rgb(36, 36, 36);
+
+								&:last-child {
+									border-right: none;
+								}
+							}
+
+							&:nth-child(odd) {
+								background-color: rgba(156, 95, 9, 0.61);
+							}
+
+							&:hover {
+								background-color: white;
+							}
+						}
+
+						tr[data-isSelected="True"] {
+							background-color: rgb(129, 148, 158) !important;
+						}
+						tr[data-isSelected2="True"] {
+							background-color: white;
+						}
+
+						.single-bulk {
+							td {
+								cursor: pointer;
+							}
+						}
+					}
+				}
+			}
+
+			.addNewBulkForm {
+				position: absolute;
+				top: 40%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				z-index: 1000000000000;
+				width: 30%;
+				height: 35%;
+				opacity: 0;
+				transition: 0.4s;
+				border-radius: 25px;
+				background-color: rgb(41, 40, 40);
+				display: none;
+				flex-direction: column;
+				justify-content: space-around;
+				align-items: center;
+
+				h1{
+					color: white;
+					font-weight: bold;
+					letter-spacing: 1px;
+					font-size: 1.4rem;
+					padding: 15px 0;
+				}
+
+				.container{
+					display: flex;
+					flex-direction: column;
+					align-items: center;
+					flex-grow: 1;
+
+					.row{
+						padding: 15px 0;
+						width: 100%;
+						display: flex;
+						justify-content: space-around;
+						align-items: center;
+
+						p {
+							color: white;
+							font-size: 1.1rem;
+							font-weight: 500;
+							user-select: none;
+							margin-right: 5px;
+						}
+
+						input {
+							outline: none;
+							background-color: transparent;
+							color: white;
+							border: 2px solid white;
+							font-size: 1.1rem;
+							font-weight: 500;
+							transition: 0.2s all, 0.4s transform;
+							width: 60%;
+							padding: 0 10px;
+							cursor: pointer;
+
+							&:hover {
+								color: #0088a9;
+								border: 2px solid #0088a9;
+								transform: scale(1.1);
+							}
+						}
+						select{
+							outline: none;
+							font-size: 1.1rem;
+							font-weight: 500;
+							padding: 2px 7px;
+						}
+
+						button {
+							font-size: 1.3rem;
+							font-weight: 500;
+							background-color: rgb(32, 32, 32);
+							border: 2px solid rgb(32, 32, 32);
+							color: white;
+							padding: 5px 20px;
+							transition: 0.3s;
+							cursor: pointer;
+							outline: none;
+			
+							&:hover {
+								transform: scale(1.1);
+							}
+						}
+			
+						#addNewBulkSubmitBtn {
+							background-color: red;
+							border: 2px solid red;
+						}
+					}
 				}
 			}
 		}
-  }
-  
-  .anbarAddData{
-    display: flex;
+
+		.moveableBorder {
+			position: relative;
+			width: 100%;
+			height: 4px;
+			background-color: transparent;
+			cursor: ns-resize;
+			z-index: 100;
+		}
+
+		.sessions {
+			// Try add 'position: relative;' in case of bugs with movable border
+			top: -4px;
+			width: 100%;
+			flex-grow: 1;
+			border-top: 3px solid black;
+			background: rgb(102, 102, 102);
+			height: 20%;
+
+			#defaultSessionsText {
+				z-index: 0;
+				position: absolute;
+				top: 70%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				user-select: none;
+				color: rgb(231, 228, 228);
+				font-size: 1.5rem;
+				text-shadow: 2px 2px 8px rgb(121, 117, 117),
+					-2px -2px 8px rgb(255, 255, 255);
+				transition: 0.4s;
+				opacity: 1;
+			}
+
+			#defaultSessionsText[data-isTableShowing="True"] {
+				opacity: 0;
+			}
+
+			.sessions-table {
+				z-index: 10;
+				// padding-top: 15px;
+				width: 100%;
+				height: 100%;
+				overflow-y: scroll;
+				overflow-x: hidden;
+				transition: 0.4s;
+				position: relative;
+
+				&::-webkit-scrollbar {
+					width: 10px;
+				}
+				/* Track */
+				&::-webkit-scrollbar-track {
+					box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+					border-radius: 10px;
+					border-radius: 10px;
+				}
+				/* Handle */
+				&::-webkit-scrollbar-thumb {
+					border-radius: 10px;
+					border-radius: 10px;
+					background: rgb(121, 121, 121);
+					box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+				}
+
+				.anbarAddSessionsTable {
+					width: 100%;
+					border-collapse: collapse;
+					position: relative;
+
+					thead {
+						th {
+							cursor: default;
+							font-size: 1.2rem;
+							padding: 0 10px;
+							color: white;
+							user-select: none;
+
+							border-top: 2px solid black;
+							border-bottom: 3px solid black;
+							border-right: 2px solid black;
+
+							background-color: transparent;
+						}
+					}
+					tbody {
+						tr {
+							// height: 60px;
+							background-color: rgba(231, 182, 113, 0.568);
+							transition: 0.4s;
+
+							td {
+								padding: 5px 10px;
+								text-align: center;
+								font-size: 1.1rem;
+								cursor: default;
+								user-select: none;
+								color: white;
+								font-weight: 500;
+
+								border-top: 2px solid black;
+								border-bottom: 2px solid black;
+								border-left: 2px solid rgb(36, 36, 36);
+								border-right: 2px solid rgb(36, 36, 36);
+
+								&:last-child {
+									border-right: none;
+								}
+							}
+
+							&:nth-child(odd) {
+								background-color: rgba(156, 95, 9, 0.61);
+							}
+
+							&:hover {
+								background-color: white;
+
+								td {
+									color: black;
+								}
+							}
+						}
+
+						tr[data-isSelected="True"] {
+							background-color: rgb(129, 148, 158) !important;
+
+							td{
+								color: black;
+							}
+						}
+
+						.bulk-session {
+							td {
+								cursor: pointer;
+							}
+						}
+					}
+				}
+			}
+
+			.addNewSessionForm {
+				position: absolute;
+				top: 40%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				z-index: 1000000000000;
+				width: 30%;
+				height: 25%;
+				opacity: 0;
+				transition: 0.4s;
+				border-radius: 25px;
+				background-color: rgb(41, 40, 40);
+				display: none;
+				pointer-events: none;
+				flex-direction: column;
+				justify-content: space-around;
+				align-items: center;
+
+				h1{
+					color: white;
+					font-weight: bold;
+					letter-spacing: 1px;
+					font-size: 1.4rem;
+					padding: 15px 0;
+				}
+
+				.container{
+					display: flex;
+					flex-direction: column;
+					align-items: center;
+					flex-grow: 1;
+
+					.row{
+						padding: 15px 0;
+						width: 100%;
+						display: flex;
+						justify-content: space-around;
+						align-items: center;
+
+						p {
+							color: white;
+							font-size: 1.1rem;
+							font-weight: 500;
+							user-select: none;
+							margin-right: 5px;
+						}
+
+						input {
+							outline: none;
+							background-color: transparent;
+							color: white;
+							border: 2px solid white;
+							font-size: 1.1rem;
+							font-weight: 500;
+							transition: 0.2s all, 0.4s transform;
+							width: 60%;
+							padding: 0 10px;
+							cursor: pointer;
+
+							&:hover {
+								color: #0088a9;
+								border: 2px solid #0088a9;
+								transform: scale(1.1);
+							}
+						}
+
+						button {
+							font-size: 1.3rem;
+							font-weight: 500;
+							background-color: rgb(32, 32, 32);
+							border: 2px solid rgb(32, 32, 32);
+							color: white;
+							padding: 5px 20px;
+							transition: 0.3s;
+							cursor: pointer;
+							outline: none;
+			
+							&:hover {
+								transform: scale(1.1);
+							}
+						}
+			
+						#addNewSessionSubmitBtn {
+							background-color: red;
+							border: 2px solid red;
+						}
+					}
+				}
+			}
+		}
+
+		.session-info {
+			position: absolute;
+			top: 100%;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			opacity: 0;
+			pointer-events: none;
+			transition: 0.6s;
+			z-index: 10000;
+			background-color: rgb(168, 165, 165);
+
+			#sessionInfoGoBackBtn {
+				position: absolute;
+				top: 10px;
+				right: 15px;
+
+				padding: 5px 15px;
+				font-size: 1.2rem;
+				font-weight: bold;
+				z-index: 100000;
+				cursor: pointer;
+				outline: none;
+			}
+
+			.session-info-table {
+				padding-top: 60px;
+				width: 100%;
+				height: 100%;
+				overflow-y: scroll;
+				overflow-x: hidden;
+				transition: 0.4s;
+				position: relative;
+
+				&::-webkit-scrollbar {
+					width: 10px;
+				}
+				/* Track */
+				&::-webkit-scrollbar-track {
+					box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+					border-radius: 10px;
+					border-radius: 10px;
+				}
+				/* Handle */
+				&::-webkit-scrollbar-thumb {
+					border-radius: 10px;
+					border-radius: 10px;
+					background: rgb(121, 121, 121);
+					box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+				}
+
+				.anbarAddSessionInfoTable {
+					width: 100%;
+					border-collapse: collapse;
+					position: relative;
+
+					thead {
+						th {
+							cursor: default;
+							font-size: 1.2rem;
+							padding: 0 10px;
+
+							border-top: 2px solid black;
+							border-bottom: 3px solid black;
+							border-right: 2px solid black;
+
+							background-color: transparent;
+						}
+					}
+					tbody {
+						tr {
+							// height: 60px;
+							background-color: rgba(231, 182, 113, 0.568);
+							transition: 0.4s;
+
+							td {
+								padding: 5px 10px;
+								text-align: center;
+								font-size: 1.1rem;
+								cursor: default;
+								user-select: none;
+
+								border-top: 2px solid black;
+								border-bottom: 2px solid black;
+								border-left: 2px solid rgb(36, 36, 36);
+								border-right: 2px solid rgb(36, 36, 36);
+
+								&:last-child {
+									border-right: none;
+								}
+							}
+
+							&:nth-child(odd) {
+								background-color: rgba(156, 95, 9, 0.61);
+							}
+
+							&:hover {
+								background-color: white;
+							}
+						}
+
+						.single-session-info {
+							td {
+								cursor: pointer;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		.session-info[data-isActive="true"] {
+			top: 0;
+			opacity: 1;
+			pointer-events: all;
+		}
+	}
+
+	.cstmAlertBox {
+		position: absolute;
+		top: 40%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		z-index: 1000000000000;
+		width: 0;
+		height: 0;
+		opacity: 0;
+		transition: 0.4s;
+		border-radius: 25px;
+		background-color: rgba(78, 76, 76, 0.89);
+		display: none;
 		flex-direction: column;
-		flex-grow: 1;
-		border-left: 3px solid $anbar-info-data-dividing-line-color;
+		justify-content: space-around;
+		align-items: center;
 
-    .smallNav {
-      background-color: $anbar-info-small-nav-background-color;
-      position: relative;
-      display: flex;
-      align-items: center;
-      padding: 0 7px;
-  
-      &::before {
-        content: "";
-        display: block;
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 10;
-  
-        background-color: $anbar-info-small-nav-background-color;
-      }
-  
-      #showOverallInfo,
-      #hideShowTreeView,
-      #expandTreeView,
-      #closeTreeView,
-      #changeNameBtn,
-      #addNewProductBtn {
-        z-index: 100;
-        border: 2px solid $anbar-info-small-nav-btn-border-color;
-        background-color: $anbar-info-small-nav-btn-background-color;
-        margin-right: 10px;
-  
-        &:hover {
-          background-color: $anbar-info-small-nav-btn-background-hover-color;
-        }
-  
-        &::after {
-          background-color: $anbar-info-small-nav-btn-background-clicked-color;
-        }
-  
-        p {
-          color: $anbar-info-small-nav-btn-text-color;
-        }
-      }
-  
-      #showOverallInfo[data-isClicked="true"],
-      #hideShowTreeView[data-isClicked="true"],
-      #expandTreeView[data-isClicked="true"],
-      #closeTreeView[data-isClicked="true"],
-      #changeNameBtn[data-isClicked="true"],
-      #addNewProductBtn[data-isClicked="true"] {
-        &::after {
-          width: 230px;
-          height: 230px;
-        }
-  
-        border: 2px solid $anbar-info-small-nav-btn-border-clicked-color;
-  
-        p {
-          color: $anbar-info-small-nav-btn-text-clicked-color;
-        }
-      }
-  
-      #showOverallInfo[data-isClicked="false"] {
-        &::after {
-          transition-delay: $overall-box-fade-out-animation-delay;
-        }
-      }
-    }
-  
-    .anbarAddPages{
-      width: 100%;
-      height: 100%;
+		.up {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
 
-      .anbarAddAddNewProduct{
-        position: relative;
-        top: 0;
-        left: 0;
+			.alertTitle {
+				font-size: 1.5rem;
+				font-weight: bold;
+				color: white;
+				padding-bottom: 15px;
+			}
+			p {
+				font-size: 1.1rem;
+				color: white;
+			}
+		}
 
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        height: 100%;
+		.down {
+			display: flex;
+			justify-content: space-around;
+			align-items: center;
+			width: 60%;
 
-        display: none;
-        opacity: 0;
-        pointer-events: none;
+			button {
+				font-size: 1.3rem;
+				font-weight: 500;
+				background-color: rgb(32, 32, 32);
+				border: 2px solid rgb(32, 32, 32);
+				color: white;
+				padding: 5px 20px;
+				transition: 0.3s;
+				cursor: pointer;
+				outline: none;
 
-        transition: 0.6s opacity;
-      }
-      .anbarAddAddNewProduct[isActive="true"]{
-        display: block;
-        opacity: 1;
-        pointer-events: all;
-      }
-  
-      .anbarAddMainAddProduct{
-        position: relative;
-        top: 0;
-        left: 0;
-        
-        flex-direction: column;
-        width: 100%;
-        height: 100%;
-        
-        display: none;
-        opacity: 0;
-        pointer-events: none;
-        
-        transition: 0.6s opacity;
+				&:hover {
+					transform: scale(1.1);
+				}
+			}
 
-        .productName{
-          padding-top: 30px;
-          width: 100%;
-          height: 15%;
-          text-align: center;
-          
-          p{
-            font-size: 1.6rem;
-            font-weight: bold;
-            text-decoration: underline;
-          }
-        }
-
-        .details{
-          width: 100%;
-          height: 45%;
-          display: flex;
-
-          .right,
-          .left{
-            padding-right: 30px;
-            padding-left: 30px;
-
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: space-between;
-            width: 50%;
-            height: 100%;
-
-            input{
-              outline: none;
-              font-size: 1.2rem;
-              font-weight: bold;
-              width: 170px;
-            }
-
-            select{
-              width: 170px;
-              outline: none;
-              font-size: 1.2rem;
-              font-weight: bold;
-            }
-          }
-        }
-
-        .reason{
-          padding: 5px;
-          width: 100%;
-          height: 25%;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-
-          textarea{
-            resize: none;
-            width: 60%;
-            height: 60%;
-
-            outline: none;
-            font-size: 1.2rem;
-          }
-        }
-
-        .btns{
-          width: 100%;
-          height: 15%;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-
-          #submitMainAddProduct{
-            padding: 10px 15px;
-            cursor: pointer;
-          }
-        }
-      }
-      .anbarAddMainAddProduct[isActive="true"]{
-        display: flex;
-        opacity: 1;
-        pointer-events: all;
-      }
-
-      .anbarAddChangeName{
-        opacity: 0;
-        pointer-events: none;
-
-        position: absolute;
-        left: 100px;
-        top: 100px;
-
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        align-items: left;
-        padding: 15px 20px;
-        background-color: rgb(100, 69, 10);
-        transition: 0.6s opacity;
-        border: 2px solid black;
-        border-radius: 10%;
-        z-index: 1000;
-
-        &::before{
-          position: absolute;
-          left: -15px;
-          top: 50%;
-          content: "\25B6";
-          font-size: 1.2rem;
-          color: black;
-          display: inline-block;
-          transform: rotate(180deg);
-        }
-
-        p{
-          color: white;
-          padding: 5px 5px 10px 5px;
-          font-size: 1.3rem;
-
-          span{
-            color: inherit;
-            font-size: inherit;
-            font-weight: bold;
-          }
-        }
-
-        .down{
-          display: flex;
-
-          input{
-            font-size: 1.3rem;
-            font-weight: bold;
-            outline: none;
-          }
-        }
-        .submit{
-          button{
-            font-size: 1.3rem;
-            outline: none;
-            background-color: transparent;
-            padding: 4px 7px;
-            border: 2px solid white;
-            color: white;
-            cursor: pointer;
-            transition: 0.4s;
-            
-            &:hover{
-              transform: scale(1.1);
-              background-color: rgb(190, 189, 189);
-            }
-          }
-        }
-      }
-      .anbarAddChangeName[isActive="true"]{
-        opacity: 1;
-        pointer-events: all;
-      }
-    }
-  }
+			#alertYes {
+				background-color: red;
+				border: 2px solid red;
+			}
+		}
+	}
 }
