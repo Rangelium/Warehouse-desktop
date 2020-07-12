@@ -2,7 +2,7 @@ let config = {
 	user: "oper",
 	password: "fox12",
 	server: "172.16.3.42",
-	database: "main",
+	database: "maincopy",
 	"options": {
 		"encrypt": true,
 		"enableArithAbort": true
