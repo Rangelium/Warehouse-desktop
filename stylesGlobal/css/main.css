@@ -2467,80 +2467,48 @@ nav .settings-container .dropdown[data-isOpened="true"] {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
-.anbarRemove .treeViewContainer {
-  background-color: rgba(110, 68, 9, 0.404);
-  overflow-y: scroll;
-  overflow-x: hidden;
-  direction: rtl;
+.anbarRemove .sessionSelected {
+  border-color: #111194 !important;
+  -webkit-box-shadow: 4px 4px 4px 0px rgba(1, 0, 66, 0.644);
+          box-shadow: 4px 4px 4px 0px rgba(1, 0, 66, 0.644);
+  border-radius: 0 !important;
 }
 
-.anbarRemove .treeViewContainer .searchContainer {
-  position: -webkit-sticky;
-  position: sticky;
-  top: 0;
+.anbarRemove .sessionsPart {
+  overflow: hidden;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  -webkit-transition: ease-out 200ms;
+  transition: ease-out 200ms;
 }
 
-.anbarRemove .treeViewContainer .searchContainer p {
-  font-family: sans-serif;
-  position: absolute;
-  display: block;
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-          transform: translateY(-50%);
-  right: 10px;
-  font-size: 1.8rem;
-  cursor: pointer;
-  z-index: 100;
-  color: #b6b0b0;
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
+.anbarRemove .sessionsPart:hover {
+  -webkit-box-flex: 2;
+      -ms-flex: 2;
+          flex: 2;
+  -webkit-transition: ease-in 200ms;
+  transition: ease-in 200ms;
 }
 
-.anbarRemove .treeViewContainer .searchContainer p:hover {
-  color: #fff;
-}
-
-.anbarRemove .treeViewContainer .searchContainer #searchInputBox {
-  direction: ltr;
-  width: 100%;
+.anbarRemove .sessionsPart button.createSessionPartButton {
+  font-size: 18px;
+  background-color: #8fb1f0;
   padding: 10px;
-  font-size: 1.45rem;
+  border: 1px solid black;
+  cursor: pointer;
+  margin-top: 10px;
+  margin-left: 10px;
   outline: none;
-  border: 3px solid transparent;
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
-  background-color: rgba(110, 68, 9, 0.404);
-  font-weight: 500;
-  color: #fff;
 }
 
-.anbarRemove .treeViewContainer .searchContainer #searchInputBox::-webkit-input-placeholder {
-  color: #ffffff;
-  font-weight: bold;
-}
-
-.anbarRemove .treeViewContainer .searchContainer #searchInputBox:-ms-input-placeholder {
-  color: #ffffff;
-  font-weight: bold;
-}
-
-.anbarRemove .treeViewContainer .searchContainer #searchInputBox::-ms-input-placeholder {
-  color: #ffffff;
-  font-weight: bold;
-}
-
-.anbarRemove .treeViewContainer .searchContainer #searchInputBox::placeholder {
-  color: #ffffff;
-  font-weight: bold;
-}
-
-.anbarRemove .treeViewContainer .searchContainer #searchInputBox:focus, .anbarRemove .treeViewContainer .searchContainer #searchInputBox:hover {
-  border: 3px solid #09acec;
-}
-
-.anbarRemove .anbarRemoveData {
+.anbarRemove .sessionsPart .sessionSelectionPart {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -2548,145 +2516,172 @@ nav .settings-container .dropdown[data-isOpened="true"] {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  -webkit-box-flex: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
-  border-left: 3px solid #3a3838;
-}
-
-.anbarRemove .anbarRemoveData .smallNav {
-  background-color: rgba(110, 68, 9, 0.404);
-  position: relative;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  padding: 0 7px;
 }
 
-.anbarRemove .anbarRemoveData .smallNav::before {
-  content: "";
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 10;
-  background-color: rgba(110, 68, 9, 0.404);
+.anbarRemove .sessionsPart .sessionSelectionPart .sessionsInputs {
+  width: 45vw;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin: 5vh auto;
 }
 
-.anbarRemove .anbarRemoveData .smallNav #showOverallInfo,
-.anbarRemove .anbarRemoveData .smallNav #hideShowTreeView,
-.anbarRemove .anbarRemoveData .smallNav #expandTreeView,
-.anbarRemove .anbarRemoveData .smallNav #closeTreeView {
-  z-index: 100;
-  border: 2px solid #1dc4ee;
-  background-color: #9cdef841;
-  margin-right: 10px;
+.anbarRemove .sessionsPart .sessionSelectionPart .sessionsInputs .sessionsInputBlock {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
-.anbarRemove .anbarRemoveData .smallNav #showOverallInfo:hover,
-.anbarRemove .anbarRemoveData .smallNav #hideShowTreeView:hover,
-.anbarRemove .anbarRemoveData .smallNav #expandTreeView:hover,
-.anbarRemove .anbarRemoveData .smallNav #closeTreeView:hover {
-  background-color: #00aff541;
+.anbarRemove .sessionsPart .sessionCreatePart {
+  display: none;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
-.anbarRemove .anbarRemoveData .smallNav #showOverallInfo::after,
-.anbarRemove .anbarRemoveData .smallNav #hideShowTreeView::after,
-.anbarRemove .anbarRemoveData .smallNav #expandTreeView::after,
-.anbarRemove .anbarRemoveData .smallNav #closeTreeView::after {
-  background-color: white;
+.anbarRemove .sessionsPart .sessionCreatePart .sessionInputBlock {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
-.anbarRemove .anbarRemoveData .smallNav #showOverallInfo p,
-.anbarRemove .anbarRemoveData .smallNav #hideShowTreeView p,
-.anbarRemove .anbarRemoveData .smallNav #expandTreeView p,
-.anbarRemove .anbarRemoveData .smallNav #closeTreeView p {
-  color: white;
+.anbarRemove .sessionsPart .sessionCreatePart .sessionGetBack {
+  -ms-flex-item-align: start;
+      align-self: flex-start;
+  -ms-grid-column-align: self-start;
+      justify-self: self-start;
+  margin-left: 5vw;
 }
 
-.anbarRemove .anbarRemoveData .smallNav #showOverallInfo[data-isClicked="true"],
-.anbarRemove .anbarRemoveData .smallNav #hideShowTreeView[data-isClicked="true"],
-.anbarRemove .anbarRemoveData .smallNav #expandTreeView[data-isClicked="true"],
-.anbarRemove .anbarRemoveData .smallNav #closeTreeView[data-isClicked="true"] {
-  border: 2px solid #000;
-}
-
-.anbarRemove .anbarRemoveData .smallNav #showOverallInfo[data-isClicked="true"]::after,
-.anbarRemove .anbarRemoveData .smallNav #hideShowTreeView[data-isClicked="true"]::after,
-.anbarRemove .anbarRemoveData .smallNav #expandTreeView[data-isClicked="true"]::after,
-.anbarRemove .anbarRemoveData .smallNav #closeTreeView[data-isClicked="true"]::after {
-  width: 230px;
-  height: 230px;
-}
-
-.anbarRemove .anbarRemoveData .smallNav #showOverallInfo[data-isClicked="true"] p,
-.anbarRemove .anbarRemoveData .smallNav #hideShowTreeView[data-isClicked="true"] p,
-.anbarRemove .anbarRemoveData .smallNav #expandTreeView[data-isClicked="true"] p,
-.anbarRemove .anbarRemoveData .smallNav #closeTreeView[data-isClicked="true"] p {
-  color: #000;
-}
-
-.anbarRemove .anbarRemoveData .smallNav #showOverallInfo[data-isClicked="false"]::after {
-  -webkit-transition-delay: 0.5s;
-          transition-delay: 0.5s;
-}
-
-.anbarRemove .anbarRemoveData .anbarRemovePages {
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-
-.anbarRemove .anbarRemoveData .anbarRemovePages .productTableInfo {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
-  opacity: 0;
-  pointer-events: none;
-}
-
-.anbarRemove .anbarRemoveData .anbarRemovePages .productTableInfo p {
-  padding-top: 25px;
-  padding-bottom: 35px;
-  text-align: center;
-  font-size: 1.4rem;
+.anbarRemove .sessionsPart label {
+  font-size: 20px;
   font-weight: bold;
-  width: 100%;
 }
 
-.anbarRemove .anbarRemoveData .anbarRemovePages .productTableInfo .anbar-remove-table-data {
-  width: 100%;
-  height: 100%;
+.anbarRemove .sessionsPart input.sessionsDateInput {
+  margin-top: 3vh;
+  font-size: 25px;
+  width: 20vw;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.anbarRemove .sessionsPart input.sessionsDateInput:focus, .anbarRemove .sessionsPart input.sessionsDateInput:active {
+  outline: 2px solid #212174;
+}
+
+.anbarRemove .sessionsPart .sessionListPart {
+  display: none;
+  margin-top: 5vh;
+  height: 50vh;
+}
+
+.anbarRemove .sessionsPart .sessionListPart .sessionGetBack {
+  margin-bottom: -5vh;
+  margin-left: 5vw;
+}
+
+.anbarRemove .sessionsPart .sessionListPart .sessionTables {
   overflow-y: scroll;
-  overflow-x: hidden;
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
-  position: relative;
+  width: 60%;
+  max-height: 50vh;
+  padding: 20px 40px;
+  margin: 0 auto;
   /* Track */
   /* Handle */
 }
 
-.anbarRemove .anbarRemoveData .anbarRemovePages .productTableInfo .anbar-remove-table-data::-webkit-scrollbar {
+.anbarRemove .sessionsPart .sessionListPart .sessionTables .sessionContainer {
+  max-width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-radius: 13px;
+  cursor: pointer;
+}
+
+.anbarRemove .sessionsPart .sessionListPart .sessionTables .sessionContainer:not(:first-child) {
+  margin-top: 15px;
+}
+
+.anbarRemove .sessionsPart .sessionListPart .sessionTables .sessionTable {
+  width: 100%;
+  border: 3px solid black;
+  border-radius: 13px;
+}
+
+.anbarRemove .sessionsPart .sessionListPart .sessionTables .sessionTableHeader {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  color: whitesmoke;
+  background: #8d560d;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  padding: 18px 0;
+}
+
+.anbarRemove .sessionsPart .sessionListPart .sessionTables .sessionTableRow {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background: white;
+  width: 100%;
+  padding: 18px 0;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.anbarRemove .sessionsPart .sessionListPart .sessionTables .sessionTableData, .anbarRemove .sessionsPart .sessionListPart .sessionTables .sessionHeaderItem {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 20%;
+          flex: 1 1 20%;
+  text-align: center;
+}
+
+.anbarRemove .sessionsPart .sessionListPart .sessionTables .sessionHeaderItem {
+  text-transform: uppercase;
+}
+
+.anbarRemove .sessionsPart .sessionListPart .sessionTables::-webkit-scrollbar {
   width: 10px;
 }
 
-.anbarRemove .anbarRemoveData .anbarRemovePages .productTableInfo .anbar-remove-table-data::-webkit-scrollbar-track {
+.anbarRemove .sessionsPart .sessionListPart .sessionTables::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
           box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
   border-radius: 10px;
   border-radius: 10px;
 }
 
-.anbarRemove .anbarRemoveData .anbarRemovePages .productTableInfo .anbar-remove-table-data::-webkit-scrollbar-thumb {
+.anbarRemove .sessionsPart .sessionListPart .sessionTables::-webkit-scrollbar-thumb {
   border-radius: 10px;
   border-radius: 10px;
   background: #797979;
@@ -2694,66 +2689,475 @@ nav .settings-container .dropdown[data-isOpened="true"] {
           box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
 }
 
-.anbarRemove .anbarRemoveData .anbarRemovePages .productTableInfo .anbar-remove-table-data .singleProductTable {
-  width: 100%;
-  border-collapse: collapse;
-  position: relative;
+.anbarRemove .sessionsInfoPart {
+  overflow: hidden;
+  border-top: 1px solid #242323;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  -webkit-transition: ease-out 200ms;
+  transition: ease-out 200ms;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
-.anbarRemove .anbarRemoveData .anbarRemovePages .productTableInfo .anbar-remove-table-data .singleProductTable thead th {
-  cursor: default;
-  font-size: 1.2rem;
-  padding: 0 10px;
-  border-top: 2px solid black;
-  border-bottom: 3px solid black;
-  border-right: 2px solid black;
-  background-color: transparent;
+.anbarRemove .sessionsInfoPart:hover {
+  -webkit-box-flex: 2;
+      -ms-flex: 2;
+          flex: 2;
+  -webkit-transition: ease-in 200ms;
+  transition: ease-in 200ms;
 }
 
-.anbarRemove .anbarRemoveData .anbarRemovePages .productTableInfo .anbar-remove-table-data .singleProductTable tbody tr {
-  cursor: pointer;
-  background-color: rgba(231, 182, 113, 0.568);
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
-}
-
-.anbarRemove .anbarRemoveData .anbarRemovePages .productTableInfo .anbar-remove-table-data .singleProductTable tbody tr td {
-  padding: 5px 10px;
-  text-align: center;
-  font-size: 1.1rem;
-  cursor: default;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
-  border-top: 2px solid black;
-  border-bottom: 2px solid black;
-  border-left: 2px solid #242424;
-  border-right: 2px solid #242424;
-}
-
-.anbarRemove .anbarRemoveData .anbarRemovePages .productTableInfo .anbar-remove-table-data .singleProductTable tbody tr td:last-child {
-  border-right: none;
-}
-
-.anbarRemove .anbarRemoveData .anbarRemovePages .productTableInfo .anbar-remove-table-data .singleProductTable tbody tr:nth-child(odd) {
-  background-color: rgba(156, 95, 9, 0.61);
-}
-
-.anbarRemove .anbarRemoveData .anbarRemovePages .productTableInfo .anbar-remove-table-data .singleProductTable tbody tr:hover {
-  background-color: white;
-}
-
-.anbarRemove .anbarRemoveData .anbarRemovePages .removeProductForm {
+.anbarRemove .sessionsInfoPart .addNewSessionInfo {
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+  display: none;
   position: absolute;
-  top: 0;
-  left: 0;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  bottom: 0;
+}
+
+.anbarRemove .sessionsInfoPart .addNewSessionInfo button {
+  background-color: #1ac91a;
+  font-size: 24px;
+  padding: 10px 20px;
+  margin-bottom: 5vh;
+  margin-right: 1vw;
+  border: 1px solid black;
+  cursor: pointer;
+}
+
+.anbarRemove .sessionsInfoPart .sessionInfoList {
+  display: none;
+  margin-top: 5vh;
+  height: 50vh;
+}
+
+.anbarRemove .sessionsInfoPart .sessionInfoList .sessionInfoTables {
+  overflow-y: scroll;
+  width: 80%;
+  max-height: 50vh;
+  padding: 15px 30px;
+  margin: 0 auto;
+  /* Track */
+  /* Handle */
+}
+
+.anbarRemove .sessionsInfoPart .sessionInfoList .sessionInfoTables .sessionInfoContainer {
+  max-width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-radius: 13px;
+  cursor: pointer;
+}
+
+.anbarRemove .sessionsInfoPart .sessionInfoList .sessionInfoTables .sessionInfoContainer:not(:first-child) {
+  margin-top: 15px;
+}
+
+.anbarRemove .sessionsInfoPart .sessionInfoList .sessionInfoTables .sessionInfoTable {
   width: 100%;
-  height: 100%;
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
-  opacity: 0;
-  pointer-events: none;
+  border: 3px solid black;
+  border-radius: 13px;
+}
+
+.anbarRemove .sessionsInfoPart .sessionInfoList .sessionInfoTables .sessionInfoTableHeader {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  font-size: 16px !important;
+  width: 100%;
+  color: whitesmoke;
+  background: #8d560d;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  padding: 18px 0;
+}
+
+.anbarRemove .sessionsInfoPart .sessionInfoList .sessionInfoTables .sessionInfoTableRow {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background: white;
+  width: 100%;
+  padding: 18px 0;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.anbarRemove .sessionsInfoPart .sessionInfoList .sessionInfoTables .sessionInfoTableData, .anbarRemove .sessionsInfoPart .sessionInfoList .sessionInfoTables .sessionInfoHeaderItem {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 20%;
+          flex: 1 1 20%;
+  text-align: center;
+}
+
+.anbarRemove .sessionsInfoPart .sessionInfoList .sessionInfoTables .sessionInfoHeaderItem {
+  text-transform: uppercase;
+}
+
+.anbarRemove .sessionsInfoPart .sessionInfoList .sessionInfoTables::-webkit-scrollbar {
+  width: 10px;
+}
+
+.anbarRemove .sessionsInfoPart .sessionInfoList .sessionInfoTables::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+          box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  border-radius: 10px;
+}
+
+.anbarRemove .sessionsInfoPart .sessionInfoList .sessionInfoTables::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  border-radius: 10px;
+  background: #797979;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+          box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+}
+
+.anbarRemove button.sessionAcceptButton {
+  margin: 10px auto;
+  background-color: #4bcc4b;
+  font-size: 24px;
+  padding: 15px 0;
+  width: 20vw;
+  border: 1px solid black;
+  cursor: pointer;
+  outline: none;
+}
+
+.anbarRemove button.getBackButton {
+  background-color: #a5702a;
+  font-size: 20px;
+  padding: 5px;
+  cursor: pointer;
+  border: 1px solid black;
+  outline: none;
+}
+
+.anbarRemove .sessionsInfoNewInputs {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  overflow: hidden;
+  -webkit-transition: ease-out 200ms;
+  transition: ease-out 200ms;
+  display: none;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.anbarRemove .sessionsInfoNewInputs .sessionInfoNewGetBack {
+  -ms-flex-item-align: start;
+      align-self: flex-start;
+}
+
+.anbarRemove .sessionsInfoNewInputs .sessionInfoNewGetBack button {
+  background-color: #a5702a;
+  border: 1px solid black;
+  font-size: 24px;
+  padding: 10px;
+  cursor: pointer;
+  margin-top: 3vh;
+  margin-left: 2vw;
+}
+
+.anbarRemove .sessionsInfoNewInputs .sessionInfoInputWrapper {
+  -ms-flex-item-align: center;
+      align-self: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: 65vw;
+}
+
+.anbarRemove .sessionsInfoNewInputs .sessionInfoInputBlock {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.anbarRemove .sessionsInfoNewInputs input.sessionInfoNewInput {
+  margin-top: 5px;
+  font-size: 20px;
+  width: 15vw;
+  cursor: pointer;
+  padding: 5px;
+  height: 5vh;
+}
+
+.anbarRemove .sessionsInfoNewInputs input.sessionInfoNewInput:focus, .anbarRemove .sessionsInfoNewInputs input.sessionInfoNewInput:active {
+  outline: 2px solid #212174;
+}
+
+.anbarRemove .sessionsInfoNewInputs select.sessionInfoSelectCurrency {
+  background-color: white;
+  font-size: 18px;
+  padding: 5px;
+  margin-top: 5px;
+  height: 5vh;
+  width: 15vw;
+  border: 1px solid black;
+  outline: none;
+  text-align: center;
+  cursor: pointer;
+}
+
+.anbarRemove .sessionsInfoNewInputs select.sessionInfoSelectCurrency option {
+  outline: none;
+  font-size: 16px;
+  text-align: center;
+  background: #c7c7c7;
+  cursor: pointer;
+}
+
+.anbarRemove .sessionsInfoNewInputs select.sessionInfoSelectCurrency option:hover {
+  cursor: pointer;
+}
+
+.anbarRemove .sessionsInfoNewInputs .submitSessionInfo {
+  margin-top: 5vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.anbarRemove .sessionsInfoNewInputs .submitSessionInfo button {
+  margin: 0 auto;
+  background-color: #4bcc4b;
+  border: 1px solid black;
+  font-size: 34px;
+  padding: 10px 20px;
+  cursor: pointer;
+  outline: none;
+}
+
+.anbarRemove .sessionsInfoNewInputs:hover {
+  -webkit-box-flex: 2;
+      -ms-flex: 2;
+          flex: 2;
+  -webkit-transition: ease-in 200ms;
+  transition: ease-in 200ms;
+}
+
+.anbarRemove .sessionsInfoSearch {
+  display: none;
+  border-top: 1px solid #242323;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  overflow: hidden;
+  -webkit-transition: ease-out 200ms;
+  transition: ease-out 200ms;
+}
+
+.anbarRemove .sessionsInfoSearch .sessionsInfoSearchInputBlock {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  height: 20vh;
+  margin-top: 10vh;
+}
+
+.anbarRemove .sessionsInfoSearch .sessionsInfoSearchInputBlock input.infoSearchInput {
+  font-size: 24px;
+  padding: 10px;
+  width: 20vw;
+  border-radius: 2px;
+  border: 1px solid black;
+  cursor: pointer;
+}
+
+.anbarRemove .sessionsInfoSearch .sessionsInfoSearchInputBlock input.infoSearchInput:active, .anbarRemove .sessionsInfoSearch .sessionsInfoSearchInputBlock input.infoSearchInput:focus {
+  outline: 2px solid #212174;
+}
+
+.anbarRemove .sessionsInfoSearch .sessionsInfoSearchInputBlock button.infoSearchSubmit {
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  border: 1px solid black;
+  border-radius: 2px;
+  background-color: #7979d1;
+  font-size: 24px;
+  padding: 10px 20px;
+  width: 20vw;
+  outline: none;
+  cursor: pointer;
+}
+
+.anbarRemove .sessionsInfoSearch .sessionsInfoSearchInputBlock button.infoSearchSubmit:hover {
+  border-width: 2px;
+}
+
+.anbarRemove .sessionsInfoSearch .sessionSearchResult {
+  display: none;
+  margin-top: 5vh;
+  height: 50vh;
+}
+
+.anbarRemove .sessionsInfoSearch .sessionSearchResult .sessionSearchTables {
+  overflow-y: scroll;
+  width: 70%;
+  max-height: 50vh;
+  padding: 15px 30px;
+  margin: 0 auto;
+  /* Track */
+  /* Handle */
+}
+
+.anbarRemove .sessionsInfoSearch .sessionSearchResult .sessionSearchTables .sessionSearchContainer {
+  max-width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-radius: 13px;
+  cursor: pointer;
+}
+
+.anbarRemove .sessionsInfoSearch .sessionSearchResult .sessionSearchTables .sessionSearchContainer:not(:first-child) {
+  margin-top: 15px;
+}
+
+.anbarRemove .sessionsInfoSearch .sessionSearchResult .sessionSearchTables .sessionSearchTable {
+  width: 100%;
+  border: 3px solid black;
+  border-radius: 13px;
+}
+
+.anbarRemove .sessionsInfoSearch .sessionSearchResult .sessionSearchTables .sessionSearchTableHeader {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  font-size: 16px !important;
+  width: 100%;
+  color: whitesmoke;
+  background: #8d560d;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  padding: 18px 0;
+}
+
+.anbarRemove .sessionsInfoSearch .sessionSearchResult .sessionSearchTables .sessionSearchTableRow {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background: white;
+  width: 100%;
+  padding: 18px 0;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.anbarRemove .sessionsInfoSearch .sessionSearchResult .sessionSearchTables .sessionSearchTableData, .anbarRemove .sessionsInfoSearch .sessionSearchResult .sessionSearchTables .sessionSearchHeaderItem {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 20%;
+          flex: 1 1 20%;
+  text-align: center;
+}
+
+.anbarRemove .sessionsInfoSearch .sessionSearchResult .sessionSearchTables .sessionSearchHeaderItem {
+  text-transform: uppercase;
+}
+
+.anbarRemove .sessionsInfoSearch .sessionSearchResult .sessionSearchTables::-webkit-scrollbar {
+  width: 10px;
+}
+
+.anbarRemove .sessionsInfoSearch .sessionSearchResult .sessionSearchTables::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+          box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  border-radius: 10px;
+}
+
+.anbarRemove .sessionsInfoSearch .sessionSearchResult .sessionSearchTables::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  border-radius: 10px;
+  background: #797979;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+          box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+}
+
+.anbarRemove .sessionsInfoSearch .sessionSearchGetBack {
+  display: none;
+  position: absolute;
+}
+
+.anbarRemove .sessionsInfoSearch .sessionSearchGetBack button {
+  background-color: #a5702a;
+  border: 1px solid black;
+  font-size: 24px;
+  padding: 10px;
+  cursor: pointer;
+  margin-top: 3vh;
+  margin-left: 2vw;
+}
+
+.anbarRemove .sessionsInfoSearch:hover {
+  -webkit-box-flex: 2;
+      -ms-flex: 2;
+          flex: 2;
+  -webkit-transition: ease-in 200ms;
+  transition: ease-in 200ms;
 }
 
 .packaging {
