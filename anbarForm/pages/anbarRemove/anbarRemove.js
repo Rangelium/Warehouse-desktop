@@ -223,6 +223,7 @@ async function showProductTableInfo(productData) {
 // Load treeView from start
 poolConnect.then((pool) => {
 	pool.request().execute("dbo.warehouse_tree_select", (err, res) => {
+		console.log(res.recordset)
 		feelTree(res.recordset);
 	});
 });

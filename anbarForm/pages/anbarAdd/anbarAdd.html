@@ -1,85 +1,95 @@
-<aside class="treeViewContainer">
-	<div class="searchContainer">
-		<input type="text" placeholder="Type to search" id="searchInputBox" />
-		<p id="clearSearchBox">✖</p>
-	</div>
-</aside>
 <section class="anbarAddData">
-	<div class="smallNav">
-    <div class="btn-type1" id="addNewProductBtn"><p>Add product</p></div>
-    <div class="btn-type1" id="changeNameBtn"><p>Change name</p></div>
-    <div class="btn-type1" id="hideShowTreeView"><p>Hide/Show TreeView</p></div>
-		<div class="btn-type1" id="expandTreeView"><p>Expand TreeView</p></div>
-		<div class="btn-type1" id="closeTreeView"><p>Close TreeView</p></div>
-  </div>
-  
-  <div class="anbarAddPages">
-    <div class="anbarAddAddNewProduct">
-      <h1>Coming Soon</h1>
-    </div>
-    <div class="anbarAddChangeName">
-      <div class="up">
-        <p>Previous name: <span id="productPrevName"></span></p>
-      </div>
-      <div class="down">
-        <p>New name: </p>
-        <input id="changeNameNewName" type="text" placeholder="Type new name here">
-      </div>
-      <div class="submit">
-        <button id="submitChangeName">Submit</button>
-      </div>
-    </div>
-    <div class="anbarAddMainAddProduct">
-      <div class="productName">
-        <p id="productName"></p>
-      </div>
-      <div class="details">
-        <div class="left">
-          <div class="row">
-            <p>Amount of product:</p>
-            <input id="amountOfProduct" type="number" min="1">
-          </div>
-          <div class="row">
-            <p>Price:</p>
-            <input id="productPrice" type="number" min="1">
-          </div>
-          <div class="row">
-            <p>Current date:</p>
-            <input id="productCurrDate" type="date">
-          </div>
-          <div class="row">
-            <p>Expiration date:</p>
-            <input id="productExpDate" type="date">
-          </div>
-        </div>
-        <div class="right">
-          <div class="row">
-            <p>Cluster:</p>
-            <select id="productCluster">
-            </select>
-          </div>
-          <div class="row">
-            <p>Currency:</p>
-            <select id="productCurrency">
-            </select>
-          </div>
-          <div class="row">
-            <p>Product Cell:</p>
-            <input id="productCell" type="number" min="1">
-          </div>
-          <div class="row">
-            <p>VOEN:</p>
-            <input id="productVOEN" type="number" min="1">
-          </div>
-        </div>
-      </div>
-      <div class="reason">
-        <p>Reason:</p>
-        <textarea id="productReason" cols="30" rows="10"></textarea>
-      </div>
-      <div class="btns">
-        <button id="submitMainAddProduct">Add product</button>
-      </div>
-    </div>
-  </div>
+	<div class="cstmAlertBox">
+		<div class="up">
+			<p class="alertTitle">!Warning!</p>
+			<p id="alertMessage">asdadsad</p>
+		</div>
+		<div class="down">
+			<button id="alertNo">No</button>
+			<button id="alertYes">Yes</button>
+		</div>
+	</div>
+	<div class="anbarAdd-container">
+		<div class="anbarAddInfo">
+			<div id="anbarAddShowInfoBtn" class="closedState">
+				<img src="../stylesGlobal/imgs/new_btn.svg" />
+			</div>
+			<div class="openedState">
+				<div class="container">
+					<h1>Here is the list of features of this page:</h1>
+					<ul>
+						<li>
+							You can change size of main "Bulks" and "Bulk's sessions" tables by
+							moving your mouse between this 2 tables. Moving sign will appear and
+							then you can easily resize tables
+						</li>
+						<li>To modify table containing you can rigth click on needed bulk or session</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div id="optionsMenu">
+			<div id="optionsNew" class="optionsBtn">
+				<img src="../stylesGlobal/imgs/new_btn.svg" />
+			</div>
+			<div id="optionsDelete" class="optionsBtn">
+				<img src="../stylesGlobal/imgs/delete_btn.svg" />
+			</div>
+		</div>
+		<div class="bulks">
+			<div class="bulksSmallMenu">
+				<div class="bulksDate">
+					<div class="groupDate">
+						<p>From:</p>
+						<input type="date" id="date_from" />
+					</div>
+					<div class="groupDate">
+						<p>To:</p>
+						<input type="date" id="date_to" />
+					</div>
+				</div>
+			</div>
+			<div class="addNewBulkForm">
+				<h1>Add new Bulk</h1>
+				<div class="container">
+					<div class="row">
+						<p>Begin date:</p>
+						<input type="date" id="addNewBulkBeginDate" />
+					</div>
+					<div class="row">
+						<p>Seller:</p>
+						<select id="addNewBulkSellers"></select>
+					</div>
+					<div class="row">
+						<button id="addNewBulkDiscardBtn">Discard</button>
+						<button id="addNewBulkSubmitBtn">Add</button>
+					</div>
+				</div>
+			</div>
+			<div class="bulks-table"></div>
+		</div>
+		<div class="moveableBorder"></div>
+		<div class="sessions">
+			<p id="defaultSessionsText">Click on the bulk to show bulk's sessions</p>
+			<div class="sessions-table"></div>
+			<div class="addNewSessionForm">
+				<h1>Add new session</h1>
+				<div class="container">
+					<div class="row">
+						<p>Begin date:</p>
+						<input type="date" id="addNewSessionBeginDate" />
+					</div>
+					<div class="row">
+						<button id="addNewSessionDiscardBtn">Discard</button>
+						<button id="addNewSessionSubmitBtn">Add</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="session-info">
+			<h1>Selected session's information</h1>
+			<button id="sessionInfoGoBackBtn">Return</button>
+			<div class="session-info-table"></div>
+		</div>
+	</div>
 </section>

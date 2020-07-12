@@ -1483,85 +1483,17 @@ nav .settings-container .dropdown[data-isOpened="true"] {
   background-color: white;
 }
 
-.anbarAdd {
+.anbarAddData {
+  width: 100vw;
+  height: 100vh;
   background-color: #a8a4a4;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  position: relative;
 }
 
-.anbarAdd .treeViewContainer {
-  background-color: rgba(110, 68, 9, 0.404);
-  overflow-y: scroll;
-  overflow-x: hidden;
-  direction: rtl;
-}
-
-.anbarAdd .treeViewContainer .searchContainer {
-  position: -webkit-sticky;
-  position: sticky;
-  top: 0;
-}
-
-.anbarAdd .treeViewContainer .searchContainer p {
-  font-family: sans-serif;
-  position: absolute;
-  display: block;
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-          transform: translateY(-50%);
-  right: 10px;
-  font-size: 1.8rem;
-  cursor: pointer;
-  z-index: 100;
-  color: #b6b0b0;
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
-}
-
-.anbarAdd .treeViewContainer .searchContainer p:hover {
-  color: #fff;
-}
-
-.anbarAdd .treeViewContainer .searchContainer #searchInputBox {
-  direction: ltr;
+.anbarAddData .anbarAdd-container {
+  position: relative;
+  height: 100%;
   width: 100%;
-  padding: 10px;
-  font-size: 1.45rem;
-  outline: none;
-  border: 3px solid transparent;
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
-  background-color: rgba(110, 68, 9, 0.404);
-  font-weight: 500;
-  color: #fff;
-}
-
-.anbarAdd .treeViewContainer .searchContainer #searchInputBox::-webkit-input-placeholder {
-  color: #ffffff;
-  font-weight: bold;
-}
-
-.anbarAdd .treeViewContainer .searchContainer #searchInputBox:-ms-input-placeholder {
-  color: #ffffff;
-  font-weight: bold;
-}
-
-.anbarAdd .treeViewContainer .searchContainer #searchInputBox::-ms-input-placeholder {
-  color: #ffffff;
-  font-weight: bold;
-}
-
-.anbarAdd .treeViewContainer .searchContainer #searchInputBox::placeholder {
-  color: #ffffff;
-  font-weight: bold;
-}
-
-.anbarAdd .treeViewContainer .searchContainer #searchInputBox:focus, .anbarAdd .treeViewContainer .searchContainer #searchInputBox:hover {
-  border: 3px solid #09acec;
-}
-
-.anbarAdd .anbarAddData {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1569,246 +1501,151 @@ nav .settings-container .dropdown[data-isOpened="true"] {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  -webkit-box-flex: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
-  border-left: 3px solid #3a3838;
+  overflow-y: hidden;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  -webkit-filter: brightness(100%);
+          filter: brightness(100%);
 }
 
-.anbarAdd .anbarAddData .smallNav {
-  background-color: rgba(110, 68, 9, 0.404);
-  position: relative;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  padding: 0 7px;
-}
-
-.anbarAdd .anbarAddData .smallNav::before {
-  content: "";
-  display: block;
+.anbarAddData .anbarAdd-container .anbarAddInfo {
+  pointer-events: none;
   position: absolute;
   top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 10;
-  background-color: rgba(110, 68, 9, 0.404);
+  right: 0;
+  z-index: 10000000;
+  width: 35%;
+  height: 35%;
 }
 
-.anbarAdd .anbarAddData .smallNav #showOverallInfo,
-.anbarAdd .anbarAddData .smallNav #hideShowTreeView,
-.anbarAdd .anbarAddData .smallNav #expandTreeView,
-.anbarAdd .anbarAddData .smallNav #closeTreeView,
-.anbarAdd .anbarAddData .smallNav #changeNameBtn,
-.anbarAdd .anbarAddData .smallNav #addNewProductBtn {
-  z-index: 100;
-  border: 2px solid #1dc4ee;
-  background-color: #9cdef841;
-  margin-right: 10px;
-}
-
-.anbarAdd .anbarAddData .smallNav #showOverallInfo:hover,
-.anbarAdd .anbarAddData .smallNav #hideShowTreeView:hover,
-.anbarAdd .anbarAddData .smallNav #expandTreeView:hover,
-.anbarAdd .anbarAddData .smallNav #closeTreeView:hover,
-.anbarAdd .anbarAddData .smallNav #changeNameBtn:hover,
-.anbarAdd .anbarAddData .smallNav #addNewProductBtn:hover {
-  background-color: #00aff541;
-}
-
-.anbarAdd .anbarAddData .smallNav #showOverallInfo::after,
-.anbarAdd .anbarAddData .smallNav #hideShowTreeView::after,
-.anbarAdd .anbarAddData .smallNav #expandTreeView::after,
-.anbarAdd .anbarAddData .smallNav #closeTreeView::after,
-.anbarAdd .anbarAddData .smallNav #changeNameBtn::after,
-.anbarAdd .anbarAddData .smallNav #addNewProductBtn::after {
-  background-color: white;
-}
-
-.anbarAdd .anbarAddData .smallNav #showOverallInfo p,
-.anbarAdd .anbarAddData .smallNav #hideShowTreeView p,
-.anbarAdd .anbarAddData .smallNav #expandTreeView p,
-.anbarAdd .anbarAddData .smallNav #closeTreeView p,
-.anbarAdd .anbarAddData .smallNav #changeNameBtn p,
-.anbarAdd .anbarAddData .smallNav #addNewProductBtn p {
-  color: white;
-}
-
-.anbarAdd .anbarAddData .smallNav #showOverallInfo[data-isClicked="true"],
-.anbarAdd .anbarAddData .smallNav #hideShowTreeView[data-isClicked="true"],
-.anbarAdd .anbarAddData .smallNav #expandTreeView[data-isClicked="true"],
-.anbarAdd .anbarAddData .smallNav #closeTreeView[data-isClicked="true"],
-.anbarAdd .anbarAddData .smallNav #changeNameBtn[data-isClicked="true"],
-.anbarAdd .anbarAddData .smallNav #addNewProductBtn[data-isClicked="true"] {
-  border: 2px solid #000;
-}
-
-.anbarAdd .anbarAddData .smallNav #showOverallInfo[data-isClicked="true"]::after,
-.anbarAdd .anbarAddData .smallNav #hideShowTreeView[data-isClicked="true"]::after,
-.anbarAdd .anbarAddData .smallNav #expandTreeView[data-isClicked="true"]::after,
-.anbarAdd .anbarAddData .smallNav #closeTreeView[data-isClicked="true"]::after,
-.anbarAdd .anbarAddData .smallNav #changeNameBtn[data-isClicked="true"]::after,
-.anbarAdd .anbarAddData .smallNav #addNewProductBtn[data-isClicked="true"]::after {
-  width: 230px;
-  height: 230px;
-}
-
-.anbarAdd .anbarAddData .smallNav #showOverallInfo[data-isClicked="true"] p,
-.anbarAdd .anbarAddData .smallNav #hideShowTreeView[data-isClicked="true"] p,
-.anbarAdd .anbarAddData .smallNav #expandTreeView[data-isClicked="true"] p,
-.anbarAdd .anbarAddData .smallNav #closeTreeView[data-isClicked="true"] p,
-.anbarAdd .anbarAddData .smallNav #changeNameBtn[data-isClicked="true"] p,
-.anbarAdd .anbarAddData .smallNav #addNewProductBtn[data-isClicked="true"] p {
-  color: #000;
-}
-
-.anbarAdd .anbarAddData .smallNav #showOverallInfo[data-isClicked="false"]::after {
-  -webkit-transition-delay: 0.5s;
-          transition-delay: 0.5s;
-}
-
-.anbarAdd .anbarAddData .anbarAddPages {
-  width: 100%;
-  height: 100%;
-}
-
-.anbarAdd .anbarAddData .anbarAddPages .anbarAddAddNewProduct {
-  position: relative;
-  top: 0;
-  left: 0;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  width: 100%;
-  height: 100%;
-  display: none;
-  opacity: 0;
-  pointer-events: none;
-  -webkit-transition: 0.6s opacity;
-  transition: 0.6s opacity;
-}
-
-.anbarAdd .anbarAddData .anbarAddPages .anbarAddAddNewProduct[isActive="true"] {
-  display: block;
-  opacity: 1;
+.anbarAddData .anbarAdd-container .anbarAddInfo .closedState {
   pointer-events: all;
+  position: absolute;
+  top: -70px;
+  right: -70px;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background-color: white;
+  opacity: 1;
+  -webkit-transition: 0.5s all, 0.4s background-color;
+  transition: 0.5s all, 0.4s background-color;
+  cursor: pointer;
 }
 
-.anbarAdd .anbarAddData .anbarAddPages .anbarAddMainAddProduct {
-  position: relative;
-  top: 0;
-  left: 0;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+.anbarAddData .anbarAdd-container .anbarAddInfo .closedState:hover {
+  background-color: #0088a9;
+}
+
+.anbarAddData .anbarAdd-container .anbarAddInfo .closedState:hover img {
+  -webkit-transform: scale(1.1) translate(-20%, -75%);
+          transform: scale(1.1) translate(-20%, -75%);
+}
+
+.anbarAddData .anbarAdd-container .anbarAddInfo .closedState img {
+  position: absolute;
+  top: 80%;
+  left: 25%;
+  -webkit-transform: translate(-20%, -75%);
+          transform: translate(-20%, -75%);
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  width: 45px;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+  opacity: 1;
+}
+
+.anbarAddData .anbarAdd-container .anbarAddInfo .closedState[data-isClicked=True] {
   width: 100%;
   height: 100%;
-  display: none;
-  opacity: 0;
-  pointer-events: none;
-  -webkit-transition: 0.6s opacity;
-  transition: 0.6s opacity;
+  background-color: #0088a9;
+  border-radius: 0;
+  border-bottom-left-radius: 30%;
+  top: 0;
+  right: 0;
 }
 
-.anbarAdd .anbarAddData .anbarAddPages .anbarAddMainAddProduct .productName {
-  padding-top: 30px;
+.anbarAddData .anbarAdd-container .anbarAddInfo .closedState[data-isClicked=True] img {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.anbarAddData .anbarAdd-container .anbarAddInfo .openedState {
+  pointer-events: none;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: #0088a9;
   width: 100%;
-  height: 15%;
+  height: 100%;
+  overflow: hidden;
+  border-bottom-left-radius: 20%;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+
+.anbarAddData .anbarAdd-container .anbarAddInfo .openedState .container {
+  padding: 20px;
+}
+
+.anbarAddData .anbarAdd-container .anbarAddInfo .openedState .container h1 {
+  width: 100%;
+  text-align: center;
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 500;
+  padding-bottom: 25px;
+}
+
+.anbarAddData .anbarAdd-container .anbarAddInfo .openedState .container ul {
+  position: relative;
+  left: 7px;
+  width: 100%;
   text-align: center;
 }
 
-.anbarAdd .anbarAddData .anbarAddPages .anbarAddMainAddProduct .productName p {
-  font-size: 1.6rem;
-  font-weight: bold;
-  text-decoration: underline;
+.anbarAddData .anbarAdd-container .anbarAddInfo .openedState .container ul li {
+  color: black;
+  font-size: 1.1rem;
+  font-weight: 300;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  cursor: default;
+  list-style: disc;
+  padding-bottom: 5px;
 }
 
-.anbarAdd .anbarAddData .anbarAddPages .anbarAddMainAddProduct .details {
-  width: 100%;
-  height: 45%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+.anbarAddData .anbarAdd-container .anbarAddInfo .openedState .container ul li:hover {
+  color: white;
 }
 
-.anbarAdd .anbarAddData .anbarAddPages .anbarAddMainAddProduct .details .right,
-.anbarAdd .anbarAddData .anbarAddPages .anbarAddMainAddProduct .details .left {
-  padding-right: 30px;
-  padding-left: 30px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  width: 50%;
-  height: 100%;
+.anbarAddData .anbarAdd-container .anbarAddInfo .openedState[data-isClicked=True] {
+  opacity: 1;
+  pointer-events: all;
+  z-index: 100000;
 }
 
-.anbarAdd .anbarAddData .anbarAddPages .anbarAddMainAddProduct .details .right input,
-.anbarAdd .anbarAddData .anbarAddPages .anbarAddMainAddProduct .details .left input {
-  outline: none;
-  font-size: 1.2rem;
-  font-weight: bold;
-  width: 170px;
+.anbarAddData .anbarAdd-container #optionsMenu {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1000000;
+  background-color: red;
 }
 
-.anbarAdd .anbarAddData .anbarAddPages .anbarAddMainAddProduct .details .right select,
-.anbarAdd .anbarAddData .anbarAddPages .anbarAddMainAddProduct .details .left select {
-  width: 170px;
-  outline: none;
-  font-size: 1.2rem;
-  font-weight: bold;
-}
-
-.anbarAdd .anbarAddData .anbarAddPages .anbarAddMainAddProduct .reason {
-  padding: 5px;
-  width: 100%;
-  height: 25%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-.anbarAdd .anbarAddData .anbarAddPages .anbarAddMainAddProduct .reason textarea {
-  resize: none;
-  width: 60%;
-  height: 60%;
-  outline: none;
-  font-size: 1.2rem;
-}
-
-.anbarAdd .anbarAddData .anbarAddPages .anbarAddMainAddProduct .btns {
-  width: 100%;
-  height: 15%;
+.anbarAddData .anbarAdd-container #optionsMenu .optionsBtn {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  opacity: 0;
+  background-color: #19beca;
+  border-radius: 50%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1818,105 +1655,811 @@ nav .settings-container .dropdown[data-isOpened="true"] {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-}
-
-.anbarAdd .anbarAddData .anbarAddPages .anbarAddMainAddProduct .btns #submitMainAddProduct {
-  padding: 10px 15px;
+  -webkit-transition: 0.5s all, 0.6s left;
+  transition: 0.5s all, 0.6s left;
   cursor: pointer;
 }
 
-.anbarAdd .anbarAddData .anbarAddPages .anbarAddMainAddProduct[isActive="true"] {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  opacity: 1;
-  pointer-events: all;
+.anbarAddData .anbarAdd-container #optionsMenu .optionsBtn img {
+  width: 65%;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
 }
 
-.anbarAdd .anbarAddData .anbarAddPages .anbarAddChangeName {
-  opacity: 0;
-  pointer-events: none;
-  position: absolute;
-  left: 100px;
-  top: 100px;
+.anbarAddData .anbarAdd-container #optionsMenu .optionsBtn:hover {
+  background-color: white;
+}
+
+.anbarAddData .anbarAdd-container #optionsMenu .optionsBtn:hover img {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
+.anbarAddData .anbarAdd-container #optionsMenu .optionsBtn[data-isActive="True"] {
+  -webkit-transition: 0.5s all, 0.6s left;
+  transition: 0.5s all, 0.6s left;
+  width: 35px;
+  height: 35px;
+  opacity: 1;
+}
+
+.anbarAddData .anbarAdd-container #optionsMenu #optionsNew[data-isActive="True"] {
+  top: -40px;
+}
+
+.anbarAddData .anbarAdd-container #optionsMenu #optionsDelete[data-isActive="True"] {
+  left: 33px;
+}
+
+.anbarAddData .anbarAdd-container #optionsMenu .optionsBtn[data-isActive="False"] {
+  -webkit-transition: 0s;
+  transition: 0s;
+}
+
+.anbarAddData .anbarAdd-container .bulks {
+  width: 100%;
+  height: 50%;
+  background: transparent;
+  padding-top: 15px;
+  overflow: hidden;
+}
+
+.anbarAddData .anbarAdd-container .bulks .bulksSmallMenu {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.anbarAddData .anbarAdd-container .bulks .bulksSmallMenu .bulksDate {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 40%;
+}
+
+.anbarAddData .anbarAdd-container .bulks .bulksSmallMenu .bulksDate .groupDate {
+  display: inherit;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.anbarAddData .anbarAdd-container .bulks .bulksSmallMenu .bulksDate .groupDate p {
+  color: black;
+  font-size: 1.3rem;
+  font-weight: 700;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  margin-right: 5px;
+}
+
+.anbarAddData .anbarAdd-container .bulks .bulksSmallMenu .bulksDate .groupDate input {
+  outline: none;
+  background-color: transparent;
+  color: black;
+  border: 2px solid black;
+  font-size: 1.1rem;
+  font-weight: bold;
+  -webkit-transition: 0.2s all, 0.4s -webkit-transform;
+  transition: 0.2s all, 0.4s -webkit-transform;
+  transition: 0.2s all, 0.4s transform;
+  transition: 0.2s all, 0.4s transform, 0.4s -webkit-transform;
+  width: 70%;
+  cursor: pointer;
+}
+
+.anbarAddData .anbarAdd-container .bulks .bulksSmallMenu .bulksDate .groupDate input:hover {
+  color: white;
+  border: 2px solid white;
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
+.anbarAddData .anbarAdd-container .bulks .bulks-table {
+  padding-top: 15px;
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  position: relative;
+  /* Track */
+  /* Handle */
+}
+
+.anbarAddData .anbarAdd-container .bulks .bulks-table::-webkit-scrollbar {
+  width: 10px;
+}
+
+.anbarAddData .anbarAdd-container .bulks .bulks-table::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+          box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  border-radius: 10px;
+}
+
+.anbarAddData .anbarAdd-container .bulks .bulks-table::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  border-radius: 10px;
+  background: #797979;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+          box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+}
+
+.anbarAddData .anbarAdd-container .bulks .bulks-table .anbarAddBulksTable {
+  width: 100%;
+  border-collapse: collapse;
+  position: relative;
+}
+
+.anbarAddData .anbarAdd-container .bulks .bulks-table .anbarAddBulksTable thead th {
+  cursor: default;
+  font-size: 1.2rem;
+  padding: 0 10px;
+  border-top: 2px solid black;
+  border-bottom: 3px solid black;
+  border-right: 2px solid black;
+  background-color: transparent;
+}
+
+.anbarAddData .anbarAdd-container .bulks .bulks-table .anbarAddBulksTable tbody tr {
+  background-color: rgba(231, 182, 113, 0.568);
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.anbarAddData .anbarAdd-container .bulks .bulks-table .anbarAddBulksTable tbody tr td {
+  padding: 5px 10px;
+  text-align: center;
+  font-size: 1.1rem;
+  cursor: default;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  border-top: 2px solid black;
+  border-bottom: 2px solid black;
+  border-left: 2px solid #242424;
+  border-right: 2px solid #242424;
+}
+
+.anbarAddData .anbarAdd-container .bulks .bulks-table .anbarAddBulksTable tbody tr td:last-child {
+  border-right: none;
+}
+
+.anbarAddData .anbarAdd-container .bulks .bulks-table .anbarAddBulksTable tbody tr:nth-child(odd) {
+  background-color: rgba(156, 95, 9, 0.61);
+}
+
+.anbarAddData .anbarAdd-container .bulks .bulks-table .anbarAddBulksTable tbody tr:hover {
+  background-color: white;
+}
+
+.anbarAddData .anbarAdd-container .bulks .bulks-table .anbarAddBulksTable tbody tr[data-isSelected="True"] {
+  background-color: #81949e !important;
+}
+
+.anbarAddData .anbarAdd-container .bulks .bulks-table .anbarAddBulksTable tbody tr[data-isSelected2="True"] {
+  background-color: white;
+}
+
+.anbarAddData .anbarAdd-container .bulks .bulks-table .anbarAddBulksTable tbody .single-bulk td {
+  cursor: pointer;
+}
+
+.anbarAddData .anbarAdd-container .bulks .addNewBulkForm {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  z-index: 1000000000000;
+  width: 30%;
+  height: 35%;
+  opacity: 0;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  border-radius: 25px;
+  background-color: #292828;
+  display: none;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
   -ms-flex-pack: distribute;
       justify-content: space-around;
-  -webkit-box-align: left;
-      -ms-flex-align: left;
-          align-items: left;
-  padding: 15px 20px;
-  background-color: #64450a;
-  -webkit-transition: 0.6s opacity;
-  transition: 0.6s opacity;
-  border: 2px solid black;
-  border-radius: 10%;
-  z-index: 1000;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
-.anbarAdd .anbarAddData .anbarAddPages .anbarAddChangeName::before {
-  position: absolute;
-  left: -15px;
-  top: 50%;
-  content: "\25B6";
-  font-size: 1.2rem;
-  color: black;
-  display: inline-block;
-  -webkit-transform: rotate(180deg);
-          transform: rotate(180deg);
-}
-
-.anbarAdd .anbarAddData .anbarAddPages .anbarAddChangeName p {
+.anbarAddData .anbarAdd-container .bulks .addNewBulkForm h1 {
   color: white;
-  padding: 5px 5px 10px 5px;
-  font-size: 1.3rem;
-}
-
-.anbarAdd .anbarAddData .anbarAddPages .anbarAddChangeName p span {
-  color: inherit;
-  font-size: inherit;
   font-weight: bold;
+  letter-spacing: 1px;
+  font-size: 1.4rem;
+  padding: 15px 0;
 }
 
-.anbarAdd .anbarAddData .anbarAddPages .anbarAddChangeName .down {
+.anbarAddData .anbarAdd-container .bulks .addNewBulkForm .container {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
 }
 
-.anbarAdd .anbarAddData .anbarAddPages .anbarAddChangeName .down input {
-  font-size: 1.3rem;
-  font-weight: bold;
-  outline: none;
+.anbarAddData .anbarAdd-container .bulks .addNewBulkForm .container .row {
+  padding: 15px 0;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
-.anbarAdd .anbarAddData .anbarAddPages .anbarAddChangeName .submit button {
-  font-size: 1.3rem;
+.anbarAddData .anbarAdd-container .bulks .addNewBulkForm .container .row p {
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 500;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  margin-right: 5px;
+}
+
+.anbarAddData .anbarAdd-container .bulks .addNewBulkForm .container .row input {
   outline: none;
   background-color: transparent;
-  padding: 4px 7px;
-  border: 2px solid white;
   color: white;
+  border: 2px solid white;
+  font-size: 1.1rem;
+  font-weight: 500;
+  -webkit-transition: 0.2s all, 0.4s -webkit-transform;
+  transition: 0.2s all, 0.4s -webkit-transform;
+  transition: 0.2s all, 0.4s transform;
+  transition: 0.2s all, 0.4s transform, 0.4s -webkit-transform;
+  width: 60%;
+  padding: 0 10px;
   cursor: pointer;
+}
+
+.anbarAddData .anbarAdd-container .bulks .addNewBulkForm .container .row input:hover {
+  color: #0088a9;
+  border: 2px solid #0088a9;
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
+.anbarAddData .anbarAdd-container .bulks .addNewBulkForm .container .row select {
+  outline: none;
+  font-size: 1.1rem;
+  font-weight: 500;
+  padding: 2px 7px;
+}
+
+.anbarAddData .anbarAdd-container .bulks .addNewBulkForm .container .row button {
+  font-size: 1.3rem;
+  font-weight: 500;
+  background-color: #202020;
+  border: 2px solid #202020;
+  color: white;
+  padding: 5px 20px;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  cursor: pointer;
+  outline: none;
+}
+
+.anbarAddData .anbarAdd-container .bulks .addNewBulkForm .container .row button:hover {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
+.anbarAddData .anbarAdd-container .bulks .addNewBulkForm .container .row #addNewBulkSubmitBtn {
+  background-color: red;
+  border: 2px solid red;
+}
+
+.anbarAddData .anbarAdd-container .moveableBorder {
+  position: relative;
+  width: 100%;
+  height: 4px;
+  background-color: transparent;
+  cursor: ns-resize;
+  z-index: 100;
+}
+
+.anbarAddData .anbarAdd-container .sessions {
+  top: -4px;
+  width: 100%;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  border-top: 3px solid black;
+  background: #666666;
+  height: 20%;
+}
+
+.anbarAddData .anbarAdd-container .sessions #defaultSessionsText {
+  z-index: 0;
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  color: #e7e4e4;
+  font-size: 1.5rem;
+  text-shadow: 2px 2px 8px #797575, -2px -2px 8px white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  opacity: 1;
+}
+
+.anbarAddData .anbarAdd-container .sessions #defaultSessionsText[data-isTableShowing="True"] {
+  opacity: 0;
+}
+
+.anbarAddData .anbarAdd-container .sessions .sessions-table {
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  position: relative;
+  /* Track */
+  /* Handle */
+}
+
+.anbarAddData .anbarAdd-container .sessions .sessions-table::-webkit-scrollbar {
+  width: 10px;
+}
+
+.anbarAddData .anbarAdd-container .sessions .sessions-table::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+          box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  border-radius: 10px;
+}
+
+.anbarAddData .anbarAdd-container .sessions .sessions-table::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  border-radius: 10px;
+  background: #797979;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+          box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+}
+
+.anbarAddData .anbarAdd-container .sessions .sessions-table .anbarAddSessionsTable {
+  width: 100%;
+  border-collapse: collapse;
+  position: relative;
+}
+
+.anbarAddData .anbarAdd-container .sessions .sessions-table .anbarAddSessionsTable thead th {
+  cursor: default;
+  font-size: 1.2rem;
+  padding: 0 10px;
+  color: white;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  border-top: 2px solid black;
+  border-bottom: 3px solid black;
+  border-right: 2px solid black;
+  background-color: transparent;
+}
+
+.anbarAddData .anbarAdd-container .sessions .sessions-table .anbarAddSessionsTable tbody tr {
+  background-color: rgba(231, 182, 113, 0.568);
   -webkit-transition: 0.4s;
   transition: 0.4s;
 }
 
-.anbarAdd .anbarAddData .anbarAddPages .anbarAddChangeName .submit button:hover {
-  -webkit-transform: scale(1.1);
-          transform: scale(1.1);
-  background-color: #bebdbd;
+.anbarAddData .anbarAdd-container .sessions .sessions-table .anbarAddSessionsTable tbody tr td {
+  padding: 5px 10px;
+  text-align: center;
+  font-size: 1.1rem;
+  cursor: default;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  color: white;
+  font-weight: 500;
+  border-top: 2px solid black;
+  border-bottom: 2px solid black;
+  border-left: 2px solid #242424;
+  border-right: 2px solid #242424;
 }
 
-.anbarAdd .anbarAddData .anbarAddPages .anbarAddChangeName[isActive="true"] {
+.anbarAddData .anbarAdd-container .sessions .sessions-table .anbarAddSessionsTable tbody tr td:last-child {
+  border-right: none;
+}
+
+.anbarAddData .anbarAdd-container .sessions .sessions-table .anbarAddSessionsTable tbody tr:nth-child(odd) {
+  background-color: rgba(156, 95, 9, 0.61);
+}
+
+.anbarAddData .anbarAdd-container .sessions .sessions-table .anbarAddSessionsTable tbody tr:hover {
+  background-color: white;
+}
+
+.anbarAddData .anbarAdd-container .sessions .sessions-table .anbarAddSessionsTable tbody tr:hover td {
+  color: black;
+}
+
+.anbarAddData .anbarAdd-container .sessions .sessions-table .anbarAddSessionsTable tbody tr[data-isSelected="True"] {
+  background-color: #81949e !important;
+}
+
+.anbarAddData .anbarAdd-container .sessions .sessions-table .anbarAddSessionsTable tbody tr[data-isSelected="True"] td {
+  color: black;
+}
+
+.anbarAddData .anbarAdd-container .sessions .sessions-table .anbarAddSessionsTable tbody .bulk-session td {
+  cursor: pointer;
+}
+
+.anbarAddData .anbarAdd-container .sessions .addNewSessionForm {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  z-index: 1000000000000;
+  width: 30%;
+  height: 25%;
+  opacity: 0;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  border-radius: 25px;
+  background-color: #292828;
+  display: none;
+  pointer-events: none;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.anbarAddData .anbarAdd-container .sessions .addNewSessionForm h1 {
+  color: white;
+  font-weight: bold;
+  letter-spacing: 1px;
+  font-size: 1.4rem;
+  padding: 15px 0;
+}
+
+.anbarAddData .anbarAdd-container .sessions .addNewSessionForm .container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+}
+
+.anbarAddData .anbarAdd-container .sessions .addNewSessionForm .container .row {
+  padding: 15px 0;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.anbarAddData .anbarAdd-container .sessions .addNewSessionForm .container .row p {
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 500;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  margin-right: 5px;
+}
+
+.anbarAddData .anbarAdd-container .sessions .addNewSessionForm .container .row input {
+  outline: none;
+  background-color: transparent;
+  color: white;
+  border: 2px solid white;
+  font-size: 1.1rem;
+  font-weight: 500;
+  -webkit-transition: 0.2s all, 0.4s -webkit-transform;
+  transition: 0.2s all, 0.4s -webkit-transform;
+  transition: 0.2s all, 0.4s transform;
+  transition: 0.2s all, 0.4s transform, 0.4s -webkit-transform;
+  width: 60%;
+  padding: 0 10px;
+  cursor: pointer;
+}
+
+.anbarAddData .anbarAdd-container .sessions .addNewSessionForm .container .row input:hover {
+  color: #0088a9;
+  border: 2px solid #0088a9;
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
+.anbarAddData .anbarAdd-container .sessions .addNewSessionForm .container .row button {
+  font-size: 1.3rem;
+  font-weight: 500;
+  background-color: #202020;
+  border: 2px solid #202020;
+  color: white;
+  padding: 5px 20px;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  cursor: pointer;
+  outline: none;
+}
+
+.anbarAddData .anbarAdd-container .sessions .addNewSessionForm .container .row button:hover {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
+.anbarAddData .anbarAdd-container .sessions .addNewSessionForm .container .row #addNewSessionSubmitBtn {
+  background-color: red;
+  border: 2px solid red;
+}
+
+.anbarAddData .anbarAdd-container .session-info {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  pointer-events: none;
+  -webkit-transition: 0.6s;
+  transition: 0.6s;
+  z-index: 10000;
+  background-color: #a8a5a5;
+}
+
+.anbarAddData .anbarAdd-container .session-info #sessionInfoGoBackBtn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  padding: 5px 15px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  z-index: 100000;
+  cursor: pointer;
+  outline: none;
+}
+
+.anbarAddData .anbarAdd-container .session-info .session-info-table {
+  padding-top: 60px;
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  position: relative;
+  /* Track */
+  /* Handle */
+}
+
+.anbarAddData .anbarAdd-container .session-info .session-info-table::-webkit-scrollbar {
+  width: 10px;
+}
+
+.anbarAddData .anbarAdd-container .session-info .session-info-table::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+          box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  border-radius: 10px;
+}
+
+.anbarAddData .anbarAdd-container .session-info .session-info-table::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  border-radius: 10px;
+  background: #797979;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+          box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+}
+
+.anbarAddData .anbarAdd-container .session-info .session-info-table .anbarAddSessionInfoTable {
+  width: 100%;
+  border-collapse: collapse;
+  position: relative;
+}
+
+.anbarAddData .anbarAdd-container .session-info .session-info-table .anbarAddSessionInfoTable thead th {
+  cursor: default;
+  font-size: 1.2rem;
+  padding: 0 10px;
+  border-top: 2px solid black;
+  border-bottom: 3px solid black;
+  border-right: 2px solid black;
+  background-color: transparent;
+}
+
+.anbarAddData .anbarAdd-container .session-info .session-info-table .anbarAddSessionInfoTable tbody tr {
+  background-color: rgba(231, 182, 113, 0.568);
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.anbarAddData .anbarAdd-container .session-info .session-info-table .anbarAddSessionInfoTable tbody tr td {
+  padding: 5px 10px;
+  text-align: center;
+  font-size: 1.1rem;
+  cursor: default;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  border-top: 2px solid black;
+  border-bottom: 2px solid black;
+  border-left: 2px solid #242424;
+  border-right: 2px solid #242424;
+}
+
+.anbarAddData .anbarAdd-container .session-info .session-info-table .anbarAddSessionInfoTable tbody tr td:last-child {
+  border-right: none;
+}
+
+.anbarAddData .anbarAdd-container .session-info .session-info-table .anbarAddSessionInfoTable tbody tr:nth-child(odd) {
+  background-color: rgba(156, 95, 9, 0.61);
+}
+
+.anbarAddData .anbarAdd-container .session-info .session-info-table .anbarAddSessionInfoTable tbody tr:hover {
+  background-color: white;
+}
+
+.anbarAddData .anbarAdd-container .session-info .session-info-table .anbarAddSessionInfoTable tbody .single-session-info td {
+  cursor: pointer;
+}
+
+.anbarAddData .anbarAdd-container .session-info[data-isActive="true"] {
+  top: 0;
   opacity: 1;
   pointer-events: all;
+}
+
+.anbarAddData .cstmAlertBox {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  z-index: 1000000000000;
+  width: 0;
+  height: 0;
+  opacity: 0;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  border-radius: 25px;
+  background-color: rgba(78, 76, 76, 0.89);
+  display: none;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.anbarAddData .cstmAlertBox .up {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.anbarAddData .cstmAlertBox .up .alertTitle {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white;
+  padding-bottom: 15px;
+}
+
+.anbarAddData .cstmAlertBox .up p {
+  font-size: 1.1rem;
+  color: white;
+}
+
+.anbarAddData .cstmAlertBox .down {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 60%;
+}
+
+.anbarAddData .cstmAlertBox .down button {
+  font-size: 1.3rem;
+  font-weight: 500;
+  background-color: #202020;
+  border: 2px solid #202020;
+  color: white;
+  padding: 5px 20px;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  cursor: pointer;
+  outline: none;
+}
+
+.anbarAddData .cstmAlertBox .down button:hover {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
+.anbarAddData .cstmAlertBox .down #alertYes {
+  background-color: red;
+  border: 2px solid red;
 }
 
 .anbarRemove {

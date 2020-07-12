@@ -1,311 +1,669 @@
 // =====================================================================================
-//                                   TreeView part
+//                                    UTIL FUNCTIONS
 // =====================================================================================
 
-// Function to feel Tree
-var treeView;
-function feelTree(data) {
-	treeView = new MyTreeView(data);
-	treeView.showTree("treeViewContainer");
-
-	// Set const width to tree width not change while closing dropdown
-	$(".treeViewContainer").css("width", $(".treeViewContainer").width());
-
-	// Handling clicks
-	$(".tv-groupname").click(function () {
-		let ul = $($(this).parent().parent().children()[1]);
-		let span = $($(this).parent().parent().children()[0]);
-		if (
-			ul.attr("data-isExpanded") === "true" &&
-			span.attr("data-isExpanded") === "true"
-		) {
-			ul.attr("data-isExpanded", "false");
-			span.attr("data-isExpanded", "false");
-		} else {
-			ul.attr("data-isExpanded", "true");
-			span.attr("data-isExpanded", "true");
-		}
+async function showAlert(message) {
+	$("#alertMessage").html(message);
+	$(".cstmAlertBox").css({
+		display: "flex",
+		opacity: "1",
+		width: "30%",
+		height: "30%",
+	});
+	$(".anbarAdd-container").css({
+		filter: "brightness(40%)",
+		"pointer-events": "none",
 	});
 
-	$(".tv-name").click(function () {
-		// Check is already opened
-		if ($(this).attr("data-isSelected") === "true") {
-			$(".tv-name").attr("data-isSelected", "false");
-			$(this).attr("data-isSelected", "false");
-
-			$(".anbarAddMainAddProduct").attr("isActive", "false");
-			return;
-		}
-
-		$(".tv-name").attr("data-isSelected", "false");
-		$(this).attr("data-isSelected", "true");
-
-		showMainAddProductForm(treeView.giveDataOfElement($(this)));
-	});
-}
-
-$("#expandTreeView").click(function () {
-	$(this).attr("data-isClicked", "true");
-	setTimeout(function () {
-		$("#expandTreeView").attr("data-isClicked", "false");
-	}, 600);
-
-	let arr = $(".treeView  span");
-	let arr2 = $(".treeView  ul");
-	for (let i = 0; i < arr.length; i++) {
-		$(arr[i]).attr("data-isexpanded", "true");
-		$(arr2[i]).attr("data-isexpanded", "true");
-	}
-});
-$("#closeTreeView").click(function () {
-	$(this).attr("data-isClicked", "true");
-	setTimeout(function () {
-		$("#closeTreeView").attr("data-isClicked", "false");
-	}, 600);
-
-	let arr = $(".treeView  span");
-	let arr2 = $(".treeView  ul");
-	for (let i = 1; i < arr.length; i++) {
-		$(arr[i]).attr("data-isexpanded", "false");
-		$(arr2[i]).attr("data-isexpanded", "false");
-	}
-});
-
-// Handle onclick hideShowTreeView
-$("#hideShowTreeView").click(function () {
-	if ($(this).attr("data-isClicked") == "true") {
-		$(this).attr("data-isClicked", "false");
-		$(".treeViewContainer").css("display", "block");
-	} else {
-		$(this).attr("data-isClicked", "true");
-		$(".treeViewContainer").css("display", "none");
-	}
-});
-
-// =====================================================================================
-//                                   Search box part
-// =====================================================================================
-
-// Search box part
-$("#clearSearchBox").click(() => {
-	poolConnect.then((pool) => {
-		pool.request().execute("dbo.warehouse_tree_select", (err, res) => {
-			$("#searchInputBox").val("");
-			feelTree(res.recordset);
+	return await new Promise((resolve) => {
+		$("#alertYes").click(() => {
+			resolve(true);
+		});
+		$("#alertNo").click(() => {
+			resolve(false);
 		});
 	});
-});
-$("#searchInputBox").keyup(function () {
-	if ($(this).val().trim() === "") return;
-	poolConnect.then((pool) => {
-		pool
-			.request()
-			.input("title", mssql.NVarChar(250), $(this).val())
-			.execute("dbo.warehouse_tree_search", (err, res) => {
-				feelTree(res.recordset);
-			});
+}
+function closeAlert() {
+	$(".cstmAlertBox").css({
+		opacity: "0",
+		width: "0",
+		height: "0",
 	});
-});
-$("#searchInputBox").focusout(function () {
-	if ($(this).val().trim() === "") $(this).val("");
-	if ($(this).val() === "") {
-		poolConnect.then((pool) => {
-			pool.request().execute("dbo.warehouse_tree_select", (err, res) => {
-				feelTree(res.recordset);
-			});
-		});
-	}
-});
-
-// =====================================================================================
-//                                 Add product part
-// =====================================================================================
-
-$("#addNewProductBtn").click(function () {
-	if ($(this).attr("data-isClicked") == "true") {
-		$(this).attr("data-isClicked", "false");
-		$(".anbarAddAddNewProduct").attr("isActive", "false");
-	} else {
-		$(".tv-name").attr("data-isSelected", "false");
-		$(".anbarAddMainAddProduct").attr("isActive", "false");
-
-		$(this).attr("data-isClicked", "true");
-		$(".anbarAddAddNewProduct").attr("isActive", "true");
-	}
-});
-
-// =====================================================================================
-//                                 Change name part
-// =====================================================================================
-
-$("#changeNameBtn").click(function () {
-	if ($(this).attr("data-isClicked") == "true") {
-		closeChangeNameForm();
-	} else {
-		showChangeNameForm();
-	}
-});
-
-function findSelectedItem() {
-	let res = null;
-	for (let i = 0; i < $(".tv-name").length; i++) {
-		if ($($(".tv-name")[i]).attr("data-isSelected") == "true") {
-			return $($(".tv-name")[i]);
-		}
-	}
-
-	return res;
+	$(".anbarAdd-container").css({
+		filter: "brightness(100%)",
+		"pointer-events": "all",
+	});
+	setTimeout(() => {
+		$(".cstmAlertBox").css("display", "none");
+	}, 600);
 }
 
-function closeChangeNameForm() {
-	$("#changeNameBtn").attr("data-isClicked", "false");
-	$(".anbarAddChangeName").attr("isActive", "false");
-}
-
-var selectedObjTreeView;
-function showChangeNameForm() {
-	let selectedObj = findSelectedItem();
-	selectedObjTreeView = selectedObj;
-	if (selectedObj === null) return;
-
-	$("#changeNameBtn").attr("data-isClicked", "true");
-
-	$(".anbarAddChangeName").css(
-		"left",
-		selectedObj.offset().left + selectedObj.outerWidth(true) + 10
-	);
-	$(".anbarAddChangeName").css(
-		"top",
-		selectedObj.offset().top - $(".anbarAddChangeName").outerHeight(true) / 2
-	);
-
-	$("#productPrevName").html(selectedObj.html());
-
-	$(".anbarAddChangeName").attr("isActive", "true");
-}
-
-$("#submitChangeName").click(function () {
+$(".closedState").click(function () {
+	$(this).attr("data-isClicked", "True");
+	setTimeout(() => {
+		$(".openedState").attr("data-isClicked", "True");
+	}, 500);
+});
+$(document).click((el) => {
 	if (
-		$("#changeNameNewName").val() === $("#productPrevName").html() ||
-		$("#changeNameNewName").val() === ""
+		el.target !== $(".closedState")[0] &&
+		$.inArray(el.target, $(".closedState").children())
 	) {
-		closeChangeNameForm();
-		return;
+		$(".openedState").attr("data-isClicked", "False");
+		$(".closedState").attr("data-isClicked", "False");
 	}
-
-	let selectedObj = treeView.giveDataOfElement(selectedObjTreeView);
-
-	poolConnect.then((pool) => {
-		pool
-			.request()
-			.input("id", selectedObj.id)
-			.input("title", $("#changeNameNewName").val())
-			.input("user_id", USER.id)
-			.execute("dbo.warehouse_tree_update_title", (err, res) => {
-				if (err !== null) console.log(err);
-				closeChangeNameForm();
-
-				pool.request().execute("dbo.warehouse_tree_select", (err, res) => {
-					feelTree(res.recordset);
-				});
-			});
-	});
 });
 
 // =====================================================================================
-//                                  Main Add Product Part
+//                                   MoveableBorder part
 // =====================================================================================
 
-var productDataGlobal;
-async function showMainAddProductForm(productData) {
-	$("#addNewProductBtn").attr("data-isClicked", "false");
-	$(".anbarAddAddNewProduct").attr("isActive", "false");
+var currentMousePos = { x: -1, y: -1 };
+$(document).mousemove(function (event) {
+	currentMousePos.x = parseInt(event.pageX);
+	currentMousePos.y = parseInt(event.pageY);
+});
 
-	productDataGlobal = productData;
-	$("#productName").html(productData.title);
+var timeout,
+	clickObj = $(".moveableBorder");
+var prevMouseY = null;
+var moveLineBy = null;
+clickObj.mousedown(function () {
+	timeout = setInterval(function () {
+		if (prevMouseY !== currentMousePos.y) {
+			moveLineBy += currentMousePos.y - $(".moveableBorder").offset().top;
+			moveBlockBy =
+				parseInt($(".bulks").css("height").slice(0, -2)) + moveLineBy;
+			if (
+				moveBlockBy < $(document).height() * 0.65 &&
+				moveBlockBy > $(document).height() * 0.15
+			) {
+				prevMouseY = currentMousePos.y;
+				$(".moveableBorder").css("top", moveLineBy);
+				$(".bulks").css("height", moveBlockBy);
+			} else {
+				moveLineBy -= currentMousePos.y - $(".moveableBorder").offset().top;
+			}
+		}
+	}, 1);
 
-  var now = new Date();
+	return false;
+});
 
-  let day = ("0" + now.getDate()).slice(-2);
-  let month = ("0" + (now.getMonth() + 1)).slice(-2);
-  let today = now.getFullYear()+"-"+(month)+"-"+(day) ;
-  $("#productCurrDate").val(today)
-  $("#productCurrDate").attr("disabled", "")
-  $("#productExpDate").val(today)
+$(".moveableBorder").dblclick(function () {
+	moveLineBy = null;
+	prevMouseY = null;
+	$(".moveableBorder").css("top", moveLineBy);
+	$(".bulks").css("height", "50%");
+});
 
-	let clusterData = await new Promise((resolve, reject) => {
+$(document).mouseup(function () {
+	clearInterval(timeout);
+	return false;
+});
+
+// =====================================================================================
+//                                   Main part
+// =====================================================================================
+
+// Bulks part
+function fillBulksTable(data) {
+	$(".anbarAddBulksTable").remove();
+
+	$(".bulks-table").append("<table class='anbarAddBulksTable'></table>");
+	$(".anbarAddBulksTable").append("<thead></thead>");
+	$(".anbarAddBulksTable").append("<tbody></tbody>");
+
+	$(".anbarAddBulksTable > thead").append(`<th>Begin date:</th>`);
+	$(".anbarAddBulksTable > thead").append(`<th>Seller:</th>`);
+	$(".anbarAddBulksTable > thead").append(`<th>Whole price:</th>`);
+	$(".anbarAddBulksTable > thead").append(`<th>Cost price:</th>`);
+
+	data.forEach((el) => {
+		let row = `<tr class="single-bulk" data-id='${el.id}'>`;
+
+		row += `<td title="${moment(el.begin_date).format(
+			"DD MMMM YYYY, h:mm:ss"
+		)}">${moment(el.begin_date).format("DD MMMM YYYY")}</td>`;
+		row += `<td>${el.seller}</td>`;
+		row += `<td>${el.whole_price}</td>`;
+		row += `<td>${el.cost_price}</td>`;
+
+		row += "</tr>";
+		$(".anbarAddBulksTable > tbody").append(row);
+	});
+
+	// Fill empty tables
+	if (data.length < 9) {
+		for (let i = 0; i < 9 - data.length; i++) {
+			let row = "<tr class='empty-single-bulk' style='height: 40px'>";
+
+			for (let j = 0; j < 4; j++) {
+				row += "<td></td>";
+			}
+
+			row += "</tr>";
+
+			$(".anbarAddBulksTable > tbody").append(row);
+		}
+	}
+
+	$(".single-bulk").click(function () {
+		$(".single-bulk").attr("data-isSelected2", "False");
+		$(this).attr("data-isSelected2", "True");
+		getBulkSessions($(this).attr("data-id"));
+	});
+	$(".single-bulk").contextmenu(function () {
+		showSingleBulkOptions($(this));
+	});
+	$(".empty-single-bulk").contextmenu(function () {
+		showSingleBulkOptions($(this));
+	});
+}
+function getAllBulks(date_from, date_to) {
+	poolConnect.then((pool) => {
+		pool
+			.request()
+			.input("date_from", date_from)
+			.input("date_to", date_to)
+			.execute("dbo.bulk_buying_selection", (err, res) => {
+				if (err !== null) console.log(err);
+				fillBulksTable(res.recordset);
+			});
+	});
+}
+function refreshBulksTable(timeout = 0) {
+	setTimeout(() => {
+		getAllBulks(
+			moment($("#date_from").val()).format("yyyy-MM-DD HH:mm:ss"),
+			moment($("#date_to").val()).format("yyyy-MM-DD HH:mm:ss")
+		);
+	}, timeout);
+}
+function deleteBulk(id) {
+	poolConnect.then((pool) => {
+		pool
+			.request()
+			.input("id", id)
+			.execute("dbo.bulk_buying_delete", (err) => {
+				if (err !== null) console.log(err);
+			});
+	});
+}
+function addNewBulk(begin_date, seller_id) {
+	poolConnect.then((pool) => {
+		pool
+			.request()
+			.input("begin_date", begin_date)
+			.input("seller_id", seller_id)
+			.execute("dbo.bulk_buying_create", (err) => {
+				if (err !== null) console.log(err);
+				return;
+			});
+	});
+}
+async function showAddNewBulkForm() {
+	// Preparing form
+	$("#addNewBulkSellers").empty();
+	let sellersData = await new Promise((resolve) => {
 		poolConnect.then((pool) => {
-			pool.request().execute("dbo.cluster_names_select_all", (err, res) => {
+			pool.request().execute("dbo.product_sellers_select", (err, res) => {
+				if (err !== null) console.log(err);
 				resolve(res.recordset);
 			});
 		});
 	});
-	for (let i = 0; i < clusterData.length; i++) {
-		$("#productCluster").append(
-			`<option data-id="${clusterData[i].id}">${clusterData[i].title}</option>`
+	for (let i = 0; i < sellersData.length; i++) {
+		$("#addNewBulkSellers").append(
+			`<option data-id="${sellersData[i].id}">${sellersData[i].seller}</option>`
 		);
 	}
 
-	let currencyData = await new Promise((resolve, reject) => {
-		poolConnect.then((pool) => {
-			pool.request().execute("dbo.currency_select_full", (err, res) => {
-				resolve(res.recordset);
-			});
-		});
-	});
-	for (let i = 0; i < currencyData.length; i++) {
-		$("#productCurrency").append(
-			`<option title="${currencyData[i].full_title}" data-id="${currencyData[i].id}">${currencyData[i].title}</option>`
-		);
-	}
+	let now = new Date();
+	let day = ("0" + now.getDate()).slice(-2);
+	let month = ("0" + (now.getMonth() + 1)).slice(-2);
+	let today = now.getFullYear() + "-" + month + "-" + day;
+	$("#addNewBulkBeginDate").val(today);
 
 	// Showing Form
-	$(".anbarAddMainAddProduct").attr("isActive", "true");
+	$(".anbarAdd-container").css({
+		"pointer-events": "none",
+	});
+	$(".addNewBulkForm").css({
+		opacity: "1",
+		display: "flex",
+		"pointer-events": "all",
+	});
+	$(".addNewBulkForm").attr("data-isActive", "True");
 }
+function hideAddNewBulkForm() {
+	$(".anbarAdd-container").css({
+		"pointer-events": "all",
+	});
+	$(".addNewBulkForm").css({
+		opacity: "0",
+	});
+	$(".addNewBulkForm").attr("data-isActive", "False");
+	setTimeout(() => {
+		$(".addNewBulkForm").css("display", "none");
+	}, 600);
+}
+$("#addNewBulkDiscardBtn").click(() => {
+	hideAddNewBulkForm();
+});
+$("#addNewBulkSubmitBtn").click(() => {
+	addNewBulk(
+		moment($("#addNewBulkBeginDate").val()).format("yyyy-MM-DD HH:mm:ss"),
+		$("#addNewBulkSellers").children("option:selected").attr("data-id")
+	);
+	refreshBulksTable(600);
+	hideAddNewBulkForm();
+});
+function showSingleBulkOptions(bulkEl) {
+	if (bulkEl.attr("class") === "empty-single-bulk") {
+		$(".single-bulk").attr("data-isSelected", "False");
+		$(".optionsBtn").attr("data-isActive", "False");
+		$("#optionsDelete").hide();
+		$("#optionsMenu").attr("data-belongsTo", "Bulks");
+		$("#optionsMenu").css({
+			top:
+				currentMousePos.y -
+				$(document).height() * 0.09 -
+				$($(".optionsBtn")[0]).height() / 2 +
+				5,
+			left: currentMousePos.x - $($(".optionsBtn")[0]).height() / 2 - 15,
+		});
 
-$("#submitMainAddProduct").click(function () {
-	if (
-		$("#amountOfProduct").val() === "" ||
-		$("#productPrice").val() === "" ||
-		$("#productCell").val() === "" ||
-		$("#productVOEN").val() === ""
-	) {
+		$("#optionsNew").attr("title", "Add new session");
+		$(".optionsBtn").attr("data-isActive", "True");
 		return;
-  }
-  
+	}
+
+	$(".single-bulk").attr("data-isSelected", "False");
+	$(".optionsBtn").attr("data-isActive", "False");
+	$("#optionsDelete").show();
+	$("#optionsMenu").attr("data-belongsTo", "Bulks");
+	$("#optionsMenu").css({
+		top:
+			currentMousePos.y -
+			$(document).height() * 0.09 -
+			$($(".optionsBtn")[0]).height() / 2 +
+			5,
+		left: currentMousePos.x - $($(".optionsBtn")[0]).height() / 2 - 15,
+	});
+	bulkEl.attr("data-isSelected", "True");
+	$("#optionsDelete").attr("data-bulkId", bulkEl.attr("data-id"));
+	$("#optionsDelete").attr("title", "Delete bulk");
+	$("#optionsNew").attr("title", "Add new bulk");
+	$(".optionsBtn").attr("data-isActive", "True");
+}
+$("#optionsDelete").click(function () {
+	if ($("#optionsMenu").attr("data-belongsTo") !== "Bulks") {
+		return;
+	}
+	showAlert("Are you sure you want to delete this bulk?").then((res) => {
+		if (res) {
+			deleteBulk($(this).attr("data-bulkId"));
+			refreshBulksTable(600);
+		}
+		closeAlert();
+	});
+});
+$("#optionsNew").click(function () {
+	if ($("#optionsMenu").attr("data-belongsTo") !== "Bulks") {
+		return;
+	}
+	showAddNewBulkForm();
+});
+$(document).click((el) => {
+	$(".single-bulk").attr("data-isSelected", "False");
+	$(".optionsBtn").attr("data-isActive", "False");
+
+	if ($(".addNewBulkForm").attr("data-isActive") === "True") {
+		if (
+			$(el.target).attr("class") !== "addNewBulkForm" &&
+			$.inArray(el.target, $(".addNewBulkForm").children()) < 0 &&
+			$.inArray($(el.target).parent()[0], $(".addNewBulkForm").children()) <
+				0 &&
+			$.inArray(
+				$(el.target).parent().parent()[0],
+				$(".addNewBulkForm").children()
+			) < 0
+		) {
+			console.log("IN_BULKS");
+			hideAddNewBulkForm();
+		}
+	}
+});
+
+// Bulk's sessions part
+var selectedBulkId = undefined;
+function fillSessionsTable(data) {
+	$("#defaultSessionsText").attr("data-isTableShowing", "True");
+
+	$(".anbarAddSessionsTable").remove();
+
+	$(".sessions-table").append("<table class='anbarAddSessionsTable'></table>");
+	$(".anbarAddSessionsTable").append("<thead></thead>");
+	$(".anbarAddSessionsTable").append("<tbody></tbody>");
+
+	$(".anbarAddSessionsTable > thead").append(`<th>Begin date:</th>`);
+	$(".anbarAddSessionsTable > thead").append(`<th>Cost price:</th>`);
+	$(".anbarAddSessionsTable > thead").append(`<th>Sum price:</th>`);
+	$(".anbarAddSessionsTable > thead").append(`<th>Status:</th>`);
+
+	data.forEach((el) => {
+		let row = `<tr class="bulk-session" data-id='${el.id}'>`;
+
+		row += `<td title="${moment(el.begin_date).format(
+			"DD MMMM YYYY, h:mm:ss"
+		)}">${moment(el.begin_date).format("DD MMMM YYYY")}</td>`;
+		row += `<td>${el.cost_price}</td>`;
+		row += `<td>${el.sum_price}</td>`;
+		row += `<td>${el.done === "+" ? "Finished" : "Not Finished"}</td>`;
+
+		row += "</tr>";
+		$(".anbarAddSessionsTable > tbody").append(row);
+	});
+
+	// Fill empty tables
+	if (data.length < 9) {
+		for (let i = 0; i < 9 - data.length; i++) {
+			let row = "<tr class='empty-bulk-session' style='height: 40px'>";
+
+			for (let j = 0; j < 4; j++) {
+				row += "<td></td>";
+			}
+
+			row += "</tr>";
+
+			$(".anbarAddSessionsTable > tbody").append(row);
+		}
+	}
+
+	$(".bulk-session").click(function () {
+		$(".anbarAddInfo").hide()
+		getSessionInfo($(this).attr("data-id"));
+	});
+	$(".bulk-session").contextmenu(function () {
+		showSingleSessionOptions($(this));
+	});
+	$(".empty-bulk-session").contextmenu(function () {
+		showSingleSessionOptions($(this));
+	});
+}
+function getBulkSessions(id) {
+	console.log(id);
+	selectedBulkId = id;
 	poolConnect.then((pool) => {
 		pool
 			.request()
-			.input("product_id", productDataGlobal.product_id)
-			.input("quantity", $("#amountOfProduct").val())
-			.input("is_out", 0)
-			.input("price", $("#productPrice").val())
-      .input("quantity_cluster", $("#productCluster").children("option:selected").attr("data-id"))
-      .input("exp_date", moment($("#productExpDate").val()).format("yyyy-MM-DD HH:mm:ss"))
-      .input("cur_date", moment($("#productCurrDate").val()).format("yyyy-MM-DD HH:mm:ss"))
-      .input("reason", $("#productReason").val())
-      .input("product_cell", $("#productCell").val())
-      .input("document_id", $("#productVOEN").val())
-      .input("currency", $("#productCurrency").children("option:selected").attr("data-id"))
-      .input("user_id", USER.id)
-      .input("product_seller", USER.id)
-			.execute("dbo.main_insert", (err, res) => {
+			.input("bulk_buying_id", id)
+			.execute("dbo.bulk_buying_session_selection", (err, res) => {
 				if (err !== null) console.log(err);
-				else console.log("Ok");
+				fillSessionsTable(res.recordset);
 			});
-  });
+	});
+}
+function refreshSessionsTable(timeout = 0) {
+	setTimeout(() => {
+		getBulkSessions(selectedBulkId);
+	}, timeout);
+}
+function deleteSession(session_id) {
+	poolConnect.then((pool) => {
+		pool
+			.request()
+			.input("id", parseInt(session_id))
+			.execute("dbo.bulk_buying_delete_session", (err) => {
+				if (err !== null) console.log(err);
+			});
+	});
+}
+function addNewSession(begin_date) {
+	poolConnect.then((pool) => {
+		pool
+			.request()
+			.input("bulk_buying_id", selectedBulkId)
+			.input("begin_date", begin_date)
+			.execute("dbo.bulk_buying_create_new_session", (err) => {
+				if (err != null) console.log(err);
+			});
+	});
+}
+function showAddNewSessionForm() {
+	// Preparing form
+	let now = new Date();
+	let day = ("0" + now.getDate()).slice(-2);
+	let month = ("0" + (now.getMonth() + 1)).slice(-2);
+	let today = now.getFullYear() + "-" + month + "-" + day;
+	$("#addNewSessionBeginDate").val(today);
+
+	// Showing Form
+	$(".anbarAdd-container").css({
+		"pointer-events": "none",
+	});
+	$(".addNewSessionForm").css({
+		opacity: "1",
+		display: "flex",
+		"pointer-events": "all",
+	});
+	$(".addNewSessionForm").attr("data-isActive", "True");
+}
+function hideAddNewSessionForm() {
+	$(".anbarAdd-container").css({
+		"pointer-events": "all",
+	});
+	$(".addNewSessionForm").css({
+		opacity: "0",
+	});
+	$(".addNewSessionForm").attr("data-isActive", "False");
+	setTimeout(() => {
+		$(".addNewSessionForm").css("display", "none");
+	}, 600);
+}
+$("#addNewSessionDiscardBtn").click(() => {
+	hideAddNewSessionForm();
 });
+$("#addNewSessionSubmitBtn").click(() => {
+	addNewSession(
+		moment($("#addNewSessionBeginDate").val()).format("yyyy-MM-DD HH:mm:ss")
+	);
+	refreshSessionsTable(600);
+	hideAddNewSessionForm();
+});
+function showSingleSessionOptions(sessionEl) {
+	if (sessionEl.attr("class") === "empty-bulk-session") {
+		$(".bulk-session").attr("data-isSelected", "False");
+		$(".optionsBtn").attr("data-isActive", "False");
+		$("#optionsDelete").hide();
+		$("#optionsMenu").attr("data-belongsTo", "Sessions");
+		$("#optionsMenu").css({
+			top:
+				currentMousePos.y -
+				$(document).height() * 0.09 -
+				$($(".optionsBtn")[0]).height() / 2 +
+				5,
+			left: currentMousePos.x - $($(".optionsBtn")[0]).height() / 2 - 15,
+		});
 
-// =====================================================================================
-//                                  On start functions
-// =====================================================================================
+		$("#optionsNew").attr("title", "Add new session");
+		$(".optionsBtn").attr("data-isActive", "True");
+		return;
+	}
 
-// Load treeView from start
-poolConnect.then((pool) => {
-	pool.request().execute("dbo.warehouse_tree_select", (err, res) => {
-		feelTree(res.recordset);
+	$(".bulk-session").attr("data-isSelected", "False");
+	$(".optionsBtn").attr("data-isActive", "False");
+	$("#optionsDelete").show();
+	$("#optionsMenu").attr("data-belongsTo", "Sessions");
+	$("#optionsMenu").css({
+		top:
+			currentMousePos.y -
+			$(document).height() * 0.09 -
+			$($(".optionsBtn")[0]).height() / 2 +
+			5,
+		left: currentMousePos.x - $($(".optionsBtn")[0]).height() / 2 - 15,
+	});
+	sessionEl.attr("data-isSelected", "True");
+	$("#optionsDelete").attr("data-sessionId", sessionEl.attr("data-id"));
+	$("#optionsDelete").attr("title", "Delete session");
+	$("#optionsNew").attr("title", "Add new session");
+	$(".optionsBtn").attr("data-isActive", "True");
+}
+$("#optionsDelete").click(function () {
+	if ($("#optionsMenu").attr("data-belongsTo") !== "Sessions") {
+		return;
+	}
+	showAlert("Are you sure you want to delete this session?").then((res) => {
+		if (res) {
+			deleteSession($(this).attr("data-sessionId"));
+			refreshSessionsTable(600);
+		}
+		closeAlert();
 	});
 });
+$("#optionsNew").click(function () {
+	if ($("#optionsMenu").attr("data-belongsTo") !== "Sessions") {
+		return;
+	}
+	showAddNewSessionForm();
+});
+$(document).click((el) => {
+	$(".bulk-session").attr("data-isSelected", "False");
+	$(".optionsBtn").attr("data-isActive", "False");
 
-// Set const width
-$(".smallNav").css("height", $(".searchContainer").height());
+	if ($(".addNewSessionForm").attr("data-isActive") === "True") {
+		if ($.inArray(el.target, $("#optionsMenu img")) != -1) {
+			return;
+		}
+		if (
+			$(el.target).attr("class") !== "addNewSessionForm" &&
+			$.inArray(el.target, $(".addNewSessionForm").children()) < 0 &&
+			$.inArray($(el.target).parent()[0], $(".addNewSessionForm").children()) <
+				0 &&
+			$.inArray(
+				$(el.target).parent().parent()[0],
+				$(".addNewSessionForm").children()
+			) < 0
+		) {
+			console.log("IN_SESSIONS");
+			hideAddNewSessionForm();
+		}
+	}
+});
+
+// Single session's info part
+function fillSessionInfoTable(data) {
+	$(".anbarAddSessionInfoTable").remove();
+
+	$(".session-info-table").append(
+		"<table class='anbarAddSessionInfoTable'></table>"
+	);
+	$(".anbarAddSessionInfoTable").append("<thead></thead>");
+	$(".anbarAddSessionInfoTable").append("<tbody></tbody>");
+
+	$(".anbarAddSessionInfoTable > thead").append(`<th>Product:</th>`);
+	$(".anbarAddSessionInfoTable > thead").append(`<th>Quantity:</th>`);
+	$(".anbarAddSessionInfoTable > thead").append(`<th>Unit:</th>`);
+	$(".anbarAddSessionInfoTable > thead").append(`<th>Price for 1:</th>`);
+	$(".anbarAddSessionInfoTable > thead").append(`<th>For sale price:</th>`);
+	$(".anbarAddSessionInfoTable > thead").append(`<th>Extra charge:</th>`);
+	$(".anbarAddSessionInfoTable > thead").append(`<th>Sum price:</th>`);
+	$(".anbarAddSessionInfoTable > thead").append(`<th>Currency:</th>`);
+	$(".anbarAddSessionInfoTable > thead").append(`<th>Expriration date:</th>`);
+	$(".anbarAddSessionInfoTable > thead").append(`<th>Product cell:</th>`);
+	$(".anbarAddSessionInfoTable > thead").append(`<th>Reason:</th>`);
+
+	data.forEach((el) => {
+		let row = `<tr class="single-session-info" data-id='${el.id} data-cluster-id='${el.cluster_id}''>`;
+
+		row += `<td>${el.title[0]}</td>`;
+		row += `<td>${el.quantity}</td>`;
+		row += `<td>${el.product_unit}</td>`;
+		row += `<td>${el["price for 1"]}</td>`;
+		row += `<td>${el.for_sale_price}</td>`;
+		row += `<td>${el.extra_charge}</td>`;
+		row += `<td>${el.sum_price}</td>`;
+		row += `<td>${el.title[1]}</td>`;
+		row += `<td title="${moment(el.exp_date).format(
+			"Da MMMM YYYY, h:mm:ss"
+		)}">${moment(el.exp_date).format("DD MMMM YYYY")}</td>`;
+		row += `<td>${el.product_cell}</td>`;
+		row += `<td>${el.reason}</td>`;
+
+		row += "</tr>";
+		$(".anbarAddSessionInfoTable > tbody").append(row);
+	});
+
+	// Fill empty tables
+	if (data.length < 17) {
+		for (let i = 0; i < 17 - data.length; i++) {
+			let row = "<tr style='height: 40px'>";
+
+			for (let j = 0; j < 11; j++) {
+				row += "<td></td>";
+			}
+
+			row += "</tr>";
+
+			$(".anbarAddSessionInfoTable > tbody").append(row);
+		}
+	}
+}
+$("#sessionInfoGoBackBtn").click(() => {
+	hideSessionInfo();
+	$(".anbarAddInfo").show()
+});
+function hideSessionInfo() {
+	$(".session-info").attr("data-isActive", "false");
+}
+function showSessionInfo(data) {
+	$(".session-info").attr("data-isActive", "true");
+	fillSessionInfoTable(data);
+}
+function getSessionInfo(id) {
+	poolConnect.then((pool) => {
+		pool
+			.request()
+			.input("session_id", id)
+			.execute("dbo.bulk_buying_session_info", (err, res) => {
+				if (err !== null) console.log(err);
+				showSessionInfo(res.recordset);
+			});
+	});
+}
+
+// Date part
+$("#date_from").change(function () {
+	let date = $(this).val();
+	if ($("#date_to").val() !== "") {
+		getAllBulks(
+			moment($("#date_from").val()).format("yyyy-MM-DD HH:mm:ss"),
+			moment($("#date_to").val()).format("yyyy-MM-DD HH:mm:ss")
+		);
+	}
+});
+$("#date_to").change(function () {
+	if ($("#date_from").val() !== "") {
+		getAllBulks(
+			moment($("#date_from").val()).format("yyyy-MM-DD HH:mm:ss"),
+			moment($("#date_to").val()).format("yyyy-MM-DD HH:mm:ss")
+		);
+	}
+});
+
+(function presetDate() {
+	var now = new Date();
+	var day = ("0" + now.getDate()).slice(-2);
+	var month = ("0" + now.getMonth()).slice(-2);
+	var today = now.getFullYear() + "-" + month + "-" + day;
+	var month2 = ("0" + (now.getMonth() + 2)).slice(-2);
+	var today2 = now.getFullYear() + "-" + month2 + "-" + day;
+	$("#date_from").val(today);
+	$("#date_to").val(today2);
+	getAllBulks(
+		moment($("#date_from").val()).format("yyyy-MM-DD HH:mm:ss"),
+		moment($("#date_to").val()).format("yyyy-MM-DD HH:mm:ss")
+	);
+})();
