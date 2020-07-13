@@ -1545,20 +1545,20 @@ nav .settings-container .dropdown[data-isOpened="true"] {
 .anbarAddData .anbarAdd-container .anbarAddInfo .closedState img {
   position: absolute;
   top: 80%;
-  left: 25%;
-  -webkit-transform: translate(-20%, -75%);
-          transform: translate(-20%, -75%);
+  left: 22%;
+  -webkit-transform: translate(-20%, -78%);
+          transform: translate(-20%, -78%);
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
-  width: 45px;
+  width: 40px;
   -webkit-transition: 0.2s;
   transition: 0.2s;
   opacity: 1;
 }
 
-.anbarAddData .anbarAdd-container .anbarAddInfo .closedState[data-isClicked=True] {
+.anbarAddData .anbarAdd-container .anbarAddInfo .closedState[data-isClicked="True"] {
   width: 100%;
   height: 100%;
   background-color: #0088a9;
@@ -1568,7 +1568,7 @@ nav .settings-container .dropdown[data-isOpened="true"] {
   right: 0;
 }
 
-.anbarAddData .anbarAdd-container .anbarAddInfo .closedState[data-isClicked=True] img {
+.anbarAddData .anbarAdd-container .anbarAddInfo .closedState[data-isClicked="True"] img {
   opacity: 0;
   pointer-events: none;
 }
@@ -1623,7 +1623,7 @@ nav .settings-container .dropdown[data-isOpened="true"] {
   color: white;
 }
 
-.anbarAddData .anbarAdd-container .anbarAddInfo .openedState[data-isClicked=True] {
+.anbarAddData .anbarAdd-container .anbarAddInfo .openedState[data-isClicked="True"] {
   opacity: 1;
   pointer-events: all;
   z-index: 100000;
@@ -2368,6 +2368,265 @@ nav .settings-container .dropdown[data-isOpened="true"] {
 
 .anbarAddData .anbarAdd-container .session-info .session-info-table .anbarAddSessionInfoTable tbody .single-session-info td {
   cursor: pointer;
+}
+
+.anbarAddData .anbarAdd-container .session-info .addNewSessionInfoForm {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  z-index: 1000000000000;
+  width: 550px;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  opacity: 0;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  border-radius: 25px;
+  background-color: #292828;
+  display: none;
+  pointer-events: none;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.anbarAddData .anbarAdd-container .session-info .addNewSessionInfoForm h1 {
+  color: white;
+  font-weight: bold;
+  letter-spacing: 1px;
+  font-size: 1.4rem;
+  padding: 10px 0;
+}
+
+.anbarAddData .anbarAdd-container .session-info .addNewSessionInfoForm .container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+}
+
+.anbarAddData .anbarAdd-container .session-info .addNewSessionInfoForm .container .row {
+  padding: 10px 0;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.anbarAddData .anbarAdd-container .session-info .addNewSessionInfoForm .container .row .column {
+  padding-right: 25px;
+}
+
+.anbarAddData .anbarAdd-container .session-info .addNewSessionInfoForm .container .row .column .columnElement {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding-bottom: 10px;
+}
+
+.anbarAddData .anbarAdd-container .session-info .addNewSessionInfoForm .container .row .column .columnElement p {
+  left: -4px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-item-align: start;
+      align-self: flex-start;
+}
+
+.anbarAddData .anbarAdd-container .session-info .addNewSessionInfoForm .container .row .column .columnElement input {
+  width: 80%;
+}
+
+.anbarAddData .anbarAdd-container .session-info .addNewSessionInfoForm .container .row .column .columnElement input[type="date"] {
+  width: 100%;
+  color: white;
+  border: 2px solid white;
+  cursor: pointer;
+}
+
+.anbarAddData .anbarAdd-container .session-info .addNewSessionInfoForm .container .row .column .columnElement input[type="date"]:hover {
+  color: #0088a9;
+  border: 2px solid #0088a9;
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
+.anbarAddData .anbarAdd-container .session-info .addNewSessionInfoForm .container .row .column .columnElement select {
+  width: 100%;
+  font-weight: 500;
+  font-size: 1.1rem;
+  padding: 1px 2px;
+  background-color: transparent;
+  border: 2px solid white;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  color: white;
+  outline: none;
+}
+
+.anbarAddData .anbarAdd-container .session-info .addNewSessionInfoForm .container .row .column .columnElement select:hover {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+  border: 2px solid #0088a9;
+}
+
+.anbarAddData .anbarAdd-container .session-info .addNewSessionInfoForm .container .row .column .columnElement select option {
+  background-color: #292828;
+}
+
+.anbarAddData .anbarAdd-container .session-info .addNewSessionInfoForm .container .row p {
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 500;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  position: relative;
+  left: 10px;
+}
+
+.anbarAddData .anbarAdd-container .session-info .addNewSessionInfoForm .container .row input {
+  outline: none;
+  background-color: transparent;
+  color: white;
+  border: 2px solid transparent;
+  border-bottom: 2px solid white;
+  font-size: 1.1rem;
+  font-weight: 500;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  width: 60%;
+  padding: 0 10px;
+}
+
+.anbarAddData .anbarAdd-container .session-info .addNewSessionInfoForm .container .row input:hover {
+  border-bottom: 2px solid #0088a9;
+}
+
+.anbarAddData .anbarAdd-container .session-info .addNewSessionInfoForm .container .row input:valid {
+  border-bottom: 2px solid #0088a9;
+}
+
+.anbarAddData .anbarAdd-container .session-info .addNewSessionInfoForm .container .row input:invalid {
+  border-bottom: 2px solid red;
+}
+
+.anbarAddData .anbarAdd-container .session-info .addNewSessionInfoForm .container .row input[type="number"]::-webkit-outer-spin-button,
+.anbarAddData .anbarAdd-container .session-info .addNewSessionInfoForm .container .row input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.anbarAddData .anbarAdd-container .session-info .addNewSessionInfoForm .container .row textarea {
+  resize: none;
+  height: 80px;
+  width: 80%;
+  outline: none;
+  background-color: transparent;
+  border: 2px solid #0088a9;
+  padding: 7px;
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.anbarAddData .anbarAdd-container .session-info .addNewSessionInfoForm .container .row button {
+  font-size: 1.3rem;
+  font-weight: 500;
+  background-color: #202020;
+  border: 2px solid #202020;
+  color: white;
+  padding: 5px 20px;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  cursor: pointer;
+  outline: none;
+}
+
+.anbarAddData .anbarAdd-container .session-info .addNewSessionInfoForm .container .row button:hover {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
+.anbarAddData .anbarAdd-container .session-info .addNewSessionInfoForm .container .row #addNewSessionInfoSubmitBtn {
+  background-color: red;
+  border: 2px solid red;
+}
+
+.anbarAddData .anbarAdd-container .session-info .addNewSessionInfoForm .container .row .addNewSessionInfoProductSearchDropDown {
+  width: 60%;
+  position: relative;
+}
+
+.anbarAddData .anbarAdd-container .session-info .addNewSessionInfoForm .container .row .addNewSessionInfoProductSearchDropDown input {
+  width: 100%;
+}
+
+.anbarAddData .anbarAdd-container .session-info .addNewSessionInfoForm .container .row .addNewSessionInfoProductSearchDropDown input:valid:hover ~ .dropdown {
+  display: block;
+}
+
+.anbarAddData .anbarAdd-container .session-info .addNewSessionInfoForm .container .row .addNewSessionInfoProductSearchDropDown .dropdown:hover {
+  display: block;
+}
+
+.anbarAddData .anbarAdd-container .session-info .addNewSessionInfoForm .container .row .addNewSessionInfoProductSearchDropDown .dropdown {
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.801);
+  border: 2px solid #0088a9;
+  border-top: none;
+  display: none;
+  position: absolute;
+}
+
+.anbarAddData .anbarAdd-container .session-info .addNewSessionInfoForm .container .row .addNewSessionInfoProductSearchDropDown .dropdown .container p {
+  color: white;
+  width: 100%;
+  padding: 7px 0 7px 1px;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+.anbarAddData .anbarAdd-container .session-info .addNewSessionInfoForm .container .row .addNewSessionInfoProductSearchDropDown .dropdown .container p:hover {
+  color: #0088a9;
+}
+
+.anbarAddData .anbarAdd-container .session-info .addNewSessionInfoForm .container #addNewSessionInfoBtnsRow {
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
 }
 
 .anbarAddData .anbarAdd-container .session-info[data-isActive="true"] {

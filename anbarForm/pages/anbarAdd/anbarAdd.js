@@ -1,6 +1,6 @@
-// =====================================================================================
-//                                    UTIL FUNCTIONS
-// =====================================================================================
+// ======================================================================================================
+//                                             UTIL FUNCTIONS
+// ======================================================================================================
 
 async function showAlert(message) {
 	$("#alertMessage").html(message);
@@ -39,6 +39,7 @@ function closeAlert() {
 	}, 600);
 }
 
+// Anbar info part
 $(".closedState").click(function () {
 	$(this).attr("data-isClicked", "True");
 	setTimeout(() => {
@@ -46,18 +47,15 @@ $(".closedState").click(function () {
 	}, 500);
 });
 $(document).click((el) => {
-	if (
-		el.target !== $(".closedState")[0] &&
-		$.inArray(el.target, $(".closedState").children())
-	) {
+	if (el.target !== $(".closedState")[0] && $.inArray(el.target, $(".closedState").children())) {
 		$(".openedState").attr("data-isClicked", "False");
 		$(".closedState").attr("data-isClicked", "False");
 	}
 });
 
-// =====================================================================================
-//                                   MoveableBorder part
-// =====================================================================================
+// ====================================================================================================
+//                                         MoveableBorder part
+// ====================================================================================================
 
 var currentMousePos = { x: -1, y: -1 };
 $(document).mousemove(function (event) {
@@ -73,12 +71,8 @@ clickObj.mousedown(function () {
 	timeout = setInterval(function () {
 		if (prevMouseY !== currentMousePos.y) {
 			moveLineBy += currentMousePos.y - $(".moveableBorder").offset().top;
-			moveBlockBy =
-				parseInt($(".bulks").css("height").slice(0, -2)) + moveLineBy;
-			if (
-				moveBlockBy < $(document).height() * 0.65 &&
-				moveBlockBy > $(document).height() * 0.15
-			) {
+			moveBlockBy = parseInt($(".bulks").css("height").slice(0, -2)) + moveLineBy;
+			if (moveBlockBy < $(document).height() * 0.65 && moveBlockBy > $(document).height() * 0.15) {
 				prevMouseY = currentMousePos.y;
 				$(".moveableBorder").css("top", moveLineBy);
 				$(".bulks").css("height", moveBlockBy);
@@ -103,11 +97,13 @@ $(document).mouseup(function () {
 	return false;
 });
 
-// =====================================================================================
-//                                   Main part
-// =====================================================================================
+// ====================================================================================================
+//                                        Page's main part logic
+// ====================================================================================================
 
-// Bulks part
+// ====================================================================================================
+//                                            BULKS BLOKS's part
+// ====================================================================================================
 function fillBulksTable(data) {
 	$(".anbarAddBulksTable").remove();
 
@@ -123,9 +119,9 @@ function fillBulksTable(data) {
 	data.forEach((el) => {
 		let row = `<tr class="single-bulk" data-id='${el.id}'>`;
 
-		row += `<td title="${moment(el.begin_date).format(
-			"DD MMMM YYYY, h:mm:ss"
-		)}">${moment(el.begin_date).format("DD MMMM YYYY")}</td>`;
+		row += `<td title="${moment(el.begin_date).format("DD MMMM YYYY, h:mm:ss")}">${moment(
+			el.begin_date
+		).format("DD MMMM YYYY")}</td>`;
 		row += `<td>${el.seller}</td>`;
 		row += `<td>${el.whole_price}</td>`;
 		row += `<td>${el.cost_price}</td>`;
@@ -268,10 +264,7 @@ function showSingleBulkOptions(bulkEl) {
 		$("#optionsMenu").attr("data-belongsTo", "Bulks");
 		$("#optionsMenu").css({
 			top:
-				currentMousePos.y -
-				$(document).height() * 0.09 -
-				$($(".optionsBtn")[0]).height() / 2 +
-				5,
+				currentMousePos.y - $(document).height() * 0.09 - $($(".optionsBtn")[0]).height() / 2 + 5,
 			left: currentMousePos.x - $($(".optionsBtn")[0]).height() / 2 - 15,
 		});
 
@@ -285,11 +278,7 @@ function showSingleBulkOptions(bulkEl) {
 	$("#optionsDelete").show();
 	$("#optionsMenu").attr("data-belongsTo", "Bulks");
 	$("#optionsMenu").css({
-		top:
-			currentMousePos.y -
-			$(document).height() * 0.09 -
-			$($(".optionsBtn")[0]).height() / 2 +
-			5,
+		top: currentMousePos.y - $(document).height() * 0.09 - $($(".optionsBtn")[0]).height() / 2 + 5,
 		left: currentMousePos.x - $($(".optionsBtn")[0]).height() / 2 - 15,
 	});
 	bulkEl.attr("data-isSelected", "True");
@@ -324,20 +313,17 @@ $(document).click((el) => {
 		if (
 			$(el.target).attr("class") !== "addNewBulkForm" &&
 			$.inArray(el.target, $(".addNewBulkForm").children()) < 0 &&
-			$.inArray($(el.target).parent()[0], $(".addNewBulkForm").children()) <
-				0 &&
-			$.inArray(
-				$(el.target).parent().parent()[0],
-				$(".addNewBulkForm").children()
-			) < 0
+			$.inArray($(el.target).parent()[0], $(".addNewBulkForm").children()) < 0 &&
+			$.inArray($(el.target).parent().parent()[0], $(".addNewBulkForm").children()) < 0
 		) {
-			console.log("IN_BULKS");
 			hideAddNewBulkForm();
 		}
 	}
 });
 
-// Bulk's sessions part
+// ====================================================================================================
+//                                       BULKS SESSIONS BLOKS's part
+// ====================================================================================================
 var selectedBulkId = undefined;
 function fillSessionsTable(data) {
 	$("#defaultSessionsText").attr("data-isTableShowing", "True");
@@ -356,9 +342,9 @@ function fillSessionsTable(data) {
 	data.forEach((el) => {
 		let row = `<tr class="bulk-session" data-id='${el.id}'>`;
 
-		row += `<td title="${moment(el.begin_date).format(
-			"DD MMMM YYYY, h:mm:ss"
-		)}">${moment(el.begin_date).format("DD MMMM YYYY")}</td>`;
+		row += `<td title="${moment(el.begin_date).format("DD MMMM YYYY, h:mm:ss")}">${moment(
+			el.begin_date
+		).format("DD MMMM YYYY")}</td>`;
 		row += `<td>${el.cost_price}</td>`;
 		row += `<td>${el.sum_price}</td>`;
 		row += `<td>${el.done === "+" ? "Finished" : "Not Finished"}</td>`;
@@ -383,7 +369,7 @@ function fillSessionsTable(data) {
 	}
 
 	$(".bulk-session").click(function () {
-		$(".anbarAddInfo").hide()
+		$(".anbarAddInfo").hide();
 		getSessionInfo($(this).attr("data-id"));
 	});
 	$(".bulk-session").contextmenu(function () {
@@ -394,7 +380,6 @@ function fillSessionsTable(data) {
 	});
 }
 function getBulkSessions(id) {
-	console.log(id);
 	selectedBulkId = id;
 	poolConnect.then((pool) => {
 		pool
@@ -467,9 +452,7 @@ $("#addNewSessionDiscardBtn").click(() => {
 	hideAddNewSessionForm();
 });
 $("#addNewSessionSubmitBtn").click(() => {
-	addNewSession(
-		moment($("#addNewSessionBeginDate").val()).format("yyyy-MM-DD HH:mm:ss")
-	);
+	addNewSession(moment($("#addNewSessionBeginDate").val()).format("yyyy-MM-DD HH:mm:ss"));
 	refreshSessionsTable(600);
 	hideAddNewSessionForm();
 });
@@ -481,10 +464,7 @@ function showSingleSessionOptions(sessionEl) {
 		$("#optionsMenu").attr("data-belongsTo", "Sessions");
 		$("#optionsMenu").css({
 			top:
-				currentMousePos.y -
-				$(document).height() * 0.09 -
-				$($(".optionsBtn")[0]).height() / 2 +
-				5,
+				currentMousePos.y - $(document).height() * 0.09 - $($(".optionsBtn")[0]).height() / 2 + 5,
 			left: currentMousePos.x - $($(".optionsBtn")[0]).height() / 2 - 15,
 		});
 
@@ -498,11 +478,7 @@ function showSingleSessionOptions(sessionEl) {
 	$("#optionsDelete").show();
 	$("#optionsMenu").attr("data-belongsTo", "Sessions");
 	$("#optionsMenu").css({
-		top:
-			currentMousePos.y -
-			$(document).height() * 0.09 -
-			$($(".optionsBtn")[0]).height() / 2 +
-			5,
+		top: currentMousePos.y - $(document).height() * 0.09 - $($(".optionsBtn")[0]).height() / 2 + 5,
 		left: currentMousePos.x - $($(".optionsBtn")[0]).height() / 2 - 15,
 	});
 	sessionEl.attr("data-isSelected", "True");
@@ -540,26 +516,22 @@ $(document).click((el) => {
 		if (
 			$(el.target).attr("class") !== "addNewSessionForm" &&
 			$.inArray(el.target, $(".addNewSessionForm").children()) < 0 &&
-			$.inArray($(el.target).parent()[0], $(".addNewSessionForm").children()) <
-				0 &&
-			$.inArray(
-				$(el.target).parent().parent()[0],
-				$(".addNewSessionForm").children()
-			) < 0
+			$.inArray($(el.target).parent()[0], $(".addNewSessionForm").children()) < 0 &&
+			$.inArray($(el.target).parent().parent()[0], $(".addNewSessionForm").children()) < 0
 		) {
-			console.log("IN_SESSIONS");
 			hideAddNewSessionForm();
 		}
 	}
 });
 
-// Single session's info part
+// ====================================================================================================
+//                                       SESSIONS INFO part
+// ====================================================================================================
+var selectedSessionId = undefined;
 function fillSessionInfoTable(data) {
 	$(".anbarAddSessionInfoTable").remove();
 
-	$(".session-info-table").append(
-		"<table class='anbarAddSessionInfoTable'></table>"
-	);
+	$(".session-info-table").append("<table class='anbarAddSessionInfoTable'></table>");
 	$(".anbarAddSessionInfoTable").append("<thead></thead>");
 	$(".anbarAddSessionInfoTable").append("<tbody></tbody>");
 
@@ -586,9 +558,9 @@ function fillSessionInfoTable(data) {
 		row += `<td>${el.extra_charge}</td>`;
 		row += `<td>${el.sum_price}</td>`;
 		row += `<td>${el.title[1]}</td>`;
-		row += `<td title="${moment(el.exp_date).format(
-			"Da MMMM YYYY, h:mm:ss"
-		)}">${moment(el.exp_date).format("DD MMMM YYYY")}</td>`;
+		row += `<td title="${moment(el.exp_date).format("Da MMMM YYYY, h:mm:ss")}">${moment(
+			el.exp_date
+		).format("DD MMMM YYYY")}</td>`;
 		row += `<td>${el.product_cell}</td>`;
 		row += `<td>${el.reason}</td>`;
 
@@ -599,7 +571,7 @@ function fillSessionInfoTable(data) {
 	// Fill empty tables
 	if (data.length < 17) {
 		for (let i = 0; i < 17 - data.length; i++) {
-			let row = "<tr style='height: 40px'>";
+			let row = "<tr class='empty-single-session-info' style='height: 40px'>";
 
 			for (let j = 0; j < 11; j++) {
 				row += "<td></td>";
@@ -610,10 +582,18 @@ function fillSessionInfoTable(data) {
 			$(".anbarAddSessionInfoTable > tbody").append(row);
 		}
 	}
+
+	$(".single-session-info").contextmenu(function () {
+		showSingleSessionInfoOptions($(this));
+	});
+	$(".empty-single-session-info").contextmenu(function () {
+		showSingleSessionInfoOptions($(this));
+	});
 }
 $("#sessionInfoGoBackBtn").click(() => {
+	refreshSessionsTable(600);
 	hideSessionInfo();
-	$(".anbarAddInfo").show()
+	$(".anbarAddInfo").show();
 });
 function hideSessionInfo() {
 	$(".session-info").attr("data-isActive", "false");
@@ -623,6 +603,7 @@ function showSessionInfo(data) {
 	fillSessionInfoTable(data);
 }
 function getSessionInfo(id) {
+	selectedSessionId = id;
 	poolConnect.then((pool) => {
 		pool
 			.request()
@@ -633,8 +614,284 @@ function getSessionInfo(id) {
 			});
 	});
 }
+function refreshSessionInfoTable(timeout = 0) {
+	setTimeout(() => {
+		getSessionInfo(selectedSessionId);
+	}, timeout);
+}
+function deleteSessionInfo(sessionInfoId) {
+	poolConnect.then((pool) => {
+		pool
+			.request()
+			.input("id", sessionInfoId)
+			.execute("dbo.bulk_buying_session_info_delete", (err) => {
+				if (err !== null) console.log(err);
+			});
+	});
+}
+function addNewSessionInfo() {
+	return
+	poolConnect.then((pool) => {
+		pool
+			.request()
+			.input("product_id", $("#addNewSessionInfo_productId").val())
+			.input("quantity", $("#addNewSessionInfo_quantity").val())
+			.input("price", $("#addNewSessionInfo_price").val())
+			.input("extra_charge", $("#addNewSessionInfo_extraCharge").val())
+			.input(
+				"cluster_id",
+				$("#addNewSessionInfo_cluster").children("option:selected").attr("data-id")
+			)
+			.input(
+				"exp_date",
+				moment($("#addNewSessionInfo_expDate").val()).format("yyyy-MM-DD HH:mm:ss")
+			)
+			.input("reason", $("#addNewSessionInfo_reason").val())
+			.input("product_cell", $("#addNewSessionInfo_productCell").val())
+			.input(
+				"currency",
+				$("#addNewSessionInfo_currency").children("option:selected").attr("data-id")
+			)
+			.input(
+				"product_manufacturer",
+				$("#addNewSessionInfo_productManufacturer").children("option:selected").attr("data-id")
+			)
+			.input("barcode", $("#addNewSessionInfo_barcode").val())
+			.input("session_id", selectedSessionId)
+			.input("bulk_buying_id", selectedBulkId)
+			.input("product_voen", $("#addNewSessionInfo_voen").val())
+			.input("user_id", USER.id)
+			.execute("dbo.bulk_buying_session_info_insert", (err) => {
+				if (err !== null) console.log(err);
+			});
+	});
+}
+function addNewSessionInfoFormValidation() {
+	let arr = $(".addNewSessionInfoForm input");
+	for (let i = 0; i < arr.length; i++) {
+		if ($(arr[i]).val() === "") {
+			return false;
+		}
+	}
 
-// Date part
+	return true;
+}
+function addNewSessinoInfoFormEmptyInputs(){
+	let arr = $(".addNewSessionInfoForm input");
+	for (let i = 0; i < arr.length; i++) {
+		if ($(arr[i]).attr("type") !== "date") {
+			$(arr[i]).val("")
+		}
+	}
+}
+async function showAddNewSessionInfoForm() {
+	// Preparing form
+	let now = new Date();
+	let day = ("0" + now.getDate()).slice(-2);
+	let month = ("0" + (now.getMonth() + 3)).slice(-2);
+	let date = now.getFullYear() + "-" + month + "-" + day;
+	$("#addNewSessionInfo_expDate").val(date);
+
+	$("#addNewSessionInfo_cluster").empty();
+	let clustersData = await new Promise((resolve) => {
+		poolConnect.then((pool) => {
+			pool.request().execute("dbo.cluster_names_select_all", (err, res) => {
+				if (err !== null) console.log(err);
+				resolve(res.recordset);
+			});
+		});
+	});
+	for (let i = 0; i < clustersData.length; i++) {
+		$("#addNewSessionInfo_cluster").append(
+			`<option data-id="${clustersData[i].id}">${clustersData[i].title}</option>`
+		);
+	}
+
+	$("#addNewSessionInfo_currency").empty();
+	let currencyData = await new Promise((resolve) => {
+		poolConnect.then((pool) => {
+			pool.request().execute("dbo.currency_select", (err, res) => {
+				if (err !== null) console.log(err);
+				resolve(res.recordset);
+			});
+		});
+	});
+	for (let i = 0; i < currencyData.length; i++) {
+		$("#addNewSessionInfo_currency").append(
+			`<option data-id="${currencyData[i].id}" title="${currencyData[i].full_title}">${currencyData[i].title}</option>`
+		);
+	}
+
+	$("#addNewSessionInfo_productManufacturer").empty();
+	let manufacturerData = await new Promise((resolve) => {
+		poolConnect.then((pool) => {
+			pool.request().execute("dbo.product_manufacturer_select_all", (err, res) => {
+				if (err !== null) console.log(err);
+				resolve(res.recordset);
+			});
+		});
+	});
+	for (let i = 0; i < manufacturerData.length; i++) {
+		$("#addNewSessionInfo_productManufacturer").append(
+			`<option data-id="${manufacturerData[i].id}">${manufacturerData[i].title}</option>`
+		);
+	}
+
+	// Showing Form
+	$(".anbarAdd-container").css({
+		"pointer-events": "none",
+	});
+	$(".session-info").css({
+		"pointer-events": "none",
+	});
+	$(".addNewSessionInfoForm").css({
+		opacity: "1",
+		display: "flex",
+		"pointer-events": "all",
+	});
+	$(".addNewSessionInfoForm").attr("data-isActive", "True");
+}
+function hideAddNewSessionInfoForm() {
+	$(".anbarAdd-container").css({
+		"pointer-events": "all",
+	});
+	$(".session-info").css({
+		"pointer-events": "all",
+	});
+	$(".addNewSessionInfoForm").css({
+		opacity: "0",
+	});
+	$(".addNewSessionInfoForm").attr("data-isActive", "False");
+	addNewSessinoInfoFormEmptyInputs()
+	setTimeout(() => {
+		$(".addNewSessionInfoForm").css("display", "none");
+	}, 600);
+}
+$("#addNewSessionInfoDiscardBtn").click(() => {
+	hideAddNewSessionInfoForm();
+});
+$("#addNewSessionInfoSubmitBtn").click(() => {
+	if (!addNewSessionInfoFormValidation()) {
+		console.log("Fill all inputs");
+		return;
+	}
+	addNewSessionInfo(moment($("#addNewSessionInfoBeginDate").val()).format("yyyy-MM-DD HH:mm:ss"));
+	refreshSessionInfoTable(600);
+	hideAddNewSessionInfoForm();
+});
+function showSingleSessionInfoOptions(sessionInfoEl) {
+	if (sessionInfoEl.attr("class") === "empty-single-session-info") {
+		$(".single-session-info").attr("data-isSelected", "False");
+		$(".optionsBtn").attr("data-isActive", "False");
+		$("#optionsDelete").hide();
+		$("#optionsMenu").attr("data-belongsTo", "SessionsInfo");
+		$("#optionsMenu").css({
+			top:
+				currentMousePos.y - $(document).height() * 0.09 - $($(".optionsBtn")[0]).height() / 2 + 5,
+			left: currentMousePos.x - $($(".optionsBtn")[0]).height() / 2 - 15,
+		});
+
+		$("#optionsNew").attr("title", "Add new product income");
+		$(".optionsBtn").attr("data-isActive", "True");
+		return;
+	}
+
+	$(".single-session-info").attr("data-isSelected", "False");
+	$(".optionsBtn").attr("data-isActive", "False");
+	$("#optionsDelete").show();
+	$("#optionsMenu").attr("data-belongsTo", "SessionsInfo");
+	$("#optionsMenu").css({
+		top: currentMousePos.y - $(document).height() * 0.09 - $($(".optionsBtn")[0]).height() / 2 + 5,
+		left: currentMousePos.x - $($(".optionsBtn")[0]).height() / 2 - 15,
+	});
+	sessionInfoEl.attr("data-isSelected", "True");
+	$("#optionsDelete").attr("data-sessionInfoId", sessionInfoEl.attr("data-id"));
+	$("#optionsDelete").attr("title", "Delete product income");
+	$("#optionsNew").attr("title", "Add new product income");
+	$(".optionsBtn").attr("data-isActive", "True");
+}
+$("#optionsDelete").click(function () {
+	if ($("#optionsMenu").attr("data-belongsTo") !== "SessionsInfo") {
+		return;
+	}
+	showAlert("Are you sure you want to delete this session's product income?").then((res) => {
+		if (res) {
+			deleteSessionInfo($(this).attr("data-sessionId"));
+			refreshSessionInfoTable(600);
+		}
+		closeAlert();
+	});
+});
+$("#optionsNew").click(function () {
+	if ($("#optionsMenu").attr("data-belongsTo") !== "SessionsInfo") {
+		return;
+	}
+	showAddNewSessionInfoForm();
+});
+$(document).click((el) => {
+	$(".bulk-session").attr("data-isSelected", "False");
+	$(".optionsBtn").attr("data-isActive", "False");
+
+	if ($(".addNewSessionInfoForm").attr("data-isActive") === "True") {
+		if ($.inArray(el.target, $("#optionsMenu img")) !== -1) {
+			return;
+		}
+		if (
+			$(el.target).attr("class") !== "addNewSessionInfoForm" &&
+			$.inArray(el.target, $(".addNewSessionInfoForm").children()) < 0 &&
+			$.inArray($(el.target).parent()[0], $(".addNewSessionInfoForm").children()) < 0 &&
+			$.inArray($(el.target).parent().parent()[0], $(".addNewSessionInfoForm").children()) < 0 &&
+			$.inArray(
+				$(el.target).parent().parent().parent()[0],
+				$(".addNewSessionInfoForm").children()
+			) < 0 &&
+			$.inArray(
+				$(el.target).parent().parent().parent().parent()[0],
+				$(".addNewSessionInfoForm").children()
+			) < 0 &&
+			$.inArray(
+				$(el.target).parent().parent().parent().parent().parent()[0],
+				$(".addNewSessionInfoForm").children()
+			) < 0 &&
+			$.inArray(
+				$(el.target).parent().parent().parent().parent().parent().parent()[0],
+				$(".addNewSessionInfoForm").children()
+			) < 0
+		) {
+			hideAddNewSessionInfoForm();
+		}
+	}
+});
+
+// Search product in addNewSessionInfo
+function fillAddNewSessionInfoProductDropdown(data){
+	let parent = $("#addNewSessionInfoDrowdown")
+	data.forEach(el => {
+		parent.append(`<p class="dropdown-member" data-id="${el.id}">${el.title}</p>`)
+	})
+
+	$(".dropdown-member").click(function() {
+		$("#addNewSessionInfo_productId").attr("data-productId", $(this).attr("data-id"))
+		$("#addNewSessionInfo_productId").val($(this).val())
+	})
+}
+$("#addNewSessionInfo_productId").keyup(function () {
+	if ($(this).val().trim() === "") return;
+	console.log($(this).val());
+	return
+	poolConnect.then((pool) => {
+		pool
+			.request()
+			.input("title", $(this).val())
+			.execute("dbo.bulk_buying_session_info_search", (err, res) => {
+				fillAddNewSessionInfoProductDropdown(res.recordset)
+			});
+	});
+});
+
+// ====================================================================================================
+//                                        GENERAL DATE PICKER SETUP
+// ====================================================================================================
 $("#date_from").change(function () {
 	let date = $(this).val();
 	if ($("#date_to").val() !== "") {

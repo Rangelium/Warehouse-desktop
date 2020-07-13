@@ -14,7 +14,7 @@
 		transition: 0.4s;
 		filter: brightness(100%);
 
-		.anbarAddInfo{
+		.anbarAddInfo {
 			pointer-events: none;
 			position: absolute;
 			top: 0;
@@ -23,7 +23,7 @@
 			width: 35%;
 			height: 35%;
 
-			.closedState{
+			.closedState {
 				pointer-events: all;
 				$circle-radius: 140px;
 				position: absolute;
@@ -37,27 +37,27 @@
 				transition: 0.5s all, 0.4s background-color;
 				cursor: pointer;
 
-				&:hover{
+				&:hover {
 					background-color: #0088a9;
 
-					img{
+					img {
 						transform: scale(1.1) translate(-20%, -75%);
 					}
 				}
 
-				img{
+				img {
 					position: absolute;
 					top: 80%;
-					left: 25%;
-					transform: translate(-20%, -75%);
+					left: 22%;
+					transform: translate(-20%, -78%);
 					user-select: none;
-					width: 45px;
+					width: 40px;
 					transition: 0.2s;
 					opacity: 1;
 				}
 			}
 
-			.closedState[data-isClicked=True]{
+			.closedState[data-isClicked="True"] {
 				width: 100%;
 				height: 100%;
 				background-color: #0088a9;
@@ -66,13 +66,13 @@
 				top: 0;
 				right: 0;
 
-				img{
+				img {
 					opacity: 0;
 					pointer-events: none;
 				}
 			}
 
-			.openedState{
+			.openedState {
 				pointer-events: none;
 				opacity: 0;
 				position: absolute;
@@ -85,10 +85,10 @@
 				border-bottom-left-radius: 20%;
 				transition: 0.2s;
 
-				.container{
+				.container {
 					padding: 20px;
 
-					h1{
+					h1 {
 						width: 100%;
 						text-align: center;
 						color: white;
@@ -96,14 +96,14 @@
 						font-weight: 500;
 						padding-bottom: 25px;
 					}
-	
-					ul{
+
+					ul {
 						position: relative;
 						left: 7px;
 						width: 100%;
 						text-align: center;
-						
-						li{
+
+						li {
 							color: black;
 							font-size: 1.1rem;
 							font-weight: 300;
@@ -111,8 +111,8 @@
 							cursor: default;
 							list-style: disc;
 							padding-bottom: 5px;
-	
-							&:hover{
+
+							&:hover {
 								color: white;
 							}
 						}
@@ -120,7 +120,7 @@
 				}
 			}
 
-			.openedState[data-isClicked=True]{
+			.openedState[data-isClicked="True"] {
 				opacity: 1;
 				pointer-events: all;
 				z-index: 100000;
@@ -342,7 +342,7 @@
 				justify-content: space-around;
 				align-items: center;
 
-				h1{
+				h1 {
 					color: white;
 					font-weight: bold;
 					letter-spacing: 1px;
@@ -350,13 +350,13 @@
 					padding: 15px 0;
 				}
 
-				.container{
+				.container {
 					display: flex;
 					flex-direction: column;
 					align-items: center;
 					flex-grow: 1;
 
-					.row{
+					.row {
 						padding: 15px 0;
 						width: 100%;
 						display: flex;
@@ -389,7 +389,7 @@
 								transform: scale(1.1);
 							}
 						}
-						select{
+						select {
 							outline: none;
 							font-size: 1.1rem;
 							font-weight: 500;
@@ -406,12 +406,12 @@
 							transition: 0.3s;
 							cursor: pointer;
 							outline: none;
-			
+
 							&:hover {
 								transform: scale(1.1);
 							}
 						}
-			
+
 						#addNewBulkSubmitBtn {
 							background-color: red;
 							border: 2px solid red;
@@ -546,7 +546,7 @@
 						tr[data-isSelected="True"] {
 							background-color: rgb(129, 148, 158) !important;
 
-							td{
+							td {
 								color: black;
 							}
 						}
@@ -578,7 +578,7 @@
 				justify-content: space-around;
 				align-items: center;
 
-				h1{
+				h1 {
 					color: white;
 					font-weight: bold;
 					letter-spacing: 1px;
@@ -586,13 +586,13 @@
 					padding: 15px 0;
 				}
 
-				.container{
+				.container {
 					display: flex;
 					flex-direction: column;
 					align-items: center;
 					flex-grow: 1;
 
-					.row{
+					.row {
 						padding: 15px 0;
 						width: 100%;
 						display: flex;
@@ -636,12 +636,12 @@
 							transition: 0.3s;
 							cursor: pointer;
 							outline: none;
-			
+
 							&:hover {
 								transform: scale(1.1);
 							}
 						}
-			
+
 						#addNewSessionSubmitBtn {
 							background-color: red;
 							border: 2px solid red;
@@ -757,6 +757,216 @@
 								cursor: pointer;
 							}
 						}
+					}
+				}
+			}
+
+			.addNewSessionInfoForm {
+				position: absolute;
+				top: 45%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				z-index: 1000000000000;
+				width: 550px;
+				height: fit-content;
+				opacity: 0;
+				transition: 0.4s;
+				border-radius: 25px;
+				background-color: rgb(41, 40, 40);
+				display: none;
+				pointer-events: none;
+				flex-direction: column;
+				justify-content: space-around;
+				align-items: center;
+
+				h1 {
+					color: white;
+					font-weight: bold;
+					letter-spacing: 1px;
+					font-size: 1.4rem;
+					padding: 10px 0;
+				}
+
+				.container {
+					display: flex;
+					flex-direction: column;
+					align-items: center;
+					flex-grow: 1;
+
+					.row {
+						padding: 10px 0;
+						width: 100%;
+						display: flex;
+						justify-content: space-around;
+						align-items: center;
+
+						.column {
+							padding-right: 25px;
+
+							.columnElement {
+								display: flex;
+								flex-direction: column;
+								justify-content: space-around;
+								align-items: center;
+								padding-bottom: 10px;
+
+								p {
+									left: -4px;
+									display: flex;
+									align-self: flex-start;
+								}
+								input {
+									width: 80%;
+								}
+
+								input[type="date"] {
+									width: 100%;
+									color: white;
+									border: 2px solid white;
+									cursor: pointer;
+
+									&:hover {
+										color: #0088a9;
+										border: 2px solid #0088a9;
+										transform: scale(1.1);
+									}
+								}
+
+								select {
+									width: 100%;
+									font-weight: 500;
+									font-size: 1.1rem;
+									padding: 1px 2px;
+									background-color: transparent;
+									border: 2px solid white;
+									transition: 0.3s;
+									color: white;
+									outline: none;
+
+									&:hover {
+										transform: scale(1.1);
+										border: 2px solid #0088a9;
+									}
+									option {
+										background-color: rgb(41, 40, 40);
+									}
+								}
+							}
+						}
+
+						p {
+							color: white;
+							font-size: 1.1rem;
+							font-weight: 500;
+							user-select: none;
+							position: relative;
+							left: 10px;
+						}
+
+						input {
+							outline: none;
+							background-color: transparent;
+							color: white;
+							border: 2px solid transparent;
+							border-bottom: 2px solid white;
+							font-size: 1.1rem;
+							font-weight: 500;
+							transition: 0.4s;
+							width: 60%;
+							padding: 0 10px;
+
+							&:hover {
+								border-bottom: 2px solid #0088a9;
+							}
+
+							&:valid {
+								border-bottom: 2px solid #0088a9;
+							}
+
+							&:invalid {
+								border-bottom: 2px solid red;
+							}
+						}
+						input[type="number"]::-webkit-outer-spin-button,
+						input[type="number"]::-webkit-inner-spin-button {
+							-webkit-appearance: none;
+							margin: 0;
+						}
+
+						textarea {
+							resize: none;
+							height: 80px;
+							width: 80%;
+							outline: none;
+							background-color: transparent;
+							border: 2px solid #0088a9;
+							padding: 7px;
+							color: white;
+							font-size: 1.1rem;
+							font-weight: 500;
+						}
+
+						button {
+							font-size: 1.3rem;
+							font-weight: 500;
+							background-color: rgb(32, 32, 32);
+							border: 2px solid rgb(32, 32, 32);
+							color: white;
+							padding: 5px 20px;
+							transition: 0.3s;
+							cursor: pointer;
+							outline: none;
+
+							&:hover {
+								transform: scale(1.1);
+							}
+						}
+
+						#addNewSessionInfoSubmitBtn {
+							background-color: red;
+							border: 2px solid red;
+						}
+
+						.addNewSessionInfoProductSearchDropDown{
+							width: 60%;
+							position: relative;
+
+							input{
+								width: 100%;
+							}
+							input:valid:hover ~ .dropdown{
+								display: block;
+							}
+							.dropdown:hover{
+								display: block;
+							}
+
+							.dropdown{
+								width: 100%;
+								background-color: rgba(0, 0, 0, 0.801);
+								border: 2px solid #0088a9;
+								border-top: none;
+								display: none;
+								position: absolute;
+
+								.container{
+									p{
+										color: white;
+										width: 100%;
+										padding: 7px 0 7px 1px;
+										transition: 0.3s;
+
+										&:hover{
+											color: #0088a9;
+										}
+									}
+								}
+							}
+						}
+					}
+
+					#addNewSessionInfoBtnsRow{
+						justify-content: space-around;
 					}
 				}
 			}

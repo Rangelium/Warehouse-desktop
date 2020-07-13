@@ -12,7 +12,7 @@
 	<div class="anbarAdd-container">
 		<div class="anbarAddInfo">
 			<div id="anbarAddShowInfoBtn" class="closedState">
-				<img src="../stylesGlobal/imgs/new_btn.svg" />
+				<img src="../stylesGlobal/imgs/info_btn.svg" />
 			</div>
 			<div class="openedState">
 				<div class="container">
@@ -87,9 +87,81 @@
 			</div>
 		</div>
 		<div class="session-info">
-			<h1>Selected session's information</h1>
+			<h1 id="sessionInfoPageHeading">Selected session's information</h1>
 			<button id="sessionInfoGoBackBtn">Return</button>
 			<div class="session-info-table"></div>
+			<div class="addNewSessionInfoForm">
+				<h1>Add new product income</h1>
+				<div class="container">
+					<div class="row">
+						<p>Product:</p>
+						<div class="addNewSessionInfoProductSearchDropDown">
+							<input type="text" id="addNewSessionInfo_productId" required>
+							<div class="dropdown">
+								<div id="addNewSessionInfoDrowdown" class="container">
+									<p>Kek</p>
+									<p>Lol</p>
+									<p>Jack</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<p>Barcode:</p>
+						<input type="number" min="1" id="addNewSessionInfo_barcode" required/>
+					</div>
+					<div class="row">
+						<p>VOEN:</p>
+						<input type="number" min="1" id="addNewSessionInfo_voen" required/>
+					</div>
+					<div class="row">
+						<div class="column">
+							<div class="columnElement">
+								<p>Quantity:</p>
+								<input type="number" min="1" id="addNewSessionInfo_quantity" required/>
+							</div>
+							<div class="columnElement">
+								<p>Price:</p>
+								<input type="number" min="1" id="addNewSessionInfo_price" required/>
+							</div>
+							<div class="columnElement">
+								<p>Extra charge:</p>
+								<input type="number" min="1" id="addNewSessionInfo_extraCharge" required/>
+							</div>
+							<div class="columnElement">
+								<p>Product cell:</p>
+								<input type="number" min="1" id="addNewSessionInfo_productCell" required/>
+							</div>
+						</div>
+						<div class="column">
+							<div class="columnElement">
+								<p>Cluster:</p>
+								<select id="addNewSessionInfo_cluster"></select>
+							</div>
+							<div class="columnElement">
+								<p>Currency:</p>
+								<select id="addNewSessionInfo_currency"></select>
+							</div>
+							<div class="columnElement">
+								<p>Expiration date:</p>
+								<input type="date" id="addNewSessionInfo_expDate" />
+							</div>
+							<div class="columnElement">
+								<p>Manufacturer:</p>
+								<select id="addNewSessionInfo_productManufacturer"></select>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<p>Reason:</p>
+						<textarea id="addNewSessionInfo_reason" cols="30" rows="10"></textarea>
+					</div>
+					<div class="row" id="addNewSessionInfoBtnsRow">
+						<button id="addNewSessionInfoDiscardBtn">Discard</button>
+						<button id="addNewSessionInfoSubmitBtn">Add</button>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </section>
