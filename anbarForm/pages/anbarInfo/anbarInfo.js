@@ -7,7 +7,8 @@ function showOverallInfo() {
 	new Promise((resolve, reject) => {
 		poolConnect.then((pool) => {
 			pool.request().execute("dbo.dashboard", (err, res) => {
-				if(err != null) console.log(err)
+				if (err != null) console.log(err);
+				console.log(res);
 				resolve(res.recordset[0]);
 			});
 		});
@@ -247,7 +248,7 @@ async function showProductInfo(productData) {
 				.request()
 				.input("product_id", productData.product_id)
 				.execute("dbo.main_tree_click_table", (err, res) => {
-					if(err !== null) console.log(err) 
+					if (err !== null) console.log(err);
 					resolve(res.recordset);
 				});
 		});

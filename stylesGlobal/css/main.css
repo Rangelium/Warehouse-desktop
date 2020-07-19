@@ -2589,6 +2589,7 @@ nav .settings-container .dropdown[data-isOpened="true"] {
 .anbarAddData .anbarAdd-container .session-info .addNewSessionInfoForm .container .row .addNewSessionInfoProductSearchDropDown {
   width: 60%;
   position: relative;
+  z-index: 10000000;
 }
 
 .anbarAddData .anbarAdd-container .session-info .addNewSessionInfoForm .container .row .addNewSessionInfoProductSearchDropDown input {
@@ -2612,15 +2613,22 @@ nav .settings-container .dropdown[data-isOpened="true"] {
   position: absolute;
 }
 
-.anbarAddData .anbarAdd-container .session-info .addNewSessionInfoForm .container .row .addNewSessionInfoProductSearchDropDown .dropdown .container p {
+.anbarAddData .anbarAdd-container .session-info .addNewSessionInfoForm .container .row .addNewSessionInfoProductSearchDropDown .dropdown .containerDropdown {
+  max-height: 300px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.anbarAddData .anbarAdd-container .session-info .addNewSessionInfoForm .container .row .addNewSessionInfoProductSearchDropDown .dropdown .containerDropdown p {
   color: white;
   width: 100%;
   padding: 7px 0 7px 1px;
   -webkit-transition: 0.3s;
   transition: 0.3s;
+  cursor: pointer;
 }
 
-.anbarAddData .anbarAdd-container .session-info .addNewSessionInfoForm .container .row .addNewSessionInfoProductSearchDropDown .dropdown .container p:hover {
+.anbarAddData .anbarAdd-container .session-info .addNewSessionInfoForm .container .row .addNewSessionInfoProductSearchDropDown .dropdown .containerDropdown p:hover {
   color: #0088a9;
 }
 
