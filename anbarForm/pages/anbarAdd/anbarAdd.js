@@ -47,7 +47,10 @@ $(".closedState").click(function () {
 	}, 500);
 });
 $(document).click((el) => {
-	if (el.target !== $(".closedState")[0] && $.inArray(el.target, $(".closedState").children())) {
+	if (
+		el.target !== $(".closedState")[0] &&
+		$.inArray(el.target, $(".closedState").children())
+	) {
 		$(".openedState").attr("data-isClicked", "False");
 		$(".closedState").attr("data-isClicked", "False");
 	}
@@ -72,7 +75,10 @@ clickObj.mousedown(function () {
 		if (prevMouseY !== currentMousePos.y) {
 			moveLineBy += currentMousePos.y - $(".moveableBorder").offset().top;
 			moveBlockBy = parseInt($(".bulks").css("height").slice(0, -2)) + moveLineBy;
-			if (moveBlockBy < $(document).height() * 0.65 && moveBlockBy > $(document).height() * 0.15) {
+			if (
+				moveBlockBy < $(document).height() * 0.65 &&
+				moveBlockBy > $(document).height() * 0.15
+			) {
 				prevMouseY = currentMousePos.y;
 				$(".moveableBorder").css("top", moveLineBy);
 				$(".bulks").css("height", moveBlockBy);
@@ -264,7 +270,10 @@ function showSingleBulkOptions(bulkEl) {
 		$("#optionsMenu").attr("data-belongsTo", "Bulks");
 		$("#optionsMenu").css({
 			top:
-				currentMousePos.y - $(document).height() * 0.09 - $($(".optionsBtn")[0]).height() / 2 + 5,
+				currentMousePos.y -
+				$(document).height() * 0.09 -
+				$($(".optionsBtn")[0]).height() / 2 +
+				5,
 			left: currentMousePos.x - $($(".optionsBtn")[0]).height() / 2 - 15,
 		});
 
@@ -278,7 +287,11 @@ function showSingleBulkOptions(bulkEl) {
 	$("#optionsDelete").show();
 	$("#optionsMenu").attr("data-belongsTo", "Bulks");
 	$("#optionsMenu").css({
-		top: currentMousePos.y - $(document).height() * 0.09 - $($(".optionsBtn")[0]).height() / 2 + 5,
+		top:
+			currentMousePos.y -
+			$(document).height() * 0.09 -
+			$($(".optionsBtn")[0]).height() / 2 +
+			5,
 		left: currentMousePos.x - $($(".optionsBtn")[0]).height() / 2 - 15,
 	});
 	bulkEl.attr("data-isSelected", "True");
@@ -464,7 +477,10 @@ function showSingleSessionOptions(sessionEl) {
 		$("#optionsMenu").attr("data-belongsTo", "Sessions");
 		$("#optionsMenu").css({
 			top:
-				currentMousePos.y - $(document).height() * 0.09 - $($(".optionsBtn")[0]).height() / 2 + 5,
+				currentMousePos.y -
+				$(document).height() * 0.09 -
+				$($(".optionsBtn")[0]).height() / 2 +
+				5,
 			left: currentMousePos.x - $($(".optionsBtn")[0]).height() / 2 - 15,
 		});
 
@@ -478,7 +494,11 @@ function showSingleSessionOptions(sessionEl) {
 	$("#optionsDelete").show();
 	$("#optionsMenu").attr("data-belongsTo", "Sessions");
 	$("#optionsMenu").css({
-		top: currentMousePos.y - $(document).height() * 0.09 - $($(".optionsBtn")[0]).height() / 2 + 5,
+		top:
+			currentMousePos.y -
+			$(document).height() * 0.09 -
+			$($(".optionsBtn")[0]).height() / 2 +
+			5,
 		left: currentMousePos.x - $($(".optionsBtn")[0]).height() / 2 - 15,
 	});
 	sessionEl.attr("data-isSelected", "True");
@@ -630,36 +650,48 @@ function deleteSessionInfo(sessionInfoId) {
 	});
 }
 function addNewSessionInfo() {
-	return
+	let product_id = parseInt($("#addNewSessionInfo_productId").attr("data-productId"));
+	let barcode = parseInt($("#addNewSessionInfo_barcode").val());
+	let voen = parseInt($("#addNewSessionInfo_voen").val());
+	let quantity = parseInt($("#addNewSessionInfo_quantity").val());
+	let price = parseInt($("#addNewSessionInfo_price").val());
+	let extra_charge = parseInt($("#addNewSessionInfo_extraCharge").val());
+	let cluster_id = parseInt(
+		$("#addNewSessionInfo_cluster").children("option:selected").attr("data-id")
+	);
+	let currency_id = parseInt(
+		$("#addNewSessionInfo_currency").children("option:selected").attr("data-id")
+	);
+	let product_cell = parseInt($("#addNewSessionInfo_productCell").val());
+	let product_manufacturer = parseInt(
+		$("#addNewSessionInfo_productManufacturer")
+			.children("option:selected")
+			.attr("data-id")
+	);
+	let exp_date = moment($("#addNewSessionInfo_expDate").val()).format(
+		"yyyy-MM-DD HH:mm:ss"
+	);
+	let reason = $("#addNewSessionInfo_reason").val();
+	let session_id = parseInt(selectedSessionId);
+	let bulk_id = parseInt(selectedBulkId);
+
 	poolConnect.then((pool) => {
 		pool
 			.request()
-			.input("product_id", $("#addNewSessionInfo_productId").val())
-			.input("quantity", $("#addNewSessionInfo_quantity").val())
-			.input("price", $("#addNewSessionInfo_price").val())
-			.input("extra_charge", $("#addNewSessionInfo_extraCharge").val())
-			.input(
-				"cluster_id",
-				$("#addNewSessionInfo_cluster").children("option:selected").attr("data-id")
-			)
-			.input(
-				"exp_date",
-				moment($("#addNewSessionInfo_expDate").val()).format("yyyy-MM-DD HH:mm:ss")
-			)
-			.input("reason", $("#addNewSessionInfo_reason").val())
-			.input("product_cell", $("#addNewSessionInfo_productCell").val())
-			.input(
-				"currency",
-				$("#addNewSessionInfo_currency").children("option:selected").attr("data-id")
-			)
-			.input(
-				"product_manufacturer",
-				$("#addNewSessionInfo_productManufacturer").children("option:selected").attr("data-id")
-			)
-			.input("barcode", $("#addNewSessionInfo_barcode").val())
-			.input("session_id", selectedSessionId)
-			.input("bulk_buying_id", selectedBulkId)
-			.input("product_voen", $("#addNewSessionInfo_voen").val())
+			.input("product_id", product_id)
+			.input("quantity", quantity)
+			.input("price", price)
+			.input("extra_charge", extra_charge)
+			.input("cluster_id", cluster_id)
+			.input("exp_date", exp_date)
+			.input("reason", reason)
+			.input("product_cell", product_cell)
+			.input("currency", currency_id)
+			.input("product_manufacturer", product_manufacturer)
+			.input("barcode", barcode)
+			.input("session_id", session_id)
+			.input("bulk_buying_id", bulk_id)
+			.input("product_voen", voen)
 			.input("user_id", USER.id)
 			.execute("dbo.bulk_buying_session_info_insert", (err) => {
 				if (err !== null) console.log(err);
@@ -674,13 +706,19 @@ function addNewSessionInfoFormValidation() {
 		}
 	}
 
+	let tmp_val = $("#addNewSessionInfo_productId").attr("data-productId");
+	if (tmp_val === undefined || tmp_val === "") {
+		return false;
+	}
+
 	return true;
 }
-function addNewSessinoInfoFormEmptyInputs(){
+function addNewSessinoInfoFormEmptyInputs() {
+	$("#addNewSessionInfo_productId").attr("data-productId", "");
 	let arr = $(".addNewSessionInfoForm input");
 	for (let i = 0; i < arr.length; i++) {
 		if ($(arr[i]).attr("type") !== "date") {
-			$(arr[i]).val("")
+			$(arr[i]).val("");
 		}
 	}
 }
@@ -762,7 +800,7 @@ function hideAddNewSessionInfoForm() {
 		opacity: "0",
 	});
 	$(".addNewSessionInfoForm").attr("data-isActive", "False");
-	addNewSessinoInfoFormEmptyInputs()
+	addNewSessinoInfoFormEmptyInputs();
 	setTimeout(() => {
 		$(".addNewSessionInfoForm").css("display", "none");
 	}, 600);
@@ -775,7 +813,9 @@ $("#addNewSessionInfoSubmitBtn").click(() => {
 		console.log("Fill all inputs");
 		return;
 	}
-	addNewSessionInfo(moment($("#addNewSessionInfoBeginDate").val()).format("yyyy-MM-DD HH:mm:ss"));
+	addNewSessionInfo(
+		moment($("#addNewSessionInfoBeginDate").val()).format("yyyy-MM-DD HH:mm:ss")
+	);
 	refreshSessionInfoTable(600);
 	hideAddNewSessionInfoForm();
 });
@@ -787,7 +827,10 @@ function showSingleSessionInfoOptions(sessionInfoEl) {
 		$("#optionsMenu").attr("data-belongsTo", "SessionsInfo");
 		$("#optionsMenu").css({
 			top:
-				currentMousePos.y - $(document).height() * 0.09 - $($(".optionsBtn")[0]).height() / 2 + 5,
+				currentMousePos.y -
+				$(document).height() * 0.09 -
+				$($(".optionsBtn")[0]).height() / 2 +
+				5,
 			left: currentMousePos.x - $($(".optionsBtn")[0]).height() / 2 - 15,
 		});
 
@@ -801,7 +844,11 @@ function showSingleSessionInfoOptions(sessionInfoEl) {
 	$("#optionsDelete").show();
 	$("#optionsMenu").attr("data-belongsTo", "SessionsInfo");
 	$("#optionsMenu").css({
-		top: currentMousePos.y - $(document).height() * 0.09 - $($(".optionsBtn")[0]).height() / 2 + 5,
+		top:
+			currentMousePos.y -
+			$(document).height() * 0.09 -
+			$($(".optionsBtn")[0]).height() / 2 +
+			5,
 		left: currentMousePos.x - $($(".optionsBtn")[0]).height() / 2 - 15,
 	});
 	sessionInfoEl.attr("data-isSelected", "True");
@@ -814,13 +861,15 @@ $("#optionsDelete").click(function () {
 	if ($("#optionsMenu").attr("data-belongsTo") !== "SessionsInfo") {
 		return;
 	}
-	showAlert("Are you sure you want to delete this session's product income?").then((res) => {
-		if (res) {
-			deleteSessionInfo($(this).attr("data-sessionId"));
-			refreshSessionInfoTable(600);
+	showAlert("Are you sure you want to delete this session's product income?").then(
+		(res) => {
+			if (res) {
+				deleteSessionInfo($(this).attr("data-sessionId"));
+				refreshSessionInfoTable(600);
+			}
+			closeAlert();
 		}
-		closeAlert();
-	});
+	);
 });
 $("#optionsNew").click(function () {
 	if ($("#optionsMenu").attr("data-belongsTo") !== "SessionsInfo") {
@@ -840,7 +889,10 @@ $(document).click((el) => {
 			$(el.target).attr("class") !== "addNewSessionInfoForm" &&
 			$.inArray(el.target, $(".addNewSessionInfoForm").children()) < 0 &&
 			$.inArray($(el.target).parent()[0], $(".addNewSessionInfoForm").children()) < 0 &&
-			$.inArray($(el.target).parent().parent()[0], $(".addNewSessionInfoForm").children()) < 0 &&
+			$.inArray(
+				$(el.target).parent().parent()[0],
+				$(".addNewSessionInfoForm").children()
+			) < 0 &&
 			$.inArray(
 				$(el.target).parent().parent().parent()[0],
 				$(".addNewSessionInfoForm").children()
@@ -864,29 +916,49 @@ $(document).click((el) => {
 });
 
 // Search product in addNewSessionInfo
-function fillAddNewSessionInfoProductDropdown(data){
-	let parent = $("#addNewSessionInfoDrowdown")
-	data.forEach(el => {
-		parent.append(`<p class="dropdown-member" data-id="${el.id}">${el.title}</p>`)
-	})
+function fillAddNewSessionInfoProductDropdown(data) {
+	$("#addNewSessionInfoDrowdown").empty();
+	let parent = $("#addNewSessionInfoDrowdown");
+	data.forEach((el) => {
+		if (el.product_id !== null) {
+			parent.append(
+				`<p class="dropdown-member" data-barcode="${el.barcode}" data-id="${el.product_id}">${el.title}</p>`
+			);
+		}
+	});
 
-	$(".dropdown-member").click(function() {
-		$("#addNewSessionInfo_productId").attr("data-productId", $(this).attr("data-id"))
-		$("#addNewSessionInfo_productId").val($(this).val())
-	})
+	$(".dropdown-member").click(function () {
+		$("#addNewSessionInfo_productId").attr("data-productId", $(this).attr("data-id"));
+		$("#addNewSessionInfo_productId").val($(this).html());
+		$("#addNewSessionInfo_barcode").val();
+		setTimeout(() => {
+			$("#addNewSessionInfoDrowdown").empty();
+		}, 100);
+	});
 }
 $("#addNewSessionInfo_productId").keyup(function () {
 	if ($(this).val().trim() === "") return;
-	console.log($(this).val());
-	return
-	poolConnect.then((pool) => {
-		pool
-			.request()
-			.input("title", $(this).val())
-			.execute("dbo.bulk_buying_session_info_search", (err, res) => {
-				fillAddNewSessionInfoProductDropdown(res.recordset)
-			});
-	});
+	let text = $(this).val().trim();
+	let textNum = parseInt(text);
+	if (!Number.isNaN(textNum)) {
+		poolConnect.then((pool) => {
+			pool
+				.request()
+				.input("product_id", textNum)
+				.execute("dbo.bulk_buying_session_info_search", (err, res) => {
+					fillAddNewSessionInfoProductDropdown(res.recordset);
+				});
+		});
+	} else {
+		poolConnect.then((pool) => {
+			pool
+				.request()
+				.input("title", text)
+				.execute("dbo.bulk_buying_session_info_search", (err, res) => {
+					fillAddNewSessionInfoProductDropdown(res.recordset);
+				});
+		});
+	}
 });
 
 // ====================================================================================================

@@ -448,8 +448,7 @@
 				user-select: none;
 				color: rgb(231, 228, 228);
 				font-size: 1.5rem;
-				text-shadow: 2px 2px 8px rgb(121, 117, 117),
-					-2px -2px 8px rgb(255, 255, 255);
+				text-shadow: 2px 2px 8px rgb(121, 117, 117), -2px -2px 8px rgb(255, 255, 255);
 				transition: 0.4s;
 				opacity: 1;
 			}
@@ -927,21 +926,22 @@
 							border: 2px solid red;
 						}
 
-						.addNewSessionInfoProductSearchDropDown{
+						.addNewSessionInfoProductSearchDropDown {
 							width: 60%;
 							position: relative;
+							z-index: 10000000;
 
-							input{
+							input {
 								width: 100%;
 							}
-							input:valid:hover ~ .dropdown{
+							input:valid:hover ~ .dropdown {
 								display: block;
 							}
-							.dropdown:hover{
+							.dropdown:hover {
 								display: block;
 							}
 
-							.dropdown{
+							.dropdown {
 								width: 100%;
 								background-color: rgba(0, 0, 0, 0.801);
 								border: 2px solid #0088a9;
@@ -949,14 +949,19 @@
 								display: none;
 								position: absolute;
 
-								.container{
-									p{
+								.containerDropdown {
+									max-height: 300px;
+									overflow-y: scroll;
+									overflow-x: hidden;
+
+									p {
 										color: white;
 										width: 100%;
 										padding: 7px 0 7px 1px;
 										transition: 0.3s;
+										cursor: pointer;
 
-										&:hover{
+										&:hover {
 											color: #0088a9;
 										}
 									}
@@ -965,7 +970,7 @@
 						}
 					}
 
-					#addNewSessionInfoBtnsRow{
+					#addNewSessionInfoBtnsRow {
 						justify-content: space-around;
 					}
 				}

@@ -10,12 +10,12 @@ window.$ = window.jQuery = require("jquery");
 
 const { MyTreeView } = require("../tools/TreeView");
 const moment = require("moment");
-var USER
+var USER;
 
 // setTimeout(() => {
-// 	userLoggedIn()
-// 	$(".nav-link[data-name='anbarAdd']").click()
-// }, 160)
+// 	userLoggedIn();
+// 	openPage("anbarAdd");
+// }, 200);
 
 // ====================================================================================
 //  													   Connection system part
@@ -24,7 +24,6 @@ var USER
 const mssql = require("mssql");
 const { connConfig } = require("../tools/ConnectionConfig");
 
-
 let pool = new mssql.ConnectionPool(connConfig);
 let poolConnect = pool.connect();
 
@@ -32,14 +31,14 @@ let poolConnect = pool.connect();
 //  														    Login system
 // ====================================================================================
 
-function showLoginForm(){
-	$("nav").css("opacity", "0")
-	$("nav").css("pointer-events", "none")
-	$("main").css("opacity", "0")
-	$("main").css("pointer-events", "none")
+function showLoginForm() {
+	$("nav").css("opacity", "0");
+	$("nav").css("pointer-events", "none");
+	$("main").css("opacity", "0");
+	$("main").css("pointer-events", "none");
 
-	$(".login-section").css("opacity", "1")
-	$(".login-section").css("pointer-events", "all")
+	$(".login-section").css("opacity", "1");
+	$(".login-section").css("pointer-events", "all");
 }
 
 // Main login process
@@ -63,10 +62,10 @@ $("form").submit((e) => {
 							.input("username", mssql.NVarChar(250), $("#username").val())
 							.execute("dbo.user_select_info", (err, res) => {
 								USER = res.recordset[0];
-							})
-						userLoggedIn()
-						$("#username").val("")
-						$("#password").val("")
+							});
+						userLoggedIn();
+						$("#username").val("");
+						$("#password").val("");
 						return;
 					} else {
 						// Handling wrond input
@@ -95,20 +94,20 @@ setInterval(() => {
 	}
 }, 100);
 
-function userLoggedIn(){
-	$("nav").css("opacity", "1")
-	$("nav").css("pointer-events", "all")
-	$("main").css("opacity", "1")
-	$("main").css("pointer-events", "all")
-	
-	$(".login-section").css("opacity", "0")
-	$(".login-section").css("pointer-events", "none")
+function userLoggedIn() {
+	$("nav").css("opacity", "1");
+	$("nav").css("pointer-events", "all");
+	$("main").css("opacity", "1");
+	$("main").css("pointer-events", "all");
+
+	$(".login-section").css("opacity", "0");
+	$(".login-section").css("pointer-events", "none");
 }
 
-ipcRenderer.on("userLogOut", ()=>{
-	openPage("anbarInfo")
-	showLoginForm()
-})
+ipcRenderer.on("userLogOut", () => {
+	openPage("anbarInfo");
+	showLoginForm();
+});
 
 // ====================================================================================
 //  														Switch pages system part
@@ -284,11 +283,10 @@ function generateTable(table, data) {
 	for (let element of data) {
 		let row = table.insertRow();
 		for (key in element) {
-			if(key == "id") continue;
+			if (key == "id") continue;
 			let cell = row.insertCell();
 			let text = document.createTextNode(element[key]);
 			cell.appendChild(text);
 		}
 	}
 }
-
