@@ -263,6 +263,7 @@ $("#addNewBulkSubmitBtn").click(() => {
 	hideAddNewBulkForm();
 });
 function showSingleBulkOptions(bulkEl) {
+	$("#optionsAccept").hide();
 	if (bulkEl.attr("class") === "empty-single-bulk") {
 		$(".single-bulk").attr("data-isSelected", "False");
 		$(".optionsBtn").attr("data-isActive", "False");
@@ -430,6 +431,17 @@ function addNewSession(begin_date) {
 			});
 	});
 }
+function acceptAllInsert(bulk_id, session_id) {
+	poolConnect.then((pool) => {
+		pool.request
+			.input("session_id", parseInt(session_id))
+			.input("bulk_buying_id", parseInt(bulk_id))
+			.input("user_id", USER.id)
+			.execute("dbo.bulk_buying_session_info_accept_insert", (err, res) => {
+				if (err !== null) console.log(err);
+			});
+	});
+}
 function showAddNewSessionForm() {
 	// Preparing form
 	let now = new Date();
@@ -473,6 +485,7 @@ function showSingleSessionOptions(sessionEl) {
 	if (sessionEl.attr("class") === "empty-bulk-session") {
 		$(".bulk-session").attr("data-isSelected", "False");
 		$(".optionsBtn").attr("data-isActive", "False");
+		$("#optionsAccept").hide();
 		$("#optionsDelete").hide();
 		$("#optionsMenu").attr("data-belongsTo", "Sessions");
 		$("#optionsMenu").css({
@@ -491,6 +504,7 @@ function showSingleSessionOptions(sessionEl) {
 
 	$(".bulk-session").attr("data-isSelected", "False");
 	$(".optionsBtn").attr("data-isActive", "False");
+	$("#optionsAccept").show();
 	$("#optionsDelete").show();
 	$("#optionsMenu").attr("data-belongsTo", "Sessions");
 	$("#optionsMenu").css({
@@ -504,9 +518,22 @@ function showSingleSessionOptions(sessionEl) {
 	sessionEl.attr("data-isSelected", "True");
 	$("#optionsDelete").attr("data-sessionId", sessionEl.attr("data-id"));
 	$("#optionsDelete").attr("title", "Delete session");
+	$("#optionsAccept").attr("data-sessionId", sessionEl.attr("data-id"));
 	$("#optionsNew").attr("title", "Add new session");
 	$(".optionsBtn").attr("data-isActive", "True");
 }
+$("#optionsAccept").click(function () {
+	if ($("#optionsMenu").attr("data-belongsTo") !== "Sessions") {
+		return;
+	}
+	showAlert("Are you sure you want to accept all insert in this session?").then((res) => {
+		if (res) {
+			acceptAllInsert(selectedBulkId, $(this).attr("data-sessionId"));
+			refreshSessionsTable(600);
+		}
+		closeAlert();
+	});
+});
 $("#optionsDelete").click(function () {
 	if ($("#optionsMenu").attr("data-belongsTo") !== "Sessions") {
 		return;
@@ -820,6 +847,7 @@ $("#addNewSessionInfoSubmitBtn").click(() => {
 	hideAddNewSessionInfoForm();
 });
 function showSingleSessionInfoOptions(sessionInfoEl) {
+	$("#optionsAccept").hide();
 	if (sessionInfoEl.attr("class") === "empty-single-session-info") {
 		$(".single-session-info").attr("data-isSelected", "False");
 		$(".optionsBtn").attr("data-isActive", "False");
@@ -884,6 +912,19 @@ $(document).click((el) => {
 	if ($(".addNewSessionInfoForm").attr("data-isActive") === "True") {
 		if ($.inArray(el.target, $("#optionsMenu img")) !== -1) {
 			return;
+		}
+		if ($(".anbarAddToTreeForm").attr("data-isActive") === "true") {
+			if (
+				el.target === $("#addNewSessionInfoDropDownAddNewproductToTreeBtn")[0] ||
+				el.target === $(".anbarAddToTreeForm")[0] ||
+				$.inArray(el.target, $(".anbarAddToTreeForm").children()) !== -1 ||
+				$.inArray($(el.target).parent()[0], $(".anbarAddToTreeForm").children()) !== -1
+			) {
+				return;
+			} else {
+				hideAddNewProductToTreeForm();
+				return;
+			}
 		}
 		if (
 			$(el.target).attr("class") !== "addNewSessionInfoForm" &&
@@ -959,6 +1000,16 @@ $("#addNewSessionInfo_productId").keyup(function () {
 				});
 		});
 	}
+});
+
+function showAddNewProductToTreeForm() {
+	$(".anbarAddToTreeForm").attr("data-isActive", "true");
+}
+function hideAddNewProductToTreeForm() {
+	$(".anbarAddToTreeForm").attr("data-isActive", "false");
+}
+$("#addNewSessionInfoDropDownAddNewproductToTreeBtn").click(function () {
+	showAddNewProductToTreeForm();
 });
 
 // ====================================================================================================
