@@ -1691,6 +1691,10 @@ nav .settings-container .dropdown[data-isOpened="true"] {
   left: 33px;
 }
 
+.anbarAddData .anbarAdd-container #optionsMenu #optionsAccept[data-isActive="True"] {
+  top: 30px;
+}
+
 .anbarAddData .anbarAdd-container #optionsMenu .optionsBtn[data-isActive="False"] {
   -webkit-transition: 0s;
   transition: 0s;
@@ -2632,6 +2636,17 @@ nav .settings-container .dropdown[data-isOpened="true"] {
   color: #0088a9;
 }
 
+.anbarAddData .anbarAdd-container .session-info .addNewSessionInfoForm .container .row .addNewSessionInfoProductSearchDropDown .dropdown button {
+  width: 100%;
+}
+
+.anbarAddData .anbarAdd-container .session-info .addNewSessionInfoForm .container .row .addNewSessionInfoProductSearchDropDown .dropdown button:hover {
+  background-color: #797979;
+  -webkit-transform: scale(1);
+          transform: scale(1);
+  border: 2px solid #797979;
+}
+
 .anbarAddData .anbarAdd-container .session-info .addNewSessionInfoForm .container #addNewSessionInfoBtnsRow {
   -ms-flex-pack: distribute;
       justify-content: space-around;
@@ -2639,6 +2654,28 @@ nav .settings-container .dropdown[data-isOpened="true"] {
 
 .anbarAddData .anbarAdd-container .session-info[data-isActive="true"] {
   top: 0;
+  opacity: 1;
+  pointer-events: all;
+}
+
+.anbarAddData .anbarAdd-container .anbarAddToTreeForm {
+  position: absolute;
+  top: -100%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  opacity: 0;
+  pointer-events: none;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  width: 50%;
+  height: 70%;
+  background-color: red;
+  z-index: 10000000000;
+}
+
+.anbarAddData .anbarAdd-container .anbarAddToTreeForm[data-isActive="true"] {
+  top: 40%;
   opacity: 1;
   pointer-events: all;
 }

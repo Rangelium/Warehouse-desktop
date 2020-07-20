@@ -175,6 +175,9 @@
 			#optionsDelete[data-isActive="True"] {
 				left: 33px;
 			}
+			#optionsAccept[data-isActive="True"] {
+				top: 30px;
+			}
 
 			.optionsBtn[data-isActive="False"] {
 				transition: 0s;
@@ -966,6 +969,16 @@
 										}
 									}
 								}
+
+								button {
+									width: 100%;
+
+									&:hover {
+										background-color: rgb(121, 121, 121);
+										transform: scale(1);
+										border: 2px solid rgb(121, 121, 121);
+									}
+								}
 							}
 						}
 					}
@@ -979,6 +992,28 @@
 
 		.session-info[data-isActive="true"] {
 			top: 0;
+			opacity: 1;
+			pointer-events: all;
+		}
+
+		.anbarAddToTreeForm {
+			position: absolute;
+			top: -100%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+
+			opacity: 0;
+			pointer-events: none;
+			transition: 0.4s;
+			width: 50%;
+			height: 70%;
+
+			background-color: red;
+			z-index: 10000000000;
+		}
+
+		.anbarAddToTreeForm[data-isActive="true"] {
+			top: 40%;
 			opacity: 1;
 			pointer-events: all;
 		}
