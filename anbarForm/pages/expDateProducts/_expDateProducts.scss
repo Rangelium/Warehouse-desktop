@@ -1,0 +1,123 @@
+.expDateProducts {
+	width: 100vw;
+	height: 100vh;
+	background-color: rgb(168, 164, 164);
+	position: relative;
+	display: flex;
+	justify-content: space-between;
+	flex-direction: column;
+	align-items: center;
+
+	h1 {
+		font-size: 1.7rem;
+		padding: 30px 0;
+	}
+
+	.container {
+		width: 80%;
+		height: 100%;
+		display: flex;
+		flex-grow: 1;
+		justify-content: space-around;
+		align-items: center;
+
+		&:first-child {
+			border-right: 3px solid black;
+		}
+
+		.block {
+			width: 40%;
+			height: 100%;
+
+			h2 {
+				font-size: 1.3rem;
+				text-align: center;
+				width: 100%;
+				margin-bottom: 5px;
+			}
+
+			.exp-date-over-data,
+			.exp-date-soclose-data {
+				width: 100%;
+				height: 80%;
+				overflow-y: scroll;
+				overflow-x: hidden;
+				transition: 0.4s;
+				position: relative;
+
+				&::-webkit-scrollbar {
+					width: 10px;
+				}
+				/* Track */
+				&::-webkit-scrollbar-track {
+					box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+					border-radius: 10px;
+					border-radius: 10px;
+				}
+				/* Handle */
+				&::-webkit-scrollbar-thumb {
+					border-radius: 10px;
+					border-radius: 10px;
+					background: rgb(121, 121, 121);
+					box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+				}
+
+				.exp-date-over-table,
+				.exp-date-soclose-table {
+					width: 100%;
+					border-collapse: collapse;
+					position: relative;
+
+					thead {
+						th {
+							cursor: default;
+							font-size: 1.2rem;
+							padding: 0 10px;
+
+							border-top: 2px solid black;
+							border-bottom: 3px solid black;
+							border-right: 2px solid black;
+
+							background-color: transparent;
+							&:nth-child(1) {
+								border-left: 2px solid black;
+							}
+						}
+					}
+					tbody {
+						tr {
+							// height: 60px;
+							background-color: rgba(231, 182, 113, 0.568);
+							transition: 0.4s;
+
+							td {
+								padding: 5px 10px;
+								text-align: center;
+								font-size: 1.1rem;
+								cursor: default;
+								user-select: none;
+
+								border-top: 2px solid black;
+								border-bottom: 2px solid black;
+								border-left: 2px solid rgb(36, 36, 36);
+								border-right: 2px solid rgb(36, 36, 36);
+
+								&:last-child {
+									border-right: none;
+								}
+							}
+
+							&:nth-child(odd) {
+								background-color: rgba(156, 95, 9, 0.61);
+							}
+
+							&:hover {
+								background-color: white;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

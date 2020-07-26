@@ -40,6 +40,12 @@
 			<div class="optionsBtn" id="optionsAccept">
 				<img src="../stylesGlobal/imgs/accept_btn.svg" />
 			</div>
+			<div class="optionsBtn" id="optionsEndAll">
+				<img src="../stylesGlobal/imgs/endAll_btn.svg" />
+			</div>
+			<div class="optionsBtn" id="optionsEdit">
+				<img src="../stylesGlobal/imgs/edit_btn.svg" />
+			</div>
 		</div>
 		<div class="bulks">
 			<div class="bulksSmallMenu">
@@ -85,6 +91,10 @@
 						<input type="date" id="addNewSessionBeginDate" />
 					</div>
 					<div class="row">
+						<p>VOEN:</p>
+						<input type="number" min="0" id="addNewSessionVOEN" />
+					</div>
+					<div class="row">
 						<button id="addNewSessionDiscardBtn">Discard</button>
 						<button id="addNewSessionSubmitBtn">Add</button>
 					</div>
@@ -116,7 +126,7 @@
 					</div>
 					<div class="row">
 						<p>VOEN:</p>
-						<input type="number" min="1" id="addNewSessionInfo_voen" required />
+						<input type="number" min="1" id="addNewSessionInfo_voen" required disabled />
 					</div>
 					<div class="row">
 						<div class="column">

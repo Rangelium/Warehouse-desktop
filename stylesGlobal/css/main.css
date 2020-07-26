@@ -1689,10 +1689,21 @@ nav .settings-container .dropdown[data-isOpened="true"] {
 
 .anbarAddData .anbarAdd-container #optionsMenu #optionsDelete[data-isActive="True"] {
   left: 33px;
+  top: -10px;
 }
 
 .anbarAddData .anbarAdd-container #optionsMenu #optionsAccept[data-isActive="True"] {
-  top: 30px;
+  top: 20px;
+}
+
+.anbarAddData .anbarAdd-container #optionsMenu #optionsEndAll[data-isActive="True"] {
+  left: -33px;
+  top: -10px;
+}
+
+.anbarAddData .anbarAdd-container #optionsMenu #optionsEdit[data-isActive="True"] {
+  left: -33px;
+  top: -10px;
 }
 
 .anbarAddData .anbarAdd-container #optionsMenu .optionsBtn[data-isActive="False"] {
@@ -2150,7 +2161,7 @@ nav .settings-container .dropdown[data-isOpened="true"] {
           transform: translate(-50%, -50%);
   z-index: 1000000000000;
   width: 30%;
-  height: 25%;
+  height: 35%;
   opacity: 0;
   -webkit-transition: 0.4s;
   transition: 0.4s;
@@ -2277,16 +2288,37 @@ nav .settings-container .dropdown[data-isOpened="true"] {
   background-color: #a8a5a5;
 }
 
+.anbarAddData .anbarAdd-container .session-info #sessionInfoPageHeading {
+  font-size: 1.6rem;
+  position: absolute;
+  top: 13px;
+  left: 20px;
+}
+
 .anbarAddData .anbarAdd-container .session-info #sessionInfoGoBackBtn {
   position: absolute;
   top: 10px;
-  right: 15px;
-  padding: 5px 15px;
+  right: 20px;
   font-size: 1.2rem;
   font-weight: bold;
   z-index: 100000;
   cursor: pointer;
   outline: none;
+  display: inline-block;
+  padding: 0.35em 1.2em;
+  border: 0.1em solid #ffffff;
+  margin: 0 0.3em 0.3em 0;
+  border-radius: 0.12em;
+  color: #ffffff;
+  text-align: center;
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
+  background-color: transparent;
+}
+
+.anbarAddData .anbarAdd-container .session-info #sessionInfoGoBackBtn:hover {
+  color: #0088a9;
+  background-color: #ffffff;
 }
 
 .anbarAddData .anbarAdd-container .session-info .session-info-table {
@@ -5079,5 +5111,174 @@ input[type="datetime-local"].exchangeInputField {
   background-color: #2dc927;
   cursor: pointer;
   border: 2px solid black;
+}
+
+.expDateProducts {
+  width: 100vw;
+  height: 100vh;
+  background-color: #a8a4a4;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.expDateProducts h1 {
+  font-size: 1.7rem;
+  padding: 30px 0;
+}
+
+.expDateProducts .container {
+  width: 80%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.expDateProducts .container:first-child {
+  border-right: 3px solid black;
+}
+
+.expDateProducts .container .block {
+  width: 40%;
+  height: 100%;
+}
+
+.expDateProducts .container .block h2 {
+  font-size: 1.3rem;
+  text-align: center;
+  width: 100%;
+  margin-bottom: 5px;
+}
+
+.expDateProducts .container .block .exp-date-over-data,
+.expDateProducts .container .block .exp-date-soclose-data {
+  width: 100%;
+  height: 80%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  position: relative;
+  /* Track */
+  /* Handle */
+}
+
+.expDateProducts .container .block .exp-date-over-data::-webkit-scrollbar,
+.expDateProducts .container .block .exp-date-soclose-data::-webkit-scrollbar {
+  width: 10px;
+}
+
+.expDateProducts .container .block .exp-date-over-data::-webkit-scrollbar-track,
+.expDateProducts .container .block .exp-date-soclose-data::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+          box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  border-radius: 10px;
+}
+
+.expDateProducts .container .block .exp-date-over-data::-webkit-scrollbar-thumb,
+.expDateProducts .container .block .exp-date-soclose-data::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  border-radius: 10px;
+  background: #797979;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+          box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+}
+
+.expDateProducts .container .block .exp-date-over-data .exp-date-over-table,
+.expDateProducts .container .block .exp-date-over-data .exp-date-soclose-table,
+.expDateProducts .container .block .exp-date-soclose-data .exp-date-over-table,
+.expDateProducts .container .block .exp-date-soclose-data .exp-date-soclose-table {
+  width: 100%;
+  border-collapse: collapse;
+  position: relative;
+}
+
+.expDateProducts .container .block .exp-date-over-data .exp-date-over-table thead th,
+.expDateProducts .container .block .exp-date-over-data .exp-date-soclose-table thead th,
+.expDateProducts .container .block .exp-date-soclose-data .exp-date-over-table thead th,
+.expDateProducts .container .block .exp-date-soclose-data .exp-date-soclose-table thead th {
+  cursor: default;
+  font-size: 1.2rem;
+  padding: 0 10px;
+  border-top: 2px solid black;
+  border-bottom: 3px solid black;
+  border-right: 2px solid black;
+  background-color: transparent;
+}
+
+.expDateProducts .container .block .exp-date-over-data .exp-date-over-table thead th:nth-child(1),
+.expDateProducts .container .block .exp-date-over-data .exp-date-soclose-table thead th:nth-child(1),
+.expDateProducts .container .block .exp-date-soclose-data .exp-date-over-table thead th:nth-child(1),
+.expDateProducts .container .block .exp-date-soclose-data .exp-date-soclose-table thead th:nth-child(1) {
+  border-left: 2px solid black;
+}
+
+.expDateProducts .container .block .exp-date-over-data .exp-date-over-table tbody tr,
+.expDateProducts .container .block .exp-date-over-data .exp-date-soclose-table tbody tr,
+.expDateProducts .container .block .exp-date-soclose-data .exp-date-over-table tbody tr,
+.expDateProducts .container .block .exp-date-soclose-data .exp-date-soclose-table tbody tr {
+  background-color: rgba(231, 182, 113, 0.568);
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.expDateProducts .container .block .exp-date-over-data .exp-date-over-table tbody tr td,
+.expDateProducts .container .block .exp-date-over-data .exp-date-soclose-table tbody tr td,
+.expDateProducts .container .block .exp-date-soclose-data .exp-date-over-table tbody tr td,
+.expDateProducts .container .block .exp-date-soclose-data .exp-date-soclose-table tbody tr td {
+  padding: 5px 10px;
+  text-align: center;
+  font-size: 1.1rem;
+  cursor: default;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  border-top: 2px solid black;
+  border-bottom: 2px solid black;
+  border-left: 2px solid #242424;
+  border-right: 2px solid #242424;
+}
+
+.expDateProducts .container .block .exp-date-over-data .exp-date-over-table tbody tr td:last-child,
+.expDateProducts .container .block .exp-date-over-data .exp-date-soclose-table tbody tr td:last-child,
+.expDateProducts .container .block .exp-date-soclose-data .exp-date-over-table tbody tr td:last-child,
+.expDateProducts .container .block .exp-date-soclose-data .exp-date-soclose-table tbody tr td:last-child {
+  border-right: none;
+}
+
+.expDateProducts .container .block .exp-date-over-data .exp-date-over-table tbody tr:nth-child(odd),
+.expDateProducts .container .block .exp-date-over-data .exp-date-soclose-table tbody tr:nth-child(odd),
+.expDateProducts .container .block .exp-date-soclose-data .exp-date-over-table tbody tr:nth-child(odd),
+.expDateProducts .container .block .exp-date-soclose-data .exp-date-soclose-table tbody tr:nth-child(odd) {
+  background-color: rgba(156, 95, 9, 0.61);
+}
+
+.expDateProducts .container .block .exp-date-over-data .exp-date-over-table tbody tr:hover,
+.expDateProducts .container .block .exp-date-over-data .exp-date-soclose-table tbody tr:hover,
+.expDateProducts .container .block .exp-date-soclose-data .exp-date-over-table tbody tr:hover,
+.expDateProducts .container .block .exp-date-soclose-data .exp-date-soclose-table tbody tr:hover {
+  background-color: white;
 }
 /*# sourceMappingURL=main.css.map */
