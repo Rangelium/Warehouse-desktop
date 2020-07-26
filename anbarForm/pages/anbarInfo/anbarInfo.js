@@ -4,41 +4,45 @@
 
 // Function to show Overall info
 function showOverallInfo() {
-	new Promise((resolve, reject) => {
-		poolConnect.then((pool) => {
-			pool.request().execute("dbo.dashboard", (err, res) => {
-				if (err != null) console.log(err);
-				console.log(res);
-				resolve(res.recordset[0]);
+	try {
+		new Promise((resolve) => {
+			poolConnect.then((pool) => {
+				pool.request().execute("dbo.dashboard", (err, res) => {
+					if (err != null) console.log(err);
+					console.log(res);
+					resolve(res.recordset[0]);
+				});
 			});
+		}).then((data) => {
+			$("#products_quantity").html(data.quantity);
+			$("#products_remaining").html(data.remaining_products);
+			$("#anbar_total_cost").html(data.cost);
+
+			$("#add_product_name").html(data.last_in_name);
+			$("#add_product_date").html(
+				moment(data.last_in_date).format("MMMM Do YYYY, h:mm:ss")
+			);
+			$("#add_product_price").html(data.last_in_price);
+			$("#add_product_quantity").html(data.last_in_quantity);
+			$("#add_product_total_price").html(data.last_in_price_total);
+			$("#add_product_currency").html(data.last_in_currency);
+
+			$("#rm_product_name").html(data.last_out_name);
+			$("#rm_product_date").html(
+				moment(data.last_out_date).format("MMMM Do YYYY, h:mm:ss")
+			);
+			$("#rm_product_price").html(data.last_out_price);
+			$("#rm_product_quantity").html(data.last_out_quantity);
+			$("#rm_product_total_price").html(data.last_out_price_total);
+			$("#rm_product_currency").html(data.last_out_currency);
+
+			// Show box after loading content
+			$("#showOverallInfo").attr("data-isClicked", "true");
+			$(".overall-info").attr("data-isShoving", "true");
 		});
-	}).then((data) => {
-		$("#products_quantity").html(data.quantity);
-		$("#products_remaining").html(data.remaining_products);
-		$("#anbar_total_cost").html(data.cost);
-
-		$("#add_product_name").html(data.last_in_name);
-		$("#add_product_date").html(
-			moment(data.last_in_date).format("MMMM Do YYYY, h:mm:ss")
-		);
-		$("#add_product_price").html(data.last_in_price);
-		$("#add_product_quantity").html(data.last_in_quantity);
-		$("#add_product_total_price").html(data.last_in_price_total);
-		$("#add_product_currency").html(data.last_in_currency);
-
-		$("#rm_product_name").html(data.last_out_name);
-		$("#rm_product_date").html(
-			moment(data.last_out_date).format("MMMM Do YYYY, h:mm:ss")
-		);
-		$("#rm_product_price").html(data.last_out_price);
-		$("#rm_product_quantity").html(data.last_out_quantity);
-		$("#rm_product_total_price").html(data.last_out_price_total);
-		$("#rm_product_currency").html(data.last_out_currency);
-
-		// Show box after loading content
-		$("#showOverallInfo").attr("data-isClicked", "true");
-		$(".overall-info").attr("data-isShoving", "true");
-	});
+	} catch (error) {
+		console.log(error);
+	}
 }
 // Function to hide Overall info
 function hideOverallInfo() {

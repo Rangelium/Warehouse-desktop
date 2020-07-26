@@ -24,8 +24,8 @@ app.on("ready", () => {
 		},
 	});
 
-	mainWindow.maximize()
-	mainWindow.resizable = false
+	mainWindow.maximize();
+	mainWindow.resizable = false;
 
 	// Remove buil in menu
 	Menu.setApplicationMenu(null);
@@ -114,10 +114,17 @@ function startAnbarForm() {
 					{
 						label: "Sellers",
 						name: "sellers",
-						click: function() {
+						click: function () {
 							mainWindow.webContents.send("changeAnbarPage", "sellers");
-						}
-					}
+						},
+					},
+					{
+						label: "Close to expiration",
+						name: "expDateProducts",
+						click: function () {
+							mainWindow.webContents.send("changeAnbarPage", "expDateProducts");
+						},
+					},
 				],
 			},
 			// Reports(Hesabatlar)
@@ -161,7 +168,7 @@ function startAnbarForm() {
 				{
 					label: "Logout",
 					click: function () {
-						mainWindow.webContents.send("userLogOut")
+						mainWindow.webContents.send("userLogOut");
 					},
 				},
 				{
@@ -182,5 +189,3 @@ function startAnbarForm() {
 		});
 	});
 }
-
-

@@ -174,9 +174,18 @@
 			}
 			#optionsDelete[data-isActive="True"] {
 				left: 33px;
+				top: -10px;
 			}
 			#optionsAccept[data-isActive="True"] {
-				top: 30px;
+				top: 20px;
+			}
+			#optionsEndAll[data-isActive="True"] {
+				left: -33px;
+				top: -10px;
+			}
+			#optionsEdit[data-isActive="True"] {
+				left: -33px;
+				top: -10px;
 			}
 
 			.optionsBtn[data-isActive="False"] {
@@ -569,7 +578,7 @@
 				transform: translate(-50%, -50%);
 				z-index: 1000000000000;
 				width: 30%;
-				height: 25%;
+				height: 35%;
 				opacity: 0;
 				transition: 0.4s;
 				border-radius: 25px;
@@ -665,17 +674,36 @@
 			z-index: 10000;
 			background-color: rgb(168, 165, 165);
 
+			#sessionInfoPageHeading {
+				font-size: 1.6rem;
+				position: absolute;
+				top: 13px;
+				left: 20px;
+			}
+
 			#sessionInfoGoBackBtn {
 				position: absolute;
 				top: 10px;
-				right: 15px;
-
-				padding: 5px 15px;
+				right: 20px;
 				font-size: 1.2rem;
 				font-weight: bold;
 				z-index: 100000;
 				cursor: pointer;
 				outline: none;
+				display: inline-block;
+				padding: 0.35em 1.2em;
+				border: 0.1em solid #ffffff;
+				margin: 0 0.3em 0.3em 0;
+				border-radius: 0.12em;
+				color: #ffffff;
+				text-align: center;
+				transition: all 0.2s;
+				background-color: transparent;
+
+				&:hover {
+					color: #0088a9;
+					background-color: #ffffff;
+				}
 			}
 
 			.session-info-table {
