@@ -25,7 +25,7 @@ app.on("ready", () => {
 	});
 
 	mainWindow.maximize();
-	mainWindow.resizable = false;
+	// mainWindow.resizable = false;
 
 	// Remove buil in menu
 	Menu.setApplicationMenu(null);
