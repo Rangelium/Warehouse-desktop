@@ -73,7 +73,9 @@ $("#getBackFromSessionsList").on("click", () => {
 	$(".addNewSessionInfo").fadeOut(200);
 	setTimeout(() => {
 		$("#createSessionPartButton").fadeIn(10);
+		$("#createSessionPartButton").css("visibility", "visible");
 		$(".sessionSelectionPart").fadeIn(200);
+
 	}, 200);
 })
 
@@ -133,6 +135,24 @@ $("#sessionInfoQuantity").change(() => {
 	if(productPrice == NaN || productQuantity == NaN) return;
 	$("#sessionInfoTotalPrice").val(productPrice * (1 + productExtraCharge) / 100 * productQuantity);
 })
+
+$("#createSessionButton").on("click", () => {
+	let dateFrom = $("#createSessionDateFrom").val();
+	let dateTo = "01.01.2030";
+	poolConnect.then((pool) => {
+		pool.request()
+				.input("begin_date", mssql.DateTime, dateFrom)
+				.execute("dbo.retail_sale_create_new_session", (err, res) => {
+					console.log("Session Create Error: \n", err, res);
+					fillSessions(dateFrom, dateTo);
+					$(".sessionCreatePart").fadeOut(100);
+					setTimeout(() => {
+						$(".sessionListPart").fadeIn(100);
+						// $("#createSessionPartButton").fadeOut(10);
+					}, 100);
+				});
+	});
+});
 
 $("#submitSession").on("click", () => {
 	if(isProductChosen == false){
@@ -206,6 +226,7 @@ function fillSessions(dateFrom, dateTo){
 				.input("date_from", mssql.DateTime, dateFrom)
 				.input("date_to", mssql.DateTime, dateTo)
 				.execute("dbo.retail_sale_session_selection", (err, res) => {
+					console.log("Session Selection Error: \n",err, res);
 					data = []
 					for(let i of res.recordset){
 						data.push(i);
@@ -222,6 +243,7 @@ function fillSessions(dateFrom, dateTo){
 												<div class="sessionHeaderItem">Cost Price</div>
 												<div class="sessionHeaderItem">Is Done</div>
 												<div class="sessionHeaderItem">Whole Price</div>
+												<div class="sessionHeaderItem">Default Currency</div>
 											</div>
 											<div class="sessionTableContent">
 												<div class="sessionTableRow">
@@ -232,6 +254,7 @@ function fillSessions(dateFrom, dateTo){
 													<div class="sessionTableData">${i.cost_price}</div>
 													<div class="sessionTableData">${i.is_done}</div>
 													<div class="sessionTableData">${i.whole_price}</div>
+													<div class="sessionTableData">${i.default_currency}</div>
 												</div>
 											</div>
 										</div>
