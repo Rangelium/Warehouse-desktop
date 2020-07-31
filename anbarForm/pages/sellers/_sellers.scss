@@ -5,17 +5,17 @@
 // Sellers Table Part
 
 .sellersContainer{
-  position: relative;
+  // position: relative;
 }
 
 .sellersProductInfo {
-  margin-top: 5%;
+  // margin-top: 5%;
   position: absolute;
   width: 80%;
-  // height: 80%;
+  height: 100%;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, 65%);
+  transform: translate(-50%, -40%);
   background-color: $anbar-info-background-color;
 
   opacity: 0;
@@ -162,11 +162,14 @@
 
 .sellersButtons{
   position: absolute;
-  transform: translate(90%, 100%);
+  transform: translate(20%, 100%);
+  // margin: 0 auto;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 35vw;
+  width: 70vw;
+  height: 7vh;
+  z-index: 1000;
 }
 
 .sellersInputButton{

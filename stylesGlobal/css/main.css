@@ -4801,18 +4801,14 @@ input[type="datetime-local"].exchangeInputField {
   background-color: #a8a4a4;
 }
 
-.sellersContainer {
-  position: relative;
-}
-
 .sellersProductInfo {
-  margin-top: 5%;
   position: absolute;
   width: 80%;
+  height: 100%;
   top: 50%;
   left: 50%;
-  -webkit-transform: translate(-50%, 65%);
-          transform: translate(-50%, 65%);
+  -webkit-transform: translate(-50%, -40%);
+          transform: translate(-50%, -40%);
   background-color: #a8a4a4;
   opacity: 0;
   pointer-events: none;
@@ -4985,8 +4981,8 @@ input[type="datetime-local"].exchangeInputField {
 
 .sellersButtons {
   position: absolute;
-  -webkit-transform: translate(90%, 100%);
-          transform: translate(90%, 100%);
+  -webkit-transform: translate(20%, 100%);
+          transform: translate(20%, 100%);
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -4997,7 +4993,9 @@ input[type="datetime-local"].exchangeInputField {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  width: 35vw;
+  width: 70vw;
+  height: 7vh;
+  z-index: 1000;
 }
 
 .sellersInputButton {

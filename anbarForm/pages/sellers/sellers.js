@@ -1,9 +1,10 @@
 var sellersSelectedId = -1;
+var procedures = ["dbo.product_seller_select_active","dbo.product_seller_select_deactive"]
+var procedureId = 0;
 
-
-function fillTable(){
+function fillTable(procedureId){
 	poolConnect.then((pool) => {
-		pool.request().execute("dbo.product_sellers_select", (err, res) => {
+		pool.request().execute(procedures[procedureId], (err, res) => {
 			data = []
 			for(let i of res.recordset){
 				data.push(i);
@@ -51,7 +52,7 @@ function fillTable(){
 	});
 }
 
-fillTable();
+fillTable(procedureId);
 
 $(".sellersInputButton").click(() => {
 	$(".sellersPopUpContainer").show();
@@ -88,11 +89,47 @@ $(".addSellersButton").on("click", () => {
 				.execute("dbo.product_sellers_insert", (err, res)=>{
 					$("input").val("");
 					console.log(err);
-					fillTable();
+					fillTable(procedureId);
 				})
 	})
 });
 
-$(".sellersDeleteButton").on("click", () => {
-	console.log(selectedId);
+
+$("#sellerDelete").on("click", () => {
+	if(!selectedId){
+		alert("Please select row.");
+	}
+	poolConnect.then((pool) => {
+		pool.request()
+				.input("id", mssql.Int, selectedId)
+				.input("user_id", mssql.Int, USER["id"])
+				.execute("product_sellers_delete", (err, res) => {
+					fillTable(procedureId);
+				})
+	})
+})
+
+$("#showContent").on("click", () => {
+	if(procedureId == 0){
+		procedureId = 1;
+		$("#showContent").text("Show Active");
+	}
+	else{
+		procedureId = 0;
+		$("#showContent").text("Show Inactive");
+	}
+	fillTable(procedureId);
+})
+
+$("#changeStatus").on("click", () => {
+	if(!selectedId) alert("Please select a row");
+	poolConnect.then((pool) => {
+		pool.request()
+				.input("id", mssql.Int, selectedId)
+				.input("user_id", mssql.Int, USER["id"])
+				.execute("dbo.product_sellers_deactivate", (err, res) => {
+					console.log(err);
+					fillTable(procedureId);
+				})
+	})
 })
