@@ -444,7 +444,7 @@ function addNewSession(begin_date, session_voen) {
 }
 function acceptAllInsert(bulk_id, session_id) {
 	poolConnect.then((pool) => {
-		pool.request
+		pool.request()
 			.input("session_id", parseInt(session_id))
 			.input("bulk_buying_id", parseInt(bulk_id))
 			.input("user_id", USER.id)
@@ -987,7 +987,7 @@ $("#optionsDelete").click(function () {
 	showAlert("Are you sure you want to delete this session's product income?").then(
 		(res) => {
 			if (res) {
-				deleteSessionInfo($(this).attr("data-sessionId"));
+				deleteSessionInfo($(this).attr("data-sessionInfoId"));
 				refreshSessionInfoTable(600);
 			}
 			closeAlert();
