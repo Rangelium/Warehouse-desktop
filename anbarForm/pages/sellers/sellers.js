@@ -127,7 +127,7 @@ $("#changeStatus").on("click", () => {
 		pool.request()
 				.input("id", mssql.Int, selectedId)
 				.input("user_id", mssql.Int, USER["id"])
-				.execute("dbo.product_sellers_deactivate", (err, res) => {
+				.execute("dbo.product_sellers_deactivate_or_activate", (err, res) => {
 					console.log(err);
 					fillTable(procedureId);
 				})
