@@ -122,7 +122,18 @@
 					</div>
 					<div class="row">
 						<p>Barcode:</p>
-						<input type="number" min="1" id="addNewSessionInfo_barcode" required />
+						<div class="addNewSessionInfoProductSearchBarcodeDropDown">
+							<input type="number" min="1" id="addNewSessionInfo_barcode" required />
+							<div class="dropdown">
+								<div
+									id="addNewSessionInfoBarcodeDrowdown"
+									class="containerDropdown"
+								></div>
+								<button id="addNewSessionInfoDropDownAddNewproductToTreeBarcodeBtn">
+									Add new product
+								</button>
+							</div>
+						</div>
 					</div>
 					<div class="row">
 						<p>VOEN:</p>
@@ -187,6 +198,54 @@
 				</div>
 			</div>
 		</div>
-		<div class="anbarAddToTreeForm"></div>
+		<div class="anbarAddToTreeForm">
+			<h1>Add new product income</h1>
+			<div class="container">
+				<div class="row">
+					<p>Title:</p>
+					<input type="text" id="warehouseTreeInsert_title" required />
+				</div>
+				<div class="row">
+					<p>Barcode:</p>
+					<input type="number" min="0" id="warehouseTreeInsert_barcode" required />
+				</div>
+				<div class="row">
+					<p>Category:</p>
+					<div class="warehouseCategoryDrowdown">
+						<input type="number" min="1" id="warehouseTreeInsert_categoryId" required />
+						<div class="dropdown">
+							<div id="warehouseCategoryDropdown" class="containerDropdown"></div>
+							<button id="warehouseCreateCategoryBtn">
+								Add new product
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<p>Expiration date warning:</p>
+					<input type="date" id="warehouseTreeInsert_expDateWarning" />
+				</div>
+				<hr />
+				<div class="row special">
+					<h2>Clusters</h2>
+					<input type="text" placeholder="Select cluster's template" disabled />
+				</div>
+				<div class="row special">
+					<h2>Or create new template</h2>
+					<div class="newClusterTemplateContainer">
+						<div class="clusterTemplateElement">
+							<input type="text" placeholder="Cluster's name" />
+							<input type="number" min="0" placeholder="Capacity" />
+							<img src="../stylesGlobal/imgs/new_btn.svg" />
+							<img src="../stylesGlobal/imgs/delete_btn.svg" />
+						</div>
+					</div>
+				</div>
+				<div class="row" id="warehouseTreeInsertBtnsRow">
+					<button id="warehouseTreeInsertDiscardBtn">Discard</button>
+					<button id="warehouseTreeInsertSubmitBtn">Add</button>
+				</div>
+			</div>
+		</div>
 	</div>
 </section>

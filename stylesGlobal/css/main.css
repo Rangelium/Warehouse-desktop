@@ -2622,25 +2622,34 @@ nav .settings-container .dropdown[data-isOpened="true"] {
   border: 2px solid red;
 }
 
-.anbarAddData .anbarAdd-container .session-info .addNewSessionInfoForm .container .row .addNewSessionInfoProductSearchDropDown {
+.anbarAddData .anbarAdd-container .session-info .addNewSessionInfoForm .container .row .addNewSessionInfoProductSearchBarcodeDropDown {
+  z-index: 1000000 !important;
+}
+
+.anbarAddData .anbarAdd-container .session-info .addNewSessionInfoForm .container .row .addNewSessionInfoProductSearchDropDown,
+.anbarAddData .anbarAdd-container .session-info .addNewSessionInfoForm .container .row .addNewSessionInfoProductSearchBarcodeDropDown {
   width: 60%;
   position: relative;
   z-index: 10000000;
 }
 
-.anbarAddData .anbarAdd-container .session-info .addNewSessionInfoForm .container .row .addNewSessionInfoProductSearchDropDown input {
+.anbarAddData .anbarAdd-container .session-info .addNewSessionInfoForm .container .row .addNewSessionInfoProductSearchDropDown input,
+.anbarAddData .anbarAdd-container .session-info .addNewSessionInfoForm .container .row .addNewSessionInfoProductSearchBarcodeDropDown input {
   width: 100%;
 }
 
-.anbarAddData .anbarAdd-container .session-info .addNewSessionInfoForm .container .row .addNewSessionInfoProductSearchDropDown input:valid:hover ~ .dropdown {
+.anbarAddData .anbarAdd-container .session-info .addNewSessionInfoForm .container .row .addNewSessionInfoProductSearchDropDown input:valid:hover ~ .dropdown,
+.anbarAddData .anbarAdd-container .session-info .addNewSessionInfoForm .container .row .addNewSessionInfoProductSearchBarcodeDropDown input:valid:hover ~ .dropdown {
   display: block;
 }
 
-.anbarAddData .anbarAdd-container .session-info .addNewSessionInfoForm .container .row .addNewSessionInfoProductSearchDropDown .dropdown:hover {
+.anbarAddData .anbarAdd-container .session-info .addNewSessionInfoForm .container .row .addNewSessionInfoProductSearchDropDown .dropdown:hover,
+.anbarAddData .anbarAdd-container .session-info .addNewSessionInfoForm .container .row .addNewSessionInfoProductSearchBarcodeDropDown .dropdown:hover {
   display: block;
 }
 
-.anbarAddData .anbarAdd-container .session-info .addNewSessionInfoForm .container .row .addNewSessionInfoProductSearchDropDown .dropdown {
+.anbarAddData .anbarAdd-container .session-info .addNewSessionInfoForm .container .row .addNewSessionInfoProductSearchDropDown .dropdown,
+.anbarAddData .anbarAdd-container .session-info .addNewSessionInfoForm .container .row .addNewSessionInfoProductSearchBarcodeDropDown .dropdown {
   width: 100%;
   background-color: rgba(0, 0, 0, 0.801);
   border: 2px solid #0088a9;
@@ -2649,13 +2658,15 @@ nav .settings-container .dropdown[data-isOpened="true"] {
   position: absolute;
 }
 
-.anbarAddData .anbarAdd-container .session-info .addNewSessionInfoForm .container .row .addNewSessionInfoProductSearchDropDown .dropdown .containerDropdown {
+.anbarAddData .anbarAdd-container .session-info .addNewSessionInfoForm .container .row .addNewSessionInfoProductSearchDropDown .dropdown .containerDropdown,
+.anbarAddData .anbarAdd-container .session-info .addNewSessionInfoForm .container .row .addNewSessionInfoProductSearchBarcodeDropDown .dropdown .containerDropdown {
   max-height: 300px;
   overflow-y: scroll;
   overflow-x: hidden;
 }
 
-.anbarAddData .anbarAdd-container .session-info .addNewSessionInfoForm .container .row .addNewSessionInfoProductSearchDropDown .dropdown .containerDropdown p {
+.anbarAddData .anbarAdd-container .session-info .addNewSessionInfoForm .container .row .addNewSessionInfoProductSearchDropDown .dropdown .containerDropdown p,
+.anbarAddData .anbarAdd-container .session-info .addNewSessionInfoForm .container .row .addNewSessionInfoProductSearchBarcodeDropDown .dropdown .containerDropdown p {
   color: white;
   width: 100%;
   padding: 7px 0 7px 1px;
@@ -2664,15 +2675,18 @@ nav .settings-container .dropdown[data-isOpened="true"] {
   cursor: pointer;
 }
 
-.anbarAddData .anbarAdd-container .session-info .addNewSessionInfoForm .container .row .addNewSessionInfoProductSearchDropDown .dropdown .containerDropdown p:hover {
+.anbarAddData .anbarAdd-container .session-info .addNewSessionInfoForm .container .row .addNewSessionInfoProductSearchDropDown .dropdown .containerDropdown p:hover,
+.anbarAddData .anbarAdd-container .session-info .addNewSessionInfoForm .container .row .addNewSessionInfoProductSearchBarcodeDropDown .dropdown .containerDropdown p:hover {
   color: #0088a9;
 }
 
-.anbarAddData .anbarAdd-container .session-info .addNewSessionInfoForm .container .row .addNewSessionInfoProductSearchDropDown .dropdown button {
+.anbarAddData .anbarAdd-container .session-info .addNewSessionInfoForm .container .row .addNewSessionInfoProductSearchDropDown .dropdown button,
+.anbarAddData .anbarAdd-container .session-info .addNewSessionInfoForm .container .row .addNewSessionInfoProductSearchBarcodeDropDown .dropdown button {
   width: 100%;
 }
 
-.anbarAddData .anbarAdd-container .session-info .addNewSessionInfoForm .container .row .addNewSessionInfoProductSearchDropDown .dropdown button:hover {
+.anbarAddData .anbarAdd-container .session-info .addNewSessionInfoForm .container .row .addNewSessionInfoProductSearchDropDown .dropdown button:hover,
+.anbarAddData .anbarAdd-container .session-info .addNewSessionInfoForm .container .row .addNewSessionInfoProductSearchBarcodeDropDown .dropdown button:hover {
   background-color: #797979;
   -webkit-transform: scale(1);
           transform: scale(1);
@@ -2700,10 +2714,295 @@ nav .settings-container .dropdown[data-isOpened="true"] {
   pointer-events: none;
   -webkit-transition: 0.4s;
   transition: 0.4s;
-  width: 50%;
-  height: 70%;
-  background-color: red;
+  width: 550px;
+  height: 550px;
+  border-radius: 25px;
+  background-color: #292828;
   z-index: 10000000000;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.anbarAddData .anbarAdd-container .anbarAddToTreeForm hr {
+  width: 100%;
+}
+
+.anbarAddData .anbarAdd-container .anbarAddToTreeForm h1 {
+  color: white;
+  font-weight: bold;
+  letter-spacing: 1px;
+  font-size: 1.4rem;
+  padding: 10px 0;
+}
+
+.anbarAddData .anbarAdd-container .anbarAddToTreeForm .container {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+}
+
+.anbarAddData .anbarAdd-container .anbarAddToTreeForm .container .row {
+  padding: 10px 0;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.anbarAddData .anbarAdd-container .anbarAddToTreeForm .container .row h2 {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: white;
+  margin-bottom: 15px;
+}
+
+.anbarAddData .anbarAdd-container .anbarAddToTreeForm .container .row input[type="date"] {
+  width: 200px;
+  color: white;
+  border: 2px solid white !important;
+  cursor: pointer;
+}
+
+.anbarAddData .anbarAdd-container .anbarAddToTreeForm .container .row input[type="date"]:hover {
+  color: #0088a9;
+  border: 2px solid #0088a9;
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
+.anbarAddData .anbarAdd-container .anbarAddToTreeForm .container .row p {
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 500;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  position: relative;
+  left: 10px;
+  margin-right: 20px;
+}
+
+.anbarAddData .anbarAdd-container .anbarAddToTreeForm .container .row input {
+  outline: none;
+  background-color: transparent;
+  color: white;
+  border: 2px solid transparent;
+  border-bottom: 2px solid white;
+  font-size: 1.1rem;
+  font-weight: 500;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  width: 270px;
+  padding: 0 10px;
+}
+
+.anbarAddData .anbarAdd-container .anbarAddToTreeForm .container .row input:hover {
+  border-bottom: 2px solid #0088a9;
+}
+
+.anbarAddData .anbarAdd-container .anbarAddToTreeForm .container .row input:valid {
+  border-bottom: 2px solid #0088a9;
+}
+
+.anbarAddData .anbarAdd-container .anbarAddToTreeForm .container .row input:invalid {
+  border-bottom: 2px solid red;
+}
+
+.anbarAddData .anbarAdd-container .anbarAddToTreeForm .container .row input[type="number"]::-webkit-outer-spin-button,
+.anbarAddData .anbarAdd-container .anbarAddToTreeForm .container .row input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.anbarAddData .anbarAdd-container .anbarAddToTreeForm .container .row button {
+  font-size: 1.3rem;
+  font-weight: 500;
+  background-color: #202020;
+  border: 2px solid #202020;
+  color: white;
+  padding: 5px 20px;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  cursor: pointer;
+  outline: none;
+}
+
+.anbarAddData .anbarAdd-container .anbarAddToTreeForm .container .row button:hover {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
+.anbarAddData .anbarAdd-container .anbarAddToTreeForm .container .row #warehouseTreeInsertSubmitBtn {
+  background-color: red;
+  border: 2px solid red;
+}
+
+.anbarAddData .anbarAdd-container .anbarAddToTreeForm .container .row .warehouseCategoryDrowdown {
+  width: 270px;
+  position: relative;
+  z-index: 10000000;
+}
+
+.anbarAddData .anbarAdd-container .anbarAddToTreeForm .container .row .warehouseCategoryDrowdown input {
+  width: 100%;
+}
+
+.anbarAddData .anbarAdd-container .anbarAddToTreeForm .container .row .warehouseCategoryDrowdown input:valid:hover ~ .dropdown {
+  display: block;
+}
+
+.anbarAddData .anbarAdd-container .anbarAddToTreeForm .container .row .warehouseCategoryDrowdown .dropdown:hover {
+  display: block;
+}
+
+.anbarAddData .anbarAdd-container .anbarAddToTreeForm .container .row .warehouseCategoryDrowdown .dropdown {
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.801);
+  border: 2px solid #0088a9;
+  border-top: none;
+  display: none;
+  position: absolute;
+}
+
+.anbarAddData .anbarAdd-container .anbarAddToTreeForm .container .row .warehouseCategoryDrowdown .dropdown .containerDropdown {
+  max-height: 300px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.anbarAddData .anbarAdd-container .anbarAddToTreeForm .container .row .warehouseCategoryDrowdown .dropdown .containerDropdown p {
+  color: white;
+  width: 100%;
+  padding: 7px 0 7px 1px;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.anbarAddData .anbarAdd-container .anbarAddToTreeForm .container .row .warehouseCategoryDrowdown .dropdown .containerDropdown p:hover {
+  color: #0088a9;
+}
+
+.anbarAddData .anbarAdd-container .anbarAddToTreeForm .container .row .warehouseCategoryDrowdown .dropdown button {
+  width: 100%;
+}
+
+.anbarAddData .anbarAdd-container .anbarAddToTreeForm .container .row .warehouseCategoryDrowdown .dropdown button:hover {
+  background-color: #797979;
+  -webkit-transform: scale(1);
+          transform: scale(1);
+  border: 2px solid #797979;
+}
+
+.anbarAddData .anbarAdd-container .anbarAddToTreeForm .container .row .newClusterTemplateContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 110px;
+  overflow-y: scroll;
+}
+
+.anbarAddData .anbarAdd-container .anbarAddToTreeForm .container .row .newClusterTemplateContainer .clusterTemplateElement {
+  margin: 10px 0;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  opacity: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  background: white;
+  border-radius: 25px;
+  padding: 5px 15px;
+}
+
+.anbarAddData .anbarAdd-container .anbarAddToTreeForm .container .row .newClusterTemplateContainer .clusterTemplateElement input {
+  text-align: center;
+  font-weight: bold;
+  color: black;
+}
+
+.anbarAddData .anbarAdd-container .anbarAddToTreeForm .container .row .newClusterTemplateContainer .clusterTemplateElement input[type="text"] {
+  width: 140px;
+  margin-right: 7px;
+}
+
+.anbarAddData .anbarAdd-container .anbarAddToTreeForm .container .row .newClusterTemplateContainer .clusterTemplateElement input[type="number"] {
+  width: 100px;
+}
+
+.anbarAddData .anbarAdd-container .anbarAddToTreeForm .container .row .newClusterTemplateContainer .clusterTemplateElement img {
+  cursor: pointer;
+  width: 25px;
+  margin-right: 5px;
+  margin-left: 5px;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+.anbarAddData .anbarAdd-container .anbarAddToTreeForm .container .row .newClusterTemplateContainer .clusterTemplateElement img:hover {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
+.anbarAddData .anbarAdd-container .anbarAddToTreeForm .container .row.special {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.anbarAddData .anbarAdd-container .anbarAddToTreeForm .container #warehouseTreeInsertBtnsRow {
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
 }
 
 .anbarAddData .anbarAdd-container .anbarAddToTreeForm[data-isActive="true"] {
