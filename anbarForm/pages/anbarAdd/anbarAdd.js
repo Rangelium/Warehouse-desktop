@@ -209,7 +209,7 @@ async function showAddNewBulkForm() {
 	$("#addNewBulkSellers").empty();
 	let sellersData = await new Promise((resolve) => {
 		poolConnect.then((pool) => {
-			pool.request().execute("dbo.product_sellers_select", (err, res) => {
+			pool.request().execute("dbo.product_seller_select_active", (err, res) => {
 				if (err !== null) console.log(err);
 				resolve(res.recordset);
 			});
@@ -444,7 +444,8 @@ function addNewSession(begin_date, session_voen) {
 }
 function acceptAllInsert(bulk_id, session_id) {
 	poolConnect.then((pool) => {
-		pool.request()
+		pool
+			.request()
 			.input("session_id", parseInt(session_id))
 			.input("bulk_buying_id", parseInt(bulk_id))
 			.input("user_id", USER.id)
@@ -510,6 +511,7 @@ function showSingleSessionOptions(sessionEl) {
 		$(".optionsBtn").attr("data-isActive", "False");
 		$("#optionsAccept").hide();
 		$("#optionsDelete").hide();
+		$("#optionsEndAll").hide();
 		$("#optionsMenu").attr("data-belongsTo", "Sessions");
 		$("#optionsMenu").css({
 			top:
@@ -861,6 +863,7 @@ async function showAddNewSessionInfoForm() {
 			});
 		});
 	});
+	console.log(currencyData);
 	for (let i = 0; i < currencyData.length; i++) {
 		$("#addNewSessionInfo_currency").append(
 			`<option data-id="${currencyData[i].id}" title="${currencyData[i].full_title}">${currencyData[i].title}</option>`
@@ -1039,12 +1042,29 @@ $(document).click((el) => {
 	if ($(".anbarAddToTreeForm").attr("data-isActive") === "true") {
 		if (
 			el.target === $("#addNewSessionInfoDropDownAddNewproductToTreeBtn")[0] ||
+			el.target === $("#addNewSessionInfoDropDownAddNewproductToTreeBarcodeBtn")[0] ||
 			el.target === $(".anbarAddToTreeForm")[0] ||
 			$.inArray(el.target, $(".anbarAddToTreeForm").children()) !== -1 ||
-			$.inArray($(el.target).parent()[0], $(".anbarAddToTreeForm").children()) !== -1
+			$.inArray($(el.target).parent()[0], $(".anbarAddToTreeForm").children()) !== -1 ||
+			$.inArray(
+				$(el.target).parent().parent()[0],
+				$(".anbarAddToTreeForm").children()
+			) !== -1 ||
+			$.inArray(
+				$(el.target).parent().parent().parent()[0],
+				$(".anbarAddToTreeForm").children()
+			) !== -1 ||
+			$.inArray(
+				$(el.target).parent().parent().parent().parent()[0],
+				$(".anbarAddToTreeForm").children()
+			) !== -1
 		) {
 			return;
 		} else {
+			// console.log("Closing");
+			// console.log(el.target);
+			// console.log($("#warehouseTreeInsertDeleteCluster"));
+			// console.log($.inArray(el.target, $("#warehouseTreeInsertDeleteCluster")) !== -1);
 			hideAddNewProductToTreeForm();
 			return;
 		}
@@ -1143,9 +1163,106 @@ $("#addNewSessionInfo_productId").keyup(function () {
 	}
 });
 
-function showAddNewProductToTreeForm() {
-	$(".anbarAddToTreeForm").attr("data-isActive", "true");
+// Search product in addNewSessionInfo with barcode
+function fillAddNewSessionInfoProductBarcodeDropdown(data) {
+	$("#addNewSessionInfoBarcodeDrowdown").empty();
+	let parent = $("#addNewSessionInfoBarcodeDrowdown");
+	data.forEach((el) => {
+		if (el.product_id !== null) {
+			parent.append(
+				`<p class="dropdown-member" data-barcode="${el.barcode}" data-id="${el.product_id}">${el.title}</p>`
+			);
+		}
+	});
 
+	$(".dropdown-member").click(function () {
+		$("#addNewSessionInfo_productId").attr("data-productId", $(this).attr("data-id"));
+		$("#addNewSessionInfo_productId").val($(this).html());
+		setTimeout(() => {
+			$("#addNewSessionInfoDrowdown").empty();
+		}, 100);
+	});
+}
+$("#addNewSessionInfo_barcode").keyup(function () {
+	if ($(this).val().trim() === "") return;
+	let text = $(this).val().trim();
+	let textNum = parseInt(text);
+	poolConnect.then((pool) => {
+		pool
+			.request()
+			.input("barcode", textNum)
+			.execute("dbo.bulk_buying_session_info_search", (err, res) => {
+				fillAddNewSessionInfoProductBarcodeDropdown(res.recordset);
+			});
+	});
+});
+
+// ADD NEW PRODUCT TO TREE PART
+function warehouseTreeInsertAddNewCluster(pivot = undefined) {
+	let clusterEl = $(`<div class="clusterTemplateElement"></div>`);
+	let inputs = `<input type="text" placeholder="Cluster's name" />
+	<input type="number" min="0" placeholder="Capacity" />`;
+	let addNew = $(`<img src="../stylesGlobal/imgs/new_btn.svg" />`);
+	let remove = $(`<img src="../stylesGlobal/imgs/delete_btn.svg" />`);
+
+	if (pivot !== undefined) {
+		pivot.after(clusterEl);
+	} else {
+		$(".newClusterTemplateContainer").append(clusterEl);
+	}
+	clusterEl.append(inputs);
+	clusterEl.append(addNew);
+	clusterEl.append(remove);
+	addNew.click((el) => {
+		warehouseTreeInsertAddNewCluster($(el.target).parent());
+	});
+	remove.click((el) => {
+		let counterActiveClusterTemplate = 0;
+		$(".newClusterTemplateContainer")
+			.children()
+			.each(function () {
+				if ($(this).attr("data-Active") !== "false") {
+					counterActiveClusterTemplate++;
+				}
+			});
+		if (counterActiveClusterTemplate < 2) {
+			return;
+		}
+
+		$(el.target).parent().css("opacity", "0");
+		$(el.target).parent().attr("data-Active", "false");
+		setTimeout(() => {
+			$(el.target).parent().css("display", "none");
+		}, 400);
+	});
+}
+function warehouseTreeInsertFormValidation() {
+	if (
+		$("#warehouseTreeInsert_title").val() === "" ||
+		$("#warehouseTreeInsert_barcode").val() === "" ||
+		$("#warehouseTreeInsert_categoryId").val() === ""
+	) {
+		return false;
+	}
+
+	return true;
+}
+function showAddNewProductToTreeForm() {
+	$(".newClusterTemplateContainer").empty();
+
+	warehouseTreeInsertAddNewCluster();
+
+	$("#warehouseTreeInsert_title").val("");
+	$("#warehouseTreeInsert_barcode").val("");
+	$("#warehouseTreeInsert_categoryId").val("");
+
+	let now = new Date();
+	let day = ("0" + now.getDate()).slice(-2);
+	let month = ("0" + (now.getMonth() + 3)).slice(-2);
+	let date = now.getFullYear() + "-" + month + "-" + day;
+	$("#warehouseTreeInsert_expDateWarning").val(date);
+
+	$(".anbarAddToTreeForm").attr("data-isActive", "true");
 	let arr = $(".anbarAdd-container").children();
 	for (let i = 0; i < arr.length; i++) {
 		if ($(arr[i]).attr("class") === "anbarAddToTreeForm") continue;
@@ -1167,7 +1284,37 @@ function hideAddNewProductToTreeForm() {
 		});
 	}
 }
+function addNewProductToTree() {
+	if (!warehouseTreeInsertFormValidation()) return;
+	poolConnect.then((pool) => {
+		pool
+			.request()
+			.input("parent_id")
+			.input("title", $("#warehouseTreeInsert_title"))
+			.input("product_id")
+			.input("cluster")
+			.input("user_id", USER.id)
+			.input("exp_date_warning")
+			.input("cluster_default")
+			.input("barcode")
+			.execute("dbo.warehouse_tree_insert", (err, res) => {
+				if (err !== null) console.log(err);
+			});
+	});
+}
+$("#warehouseTreeInsertSubmitBtn").click(() => {
+	addNewProductToTree();
+	setTimeout(() => {
+		hideAddNewProductToTreeForm();
+	}, 400);
+});
+$("#warehouseTreeInsertDiscardBtn").click(() => {
+	hideAddNewProductToTreeForm();
+});
 $("#addNewSessionInfoDropDownAddNewproductToTreeBtn").click(function () {
+	showAddNewProductToTreeForm();
+});
+$("#addNewSessionInfoDropDownAddNewproductToTreeBarcodeBtn").click(function () {
 	showAddNewProductToTreeForm();
 });
 

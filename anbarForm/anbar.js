@@ -12,10 +12,10 @@ const { MyTreeView } = require("../tools/TreeView");
 const moment = require("moment");
 var USER;
 
-// setTimeout(() => {
-// 	userLoggedIn();
-// 	openPage("anbarAdd");
-// }, 200);
+setTimeout(() => {
+	userLoggedIn();
+	openPage("anbarAdd");
+}, 200);
 
 // ====================================================================================
 //  													   Connection system part
