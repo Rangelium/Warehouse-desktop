@@ -1,6 +1,6 @@
 var date_from, date_to;
 
-var productExtraCharge, productQuantity, productReason;
+var productExtraCharge = 0, productQuantity, productReason, productDiscount = 0;
 var isProductChosen = false;
 var productPrice, productExpDate, productClusterId, 
 		productCell, productBarcode, productId, productCurrencyId,
@@ -12,15 +12,18 @@ var today = new Date();
 var dd = today.getDate();
 var mm = today.getMonth()+1; //January is 0!
 var yyyy = today.getFullYear();
- if(dd<10){
-        dd='0'+dd
-    } 
-    if(mm<10){
-        mm='0'+mm
-    } 
-
+if(dd<10){
+			dd='0'+dd
+	}
+	if(mm<10){
+			mm='0'+mm
+	}
 today = yyyy+'-'+mm+'-'+dd;
 $("#createSessionDateFrom").attr("max", today);
+
+function getTotalPrice(){
+	return parseFloat(productPrice * productQuantity * (1 + parseInt(productExtraCharge) / 100) * (1 - (productDiscount / 100))).toFixed(2);
+}
 
 poolConnect.then((pool) => {
   pool.request()
@@ -127,13 +130,19 @@ $("#searchBack").on("click", () => {
 $("#sessionInfoExtraCharge").change(() => {
 	productExtraCharge = $("#sessionInfoExtraCharge").val();
 	if(productPrice == NaN || productQuantity == NaN) return;
-	$("#sessionInfoTotalPrice").val(productPrice * (1 + productExtraCharge) / 100 * productQuantity);
+	$("#sessionInfoTotalPrice").val(getTotalPrice());
 });
+
+$("#sessionInfoDiscount").change(() => {
+	productDiscount = $("#sessionInfoDiscount").val();
+	if(productPrice == NaN || productQuantity == NaN) return;
+	$("#sessionInfoTotalPrice").val(getTotalPrice());	
+})
 
 $("#sessionInfoQuantity").change(() => {
 	productQuantity = $("#sessionInfoQuantity").val();
 	if(productPrice == NaN || productQuantity == NaN) return;
-	$("#sessionInfoTotalPrice").val(productPrice * (1 + productExtraCharge) / 100 * productQuantity);
+	$("#sessionInfoTotalPrice").val(getTotalPrice());
 })
 
 $("#createSessionButton").on("click", () => {
@@ -163,7 +172,7 @@ $("#submitSession").on("click", () => {
 	productQuantity = $("#sessionInfoQuantity").val();
 	productReason = $("#sessionInfoReason").val();
 	productCurrencyId = $("#sessionNewCurrencyId").val();
-
+	productDiscount = $("#sessionInfoDiscount").val();
 	if(productExtraCharge.length == 0 || productQuantity.length == 0 || productReason.length == 0){
 		alert("All the fields must be filled");
 		return;
@@ -188,6 +197,7 @@ $("#submitSession").on("click", () => {
 				.input("document_id_as_parent", mssql.BigInt, productDocumentId)
 				.input("product_manufacturer", mssql.Int, productManufacture)
 				.input("retail_sale_session_id", mssql.Int, session_id)
+				.input("discount", mssql.SmallInt, productDiscount)
 				.input("left", mssql.Float, productLeft)
 				.execute("dbo.retail_sale_info_insert", (err, res) => {
 					console.log(err);
@@ -343,9 +353,19 @@ function fillSessionsInfo(session_id){
 }
 
 function fillSessionSearch(value){
+	let parameterName = "";
+	let parameterType = "";
+	if(parseInt(value) == NaN){
+		parameterName = "title";
+		parameterType = mssql.NVarChar(250);
+	}
+	else{
+		parameterName = "product_id";
+		parameterType = mssql.Int;
+	}
 	poolConnect.then((pool) => {
 		pool.request()
-				.input("title", mssql.NVarChar(250), value)
+				.input(parameterName, parameterType, value)
 				.execute("dbo.retail_sale_search", (err, res) => {
 					if(err != null){
 						return;
@@ -423,7 +443,7 @@ function fillSessionSearch(value){
 							$("#sessionInfoPrice").val(productPrice);
 							$("#sessionNewCurrencyId").val(productCurrencyId);
 							if(productExtraCharge != NaN && productQuantity != NaN){
-								let total_price = productPrice* (1 + productExtraCharge) / 100 * productQuantity;
+								let total_price = (getTotalPrice());
 								$("#sessionInfoTotalPrice").val(total_price);
 							}
 						})
