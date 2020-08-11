@@ -8,6 +8,7 @@ function fillTable(procedureId){
 			data = []
 			for(let i of res.recordset){
 				data.push(i);
+				console.log(i);
 			}
 			$(".sellersProductTable").remove();
 						
@@ -74,8 +75,9 @@ $(".addSellersButton").on("click", () => {
 		|| lastname.length == 0 || patronymic.length == 0
     || p_address.length == 0){
 			alert("All fields must be filled");
-			return
+			return;
 	}
+	alert(phoneNumber)
 	poolConnect.then((pool) => {
 		pool.request()
 				.input("seller", mssql.NVarChar(250), title)
@@ -88,6 +90,7 @@ $(".addSellersButton").on("click", () => {
 				.input("p_address", mssql.NVarChar(250), p_address)
 				.execute("dbo.product_sellers_insert", (err, res)=>{
 					$("input").val("");
+					$("#active").prop("checked", false);
 					console.log(err);
 					fillTable(procedureId);
 				})

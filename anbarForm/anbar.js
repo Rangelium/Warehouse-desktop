@@ -10,7 +10,9 @@ window.$ = window.jQuery = require("jquery");
 
 const { MyTreeView } = require("../tools/TreeView");
 const moment = require("moment");
-var USER;
+var USER = {
+	"id": 1
+};
 
 setTimeout(() => {
 	userLoggedIn();

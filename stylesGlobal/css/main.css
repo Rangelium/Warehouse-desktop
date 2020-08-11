@@ -4574,6 +4574,76 @@ input[type="datetime-local"].exchangeInputField {
   border: 2px solid black;
 }
 
+.inventory {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.inventoryStart {
+  display: none;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  margin-top: 40vh;
+}
+
+.productInput {
+  display: none;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: 40vw;
+  border: 2px solid black;
+  border-radius: 2px;
+  padding: 15px 20px;
+}
+
+.productInput input {
+  width: 15vw;
+  padding: 5px;
+}
+
+.productInput:not(:first-child) {
+  margin-top: 5px;
+}
+
+.inventoryInputs {
+  display: none;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 60vw;
+  max-height: 80vh;
+  padding: 10px 15px;
+  background-color: red;
+  overflow-y: scroll;
+}
+
 .usersList {
   background-color: #a8a4a4;
 }
