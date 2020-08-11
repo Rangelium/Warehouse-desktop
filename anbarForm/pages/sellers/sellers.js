@@ -46,7 +46,7 @@ function fillTable(procedureId){
 				el.addEventListener("click", () => {
 					tr.forEach((trel) => {trel.classList.remove("selected")});
 					el.classList.toggle("selected");
-					selectedId = el.firstChild.textContent;
+					sellersSelectedId = el.firstChild.textContent;
 				})
 			})
 		});
@@ -77,7 +77,6 @@ $(".addSellersButton").on("click", () => {
 			alert("All fields must be filled");
 			return;
 	}
-	alert(phoneNumber)
 	poolConnect.then((pool) => {
 		pool.request()
 				.input("seller", mssql.NVarChar(250), title)
@@ -99,12 +98,12 @@ $(".addSellersButton").on("click", () => {
 
 
 $("#sellerDelete").on("click", () => {
-	if(!selectedId){
+	if(!sellersSelectedId){
 		alert("Please select row.");
 	}
 	poolConnect.then((pool) => {
 		pool.request()
-				.input("id", mssql.Int, selectedId)
+				.input("id", mssql.Int, sellersSelectedId)
 				.input("user_id", mssql.Int, USER["id"])
 				.execute("product_sellers_delete", (err, res) => {
 					fillTable(procedureId);
@@ -125,14 +124,15 @@ $("#showContent").on("click", () => {
 })
 
 $("#changeStatus").on("click", () => {
-	if(!selectedId) alert("Please select a row");
+	if(!sellersSelectedId) alert("Please select a row");
 	poolConnect.then((pool) => {
 		pool.request()
-				.input("id", mssql.Int, selectedId)
+				.input("id", mssql.Int, sellersSelectedId)
 				.input("user_id", mssql.Int, USER["id"])
 				.execute("dbo.product_sellers_deactivate_or_activate", (err, res) => {
 					console.log(err);
 					fillTable(procedureId);
+					sellersSelectedId = null;
 				})
 	})
 })
