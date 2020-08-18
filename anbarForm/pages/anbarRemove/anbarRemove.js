@@ -306,6 +306,7 @@ function fillSessionsInfo(session_id){
 						data.push(i);
 					}
 					$(".sessionInfoContainer").remove();
+					console.log('kek',data)
 					for(let i of data){
 						$(".sessionInfoTables").append(
 							`<div class="sessionInfoContainer">
@@ -331,7 +332,7 @@ function fillSessionsInfo(session_id){
 														i.exp_date
 													).format("DD/MM/YYYY")}</div>
 													<div class="sessionInfoTableData">${i.quantity}</div>
-													<div class="sessionInfoTableData">${i.product_unit}</div>
+													<div class="sessionInfoTableData">${i.unit_title}</div>
 													<div class="sessionInfoTableData">${i.pricefor1}</div>
 													<div class="sessionInfoTableData">${i.extra_charge}</div>
 													<div class="sessionInfoTableData">${i.for_sale_price}</div>
@@ -386,6 +387,7 @@ function fillSessionSearch(value){
 												<div class="sessionSearchHeaderItem">In Quantity</div>
 												<div class="sessionSearchHeaderItem">Out Quantity</div>
 												<div class="sessionSearchHeaderItem">Left</div>
+												<div class="sessionSearchHeaderItem">Unit</div>
 												<div class="sessionSearchHeaderItem">Price</div>
 												<div class="sessionSearchHeaderItem">Currency</div>
 											</div>
@@ -406,6 +408,7 @@ function fillSessionSearch(value){
 													<div class="sessionSearchTableData">${i.in_quantity}</div>
 													<div class="sessionSearchTableData">${i.out_quantity}</div>
 													<div class="sessionSearchTableData" id="productLeft">${i.left}</div>
+													<div class="sessionSearchTableData" id="productunit">${i.unit_title}</div>
 													<div class="sessionSearchTableData" id="productPrice">${i.price}</div>
 													<div class="sessionSearchTableData">${i.currency_title}</div>
 												</div>
