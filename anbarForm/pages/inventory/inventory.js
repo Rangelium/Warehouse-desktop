@@ -39,7 +39,7 @@ poolConnect.then((pool) => {
 })
 
 
-$("#inventoryStart").on("click", () =>{
+$("#startInventory").on("click", () =>{
   // $("#inventoryStart").fadeOut(100);
   poolConnect.then((pool) => {
     pool.request()
