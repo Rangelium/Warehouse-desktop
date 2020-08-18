@@ -4584,20 +4584,22 @@ input[type="datetime-local"].exchangeInputField {
           flex-direction: column;
 }
 
-.inventoryStart {
-  display: none;
-  -webkit-box-orient: vertical;
+.inventoryCenterPanel {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   -ms-flex-line-pack: center;
       align-content: center;
   -ms-flex-item-align: center;
-      -ms-grid-row-align: center;
       align-self: center;
+  justify-self: center;
   margin-top: 40vh;
 }
 
@@ -4642,6 +4644,27 @@ input[type="datetime-local"].exchangeInputField {
   padding: 10px 15px;
   background-color: red;
   overflow-y: scroll;
+}
+
+.inventoryMaterialButton {
+  border: none;
+  border-radius: 4px;
+  background-color: #6200EE;
+  width: 7vw;
+  height: 5vh;
+  color: #fff;
+  cursor: pointer;
+  outline: none;
+  margin: 5px;
+}
+
+.inventoryMaterialButton:hover {
+  background-color: #7e3ff2;
+}
+
+.inventoryMaterialButton:active {
+  outline: none;
+  background-color: #9965f4;
 }
 
 .usersList {
