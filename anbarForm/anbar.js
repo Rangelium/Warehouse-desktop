@@ -16,7 +16,7 @@ var USER = {
 
 setTimeout(() => {
 	userLoggedIn();
-	openPage("anbarAdd");
+	openPage("inventory");
 }, 200);
 
 // ====================================================================================
