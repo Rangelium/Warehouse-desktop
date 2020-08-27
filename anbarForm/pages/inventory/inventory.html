@@ -1,4 +1,4 @@
-<div class="productInput">
+<!-- <div class="productInput">
   <select id="productId">
     <option value="" selected disabled>-- Select Product --</option>
   </select>
@@ -10,7 +10,7 @@
 
 <div class="inventoryInputs">
 </div>
-
+-->
 <div class="inventoryCenterPanel" id="inventoryStart" style="width: 16vw">
   <button class="inventoryMaterialButton" id="listInventories">
     List
@@ -18,4 +18,103 @@
   <button class="inventoryMaterialButton" id="startInventory">
     Start
   </button>
+</div>
+
+<!-- List -->
+<div class="inventoryListContainer" id='listContainer'>
+  <div class="inventoryList">
+    <ul class="inventoryTable" id="inventoryListTable">
+
+    </ul>
+  </div>
+  <div class="helpButton" style='left: 0'>
+    <button class="inventoryMaterialButton" id="backToStart">
+      Back
+    </button>
+  </div>
+</div>
+
+<!-- list Item -->
+<div class="inventoryFinishedTableContainer" id='listItemContainer'>
+
+  <div class="helpButton" style="align-self: center;" style="margin-top: 20vh;">
+    <button class="inventoryMaterialButton" id="backToList">
+      Back
+    </button>
+  </div>
+
+
+
+  <div class="inventoryFinishedTotal" id="listItemTotals">
+
+  </div>
+
+  <div class="inventoryFinishedTable">
+    <ul class="inventoryTable" id="listItemFinalTable">
+
+    </ul>
+  </div>
+</div>
+
+
+<!-- Start -->
+<div class="inventoryInputsContainer" id="inventoryInput">
+
+  <div class="helpButton" style="left: 0;">
+    <button class="inventoryMaterialButton" id="backInventory">
+      Back
+    </button>
+  </div>
+
+  <div class="helpButton" style="right: 0;">
+    <button class="inventoryMaterialButton" id="completeInventory">
+      Complete
+    </button>
+  </div>
+
+  <div class="inventoryInputCard" style="justify-self: center;"> 
+    <div class="inventoryDropdown">
+      <select id="productId">
+        <optgroup id="productList">
+          <option value="" selected disabled>-- Select Product --</option>
+        </optgroup>
+      </select>
+    </div>
+    
+    <div class="inventoryInput" id='quantityReal'>
+      <input type="number" id="itemQuantity"/>
+    </div>
+    
+    <div class="inventoryAddButton" id="addItem">
+      <button onclick="addInput()">
+        Add
+      </button>
+    </div>
+
+  </div>
+  <div class="inventoryItems">
+    <ul id="inventoryItems" class="inventoryTable">
+    </ul>
+  </div>
+</div>
+
+<div class="inventoryFinishedTableContainer" id='finalTableContainer'>
+
+  <div class="helpButton" style="align-self: center;" style="margin-top: 20vh;">
+    <button class="inventoryMaterialButton" id="finishInventory">
+      Back
+    </button>
+  </div>
+
+
+
+  <div class="inventoryFinishedTotal" id="inventoryTotals">
+
+  </div>
+
+  <div class="inventoryFinishedTable">
+    <ul class="inventoryTable" id="inventoryFinishedTable">
+
+    </ul>
+  </div>
 </div>

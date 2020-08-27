@@ -1,3 +1,6 @@
+$primary: #6200EE;
+$dark: #000;
+
 .inventory{
   display: flex;
   flex-direction: column;
@@ -30,17 +33,6 @@
   }
 }
 
-.inventoryInputs{
-  display: none;
-  flex-direction: column;
-  align-self: center;
-  align-items: center;
-  width: 60vw;
-  max-height: 80vh;
-  padding: 10px 15px;
-  background-color: red;
-  overflow-y: scroll;
-}
 
 .inventoryMaterialButton{
   border: none;
@@ -59,4 +51,261 @@
     outline: none;
     background-color: #9965f4;
   }
+}
+
+.inventoryInputsContainer{
+  align-self: center;
+  width: 80vw;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+}
+
+//////////////////////////////////////////
+// INVENTORY INPUT 
+.inventoryInputCard{
+  background-color: rgba(156, 95, 9, 0.61);
+  padding: 10px 20px;
+  width: 60vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  justify-self: center;
+  border: 2px solid black;
+  border-top: none;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.inventoryDropdown{
+  select{
+    width: 15vw;
+    height: 10vh;
+    padding: 10px;
+    font-size: 20px;
+    outline: none;
+    background-color: rgb(233, 233, 233);
+    box-shadow: inset 0 -3px 0 rgb(19, 55, 58);
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    border: none;
+    cursor: pointer;
+    &:hover{
+      background-color: rgb(241, 240, 240);
+    }
+    optgroup{
+      outline: none;
+      max-height: 20vh;
+      overflow-y: auto;
+      option{
+        outline: none;
+        font-size: 20px;
+        &:hover{
+          outline: none;
+        }
+      }
+    }
+  }
+}
+
+.inventoryInput{
+  input{
+    width: 25vw;
+    height: 10vh;
+    padding: 10px;
+    font-size: 26px;
+    z-index: 100;
+    outline: none;
+    background-color: #fff;
+    box-shadow: inset 0 -3px 0 rgb(19, 55, 58);
+    border: none;
+    text-align: center;
+  }
+}
+
+.inventoryAddButton{
+  button{
+    height: 10vh;
+    padding: 10px;
+    width: 15vw;
+    outline: none;
+    background-color: #0ea1c5;
+    border: none;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    font-size: 24px;
+    box-shadow: inset 0 -3px 0 rgb(19, 55, 58);
+    cursor: pointer;
+    &:hover{
+      background-color: #299fbd;
+    }
+  }
+}
+/////////////////////////////////////////
+
+/////////////////////////////////////////
+// INVENTORY ITEMS
+
+.inventoryItems{
+  max-height: 75vh;
+  width: 80vw;
+  margin-top: 1vh;
+  border-radius: 10px;
+  border: 2px solid black;
+  overflow-y: auto;
+}
+
+ul.inventoryTable{
+  margin: 0;
+  padding: 0;
+  
+  li{
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    opacity: 0;
+    flex-direction: row;
+    justify-content: space-between;
+    // padding: 12px 8px 12px 40px;
+    background: rgb(238, 169, 74);
+    font-size: 18px;
+    color: black;
+    transition: 0.4s;
+    top: -50px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    .update{
+      // background-color: #55c2dd;
+      padding: 12px 16px;
+      text-align: center;
+      background-color: #29a6c5;
+      color: black;
+      &:hover{
+        background-color: #7ac8db;
+      }
+    }
+    .buttonsSpan{
+      display: flex;
+      flex-direction: row;
+    }
+    .close {
+      color: black;
+      padding: 12px 16px;
+      text-align: center;
+      background-color: #e01d0f;
+      &:hover {
+        background-color: #f44336;
+      }
+    }
+    &:nth-child(odd){
+      background: rgba(156, 95, 9, 1);
+      color: white;
+    }
+    &:hover{
+      background-color: #fff;
+      color: black;
+    }
+    .inventoryItemContainer{
+      display: flex;
+      flex-direction: row;
+      width: 30vw;
+      justify-content: space-between;
+      p{
+        font-size: 20px;
+      }
+    }
+    .spanDiv{
+      margin: 0;
+      height: 100%;
+    }
+  }
+  .trans{
+    opacity: 1;
+    top: 0;
+  }
+  li.checked{
+    background: #fff;
+  }
+}
+
+.inventoryFinishedTableContainer{
+  align-self: center;
+  width: 100%;
+  height: 100%;
+  display: none;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  li{
+    top: 0 !important;
+    p{
+      width: 20%;
+      text-align: center;
+      padding: 14px 18px;
+    }
+  }
+}
+
+.inventoryFinishedTable{
+  max-height: 75vh;
+  width: 60vw;
+  margin-top: 1vh;
+  border-radius: 10px;
+  border: 2px solid black;
+  overflow-y: auto;
+}
+
+.inventoryFinishedTotal{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 20vw;
+  height: 40vh;
+  border: 2px solid black;
+  border-radius: 10px;
+  background-color: rgba(156, 95, 9, 1);
+  color: whitesmoke;
+  .item{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 5px;
+    p{
+      font-size: 26px !important;
+    }
+  }
+}
+
+.inventoryListContainer{
+  align-self: center;
+  margin-top: 10vh;
+  display: none;
+}
+
+.inventoryList{
+  max-height: 75vh;
+  width: 60vw;
+  margin-top: 1vh;
+  border-radius: 10px;
+  border: 2px solid black;
+  overflow-y: auto;
+  li{
+    top: 0 !important;
+    opacity: 1 !important;
+  }
+  p{
+    text-align: center;
+    padding: 14px 18px;
+    font-size: 24px;
+  }
+}
+
+
+
+.helpButton{
+  position: absolute !important;
+  top: 0;
+  margin-top: 10vh;
 }
