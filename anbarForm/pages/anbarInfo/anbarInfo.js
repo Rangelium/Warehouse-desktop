@@ -180,6 +180,7 @@ function fillSingleProductTable(data) {
 
 	$(".singleProductTable > thead").append(`<th>Title:</th>`);
 	$(".singleProductTable > thead").append(`<th>Quantity:</th>`);
+	$(".singleProductTable > thead").append(`<th>Unit:</th>`);
 	$(".singleProductTable > thead").append(`<th>Price:</th>`);
 	$(".singleProductTable > thead").append(`<th>Currency:</th>`);
 	// $(".singleProductTable > thead").append(`<th>Original price:</th>`);
@@ -195,6 +196,7 @@ function fillSingleProductTable(data) {
 
 		row += `<td>${el.title}</td>`;
 		row += `<td>${el.quantity}</td>`;
+		row += `<td>${el.unit_title}</td>`
 		row += `<td>${el.price}</td>`;
 		row += `<td>${el.currency}</td>`;
 		// row += `<td>${el.original_price}</td>`;
@@ -215,10 +217,10 @@ function fillSingleProductTable(data) {
 
 	// Fill empty tables
 	if (data.length < 5) {
-		for (let i = 0; i < 9 - data.length; i++) {
+		for (let i = 0; i < 10 - data.length; i++) {
 			let row = "<tr style='height: 40px'>";
 
-			for (let j = 0; j < 9; j++) {
+			for (let j = 0; j < 10; j++) {
 				row += "<td></td>";
 			}
 

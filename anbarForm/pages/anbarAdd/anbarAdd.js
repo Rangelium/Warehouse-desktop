@@ -454,6 +454,18 @@ function acceptAllInsert(bulk_id, session_id) {
 			});
 	});
 }
+
+function EndAllSessions(bulk_id) {
+	poolConnect.then((pool) => {
+		pool
+			.request()
+			.input("bulk_buying_id", parseInt(bulk_id))
+			.execute("dbo.bulk_buying_session_end_all", (err, res) => {
+				if (err !== null) console.log(err);
+			});
+	});
+}
+
 function showAddNewSessionForm() {
 	// Preparing form
 	let now = new Date();
@@ -561,6 +573,18 @@ $("#optionsAccept").click(function () {
 		closeAlert();
 	});
 });
+$("#optionsEndAll").click(function () {
+	if ($("#optionsMenu").attr("data-belongsTo") !== "Sessions") {
+		return;
+	}
+	showAlert("Are you sure you want to accept all sessions in this bulk buying?").then((res) => {
+		if (res) {
+			EndAllSessions(selectedBulkId);
+			refreshSessionsTable(600);
+		}
+		closeAlert();
+	});
+});
 $("#optionsDelete").click(function () {
 	if ($("#optionsMenu").attr("data-belongsTo") !== "Sessions") {
 		return;
@@ -628,7 +652,7 @@ function fillSessionInfoTable(data) {
 
 		row += `<td>${el.title[0]}</td>`;
 		row += `<td>${el.quantity}</td>`;
-		row += `<td>${el.product_unit}</td>`;
+		row += `<td>${el.unit_title}</td>`;
 		row += `<td>${el["price for 1"]}</td>`;
 		row += `<td>${el.for_sale_price}</td>`;
 		row += `<td>${el.extra_charge}</td>`;
