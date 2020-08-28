@@ -356,7 +356,8 @@ function fillSessionsInfo(session_id){
 function fillSessionSearch(value){
 	let parameterName = "";
 	let parameterType = "";
-	if(parseInt(value) == NaN){
+	
+	if(Number.isInteger(value) == false){
 		parameterName = "title";
 		parameterType = mssql.NVarChar(250);
 	}
@@ -369,6 +370,7 @@ function fillSessionSearch(value){
 				.input(parameterName, parameterType, value)
 				.execute("dbo.retail_sale_search", (err, res) => {
 					if(err != null){
+						console.log(err);
 						return;
 					}
 					data = []
