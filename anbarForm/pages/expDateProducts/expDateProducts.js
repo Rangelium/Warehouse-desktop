@@ -7,24 +7,39 @@ async function fillExpDateOverTable() {
 			});
 		});
 	});
-
+	console.log(data);
 	$(".exp-date-over-table").remove();
 
-	$(".exp-date-over-data").append("<table class='exp-date-over-table'></table>");
+	$(".exp-date-over-data").append(
+		"<table class='exp-date-over-table'></table>"
+	);
 	$(".exp-date-over-table").append("<thead></thead>");
 	$(".exp-date-over-table").append("<tbody></tbody>");
 
-	$(".exp-date-over-table > thead").append(`<th>Kek:</th>`);
-	$(".exp-date-over-table > thead").append(`<th>Lol:</th>`);
-	$(".exp-date-over-table > thead").append(`<th>KekLol:</th>`);
+	$(".exp-date-over-table > thead").append(`<th>ExpireDate:</th>`);
+	$(".exp-date-over-table > thead").append(`<th>Product:</th>`);
+	$(".exp-date-over-table > thead").append(`<th>Barcode:</th>`);
+	$(".exp-date-over-table > thead").append(`<th>Manufacturer:</th>`);
+	$(".exp-date-over-table > thead").append(`<th>Quantity:</th>`);
+	$(".exp-date-over-table > thead").append(`<th>Price:</th>`);
+	$(".exp-date-over-table > thead").append(`<th>Currency:</th>`);
+	$(".exp-date-over-table > thead").append(`<th>Total:</th>`);
+	$(".exp-date-over-table > thead").append(`<th>VOEN:</th>`);
 
 	data.forEach((el) => {
-		let row = `<tr>`;
+		let row = `<tr class="single-expired-row">`;
 
-		row += `<td>${el.id}</td>`;
-		row += `<td>${el.id}</td>`;
-		row += `<td>${el.id}</td>`;
-
+		row += `<td title="${moment(el.exp_date).format(
+			"DD MMMM YYYY, h:mm:ss"
+		)}">${moment(el.exp_date).format("DD MMMM YYYY")}</td>`;
+		row += `<td>${el.product_title}</td>`;
+		row += `<td>${el.barcode}</td>`;
+		row += `<td>${el.manufacturer_title}</td>`;
+		row += `<td>${el.quantity}</td>`;
+		row += `<td>${el.price}</td>`;
+		row += `<td>${el.currency_title}</td>`;
+		row += `<td>${el.sum_price}</td>`;
+		row += `<td>${el.product_voen}</td>`;
 		row += "</tr>";
 		$(".exp-date-over-table > tbody").append(row);
 	});
@@ -34,7 +49,7 @@ async function fillExpDateOverTable() {
 		for (let i = 0; i < 12 - data.length; i++) {
 			let row = "<tr style='height: 40px'>";
 
-			for (let j = 0; j < 3; j++) {
+			for (let j = 0; j < 9; j++) {
 				row += "<td></td>";
 			}
 
@@ -43,7 +58,13 @@ async function fillExpDateOverTable() {
 			$(".exp-date-over-table > tbody").append(row);
 		}
 	}
+
+	$(".single-expired-row").click(function () {
+		$(".single-expired-row").attr("data-isSelected", "False");
+		$(this).attr("data-isSelected", "True");
+	});
 }
+
 async function fillExpDateSoCloseTable() {
 	let data = await new Promise((resolve) => {
 		poolConnect.then((pool) => {
@@ -56,21 +77,36 @@ async function fillExpDateSoCloseTable() {
 
 	$(".exp-date-soclose-table").remove();
 
-	$(".exp-date-soclose-data").append("<table class='exp-date-soclose-table'></table>");
+	$(".exp-date-soclose-data").append(
+		"<table class='exp-date-soclose-table'></table>"
+	);
 	$(".exp-date-soclose-table").append("<thead></thead>");
 	$(".exp-date-soclose-table").append("<tbody></tbody>");
 
-	$(".exp-date-soclose-table > thead").append(`<th>Kek:</th>`);
-	$(".exp-date-soclose-table > thead").append(`<th>Lol:</th>`);
-	$(".exp-date-soclose-table > thead").append(`<th>KekLol:</th>`);
+	$(".exp-date-soclose-table > thead").append(`<th>ExpireDate:</th>`);
+	$(".exp-date-soclose-table > thead").append(`<th>Product:</th>`);
+	$(".exp-date-soclose-table > thead").append(`<th>Barcode:</th>`);
+	$(".exp-date-soclose-table > thead").append(`<th>Manufacturer:</th>`);
+	$(".exp-date-soclose-table > thead").append(`<th>Quantity:</th>`);
+	$(".exp-date-soclose-table > thead").append(`<th>Price:</th>`);
+	$(".exp-date-soclose-table > thead").append(`<th>Currency:</th>`);
+	$(".exp-date-soclose-table > thead").append(`<th>Total:</th>`);
+	$(".exp-date-soclose-table > thead").append(`<th>VOEN:</th>`);
 
 	data.forEach((el) => {
 		let row = `<tr>`;
 
-		row += `<td>${el.id}</td>`;
-		row += `<td>${el.id}</td>`;
-		row += `<td>${el.id}</td>`;
-
+		row += `<td title="${moment(el.exp_date).format(
+			"DD MMMM YYYY, h:mm:ss"
+		)}">${moment(el.exp_date).format("DD MMMM YYYY")}</td>`;
+		row += `<td>${el.product_title}</td>`;
+		row += `<td>${el.barcode}</td>`;
+		row += `<td>${el.manufacturer_title}</td>`;
+		row += `<td>${el.quantity}</td>`;
+		row += `<td>${el.price}</td>`;
+		row += `<td>${el.currency_title}</td>`;
+		row += `<td>${el.sum_price}</td>`;
+		row += `<td>${el.product_voen}</td>`;
 		row += "</tr>";
 		$(".exp-date-soclose-table > tbody").append(row);
 	});
@@ -80,7 +116,7 @@ async function fillExpDateSoCloseTable() {
 		for (let i = 0; i < 12 - data.length; i++) {
 			let row = "<tr style='height: 40px'>";
 
-			for (let j = 0; j < 3; j++) {
+			for (let j = 0; j < 9; j++) {
 				row += "<td></td>";
 			}
 
