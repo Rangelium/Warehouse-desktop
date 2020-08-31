@@ -73,8 +73,7 @@ clickObj.mousedown(function () {
 	timeout = setInterval(function () {
 		if (prevMouseY !== currentMousePos.y) {
 			moveLineBy += currentMousePos.y - $(".moveableBorder").offset().top;
-			moveBlockBy =
-				parseInt($(".bulks").css("height").slice(0, -2)) + moveLineBy;
+			moveBlockBy = parseInt($(".bulks").css("height").slice(0, -2)) + moveLineBy;
 			if (
 				moveBlockBy < $(document).height() * 0.65 &&
 				moveBlockBy > $(document).height() * 0.15
@@ -117,24 +116,21 @@ function fillBulksTable(data) {
 	$(".anbarAddBulksTable").append("<thead></thead>");
 	$(".anbarAddBulksTable").append("<tbody></tbody>");
 
-	$(".anbarAddBulksTable > thead").append(
-		`<th>${languages["creation_date"]}</th>`
-	);
-	$(".anbarAddBulksTable > thead").append(`<th>${languages["seller"]}</th>`);
-	$(".anbarAddBulksTable > thead").append(
-		`<th>${languages["total_price"]}:</th>`
-	);
-	$(".anbarAddBulksTable > thead").append(`<th>${languages["currency"]}:</th>`);
+	$(".anbarAddBulksTable > thead").append(`<th>Begin date:</th>`);
+	$(".anbarAddBulksTable > thead").append(`<th>Seller:</th>`);
+	$(".anbarAddBulksTable > thead").append(`<th>Whole price:</th>`);
+	$(".anbarAddBulksTable > thead").append(`<th>Cost price:</th>`);
 
 	data.forEach((el) => {
 		let row = `<tr class="single-bulk" data-id='${el.id}'>`;
 
-		row += `<td title="${moment(el.begin_date).format(
-			"DD MMMM YYYY, h:mm:ss"
-		)}">${moment(el.begin_date).format("DD MMMM YYYY")}</td>`;
+		row += `<td title="${moment(el.begin_date).format("DD MMMM YYYY, h:mm:ss")}">${moment(
+			el.begin_date
+		).format("DD MMMM YYYY")}</td>`;
 		row += `<td>${el.seller}</td>`;
+		row += `<td>${el.whole_price}</td>`;
 		row += `<td>${el.cost_price}</td>`;
-		row += `<td>${el.default_currency}</td>`;
+
 		row += "</tr>";
 		$(".anbarAddBulksTable > tbody").append(row);
 	});
@@ -332,12 +328,8 @@ $(document).click((el) => {
 		if (
 			$(el.target).attr("class") !== "addNewBulkForm" &&
 			$.inArray(el.target, $(".addNewBulkForm").children()) < 0 &&
-			$.inArray($(el.target).parent()[0], $(".addNewBulkForm").children()) <
-				0 &&
-			$.inArray(
-				$(el.target).parent().parent()[0],
-				$(".addNewBulkForm").children()
-			) < 0
+			$.inArray($(el.target).parent()[0], $(".addNewBulkForm").children()) < 0 &&
+			$.inArray($(el.target).parent().parent()[0], $(".addNewBulkForm").children()) < 0
 		) {
 			hideAddNewBulkForm();
 		}
@@ -358,18 +350,11 @@ function fillSessionsTable(data) {
 	$(".anbarAddSessionsTable").append("<tbody></tbody>");
 
 	$(".anbarAddSessionsTable > thead").append(`<th>VOEN:</th>`);
-	$(".anbarAddSessionsTable > thead").append(
-		`<th>${languages["creation_date"]}:</th>`
-	);
-	$(".anbarAddSessionsTable > thead").append(
-		`<th>${languages["total_price"]}:</th>`
-	);
-	$(".anbarAddSessionsTable > thead").append(
-		`<th>${languages["currency"]}:</th>`
-	);
-	$(".anbarAddSessionsTable > thead").append(
-		`<th>${languages["status"]}:</th>`
-	);
+	$(".anbarAddSessionsTable > thead").append(`<th>Begin date:</th>`);
+	$(".anbarAddSessionsTable > thead").append(`<th>Cost price:</th>`);
+	$(".anbarAddSessionsTable > thead").append(`<th>Whole price:</th>`);
+	$(".anbarAddSessionsTable > thead").append(`<th>Currency:</th>`);
+	$(".anbarAddSessionsTable > thead").append(`<th>Status:</th>`);
 
 	data.forEach((el) => {
 		let row = `<tr class="bulk-session" data-finished='${
@@ -377,10 +362,11 @@ function fillSessionsTable(data) {
 		}' data-voen='${el.session_voen}' data-id='${el.id}'>`;
 
 		row += `<td>${el.session_voen}</td>`;
-		row += `<td title="${moment(el.begin_date).format(
-			"DD MMMM YYYY, h:mm:ss"
-		)}">${moment(el.begin_date).format("DD MMMM YYYY")}</td>`;
+		row += `<td title="${moment(el.begin_date).format("DD MMMM YYYY, h:mm:ss")}">${moment(
+			el.begin_date
+		).format("DD MMMM YYYY")}</td>`;
 		row += `<td>${el.cost_price}</td>`;
+		row += `<td>${el.whole_price}</td>`;
 		row += `<td>${el.default_currency}</td>`;
 		row += `<td>${el.done === "+" ? "Finished" : "Not Finished"}</td>`;
 
@@ -393,7 +379,7 @@ function fillSessionsTable(data) {
 		for (let i = 0; i < 9 - data.length; i++) {
 			let row = "<tr class='empty-bulk-session' style='height: 40px'>";
 
-			for (let j = 0; j < 5; j++) {
+			for (let j = 0; j < 6; j++) {
 				row += "<td></td>";
 			}
 
@@ -579,23 +565,19 @@ $("#optionsAccept").click(function () {
 	if ($("#optionsMenu").attr("data-belongsTo") !== "Sessions") {
 		return;
 	}
-	showAlert("Are you sure you want to accept all insert in this session?").then(
-		(res) => {
-			if (res) {
-				acceptAllInsert(selectedBulkId, $(this).attr("data-sessionId"));
-				refreshSessionsTable(600);
-			}
-			closeAlert();
+	showAlert("Are you sure you want to accept all insert in this session?").then((res) => {
+		if (res) {
+			acceptAllInsert(selectedBulkId, $(this).attr("data-sessionId"));
+			refreshSessionsTable(600);
 		}
-	);
+		closeAlert();
+	});
 });
 $("#optionsEndAll").click(function () {
 	if ($("#optionsMenu").attr("data-belongsTo") !== "Sessions") {
 		return;
 	}
-	showAlert(
-		"Are you sure you want to accept all sessions in this bulk buying?"
-	).then((res) => {
+	showAlert("Are you sure you want to accept all sessions in this bulk buying?").then((res) => {
 		if (res) {
 			EndAllSessions(selectedBulkId);
 			refreshSessionsTable(600);
@@ -632,12 +614,8 @@ $(document).click((el) => {
 		if (
 			$(el.target).attr("class") !== "addNewSessionForm" &&
 			$.inArray(el.target, $(".addNewSessionForm").children()) < 0 &&
-			$.inArray($(el.target).parent()[0], $(".addNewSessionForm").children()) <
-				0 &&
-			$.inArray(
-				$(el.target).parent().parent()[0],
-				$(".addNewSessionForm").children()
-			) < 0
+			$.inArray($(el.target).parent()[0], $(".addNewSessionForm").children()) < 0 &&
+			$.inArray($(el.target).parent().parent()[0], $(".addNewSessionForm").children()) < 0
 		) {
 			hideAddNewSessionForm();
 		}
@@ -653,39 +631,21 @@ var selectedSessionInfoObj = undefined;
 function fillSessionInfoTable(data) {
 	$(".anbarAddSessionInfoTable").remove();
 
-	$(".session-info-table").append(
-		"<table class='anbarAddSessionInfoTable'></table>"
-	);
+	$(".session-info-table").append("<table class='anbarAddSessionInfoTable'></table>");
 	$(".anbarAddSessionInfoTable").append("<thead></thead>");
 	$(".anbarAddSessionInfoTable").append("<tbody></tbody>");
 
-	$(".anbarAddSessionInfoTable > thead").append(
-		`<th>${languages["product_name"]}:</th>`
-	);
-	$(".anbarAddSessionInfoTable > thead").append(
-		`<th>${languages["quantity"]}:</th>`
-	);
-	$(".anbarAddSessionInfoTable > thead").append(
-		`<th>${languages["unit"]}:</th>`
-	);
-	$(".anbarAddSessionInfoTable > thead").append(
-		`<th>${languages["unit_price"]}:</th>`
-	);
-	$(".anbarAddSessionInfoTable > thead").append(
-		`<th>${languages["total_price"]}:</th>`
-	);
-	$(".anbarAddSessionInfoTable > thead").append(
-		`<th>${languages["currency"]}:</th>`
-	);
-	$(".anbarAddSessionInfoTable > thead").append(
-		`<th>${languages["exp_date"]}:</th>`
-	);
-	$(".anbarAddSessionInfoTable > thead").append(
-		`<th>${languages["product_cell"]}:</th>`
-	);
-	$(".anbarAddSessionInfoTable > thead").append(
-		`<th>${languages["action"]}:</th>`
-	);
+	$(".anbarAddSessionInfoTable > thead").append(`<th>Product:</th>`);
+	$(".anbarAddSessionInfoTable > thead").append(`<th>Quantity:</th>`);
+	$(".anbarAddSessionInfoTable > thead").append(`<th>Unit:</th>`);
+	$(".anbarAddSessionInfoTable > thead").append(`<th>Price for 1:</th>`);
+	$(".anbarAddSessionInfoTable > thead").append(`<th>For sale price:</th>`);
+	$(".anbarAddSessionInfoTable > thead").append(`<th>Extra charge:</th>`);
+	$(".anbarAddSessionInfoTable > thead").append(`<th>Sum price:</th>`);
+	$(".anbarAddSessionInfoTable > thead").append(`<th>Currency:</th>`);
+	$(".anbarAddSessionInfoTable > thead").append(`<th>Expriration date:</th>`);
+	$(".anbarAddSessionInfoTable > thead").append(`<th>Product cell:</th>`);
+	$(".anbarAddSessionInfoTable > thead").append(`<th>Reason:</th>`);
 
 	data.forEach((el) => {
 		let row = `<tr class="single-session-info" data-id='${el.id}' data-cluster-id='${el.cluster_id}''>`;
@@ -694,11 +654,13 @@ function fillSessionInfoTable(data) {
 		row += `<td>${el.quantity}</td>`;
 		row += `<td>${el.unit_title}</td>`;
 		row += `<td>${el["price for 1"]}</td>`;
+		row += `<td>${el.for_sale_price}</td>`;
+		row += `<td>${el.extra_charge}</td>`;
 		row += `<td>${el.sum_price}</td>`;
 		row += `<td>${el.title[1]}</td>`;
-		row += `<td title="${moment(el.exp_date).format(
-			"Da MMMM YYYY, h:mm:ss"
-		)}">${moment(el.exp_date).format("DD MMMM YYYY")}</td>`;
+		row += `<td title="${moment(el.exp_date).format("Da MMMM YYYY, h:mm:ss")}">${moment(
+			el.exp_date
+		).format("DD MMMM YYYY")}</td>`;
 		row += `<td>${el.product_cell}</td>`;
 		row += `<td>${el.reason}</td>`;
 
@@ -711,7 +673,7 @@ function fillSessionInfoTable(data) {
 		for (let i = 0; i < 17 - data.length; i++) {
 			let row = "<tr class='empty-single-session-info' style='height: 40px'>";
 
-			for (let j = 0; j < 9; j++) {
+			for (let j = 0; j < 11; j++) {
 				row += "<td></td>";
 			}
 
@@ -769,13 +731,12 @@ function deleteSessionInfo(sessionInfoId) {
 	});
 }
 function addNewSessionInfo() {
-	let product_id = parseInt(
-		$("#addNewSessionInfo_productId").attr("data-productId")
-	);
+	let product_id = parseInt($("#addNewSessionInfo_productId").attr("data-productId"));
 	let barcode = parseInt($("#addNewSessionInfo_barcode").val());
 	let voen = parseInt($("#addNewSessionInfo_voen").val());
 	let quantity = parseInt($("#addNewSessionInfo_quantity").val());
 	let price = parseInt($("#addNewSessionInfo_price").val());
+	let extra_charge = parseInt($("#addNewSessionInfo_extraCharge").val());
 	let cluster_id = parseInt(
 		$("#addNewSessionInfo_cluster").children("option:selected").attr("data-id")
 	);
@@ -801,6 +762,7 @@ function addNewSessionInfo() {
 			.input("product_id", product_id)
 			.input("quantity", quantity)
 			.input("price", price)
+			.input("extra_charge", extra_charge)
 			.input("cluster_id", cluster_id)
 			.input("exp_date", exp_date)
 			.input("reason", reason)
@@ -819,13 +781,12 @@ function addNewSessionInfo() {
 function updateSessionInfo(id) {
 	console.log(id);
 	return;
-	let product_id = parseInt(
-		$("#addNewSessionInfo_productId").attr("data-productId")
-	);
+	let product_id = parseInt($("#addNewSessionInfo_productId").attr("data-productId"));
 	let barcode = parseInt($("#addNewSessionInfo_barcode").val());
 	let voen = parseInt($("#addNewSessionInfo_voen").val());
 	let quantity = parseInt($("#addNewSessionInfo_quantity").val());
 	let price = parseInt($("#addNewSessionInfo_price").val());
+	let extra_charge = parseInt($("#addNewSessionInfo_extraCharge").val());
 	let cluster_id = parseInt(
 		$("#addNewSessionInfo_cluster").children("option:selected").attr("data-id")
 	);
@@ -852,6 +813,7 @@ function updateSessionInfo(id) {
 			.input("product_id", product_id)
 			.input("quantity", quantity)
 			.input("price", price)
+			.input("extra_charge", extra_charge)
 			.input("cluster_id", cluster_id)
 			.input("exp_date", exp_date)
 			.input("reason", reason)
@@ -935,12 +897,10 @@ async function showAddNewSessionInfoForm() {
 	$("#addNewSessionInfo_productManufacturer").empty();
 	let manufacturerData = await new Promise((resolve) => {
 		poolConnect.then((pool) => {
-			pool
-				.request()
-				.execute("dbo.product_manufacturer_select_all", (err, res) => {
-					if (err !== null) console.log(err);
-					resolve(res.recordset);
-				});
+			pool.request().execute("dbo.product_manufacturer_select_all", (err, res) => {
+				if (err !== null) console.log(err);
+				resolve(res.recordset);
+			});
 		});
 	});
 	for (let i = 0; i < manufacturerData.length; i++) {
@@ -993,15 +953,11 @@ $("#addNewSessionInfoSubmitBtn").click(() => {
 		return;
 	}
 	if ($(".addNewSessionInfoForm").attr("data-forUpdate") === "true") {
-		updateSessionInfo(
-			$(".addNewSessionInfoForm").attr("data-updatedSessionInfoId")
-		);
+		updateSessionInfo($(".addNewSessionInfoForm").attr("data-updatedSessionInfoId"));
 		$(".addNewSessionInfoForm").attr("data-forUpdate", "false");
 	} else {
 		addNewSessionInfo(
-			moment($("#addNewSessionInfoBeginDate").val()).format(
-				"yyyy-MM-DD HH:mm:ss"
-			)
+			moment($("#addNewSessionInfoBeginDate").val()).format("yyyy-MM-DD HH:mm:ss")
 		);
 	}
 	refreshSessionInfoTable(600);
@@ -1055,15 +1011,15 @@ $("#optionsDelete").click(function () {
 	if ($("#optionsMenu").attr("data-belongsTo") !== "SessionsInfo") {
 		return;
 	}
-	showAlert(
-		"Are you sure you want to delete this session's product income?"
-	).then((res) => {
-		if (res) {
-			deleteSessionInfo($(this).attr("data-sessionInfoId"));
-			refreshSessionInfoTable(600);
+	showAlert("Are you sure you want to delete this session's product income?").then(
+		(res) => {
+			if (res) {
+				deleteSessionInfo($(this).attr("data-sessionInfoId"));
+				refreshSessionInfoTable(600);
+			}
+			closeAlert();
 		}
-		closeAlert();
-	});
+	);
 });
 $("#optionsNew").click(function () {
 	if ($("#optionsMenu").attr("data-belongsTo") !== "SessionsInfo") {
@@ -1099,6 +1055,7 @@ $("#optionsEdit").click(async function () {
 
 	$("#addNewSessionInfo_quantity").val($(sessionInfoItemsArr[1]).html());
 	$("#addNewSessionInfo_price").val($(sessionInfoItemsArr[3]).html());
+	$("#addNewSessionInfo_extraCharge").val($(sessionInfoItemsArr[5]).html());
 	$("#addNewSessionInfo_productCell").val($(sessionInfoItemsArr[9]).html());
 	$("#addNewSessionInfo_reason").val($(sessionInfoItemsArr[10]).html());
 });
@@ -1109,14 +1066,10 @@ $(document).click((el) => {
 	if ($(".anbarAddToTreeForm").attr("data-isActive") === "true") {
 		if (
 			el.target === $("#addNewSessionInfoDropDownAddNewproductToTreeBtn")[0] ||
-			el.target ===
-				$("#addNewSessionInfoDropDownAddNewproductToTreeBarcodeBtn")[0] ||
+			el.target === $("#addNewSessionInfoDropDownAddNewproductToTreeBarcodeBtn")[0] ||
 			el.target === $(".anbarAddToTreeForm")[0] ||
 			$.inArray(el.target, $(".anbarAddToTreeForm").children()) !== -1 ||
-			$.inArray(
-				$(el.target).parent()[0],
-				$(".anbarAddToTreeForm").children()
-			) !== -1 ||
+			$.inArray($(el.target).parent()[0], $(".anbarAddToTreeForm").children()) !== -1 ||
 			$.inArray(
 				$(el.target).parent().parent()[0],
 				$(".anbarAddToTreeForm").children()
@@ -1147,14 +1100,10 @@ $(document).click((el) => {
 		}
 		if ($(".anbarAddToTreeForm").attr("data-isActive") === "true") {
 			if (
-				el.target ===
-					$("#addNewSessionInfoDropDownAddNewproductToTreeBtn")[0] ||
+				el.target === $("#addNewSessionInfoDropDownAddNewproductToTreeBtn")[0] ||
 				el.target === $(".anbarAddToTreeForm")[0] ||
 				$.inArray(el.target, $(".anbarAddToTreeForm").children()) !== -1 ||
-				$.inArray(
-					$(el.target).parent()[0],
-					$(".anbarAddToTreeForm").children()
-				) !== -1
+				$.inArray($(el.target).parent()[0], $(".anbarAddToTreeForm").children()) !== -1
 			) {
 				return;
 			} else {
@@ -1165,10 +1114,7 @@ $(document).click((el) => {
 		if (
 			$(el.target).attr("class") !== "addNewSessionInfoForm" &&
 			$.inArray(el.target, $(".addNewSessionInfoForm").children()) < 0 &&
-			$.inArray(
-				$(el.target).parent()[0],
-				$(".addNewSessionInfoForm").children()
-			) < 0 &&
+			$.inArray($(el.target).parent()[0], $(".addNewSessionInfoForm").children()) < 0 &&
 			$.inArray(
 				$(el.target).parent().parent()[0],
 				$(".addNewSessionInfoForm").children()
@@ -1208,10 +1154,7 @@ function fillAddNewSessionInfoProductDropdown(data) {
 	});
 
 	$(".dropdown-member").click(function () {
-		$("#addNewSessionInfo_productId").attr(
-			"data-productId",
-			$(this).attr("data-id")
-		);
+		$("#addNewSessionInfo_productId").attr("data-productId", $(this).attr("data-id"));
 		$("#addNewSessionInfo_productId").val($(this).html());
 		$("#addNewSessionInfo_barcode").val();
 		setTimeout(() => {
@@ -1257,10 +1200,7 @@ function fillAddNewSessionInfoProductBarcodeDropdown(data) {
 	});
 
 	$(".dropdown-member").click(function () {
-		$("#addNewSessionInfo_productId").attr(
-			"data-productId",
-			$(this).attr("data-id")
-		);
+		$("#addNewSessionInfo_productId").attr("data-productId", $(this).attr("data-id"));
 		$("#addNewSessionInfo_productId").val($(this).html());
 		setTimeout(() => {
 			$("#addNewSessionInfoDrowdown").empty();
@@ -1428,7 +1368,7 @@ $("#date_to").change(function () {
 	var day = ("0" + now.getDate()).slice(-2);
 	var month = ("0" + now.getMonth()).slice(-2);
 	var today = now.getFullYear() + "-" + month + "-" + day;
-	var month2 = ("0" + now.getMonth()).slice(-2);
+	var month2 = ("0" + (now.getMonth() + 2)).slice(-2);
 	var today2 = now.getFullYear() + "-" + month2 + "-" + day;
 	$("#date_from").val(today);
 	$("#date_to").val(today2);

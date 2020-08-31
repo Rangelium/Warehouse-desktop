@@ -178,44 +178,35 @@ function fillSingleProductTable(data) {
 	$(".singleProductTable").append("<thead></thead>");
 	$(".singleProductTable").append("<tbody></tbody>");
 
-	$(".singleProductTable > thead").append(
-		`<th>${languages["product_name"]}:</th>`
-	);
-	$(".singleProductTable > thead").append(`<th>${languages["quantity"]}:</th>`);
-	$(".singleProductTable > thead").append(`<th>${languages["unit"]}:</th>`);
-	$(".singleProductTable > thead").append(
-		`<th>${languages["unit_price"]}:</th>`
-	);
-	$(".singleProductTable > thead").append(
-		`<th>${languages["total_price"]}:</th>`
-	);
-	$(".singleProductTable > thead").append(`<th>${languages["currency"]}:</th>`);
+	$(".singleProductTable > thead").append(`<th>Title:</th>`);
+	$(".singleProductTable > thead").append(`<th>Quantity:</th>`);
+	$(".singleProductTable > thead").append(`<th>Unit:</th>`);
+	$(".singleProductTable > thead").append(`<th>Price:</th>`);
+	$(".singleProductTable > thead").append(`<th>Currency:</th>`);
 	// $(".singleProductTable > thead").append(`<th>Original price:</th>`);
 	// $(".singleProductTable > thead").append(`<th>Original currency:</th>`);
-	// $(".singleProductTable > thead").append(`<th>Current date:</th>`);
-	$(".singleProductTable > thead").append(`<th>${languages["exp_date"]}</th>`);
-	$(".singleProductTable > thead").append(`<th>${languages["action"]}</th>`);
-	$(".singleProductTable > thead").append(
-		`<th>${languages["confirmed"]}:</th>`
-	);
-	$(".singleProductTable > thead").append(
-		`<th>${languages["product_cell"]}:</th>`
-	);
+	$(".singleProductTable > thead").append(`<th>Current date:</th>`);
+	$(".singleProductTable > thead").append(`<th>Expiration date</th>`);
+	$(".singleProductTable > thead").append(`<th>Status</th>`);
+	$(".singleProductTable > thead").append(`<th>Performed by:</th>`);
+	$(".singleProductTable > thead").append(`<th>Cell:</th>`);
 
 	data.forEach((el) => {
 		let row = "<tr>";
 
 		row += `<td>${el.title}</td>`;
 		row += `<td>${el.quantity}</td>`;
-		row += `<td>${el.unit_title}</td>`;
+		row += `<td>${el.unit_title}</td>`
 		row += `<td>${el.price}</td>`;
-		row += `<td>${el.total_price}</td>`;
 		row += `<td>${el.currency}</td>`;
 		// row += `<td>${el.original_price}</td>`;
 		// row += `<td>${el.original_currency}</td>`;
-		row += `<td title="${moment(el.exp_date).format(
-			"Da MMMM YYYY, h:mm:ss"
-		)}">${moment(el.exp_date).format("Da MMMM YYYY")}</td>`;
+		row += `<td title="${moment(el.cur_date).format("Da MMMM YYYY, h:mm:ss")}">${moment(
+			el.cur_date
+		).format("Da MMMM YYYY")}</td>`;
+		row += `<td title="${moment(el.exp_date).format("Da MMMM YYYY, h:mm:ss")}">${moment(
+			el.exp_date
+		).format("Da MMMM YYYY")}</td>`;
 		row += `<td>${el.is_out ? "Removed" : "Added"}</td>`;
 		row += `<td>${el.performed_by}</td>`;
 		row += `<td>${el.product_cell}</td>`;
