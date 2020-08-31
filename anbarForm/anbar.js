@@ -36,7 +36,7 @@ function getTranslations() {
 			if (err !== null) console.log(err);
 			data = res.recordset;
 			data.forEach((el) => {
-				languages[el.key_value] = el.settingLanguage;
+				languages[el.key_value] = el.lang;
 			});
 			return languages;
 		});

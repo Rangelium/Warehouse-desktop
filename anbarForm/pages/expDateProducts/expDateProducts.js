@@ -1,3 +1,5 @@
+const { lang } = require("moment");
+
 async function fillExpDateOverTable() {
 	let data = await new Promise((resolve) => {
 		poolConnect.then((pool) => {
