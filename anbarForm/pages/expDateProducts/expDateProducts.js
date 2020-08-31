@@ -16,28 +16,14 @@ async function fillExpDateOverTable() {
 	$(".exp-date-over-table").append("<thead></thead>");
 	$(".exp-date-over-table").append("<tbody></tbody>");
 
-	$(".exp-date-over-table > thead").append(
-		`<th>${languages["exp_date"]}:</th>`
-	);
-	$(".exp-date-over-table > thead").append(
-		`<th>${languages["product_name"]}:</th>`
-	);
-	$(".exp-date-over-table > thead").append(`<th>${languages["barcode"]}:</th>`);
-	$(".exp-date-over-table > thead").append(
-		`<th>${languages["manufacturer"]}:</th>`
-	);
-	$(".exp-date-over-table > thead").append(
-		`<th>${languages["quantity"]}:</th>`
-	);
-	$(".exp-date-over-table > thead").append(
-		`<th>${languages["unit_price"]}:</th>`
-	);
-	$(".exp-date-over-table > thead").append(
-		`<th>${languages["currency"]}:</th>`
-	);
-	$(".exp-date-over-table > thead").append(
-		`<th>${languages["total_price"]}:</th>`
-	);
+	$(".exp-date-over-table > thead").append(`<th>ExpireDate:</th>`);
+	$(".exp-date-over-table > thead").append(`<th>Product:</th>`);
+	$(".exp-date-over-table > thead").append(`<th>Barcode:</th>`);
+	$(".exp-date-over-table > thead").append(`<th>Manufacturer:</th>`);
+	$(".exp-date-over-table > thead").append(`<th>Quantity:</th>`);
+	$(".exp-date-over-table > thead").append(`<th>Price:</th>`);
+	$(".exp-date-over-table > thead").append(`<th>Currency:</th>`);
+	$(".exp-date-over-table > thead").append(`<th>Total:</th>`);
 	$(".exp-date-over-table > thead").append(`<th>VOEN:</th>`);
 
 	data.forEach((el) => {
@@ -97,30 +83,14 @@ async function fillExpDateSoCloseTable() {
 	$(".exp-date-soclose-table").append("<thead></thead>");
 	$(".exp-date-soclose-table").append("<tbody></tbody>");
 
-	$(".exp-date-soclose-table > thead").append(
-		`<th>${languages["exp_date"]}:</th>`
-	);
-	$(".exp-date-soclose-table > thead").append(
-		`<th>${languages["product_name"]}:</th>`
-	);
-	$(".exp-date-soclose-table > thead").append(
-		`<th>${languages["barcode"]}:</th>`
-	);
-	$(".exp-date-soclose-table > thead").append(
-		`<th>${languages["manufacturer"]}:</th>`
-	);
-	$(".exp-date-soclose-table > thead").append(
-		`<th>${languages["quantity"]}:</th>`
-	);
-	$(".exp-date-soclose-table > thead").append(
-		`<th>${languages["unit_price"]}:</th>`
-	);
-	$(".exp-date-soclose-table > thead").append(
-		`<th>${languages["currency"]}:</th>`
-	);
-	$(".exp-date-soclose-table > thead").append(
-		`<th>${languages["total_price"]}:</th>`
-	);
+	$(".exp-date-soclose-table > thead").append(`<th>ExpireDate:</th>`);
+	$(".exp-date-soclose-table > thead").append(`<th>Product:</th>`);
+	$(".exp-date-soclose-table > thead").append(`<th>Barcode:</th>`);
+	$(".exp-date-soclose-table > thead").append(`<th>Manufacturer:</th>`);
+	$(".exp-date-soclose-table > thead").append(`<th>Quantity:</th>`);
+	$(".exp-date-soclose-table > thead").append(`<th>Price:</th>`);
+	$(".exp-date-soclose-table > thead").append(`<th>Currency:</th>`);
+	$(".exp-date-soclose-table > thead").append(`<th>Total:</th>`);
 	$(".exp-date-soclose-table > thead").append(`<th>VOEN:</th>`);
 
 	data.forEach((el) => {
