@@ -11,7 +11,7 @@ window.$ = window.jQuery = require("jquery");
 const { MyTreeView } = require("../tools/TreeView");
 const moment = require("moment");
 var USER = {
-	"id": 1
+	id: 1,
 };
 
 setTimeout(() => {
@@ -28,6 +28,21 @@ const { connConfig } = require("../tools/ConnectionConfig");
 
 let pool = new mssql.ConnectionPool(connConfig);
 let poolConnect = pool.connect();
+
+function getTranslations() {
+	languages = {};
+	poolConnect.then((pool) => {
+		pool.request().execute("dbo.language_translations", (err, res) => {
+			if (err !== null) console.log(err);
+			data = res.recordset;
+			data.forEach((el) => {
+				languages[el.key_value] = el.lang;
+			});
+			return languages;
+		});
+	});
+}
+getTranslations();
 
 // ====================================================================================
 //  														    Login system
@@ -227,8 +242,12 @@ ipcRenderer.on("createNavBar", (e, menuItems) => {
 		$(".nav-links").append(
 			`<li class="nav-link" data-name="${menuItems[i].name}" data-id=${
 				menuItems[i].id
-			} data-hasDropdown="${menuItems[i].submenu !== undefined ? true : false}" title="${
-				menuItems[i].shortcut == undefined ? "" : menuItems[i].shortcut.toUpperCase()
+			} data-hasDropdown="${
+				menuItems[i].submenu !== undefined ? true : false
+			}" title="${
+				menuItems[i].shortcut == undefined
+					? ""
+					: menuItems[i].shortcut.toUpperCase()
 			}" data-active="false"><p>${menuItems[i].label}</p></li>`
 		);
 		// Adding click event handler
