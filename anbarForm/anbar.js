@@ -29,6 +29,24 @@ const { connConfig } = require("../tools/ConnectionConfig");
 let pool = new mssql.ConnectionPool(connConfig);
 let poolConnect = pool.connect();
 
+<<<<<<< HEAD
+=======
+function getTranslations() {
+	languages = {};
+	poolConnect.then((pool) => {
+		pool.request().execute("dbo.language_translations", (err, res) => {
+			if (err !== null) console.log(err);
+			data = res.recordset;
+			data.forEach((el) => {
+				languages[el.key_value] = el.settingLanguage;
+			});
+			return languages;
+		});
+	});
+}
+getTranslations();
+
+>>>>>>> parent of 51d9663... Revert "Added ENG,RUS,AZE languages for data from tables(except anbarRemove).… …  …Temporary fix for data input in anbarAdd."
 // ====================================================================================
 //  														    Login system
 // ====================================================================================
