@@ -1,5 +1,3 @@
-const { lang } = require("moment");
-
 var sellersSelectedId = -1;
 var procedures = [
 	"dbo.product_seller_select_active",
