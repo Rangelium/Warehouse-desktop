@@ -14,10 +14,10 @@ var USER = {
 	id: 1,
 };
 
-setTimeout(() => {
-	userLoggedIn();
-	openPage("inventory");
-}, 200);
+// setTimeout(() => {
+// 	userLoggedIn();
+// 	openPage("anbarAdd");
+// }, 200);
 
 // ====================================================================================
 //  													   Connection system part
@@ -242,12 +242,8 @@ ipcRenderer.on("createNavBar", (e, menuItems) => {
 		$(".nav-links").append(
 			`<li class="nav-link" data-name="${menuItems[i].name}" data-id=${
 				menuItems[i].id
-			} data-hasDropdown="${
-				menuItems[i].submenu !== undefined ? true : false
-			}" title="${
-				menuItems[i].shortcut == undefined
-					? ""
-					: menuItems[i].shortcut.toUpperCase()
+			} data-hasDropdown="${menuItems[i].submenu !== undefined ? true : false}" title="${
+				menuItems[i].shortcut == undefined ? "" : menuItems[i].shortcut.toUpperCase()
 			}" data-active="false"><p>${menuItems[i].label}</p></li>`
 		);
 		// Adding click event handler

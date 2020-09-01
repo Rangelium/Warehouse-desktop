@@ -19,13 +19,12 @@
 					<h1>Here is the list of features of this page:</h1>
 					<ul>
 						<li>
-							You can change size of main "Bulks" and "Bulk's sessions" tables
-							by moving your mouse between this 2 tables. Moving sign will
-							appear and then you can easily resize tables
+							You can change size of main "Bulks" and "Bulk's sessions" tables by moving
+							your mouse between this 2 tables. Moving sign will appear and then you can
+							easily resize tables
 						</li>
 						<li>
-							To modify table containing you can rigth click on needed bulk or
-							session
+							To modify table containing you can rigth click on needed bulk or session
 						</li>
 					</ul>
 				</div>
@@ -112,12 +111,14 @@
 					<div class="row">
 						<p>Product:</p>
 						<div class="addNewSessionInfoProductSearchDropDown">
-							<input type="text" id="addNewSessionInfo_productId" required />
+							<input
+								type="text"
+								id="addNewSessionInfo_productId"
+								placeholder="Product id"
+								required
+							/>
 							<div class="dropdown">
-								<div
-									id="addNewSessionInfoDrowdown"
-									class="containerDropdown"
-								></div>
+								<div id="addNewSessionInfoDrowdown" class="containerDropdown"></div>
 								<button id="addNewSessionInfoDropDownAddNewproductToTreeBtn">
 									Add new product
 								</button>
@@ -130,6 +131,7 @@
 							<input
 								type="number"
 								min="1"
+								placeholder="Barcode"
 								id="addNewSessionInfo_barcode"
 								required
 							/>
@@ -138,9 +140,7 @@
 									id="addNewSessionInfoBarcodeDrowdown"
 									class="containerDropdown"
 								></div>
-								<button
-									id="addNewSessionInfoDropDownAddNewproductToTreeBarcodeBtn"
-								>
+								<button id="addNewSessionInfoDropDownAddNewproductToTreeBarcodeBtn">
 									Add new product
 								</button>
 							</div>
@@ -152,6 +152,7 @@
 							type="number"
 							min="1"
 							id="addNewSessionInfo_voen"
+							placeholder="VOEN"
 							required
 							disabled
 						/>
@@ -164,6 +165,7 @@
 									type="number"
 									min="1"
 									id="addNewSessionInfo_quantity"
+									placeholder="Quantity"
 									required
 								/>
 							</div>
@@ -173,6 +175,7 @@
 									type="number"
 									min="1"
 									id="addNewSessionInfo_price"
+									placeholder="Price"
 									required
 								/>
 							</div>
@@ -182,6 +185,7 @@
 									type="number"
 									min="1"
 									id="addNewSessionInfo_extraCharge"
+									placeholder="Extra charge"
 									required
 								/>
 							</div>
@@ -191,6 +195,7 @@
 									type="number"
 									min="1"
 									id="addNewSessionInfo_productCell"
+									placeholder="Product cell"
 									required
 								/>
 							</div>
@@ -220,6 +225,7 @@
 							id="addNewSessionInfo_reason"
 							cols="30"
 							rows="10"
+							placeholder="Reason"
 						></textarea>
 					</div>
 					<div class="row" id="addNewSessionInfoBtnsRow">
@@ -234,12 +240,18 @@
 			<div class="container">
 				<div class="row">
 					<p>Title:</p>
-					<input type="text" id="warehouseTreeInsert_title" required />
+					<input
+						type="text"
+						placeholder="Product title"
+						id="warehouseTreeInsert_title"
+						required
+					/>
 				</div>
 				<div class="row">
 					<p>Barcode:</p>
 					<input
 						type="number"
+						placeholder="Barcode"
 						min="0"
 						id="warehouseTreeInsert_barcode"
 						required
@@ -249,17 +261,14 @@
 					<p>Category:</p>
 					<div class="warehouseCategoryDrowdown">
 						<input
-							type="number"
-							min="1"
+							type="text"
+							placeholder="Category name"
 							id="warehouseTreeInsert_categoryId"
 							required
 						/>
 						<div class="dropdown">
-							<div
-								id="warehouseCategoryDropdown"
-								class="containerDropdown"
-							></div>
-							<button id="warehouseCreateCategoryBtn">Add new product</button>
+							<div id="warehouseCategoryDropdown" class="containerDropdown"></div>
+							<button id="warehouseCreateCategoryBtn">Add new category</button>
 						</div>
 					</div>
 				</div>

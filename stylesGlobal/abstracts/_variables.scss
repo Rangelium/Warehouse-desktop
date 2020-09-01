@@ -2,6 +2,13 @@
 // This file contains all application-wide Sass variables.
 // -----------------------------------------------------------------------------
 
+$primary-color: #188bc0;
+$secondary-color: #ffffff;
+$secondary-color-blured: rgb(136, 136, 136);
+$stand-out-color: #ffae00;
+$stand-out-color-blured: rgba(255, 174, 0, 0.692);
+$dark-color: #24252a;
+
 // -----------------------------------------------------------------------------
 //                             Login Form Colors
 // -----------------------------------------------------------------------------
@@ -9,20 +16,20 @@ $login-form-background-image-path: "../imgs/login_BG.jpg";
 // Set transparent if want img as background
 $login-for-background-color: transparent;
 
-$login-form-form-background-color: #3f3d3d;
-$login-form-app-name-color: #0088a9;
-$login-form-login-word-color: #ffffff;
-$login-form-label-for-input-color: #000000;
-$login-form-label-for-input-focus-color: #ffffff;
-$login-form-input-background-color: rgb(187, 183, 183);
-$login-form-input-background-focus-color: #0e6636a9;
-$login-form-input-text-color: black;
-$login-form-input-text-focus-color: white;
+$login-form-form-background-color: $secondary-color;
+$login-form-app-name-color: $primary-color;
+$login-form-login-word-color: $dark-color;
+$login-form-label-for-input-color: $dark-color;
+$login-form-label-for-input-focus-color: $dark-color;
+$login-form-input-background-color: $secondary-color-blured;
+$login-form-input-background-focus-color: $primary-color;
+$login-form-input-text-color: $secondary-color;
+$login-form-input-text-focus-color: $secondary-color;
 
-$login-form-submit-btn-background-color: #0088a9;
-$login-form-submit-btn-background-hover-color: #0e6636;
-$login-form-submit-btn-text-color: #000000;
-$login-form-submit-btn-text-hover-color: #ffffff;
+$login-form-submit-btn-background-color: $primary-color;
+$login-form-submit-btn-background-hover-color: $stand-out-color;
+$login-form-submit-btn-text-color: $dark-color;
+$login-form-submit-btn-text-hover-color: $secondary-color;
 
 $login-form-wrong-data-info-text-color: rgb(241, 34, 34);
 
@@ -45,15 +52,15 @@ $nav-bar-dropdown-items-text-color: #000000;
 $nav-bar-dropdown-items-text-hover-color: #ffffff;
 
 $nav-bar-settings-button-background-color: #0088a9;
-$nav-bar-settings-button-background-hover-color: #a1e600;
-$nav-bar-settings-button-background-click-color: #a1e600;
+$nav-bar-settings-button-background-hover-color: $stand-out-color;
+$nav-bar-settings-button-background-click-color: $stand-out-color;
 $nav-bar-settings-button-text-color: #edf0f1;
 $nav-bar-settings-button-text-hover-color: #141414;
 $nav-bar-settings-button-text-click-color: #141414;
 
-$nav-bar-settings-dropdown-background-color: #a1e600;
-$nav-bar-settings-dropdown-item-background-color: #a1e600;
-$nav-bar-settings-dropdown-item-background-hover-color: #679202;
+$nav-bar-settings-dropdown-background-color: $stand-out-color;
+$nav-bar-settings-dropdown-item-background-color: $stand-out-color;
+$nav-bar-settings-dropdown-item-background-hover-color: $stand-out-color;
 $nav-bar-settings-dropdown-text-color: rgba(0, 0, 0, 0.623);
 $nav-bar-settings-dropdown-text-hover-color: black;
 

@@ -1,5 +1,6 @@
 // ======================================================================================================
 //                                             UTIL FUNCTIONS
+
 // ======================================================================================================
 async function showAlert(message) {
 	$("#alertMessage").html(message);
@@ -73,8 +74,7 @@ clickObj.mousedown(function () {
 	timeout = setInterval(function () {
 		if (prevMouseY !== currentMousePos.y) {
 			moveLineBy += currentMousePos.y - $(".moveableBorder").offset().top;
-			moveBlockBy =
-				parseInt($(".bulks").css("height").slice(0, -2)) + moveLineBy;
+			moveBlockBy = parseInt($(".bulks").css("height").slice(0, -2)) + moveLineBy;
 			if (
 				moveBlockBy < $(document).height() * 0.65 &&
 				moveBlockBy > $(document).height() * 0.15
@@ -97,7 +97,6 @@ $(".moveableBorder").dblclick(function () {
 	$(".moveableBorder").css("top", moveLineBy);
 	$(".bulks").css("height", "50%");
 });
-
 $(document).mouseup(function () {
 	clearInterval(timeout);
 	return false;
@@ -117,23 +116,19 @@ function fillBulksTable(data) {
 	$(".anbarAddBulksTable").append("<thead></thead>");
 	$(".anbarAddBulksTable").append("<tbody></tbody>");
 
-	$(".anbarAddBulksTable > thead").append(
-		`<th>${languages["creation_date"]}</th>`
-	);
+	$(".anbarAddBulksTable > thead").append(`<th>${languages["creation_date"]}</th>`);
 	$(".anbarAddBulksTable > thead").append(`<th>${languages["seller"]}</th>`);
-	$(".anbarAddBulksTable > thead").append(
-		`<th>${languages["total_price"]}:</th>`
-	);
+	$(".anbarAddBulksTable > thead").append(`<th>${languages["total_price"]}:</th>`);
 	$(".anbarAddBulksTable > thead").append(`<th>${languages["currency"]}:</th>`);
 
 	data.forEach((el) => {
 		let row = `<tr class="single-bulk" data-id='${el.id}'>`;
 
-		row += `<td title="${moment(el.begin_date).format(
-			"DD MMMM YYYY, h:mm:ss"
-		)}">${moment(el.begin_date).format("DD MMMM YYYY")}</td>`;
+		row += `<td title="${moment(el.begin_date).format("DD MMMM YYYY, h:mm:ss")}">${moment(
+			el.begin_date
+		).format("DD MMMM YYYY")}</td>`;
 		row += `<td>${el.seller}</td>`;
-		row += `<td>${el.cost_price}</td>`;
+		row += `<td>${el.cost_price === null ? "0" : el.cost_price}</td>`;
 		row += `<td>${el.default_currency}</td>`;
 		row += "</tr>";
 		$(".anbarAddBulksTable > tbody").append(row);
@@ -332,12 +327,8 @@ $(document).click((el) => {
 		if (
 			$(el.target).attr("class") !== "addNewBulkForm" &&
 			$.inArray(el.target, $(".addNewBulkForm").children()) < 0 &&
-			$.inArray($(el.target).parent()[0], $(".addNewBulkForm").children()) <
-				0 &&
-			$.inArray(
-				$(el.target).parent().parent()[0],
-				$(".addNewBulkForm").children()
-			) < 0
+			$.inArray($(el.target).parent()[0], $(".addNewBulkForm").children()) < 0 &&
+			$.inArray($(el.target).parent().parent()[0], $(".addNewBulkForm").children()) < 0
 		) {
 			hideAddNewBulkForm();
 		}
@@ -358,18 +349,10 @@ function fillSessionsTable(data) {
 	$(".anbarAddSessionsTable").append("<tbody></tbody>");
 
 	$(".anbarAddSessionsTable > thead").append(`<th>VOEN:</th>`);
-	$(".anbarAddSessionsTable > thead").append(
-		`<th>${languages["creation_date"]}:</th>`
-	);
-	$(".anbarAddSessionsTable > thead").append(
-		`<th>${languages["total_price"]}:</th>`
-	);
-	$(".anbarAddSessionsTable > thead").append(
-		`<th>${languages["currency"]}:</th>`
-	);
-	$(".anbarAddSessionsTable > thead").append(
-		`<th>${languages["status"]}:</th>`
-	);
+	$(".anbarAddSessionsTable > thead").append(`<th>${languages["creation_date"]}:</th>`);
+	$(".anbarAddSessionsTable > thead").append(`<th>${languages["total_price"]}:</th>`);
+	$(".anbarAddSessionsTable > thead").append(`<th>${languages["currency"]}:</th>`);
+	$(".anbarAddSessionsTable > thead").append(`<th>${languages["status"]}:</th>`);
 
 	data.forEach((el) => {
 		let row = `<tr class="bulk-session" data-finished='${
@@ -377,10 +360,10 @@ function fillSessionsTable(data) {
 		}' data-voen='${el.session_voen}' data-id='${el.id}'>`;
 
 		row += `<td>${el.session_voen}</td>`;
-		row += `<td title="${moment(el.begin_date).format(
-			"DD MMMM YYYY, h:mm:ss"
-		)}">${moment(el.begin_date).format("DD MMMM YYYY")}</td>`;
-		row += `<td>${el.cost_price}</td>`;
+		row += `<td title="${moment(el.begin_date).format("DD MMMM YYYY, h:mm:ss")}">${moment(
+			el.begin_date
+		).format("DD MMMM YYYY")}</td>`;
+		row += `<td>${el.cost_price === null ? "0" : el.cost_price}</td>`;
 		row += `<td>${el.default_currency}</td>`;
 		row += `<td>${el.done === "+" ? "Finished" : "Not Finished"}</td>`;
 
@@ -579,29 +562,27 @@ $("#optionsAccept").click(function () {
 	if ($("#optionsMenu").attr("data-belongsTo") !== "Sessions") {
 		return;
 	}
-	showAlert("Are you sure you want to accept all insert in this session?").then(
-		(res) => {
-			if (res) {
-				acceptAllInsert(selectedBulkId, $(this).attr("data-sessionId"));
-				refreshSessionsTable(600);
-			}
-			closeAlert();
+	showAlert("Are you sure you want to accept all insert in this session?").then((res) => {
+		if (res) {
+			acceptAllInsert(selectedBulkId, $(this).attr("data-sessionId"));
+			refreshSessionsTable(600);
 		}
-	);
+		closeAlert();
+	});
 });
 $("#optionsEndAll").click(function () {
 	if ($("#optionsMenu").attr("data-belongsTo") !== "Sessions") {
 		return;
 	}
-	showAlert(
-		"Are you sure you want to accept all sessions in this bulk buying?"
-	).then((res) => {
-		if (res) {
-			EndAllSessions(selectedBulkId);
-			refreshSessionsTable(600);
+	showAlert("Are you sure you want to accept all sessions in this bulk buying?").then(
+		(res) => {
+			if (res) {
+				EndAllSessions(selectedBulkId);
+				refreshSessionsTable(600);
+			}
+			closeAlert();
 		}
-		closeAlert();
-	});
+	);
 });
 $("#optionsDelete").click(function () {
 	if ($("#optionsMenu").attr("data-belongsTo") !== "Sessions") {
@@ -632,12 +613,8 @@ $(document).click((el) => {
 		if (
 			$(el.target).attr("class") !== "addNewSessionForm" &&
 			$.inArray(el.target, $(".addNewSessionForm").children()) < 0 &&
-			$.inArray($(el.target).parent()[0], $(".addNewSessionForm").children()) <
-				0 &&
-			$.inArray(
-				$(el.target).parent().parent()[0],
-				$(".addNewSessionForm").children()
-			) < 0
+			$.inArray($(el.target).parent()[0], $(".addNewSessionForm").children()) < 0 &&
+			$.inArray($(el.target).parent().parent()[0], $(".addNewSessionForm").children()) < 0
 		) {
 			hideAddNewSessionForm();
 		}
@@ -653,39 +630,19 @@ var selectedSessionInfoObj = undefined;
 function fillSessionInfoTable(data) {
 	$(".anbarAddSessionInfoTable").remove();
 
-	$(".session-info-table").append(
-		"<table class='anbarAddSessionInfoTable'></table>"
-	);
+	$(".session-info-table").append("<table class='anbarAddSessionInfoTable'></table>");
 	$(".anbarAddSessionInfoTable").append("<thead></thead>");
 	$(".anbarAddSessionInfoTable").append("<tbody></tbody>");
 
-	$(".anbarAddSessionInfoTable > thead").append(
-		`<th>${languages["product_name"]}:</th>`
-	);
-	$(".anbarAddSessionInfoTable > thead").append(
-		`<th>${languages["quantity"]}:</th>`
-	);
-	$(".anbarAddSessionInfoTable > thead").append(
-		`<th>${languages["unit"]}:</th>`
-	);
-	$(".anbarAddSessionInfoTable > thead").append(
-		`<th>${languages["unit_price"]}:</th>`
-	);
-	$(".anbarAddSessionInfoTable > thead").append(
-		`<th>${languages["total_price"]}:</th>`
-	);
-	$(".anbarAddSessionInfoTable > thead").append(
-		`<th>${languages["currency"]}:</th>`
-	);
-	$(".anbarAddSessionInfoTable > thead").append(
-		`<th>${languages["exp_date"]}:</th>`
-	);
-	$(".anbarAddSessionInfoTable > thead").append(
-		`<th>${languages["product_cell"]}:</th>`
-	);
-	$(".anbarAddSessionInfoTable > thead").append(
-		`<th>${languages["action"]}:</th>`
-	);
+	$(".anbarAddSessionInfoTable > thead").append(`<th>${languages["product_name"]}:</th>`);
+	$(".anbarAddSessionInfoTable > thead").append(`<th>${languages["quantity"]}:</th>`);
+	$(".anbarAddSessionInfoTable > thead").append(`<th>${languages["unit"]}:</th>`);
+	$(".anbarAddSessionInfoTable > thead").append(`<th>${languages["unit_price"]}:</th>`);
+	$(".anbarAddSessionInfoTable > thead").append(`<th>${languages["total_price"]}:</th>`);
+	$(".anbarAddSessionInfoTable > thead").append(`<th>${languages["currency"]}:</th>`);
+	$(".anbarAddSessionInfoTable > thead").append(`<th>${languages["exp_date"]}:</th>`);
+	$(".anbarAddSessionInfoTable > thead").append(`<th>${languages["product_cell"]}:</th>`);
+	$(".anbarAddSessionInfoTable > thead").append(`<th>${languages["action"]}:</th>`);
 
 	data.forEach((el) => {
 		let row = `<tr class="single-session-info" data-id='${el.id}' data-cluster-id='${el.cluster_id}''>`;
@@ -696,9 +653,9 @@ function fillSessionInfoTable(data) {
 		row += `<td>${el["price for 1"]}</td>`;
 		row += `<td>${el.sum_price}</td>`;
 		row += `<td>${el.title[1]}</td>`;
-		row += `<td title="${moment(el.exp_date).format(
-			"Da MMMM YYYY, h:mm:ss"
-		)}">${moment(el.exp_date).format("DD MMMM YYYY")}</td>`;
+		row += `<td title="${moment(el.exp_date).format("Da MMMM YYYY, h:mm:ss")}">${moment(
+			el.exp_date
+		).format("DD MMMM YYYY")}</td>`;
 		row += `<td>${el.product_cell}</td>`;
 		row += `<td>${el.reason}</td>`;
 
@@ -769,9 +726,7 @@ function deleteSessionInfo(sessionInfoId) {
 	});
 }
 function addNewSessionInfo() {
-	let product_id = parseInt(
-		$("#addNewSessionInfo_productId").attr("data-productId")
-	);
+	let product_id = parseInt($("#addNewSessionInfo_productId").attr("data-productId"));
 	let barcode = parseInt($("#addNewSessionInfo_barcode").val());
 	let voen = parseInt($("#addNewSessionInfo_voen").val());
 	let quantity = parseInt($("#addNewSessionInfo_quantity").val());
@@ -819,9 +774,7 @@ function addNewSessionInfo() {
 function updateSessionInfo(id) {
 	console.log(id);
 	return;
-	let product_id = parseInt(
-		$("#addNewSessionInfo_productId").attr("data-productId")
-	);
+	let product_id = parseInt($("#addNewSessionInfo_productId").attr("data-productId"));
 	let barcode = parseInt($("#addNewSessionInfo_barcode").val());
 	let voen = parseInt($("#addNewSessionInfo_voen").val());
 	let quantity = parseInt($("#addNewSessionInfo_quantity").val());
@@ -925,7 +878,6 @@ async function showAddNewSessionInfoForm() {
 			});
 		});
 	});
-	console.log(currencyData);
 	for (let i = 0; i < currencyData.length; i++) {
 		$("#addNewSessionInfo_currency").append(
 			`<option data-id="${currencyData[i].id}" title="${currencyData[i].full_title}">${currencyData[i].title}</option>`
@@ -935,12 +887,10 @@ async function showAddNewSessionInfoForm() {
 	$("#addNewSessionInfo_productManufacturer").empty();
 	let manufacturerData = await new Promise((resolve) => {
 		poolConnect.then((pool) => {
-			pool
-				.request()
-				.execute("dbo.product_manufacturer_select_all", (err, res) => {
-					if (err !== null) console.log(err);
-					resolve(res.recordset);
-				});
+			pool.request().execute("dbo.product_manufacturer_select_all", (err, res) => {
+				if (err !== null) console.log(err);
+				resolve(res.recordset);
+			});
 		});
 	});
 	for (let i = 0; i < manufacturerData.length; i++) {
@@ -993,15 +943,11 @@ $("#addNewSessionInfoSubmitBtn").click(() => {
 		return;
 	}
 	if ($(".addNewSessionInfoForm").attr("data-forUpdate") === "true") {
-		updateSessionInfo(
-			$(".addNewSessionInfoForm").attr("data-updatedSessionInfoId")
-		);
+		updateSessionInfo($(".addNewSessionInfoForm").attr("data-updatedSessionInfoId"));
 		$(".addNewSessionInfoForm").attr("data-forUpdate", "false");
 	} else {
 		addNewSessionInfo(
-			moment($("#addNewSessionInfoBeginDate").val()).format(
-				"yyyy-MM-DD HH:mm:ss"
-			)
+			moment($("#addNewSessionInfoBeginDate").val()).format("yyyy-MM-DD HH:mm:ss")
 		);
 	}
 	refreshSessionInfoTable(600);
@@ -1055,15 +1001,15 @@ $("#optionsDelete").click(function () {
 	if ($("#optionsMenu").attr("data-belongsTo") !== "SessionsInfo") {
 		return;
 	}
-	showAlert(
-		"Are you sure you want to delete this session's product income?"
-	).then((res) => {
-		if (res) {
-			deleteSessionInfo($(this).attr("data-sessionInfoId"));
-			refreshSessionInfoTable(600);
+	showAlert("Are you sure you want to delete this session's product income?").then(
+		(res) => {
+			if (res) {
+				deleteSessionInfo($(this).attr("data-sessionInfoId"));
+				refreshSessionInfoTable(600);
+			}
+			closeAlert();
 		}
-		closeAlert();
-	});
+	);
 });
 $("#optionsNew").click(function () {
 	if ($("#optionsMenu").attr("data-belongsTo") !== "SessionsInfo") {
@@ -1109,14 +1055,10 @@ $(document).click((el) => {
 	if ($(".anbarAddToTreeForm").attr("data-isActive") === "true") {
 		if (
 			el.target === $("#addNewSessionInfoDropDownAddNewproductToTreeBtn")[0] ||
-			el.target ===
-				$("#addNewSessionInfoDropDownAddNewproductToTreeBarcodeBtn")[0] ||
+			el.target === $("#addNewSessionInfoDropDownAddNewproductToTreeBarcodeBtn")[0] ||
 			el.target === $(".anbarAddToTreeForm")[0] ||
 			$.inArray(el.target, $(".anbarAddToTreeForm").children()) !== -1 ||
-			$.inArray(
-				$(el.target).parent()[0],
-				$(".anbarAddToTreeForm").children()
-			) !== -1 ||
+			$.inArray($(el.target).parent()[0], $(".anbarAddToTreeForm").children()) !== -1 ||
 			$.inArray(
 				$(el.target).parent().parent()[0],
 				$(".anbarAddToTreeForm").children()
@@ -1127,6 +1069,10 @@ $(document).click((el) => {
 			) !== -1 ||
 			$.inArray(
 				$(el.target).parent().parent().parent().parent()[0],
+				$(".anbarAddToTreeForm").children()
+			) !== -1 ||
+			$.inArray(
+				$(el.target).parent().parent().parent().parent().parent()[0],
 				$(".anbarAddToTreeForm").children()
 			) !== -1
 		) {
@@ -1147,14 +1093,10 @@ $(document).click((el) => {
 		}
 		if ($(".anbarAddToTreeForm").attr("data-isActive") === "true") {
 			if (
-				el.target ===
-					$("#addNewSessionInfoDropDownAddNewproductToTreeBtn")[0] ||
+				el.target === $("#addNewSessionInfoDropDownAddNewproductToTreeBtn")[0] ||
 				el.target === $(".anbarAddToTreeForm")[0] ||
 				$.inArray(el.target, $(".anbarAddToTreeForm").children()) !== -1 ||
-				$.inArray(
-					$(el.target).parent()[0],
-					$(".anbarAddToTreeForm").children()
-				) !== -1
+				$.inArray($(el.target).parent()[0], $(".anbarAddToTreeForm").children()) !== -1
 			) {
 				return;
 			} else {
@@ -1165,10 +1107,7 @@ $(document).click((el) => {
 		if (
 			$(el.target).attr("class") !== "addNewSessionInfoForm" &&
 			$.inArray(el.target, $(".addNewSessionInfoForm").children()) < 0 &&
-			$.inArray(
-				$(el.target).parent()[0],
-				$(".addNewSessionInfoForm").children()
-			) < 0 &&
+			$.inArray($(el.target).parent()[0], $(".addNewSessionInfoForm").children()) < 0 &&
 			$.inArray(
 				$(el.target).parent().parent()[0],
 				$(".addNewSessionInfoForm").children()
@@ -1208,10 +1147,7 @@ function fillAddNewSessionInfoProductDropdown(data) {
 	});
 
 	$(".dropdown-member").click(function () {
-		$("#addNewSessionInfo_productId").attr(
-			"data-productId",
-			$(this).attr("data-id")
-		);
+		$("#addNewSessionInfo_productId").attr("data-productId", $(this).attr("data-id"));
 		$("#addNewSessionInfo_productId").val($(this).html());
 		$("#addNewSessionInfo_barcode").val();
 		setTimeout(() => {
@@ -1257,10 +1193,7 @@ function fillAddNewSessionInfoProductBarcodeDropdown(data) {
 	});
 
 	$(".dropdown-member").click(function () {
-		$("#addNewSessionInfo_productId").attr(
-			"data-productId",
-			$(this).attr("data-id")
-		);
+		$("#addNewSessionInfo_productId").attr("data-productId", $(this).attr("data-id"));
 		$("#addNewSessionInfo_productId").val($(this).html());
 		setTimeout(() => {
 			$("#addNewSessionInfoDrowdown").empty();
@@ -1284,6 +1217,7 @@ $("#addNewSessionInfo_barcode").keyup(function () {
 // ADD NEW PRODUCT TO TREE PART
 function warehouseTreeInsertAddNewCluster(pivot = undefined) {
 	let clusterEl = $(`<div class="clusterTemplateElement"></div>`);
+	let defaultCheck = '<p>Default:</p><input type="radio" name="default_cluster" />';
 	let inputs = `<input type="text" placeholder="Cluster's name" />
 	<input type="number" min="0" placeholder="Capacity" />`;
 	let addNew = $(`<img src="../stylesGlobal/imgs/new_btn.svg" />`);
@@ -1294,6 +1228,7 @@ function warehouseTreeInsertAddNewCluster(pivot = undefined) {
 	} else {
 		$(".newClusterTemplateContainer").append(clusterEl);
 	}
+	clusterEl.append(defaultCheck);
 	clusterEl.append(inputs);
 	clusterEl.append(addNew);
 	clusterEl.append(remove);
@@ -1329,8 +1264,59 @@ function warehouseTreeInsertFormValidation() {
 		return false;
 	}
 
+	let clusterArr = Array.from($(".newClusterTemplateContainer .clusterTemplateElement"));
+	if (clusterArr.length < 2) return false;
+
+	let tmp = 0;
+	clusterArr.forEach((cluster) => {
+		if ($(cluster).children()[1].checked) tmp += 1;
+		if ($($(cluster).children()[2]).val() === "") return false;
+		if ($($(cluster).children()[3]).val() === "") return false;
+	});
+
+	if (tmp !== 1) return false;
+
 	return true;
 }
+
+// Search category in addNewProductToTree
+function fillAddNewCategotyDropdown(data) {
+	$("#warehouseCategoryDropdown").empty();
+	let parent = $("#warehouseCategoryDropdown");
+	data.forEach((el) => {
+		parent.append(
+			`<p class="dropdown-member" data-barcode="${el.barcode}" data-parentId="${el.parent_id}">${el.title}</p>`
+		);
+	});
+
+	$(".dropdown-member").click(function () {
+		$("#warehouseTreeInsert_categoryId").attr(
+			"data-parentId",
+			$(this).attr("data-parentId")
+		);
+		$("#warehouseTreeInsert_categoryId").val($(this).html());
+		setTimeout(() => {
+			$("#warehouseCategoryDropdown").empty();
+		}, 100);
+	});
+}
+$("#warehouseTreeInsert_categoryId").keyup(function () {
+	if ($(this).val().trim() === "") return;
+	let text = $(this).val().trim();
+	poolConnect.then((pool) => {
+		pool
+			.request()
+			.input("title", text)
+			.execute("dbo.warehouse_tree_search", (err, res) => {
+				if (err !== null) console.log(err);
+				let tmp = res.recordset.filter((el) => {
+					return el.product_id === null;
+				});
+				fillAddNewCategotyDropdown(tmp);
+			});
+	});
+});
+
 function showAddNewProductToTreeForm() {
 	$(".newClusterTemplateContainer").empty();
 
@@ -1342,7 +1328,7 @@ function showAddNewProductToTreeForm() {
 
 	let now = new Date();
 	let day = ("0" + now.getDate()).slice(-2);
-	let month = ("0" + (now.getMonth() + 3)).slice(-2);
+	let month = ("0" + (now.getMonth() + 2)).slice(-2);
 	let date = now.getFullYear() + "-" + month + "-" + day;
 	$("#warehouseTreeInsert_expDateWarning").val(date);
 
@@ -1368,29 +1354,58 @@ function hideAddNewProductToTreeForm() {
 		});
 	}
 }
-function addNewProductToTree() {
-	if (!warehouseTreeInsertFormValidation()) return;
+function addNewProductToTree(cluster_id, cluster_default) {
+	if (!warehouseTreeInsertFormValidation()) return false;
 	poolConnect.then((pool) => {
 		pool
 			.request()
-			.input("parent_id")
+			.input("parent_id", $("#warehouseTreeInsert_categoryId").attr("data-parentId"))
 			.input("title", $("#warehouseTreeInsert_title"))
-			.input("product_id")
-			.input("cluster")
+			.input("product_id", Math.random() * 1000000)
+			.input("cluster", cluster_id)
+			.input("cluster_default", cluster_default)
 			.input("user_id", USER.id)
-			.input("exp_date_warning")
-			.input("cluster_default")
-			.input("barcode")
+			.input(
+				"exp_date_warning",
+				moment($("#warehouseTreeInsert_expDateWarning").val()).format(
+					"yyyy-MM-DD HH:mm:ss"
+				)
+			)
+			.input("barcode", $("#warehouseTreeInsert_barcode").val())
 			.execute("dbo.warehouse_tree_insert", (err, res) => {
 				if (err !== null) console.log(err);
 			});
 	});
 }
 $("#warehouseTreeInsertSubmitBtn").click(() => {
-	addNewProductToTree();
-	setTimeout(() => {
-		hideAddNewProductToTreeForm();
-	}, 400);
+	if (!warehouseTreeInsertFormValidation()) return;
+
+	let cluster_id = new Date();
+	let cluster_default = undefined;
+
+	let clusterArr = Array.from($(".newClusterTemplateContainer .clusterTemplateElement"));
+	clusterArr.forEach((cluster, index) => {
+		if ($(cluster).children()[1].checked) cluster_default = index;
+
+		poolConnect.then((pool) => {
+			pool
+				.request()
+				.input("cluster_id", cluster_id)
+				.input("capacity", $($(cluster).children()[3]).val())
+				.input("cluster_order", index + 1)
+				.input("title", $($(cluster).children()[2]).val())
+				.input("user_id", USER.id)
+				.execute("dbo.cluster_insert", (err) => {
+					if (err !== null) console.log(err);
+				});
+		});
+	});
+
+	if (addNewProductToTree(cluster_id, cluster_default + 1)) {
+		setTimeout(() => {
+			hideAddNewProductToTreeForm();
+		}, 400);
+	}
 });
 $("#warehouseTreeInsertDiscardBtn").click(() => {
 	hideAddNewProductToTreeForm();
@@ -1426,9 +1441,9 @@ $("#date_to").change(function () {
 (function presetDate() {
 	var now = new Date();
 	var day = ("0" + now.getDate()).slice(-2);
-	var month = ("0" + now.getMonth()).slice(-2);
+	var month = ("0" + (now.getMonth() - 1)).slice(-2);
 	var today = now.getFullYear() + "-" + month + "-" + day;
-	var month2 = ("0" + now.getMonth()).slice(-2);
+	var month2 = ("0" + (now.getMonth() + 1)).slice(-2);
 	var today2 = now.getFullYear() + "-" + month2 + "-" + day;
 	$("#date_from").val(today);
 	$("#date_to").val(today2);
@@ -1436,4 +1451,12 @@ $("#date_to").change(function () {
 		moment($("#date_from").val()).format("yyyy-MM-DD HH:mm:ss"),
 		moment($("#date_to").val()).format("yyyy-MM-DD HH:mm:ss")
 	);
+
+	setInterval(() => {
+		console.log("Refreshed");
+		getAllBulks(
+			moment($("#date_from").val()).format("yyyy-MM-DD HH:mm:ss"),
+			moment($("#date_to").val()).format("yyyy-MM-DD HH:mm:ss")
+		);
+	}, 60000);
 })();
