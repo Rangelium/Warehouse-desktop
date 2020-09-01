@@ -56,7 +56,7 @@ $(".packagingInputButton").on("click", () => {
   })
 })
 
-$(".packagingDeleteButton").on("click", () => {
+$("#deleteButton").on("click", () => {
   if(packagingSelectedId < 0){
     alert("Please select the row");
     return;
@@ -70,4 +70,10 @@ $(".packagingDeleteButton").on("click", () => {
           fillTable();
         })
   })
+})
+
+$("#restoreSection").click(() => {
+	$("#mainContainer").fadeOut(200);
+	// $("#restoreContainer").load("pages/deleted/deleted.html");
+	$("#restoreContainer").fadeIn(200);
 })

@@ -3124,14 +3124,6 @@ nav .settings-container .dropdown[data-isOpened="true"] {
   transition: ease-out 200ms;
 }
 
-.anbarRemove .sessionsPart:hover {
-  -webkit-box-flex: 2;
-      -ms-flex: 2;
-          flex: 2;
-  -webkit-transition: ease-in 200ms;
-  transition: ease-in 200ms;
-}
-
 .anbarRemove .sessionsPart button.createSessionPartButton {
   font-size: 18px;
   background-color: #8fb1f0;
@@ -3225,20 +3217,17 @@ nav .settings-container .dropdown[data-isOpened="true"] {
 
 .anbarRemove .sessionsPart .sessionListPart {
   display: none;
-  margin-top: 5vh;
-  height: 50vh;
+  height: 100%;
 }
 
 .anbarRemove .sessionsPart .sessionListPart .sessionGetBack {
-  margin-bottom: -5vh;
-  margin-left: 5vw;
+  height: 6vh;
 }
 
 .anbarRemove .sessionsPart .sessionListPart .sessionTables {
   overflow-y: scroll;
-  width: 60%;
-  max-height: 50vh;
-  padding: 20px 40px;
+  width: 100%;
+  max-height: calc(100% - 5.5vh);
   margin: 0 auto;
   /* Track */
   /* Handle */
@@ -3325,6 +3314,7 @@ nav .settings-container .dropdown[data-isOpened="true"] {
 }
 
 .anbarRemove .sessionsInfoPart {
+  height: 100%;
   overflow: hidden;
   border-top: 1px solid #242323;
   -webkit-box-flex: 1;
@@ -3344,32 +3334,20 @@ nav .settings-container .dropdown[data-isOpened="true"] {
           justify-content: space-between;
 }
 
-.anbarRemove .sessionsInfoPart:hover {
-  -webkit-box-flex: 2;
-      -ms-flex: 2;
-          flex: 2;
-  -webkit-transition: ease-in 200ms;
-  transition: ease-in 200ms;
-}
-
 .anbarRemove .sessionsInfoPart .addNewSessionInfo {
-  -ms-flex-item-align: end;
-      align-self: flex-end;
   display: none;
   position: absolute;
-  -webkit-box-orient: vertical;
+  -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  bottom: 0;
+      -ms-flex-direction: row;
+          flex-direction: row;
 }
 
 .anbarRemove .sessionsInfoPart .addNewSessionInfo button {
   background-color: #1ac91a;
   font-size: 24px;
-  padding: 10px 20px;
-  margin-bottom: 5vh;
-  margin-right: 1vw;
+  padding: 3px;
+  width: 100px;
   border: 1px solid black;
   cursor: pointer;
 }
@@ -3377,15 +3355,13 @@ nav .settings-container .dropdown[data-isOpened="true"] {
 .anbarRemove .sessionsInfoPart .sessionInfoList {
   display: none;
   margin-top: 5vh;
-  height: 50vh;
+  height: calc(100% - 5vh);
 }
 
 .anbarRemove .sessionsInfoPart .sessionInfoList .sessionInfoTables {
   overflow-y: scroll;
-  width: 80%;
-  max-height: 50vh;
-  padding: 15px 30px;
-  margin: 0 auto;
+  width: 100%;
+  max-height: 100%;
   /* Track */
   /* Handle */
 }
@@ -3513,11 +3489,9 @@ nav .settings-container .dropdown[data-isOpened="true"] {
 .anbarRemove .sessionsInfoNewInputs .sessionInfoNewGetBack button {
   background-color: #a5702a;
   border: 1px solid black;
-  font-size: 24px;
+  font-size: 20px;
   padding: 10px;
   cursor: pointer;
-  margin-top: 3vh;
-  margin-left: 2vw;
 }
 
 .anbarRemove .sessionsInfoNewInputs .sessionInfoInputWrapper {
@@ -3585,7 +3559,7 @@ nav .settings-container .dropdown[data-isOpened="true"] {
 }
 
 .anbarRemove .sessionsInfoNewInputs .submitSessionInfo {
-  margin-top: 5vh;
+  margin-top: 1vh;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -3606,14 +3580,6 @@ nav .settings-container .dropdown[data-isOpened="true"] {
   padding: 10px 20px;
   cursor: pointer;
   outline: none;
-}
-
-.anbarRemove .sessionsInfoNewInputs:hover {
-  -webkit-box-flex: 2;
-      -ms-flex: 2;
-          flex: 2;
-  -webkit-transition: ease-in 200ms;
-  transition: ease-in 200ms;
 }
 
 .anbarRemove .sessionsInfoSearch {
@@ -3678,13 +3644,13 @@ nav .settings-container .dropdown[data-isOpened="true"] {
 .anbarRemove .sessionsInfoSearch .sessionSearchResult {
   display: none;
   margin-top: 5vh;
-  height: 50vh;
+  height: 100%;
 }
 
 .anbarRemove .sessionsInfoSearch .sessionSearchResult .sessionSearchTables {
   overflow-y: scroll;
-  width: 70%;
-  max-height: 50vh;
+  width: 100%;
+  max-height: 100%;
   padding: 15px 30px;
   margin: 0 auto;
   /* Track */
@@ -3780,23 +3746,107 @@ nav .settings-container .dropdown[data-isOpened="true"] {
 .anbarRemove .sessionsInfoSearch .sessionSearchGetBack button {
   background-color: #a5702a;
   border: 1px solid black;
-  font-size: 24px;
+  font-size: 20px;
   padding: 10px;
   cursor: pointer;
-  margin-top: 3vh;
-  margin-left: 2vw;
 }
 
-.anbarRemove .sessionsInfoSearch:hover {
-  -webkit-box-flex: 2;
-      -ms-flex: 2;
-          flex: 2;
-  -webkit-transition: ease-in 200ms;
-  transition: ease-in 200ms;
+ul.sessionsTable {
+  margin: 0;
+  padding: 0;
+  border: 1px solid black;
+}
+
+ul.sessionsTable li {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  background: #eea94a;
+  font-size: 16px;
+  color: black;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+ul.sessionsTable li:nth-child(odd) {
+  background: #9c5f09;
+  color: white;
+}
+
+ul.sessionsTable li:not(.title) {
+  cursor: pointer;
+}
+
+ul.sessionsTable li:not(.title):hover {
+  background-color: #fff;
+  color: black;
+}
+
+ul.sessionsTable li .inventoryItemContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  width: 30vw;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+ul.sessionsTable li .inventoryItemContainer p {
+  font-size: 16px;
+}
+
+ul.sessionsTable li .spanDiv {
+  margin: 0;
+  height: 100%;
+}
+
+ul.sessionsTable li.title {
+  color: black;
+}
+
+ul.sessionsTable li.checked {
+  background: #fff;
+  color: black;
+}
+
+ul#sessions li p {
+  padding: 12px 16px !important;
+  width: 20%;
+  text-align: center;
+}
+
+ul#sessionsInfo li p {
+  padding: 10px 14px !important;
+  font-size: 16px;
+  width: 10%;
+  overflow-x: auto;
+  text-align: center;
 }
 
 .packaging {
   background-color: #a8a4a4;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
 .packagingProductInfo {
@@ -3975,9 +4025,9 @@ nav .settings-container .dropdown[data-isOpened="true"] {
 
 .packagingButtons {
   position: absolute;
-  -webkit-transform: translate(50%, 100%);
-          transform: translate(50%, 100%);
-  margin: 0 auto !important;
+  -ms-flex-item-align: center;
+      align-self: center;
+  margin-top: 8vh;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -3988,7 +4038,7 @@ nav .settings-container .dropdown[data-isOpened="true"] {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  width: 50vw;
+  width: 60vw;
   z-index: 1000;
 }
 
