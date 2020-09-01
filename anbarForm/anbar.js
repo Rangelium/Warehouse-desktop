@@ -3,6 +3,8 @@ const { ipcRenderer } = electron;
 const { sha256 } = require("../tools/sha256");
 const { MyCustomMenu } = require("../tools/customMenu");
 window.$ = window.jQuery = require("jquery");
+const ssrs = require("mssql-ssrs");
+
 
 // ====================================================================================
 //  													   Utils part
@@ -25,6 +27,7 @@ setTimeout(() => {
 
 const mssql = require("mssql");
 const { connConfig } = require("../tools/ConnectionConfig");
+const { shell } = require("electron");
 
 let pool = new mssql.ConnectionPool(connConfig);
 let poolConnect = pool.connect();
