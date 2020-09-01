@@ -1,24 +1,35 @@
 var date_from, date_to;
 
-var productExtraCharge = 0, productQuantity, productReason, productDiscount = 0;
+var productExtraCharge = 0,
+	productQuantity,
+	productReason,
+	productDiscount = 0;
 var isProductChosen = false;
-var productPrice, productExpDate, productClusterId, 
-		productCell, productBarcode, productId, productCurrencyId,
-		productDocumentId, productManufacture, productLeft;
+var productPrice,
+	productExpDate,
+	productClusterId,
+	productCell,
+	productBarcode,
+	productId,
+	productCurrencyId,
+	productDocumentId,
+	productManufacture,
+	productLeft;
 
-var session_id = -1, session_info_id = -1;
+var session_id = -1,
+	session_info_id = -1;
 
 var today = new Date();
 var dd = today.getDate();
-var mm = today.getMonth()+1; //January is 0!
+var mm = today.getMonth() + 1; //January is 0!
 var yyyy = today.getFullYear();
-if(dd<10){
-			dd='0'+dd
-	}
-	if(mm<10){
-			mm='0'+mm
-	}
-today = yyyy+'-'+mm+'-'+dd;
+if (dd < 10) {
+	dd = "0" + dd;
+}
+if (mm < 10) {
+	mm = "0" + mm;
+}
+today = yyyy + "-" + mm + "-" + dd;
 $("#createSessionDateFrom").attr("max", today);
 
 $("#sessionsDateFrom").attr("max", today);
@@ -28,39 +39,40 @@ function getTotalPrice(){
 }
 
 poolConnect.then((pool) => {
-  pool.request()
-    .execute("dbo.currency_select", (err, res) => {
-      let data = []
-      for(let i of res.recordset){
-        data.push(i);
-      }
-      console.log(res);
-      for(let result of data){
-        $("#sessionNewCurrencyId").append($("<option>", {value: result["id"], text: result["title"]}));
-      }
-    })
-})
+	pool.request().execute("dbo.currency_select", (err, res) => {
+		let data = [];
+		for (let i of res.recordset) {
+			data.push(i);
+		}
+		console.log(res);
+		for (let result of data) {
+			$("#sessionNewCurrencyId").append(
+				$("<option>", { value: result["id"], text: result["title"] })
+			);
+		}
+	});
+});
 
 $("#createSessionPartButton").on("click", () => {
 	$(".sessionSelectionPart").fadeToggle(200);
 	$("#createSessionPartButton").css("visibility", "hidden");
-	setTimeout(()=>{
+	setTimeout(() => {
 		$(".sessionCreatePart").css("display", "flex");
-	}, 200)
-})
+	}, 200);
+});
 
 $("#getBack").on("click", () => {
 	$(".sessionCreatePart").fadeOut(200);
 	setTimeout(() => {
 		$("#createSessionPartButton").css("visibility", "visible");
 		$(".sessionSelectionPart").fadeIn(200);
-	},200);
-})
+	}, 200);
+});
 
 $("#selectSessionsButton").on("click", () => {
 	date_from = $("#sessionsDateFrom").val();
 	date_to = $("#sessionsDateTo").val();
-	if(date_from.length == 0 || date_to.length == 0){
+	if (date_from.length == 0 || date_to.length == 0) {
 		alert("All fields must be filled");
 		return;
 	}
@@ -69,8 +81,8 @@ $("#selectSessionsButton").on("click", () => {
 	setTimeout(() => {
 		$(".sessionListPart").fadeIn(200);
 		$("#createSessionPartButton").fadeOut(10);
-	},200);
-})
+	}, 200);
+});
 
 $("#getBackFromSessionsList").on("click", () => {
 	$(".sessionListPart").fadeOut(200);
@@ -80,9 +92,8 @@ $("#getBackFromSessionsList").on("click", () => {
 		$("#createSessionPartButton").fadeIn(10);
 		$("#createSessionPartButton").css("visibility", "visible");
 		$(".sessionSelectionPart").fadeIn(200);
-
 	}, 200);
-})
+});
 
 $("#addNewSessionInfo").on("click", () => {
 	$(".sessionsPart").fadeOut(100);
@@ -94,7 +105,7 @@ $("#addNewSessionInfo").on("click", () => {
 		$(".sessionsInfoSearch").fadeIn(100);
 		// $(".sessionsInfoSearch").css("display", "flex");
 	}, 100);
-})
+});
 
 $("#sessionInfoNewGetBack").on("click", () => {
 	$(".sessionsInfoNewInputs").fadeOut(100);
@@ -103,14 +114,14 @@ $("#sessionInfoNewGetBack").on("click", () => {
 	setTimeout(() => {
 		$(".sessionsPart").fadeIn(100);
 		$(".sessionsInfoPart").fadeIn(100);
-	}, 100)
-})
+	}, 100);
+});
 
 $("#infoSearchButton").on("click", () => {
 	let value = $("#infoSearchInput").val();
-	if(value.length == 0){
+	if (value.length == 0) {
 		alert("Field must be filled");
-		return
+		return;
 	}
 	fillSessionSearch(value);
 	setTimeout(() => {
@@ -120,32 +131,32 @@ $("#infoSearchButton").on("click", () => {
 			$(".sessionSearchGetBack").fadeIn(100);
 		}, 100);
 	}, 50);
-})
+});
 
 $("#searchBack").on("click", () => {
 	$(".sessionSearchResult").fadeOut(100);
 	$(".sessionSearchGetBack").fadeOut(100);
 	setTimeout(() => {
 		$(".sessionsInfoSearchInputBlock").fadeIn(100);
-	},100);
-})
+	}, 100);
+});
 $("#sessionInfoExtraCharge").change(() => {
 	productExtraCharge = $("#sessionInfoExtraCharge").val();
-	if(productPrice == NaN || productQuantity == NaN) return;
+	if (productPrice == NaN || productQuantity == NaN) return;
 	$("#sessionInfoTotalPrice").val(getTotalPrice());
 });
 
 $("#sessionInfoDiscount").change(() => {
 	productDiscount = $("#sessionInfoDiscount").val();
-	if(productPrice == NaN || productQuantity == NaN) return;
-	$("#sessionInfoTotalPrice").val(getTotalPrice());	
-})
+	if (productPrice == NaN || productQuantity == NaN) return;
+	$("#sessionInfoTotalPrice").val(getTotalPrice());
+});
 
 $("#sessionInfoQuantity").change(() => {
 	productQuantity = $("#sessionInfoQuantity").val();
-	if(productPrice == NaN || productQuantity == NaN) return;
+	if (productPrice == NaN || productQuantity == NaN) return;
 	$("#sessionInfoTotalPrice").val(getTotalPrice());
-})
+});
 
 $("#createSessionButton").on("click", () => {
 	let dateFrom = $("#createSessionDateFrom").val();
@@ -168,7 +179,7 @@ $("#createSessionButton").on("click", () => {
 });
 
 $("#submitSession").on("click", () => {
-	if(isProductChosen == false){
+	if (isProductChosen == false) {
 		alert("Choose the product");
 		return;
 	}
@@ -177,11 +188,15 @@ $("#submitSession").on("click", () => {
 	productReason = $("#sessionInfoReason").val();
 	productCurrencyId = $("#sessionNewCurrencyId").val();
 	productDiscount = $("#sessionInfoDiscount").val();
-	if(productExtraCharge.length == 0 || productQuantity.length == 0 || productReason.length == 0){
+	if (
+		productExtraCharge.length == 0 ||
+		productQuantity.length == 0 ||
+		productReason.length == 0
+	) {
 		alert("All the fields must be filled");
 		return;
 	}
-	if(parseInt(productQuantity) > parseInt(productLeft)){
+	if (parseInt(productQuantity) > parseInt(productLeft)) {
 		alert("Entered quantity is bigger than left");
 		return;
 	}
@@ -221,18 +236,12 @@ $("#submitSession").on("click", () => {
 
 $("#acceptNewSessionInfo").on("click", () => {
 	poolConnect.then((pool) => {
-		pool.request()
-				.input("retail_sale_session_id", mssql.Int, session_id)
-				.input("user_id", mssql.Int, USER["id"])
-				.execute("dbo.retail_sale_info_accept_insert", (err, res) => {
-					console.log(err);
-					
-					fillSessions(date_from, date_to);
-					fillSessionsInfo(session_id);
-					$("#acceptNewSessionInfo").fadeOut(0);
-				})
-	})
-})
+		pool
+			.request()
+			.input("retail_sale_session_id", mssql.Int, session_id)
+			.input("user_id", mssql.Int, USER["id"])
+			.execute("dbo.retail_sale_info_accept_insert", (err, res) => {
+				console.log(err);
 
 function fillSessions(dateFrom, dateTo){
 	// dateFrom = "20.07.2020";
@@ -450,7 +459,7 @@ function fillSessionsInfo(sessionId){
 	})
 }
 
-function fillSessionSearch(value){
+function fillSessionSearch(value) {
 	let parameterName = "";
 	let parameterType = "";
 	
@@ -499,12 +508,16 @@ function fillSessionSearch(value){
 													<div style="display:none;" id="productId">${i.product_id}</div>
 													<div style="display:none;" id="documentId">${i.document_id}</div>
 													<div style="display:none;" id="productCell">${i.product_cell}</div>
-													<div style="display:none;" id="productManufacturer">${i.product_manufacturer}</div>
+													<div style="display:none;" id="productManufacturer">${
+														i.product_manufacturer
+													}</div>
 													<div style="display:none;" id="productBarcode">${i.barcode}</div>
 													<div class="sessionSearchTableData">${i.product_title}</div>
-													<div class="sessionSearchTableData" id="productExpDate" title="${moment(i.exp_date).format("DD MMMM YYYY, h:mm:ss")}">${moment(
+													<div class="sessionSearchTableData" id="productExpDate" title="${moment(
 														i.exp_date
-													).format("DD/MM/YYYY")}</div>
+													).format("DD MMMM YYYY, h:mm:ss")}">${moment(
+							i.exp_date
+						).format("DD/MM/YYYY")}</div>
 													<div class="sessionSearchTableData">${i.in_quantity}</div>
 													<div class="sessionSearchTableData">${i.out_quantity}</div>
 													<div class="sessionSearchTableData" id="productLeft">${i.left}</div>
@@ -515,42 +528,59 @@ function fillSessionSearch(value){
 											</div>
 									</div>
 							 </div>`
+					);
+				}
+				let sessionSearchResults = document.querySelectorAll(
+					".sessionSearchContainer"
+				);
+				sessionSearchResults.forEach((el) => {
+					el.addEventListener("click", () => {
+						sessionSearchResults.forEach((sel) => {
+							sel.classList.remove("sessionSelected");
+							sel
+								.querySelector(".sessionSearchTable")
+								.classList.remove("sessionSelected");
+							sel
+								.querySelector(".sessionSearchTableHeader")
+								.classList.remove("sessionSelected");
+							sel
+								.querySelector(".sessionSearchTableRow")
+								.classList.remove("sessionSelected");
+						});
+						el.classList.toggle("sessionSelected");
+						el.querySelector(".sessionSearchTable").classList.toggle(
+							"sessionSelected"
 						);
-					}
-					let sessionSearchResults = document.querySelectorAll(".sessionSearchContainer");
-					sessionSearchResults.forEach((el) => {
-						el.addEventListener("click", () => {
-							sessionSearchResults.forEach((sel) => {
-								sel.classList.remove("sessionSelected");
-								sel.querySelector(".sessionSearchTable").classList.remove("sessionSelected");
-								sel.querySelector(".sessionSearchTableHeader").classList.remove("sessionSelected");
-								sel.querySelector(".sessionSearchTableRow").classList.remove("sessionSelected");
-							});
-							el.classList.toggle("sessionSelected");
-							el.querySelector(".sessionSearchTable").classList.toggle("sessionSelected");
-							el.querySelector(".sessionSearchTableHeader").classList.toggle("sessionSelected");
-							el.querySelector(".sessionSearchTableRow").classList.toggle("sessionSelected");
+						el.querySelector(".sessionSearchTableHeader").classList.toggle(
+							"sessionSelected"
+						);
+						el.querySelector(".sessionSearchTableRow").classList.toggle(
+							"sessionSelected"
+						);
 
-							isProductChosen = true;
-							
-							productPrice = el.querySelector("#productPrice").textContent;
-							productBarcode = el.querySelector("#productBarcode").textContent;
-							productCell = el.querySelector("#productCell").textContent;
-							productClusterId = el.querySelector("#clusterId").textContent;
-							productCurrencyId = el.querySelector("#currencyId").textContent;
-							productDocumentId = el.querySelector("#documentId").textContent;
-							productExpDate = el.querySelector("#productExpDate").getAttribute("title");
-							productId = el.querySelector("#productId").textContent;
-							productLeft = el.querySelector("#productLeft").textContent;
-							productManufacture = el.querySelector("#productManufacturer").textContent;
-							$("#sessionInfoPrice").val(productPrice);
-							$("#sessionNewCurrencyId").val(productCurrencyId);
-							if(productExtraCharge != NaN && productQuantity != NaN){
-								let total_price = (getTotalPrice());
-								$("#sessionInfoTotalPrice").val(total_price);
-							}
-						})
-					})
-				})
-	})
+						isProductChosen = true;
+
+						productPrice = el.querySelector("#productPrice").textContent;
+						productBarcode = el.querySelector("#productBarcode").textContent;
+						productCell = el.querySelector("#productCell").textContent;
+						productClusterId = el.querySelector("#clusterId").textContent;
+						productCurrencyId = el.querySelector("#currencyId").textContent;
+						productDocumentId = el.querySelector("#documentId").textContent;
+						productExpDate = el
+							.querySelector("#productExpDate")
+							.getAttribute("title");
+						productId = el.querySelector("#productId").textContent;
+						productLeft = el.querySelector("#productLeft").textContent;
+						productManufacture = el.querySelector("#productManufacturer")
+							.textContent;
+						$("#sessionInfoPrice").val(productPrice);
+						$("#sessionNewCurrencyId").val(productCurrencyId);
+						if (productExtraCharge != NaN && productQuantity != NaN) {
+							let total_price = getTotalPrice();
+							$("#sessionInfoTotalPrice").val(total_price);
+						}
+					});
+				});
+			});
+	});
 }
