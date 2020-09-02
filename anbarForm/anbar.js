@@ -5,7 +5,6 @@ const { MyCustomMenu } = require("../tools/customMenu");
 window.$ = window.jQuery = require("jquery");
 const ssrs = require("mssql-ssrs");
 
-
 // ====================================================================================
 //  													   Utils part
 // ====================================================================================
@@ -81,6 +80,7 @@ $("form").submit((e) => {
 							.request()
 							.input("username", mssql.NVarChar(250), $("#username").val())
 							.execute("dbo.user_select_info", (err, res) => {
+								console.log(res);
 								USER = res.recordset[0];
 							});
 						userLoggedIn();
