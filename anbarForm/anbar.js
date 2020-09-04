@@ -1,5 +1,5 @@
 const electron = require("electron");
-const { ipcRenderer } = electron;
+const { ipcRenderer, } = electron;
 const { sha256 } = require("../tools/sha256");
 const { MyCustomMenu } = require("../tools/customMenu");
 window.$ = window.jQuery = require("jquery");
@@ -8,6 +8,7 @@ const ssrs = require("mssql-ssrs");
 // ====================================================================================
 //  													   Utils part
 // ====================================================================================
+
 
 const { MyTreeView } = require("../tools/TreeView");
 const moment = require("moment");
@@ -26,7 +27,7 @@ setTimeout(() => {
 
 const mssql = require("mssql");
 const { connConfig } = require("../tools/ConnectionConfig");
-const { shell } = require("electron");
+// const { shell } = require("electron");
 
 let pool = new mssql.ConnectionPool(connConfig);
 let poolConnect = pool.connect();
@@ -128,6 +129,12 @@ ipcRenderer.on("userLogOut", () => {
 	openPage("anbarInfo");
 	showLoginForm();
 });
+
+ipcRenderer.on("downloadReport complete", (event, file) => {
+	alert("File is Downloaded")
+})
+
+
 
 // ====================================================================================
 //  														Switch pages system part

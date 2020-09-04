@@ -1,6 +1,6 @@
 const electron = require("electron");
 const path = require("path");
-
+const {download} = require("electron-dl");
 const { app, BrowserWindow, screen, ipcMain, Menu, globalShortcut } = electron;
 const { MyCustomMenu } = require("./tools/customMenu");
 // require("events").EventEmitter.defaultMaxListeners = Infinity;
@@ -21,9 +21,9 @@ app.on("ready", () => {
 		height: screen.getPrimaryDisplay().workAreaSize.height,
 		webPreferences: {
 			nodeIntegration: true,
+			webviewTag: true,
 		},
 	});
-
 	mainWindow.maximize();
 	// mainWindow.resizable = false;
 
@@ -32,7 +32,10 @@ app.on("ready", () => {
 
 	//Dev Tools
 	// mainWindow.webContents.openDevTools();
-
+	ipcMain.on("downloadReport", (event, info) => {
+		download(BrowserWindow.getFocusedWindow(), info.url, info.properties)
+			.then(dl => 	mainWindow.webContents.send("downloadReport complete", dl.getSavePath()));
+	})
 	// Start Anbar Form
 	startAnbarForm();
 });
@@ -52,7 +55,6 @@ app.on("window-all-closed", function () {
 function startAnbarForm() {
 	// Load data of Anbar Form in Browser window
 	mainWindow.loadFile(path.join(__dirname, "anbarForm/anbar.html"));
-
 	// Working with loaded data
 	mainWindow.webContents.once("dom-ready", () => {
 		// Create menu template
@@ -136,6 +138,13 @@ function startAnbarForm() {
 						name: "inventory",
 						click: function () {
 							mainWindow.webContents.send("changeAnbarPage", "inventory");
+						},
+					},
+					{
+						label: 'Report',
+						name: 'report',
+						click: function () {
+							mainWindow.webContents.send("changeAnbarPage", "report");
 						},
 					},
 				],
