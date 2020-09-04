@@ -63,6 +63,27 @@ $(".packagingInputButton").on("click", () => {
 	});
 });
 
+$("#deleteButton").on("click", () => {
+  if(packagingSelectedId < 0){
+    alert("Please select the row");
+    return;
+  }
+  poolConnect.then((pool) => {
+    pool.request()
+        .input("id", mssql.Int, packagingSelectedId)
+        .input("user_id", mssql.Int, USER['id'])
+        .execute("dbo.cluster_names_delete", (err, res) => {
+          console.log(err);
+          fillTable();
+        })
+  })
+})
+
+$("#restoreSection").click(() => {
+	$("#mainContainer").fadeOut(200);
+	// $("#restoreContainer").load("pages/deleted/deleted.html");
+	$("#restoreContainer").fadeIn(200);
+})
 $(".packagingDeleteButton").on("click", () => {
 	if (packagingSelectedId < 0) {
 		alert("Please select the row");
