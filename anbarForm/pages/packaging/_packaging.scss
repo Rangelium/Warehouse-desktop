@@ -1,5 +1,7 @@
 .packaging{
   background-color: $anbar-info-background-color;  
+  display: flex;
+  flex-direction: column;
 }
 
 .packagingProductInfo {
@@ -151,12 +153,14 @@
 
 .packagingButtons{
   position: absolute;
-  transform: translate(50%, 100%);
-  margin: 0 auto !important;
+  // transform: translate(50%, 100%);
+  align-self: center;
+  margin-top: 8vh;
+  // margin: 0 auto !important;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 50vw;
+  width: 60vw;
   z-index: 1000;
 }
 

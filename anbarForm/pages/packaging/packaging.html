@@ -1,10 +1,18 @@
 <div class="packagingButtons">
   <input class="packagingInputField" id="title">
   <button class="packagingInputButton">Input</button>
-  <button class="packagingDeleteButton">Delete</button>
+  <button class="packagingDeleteButton" id="deleteButton">Delete</button>
+  <button class="packagingDeleteButton" style="width: 5vw;" id='restoreSection'>Restore</button>
 </div>
 
-<div class="packagingContainer">
+<div id="restoreContainer" style="display: none;">
+  <ul>
+    <li>One</li>
+    <li>Two</li>
+  </ul>
+</div>
+
+<div class="packagingContainer" id="mainContainer">
   <div class="packagingProductInfo">
     <div class="packaging-table-data">
       
