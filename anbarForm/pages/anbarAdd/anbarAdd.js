@@ -1390,7 +1390,7 @@ $("#warehouseTreeInsertSubmitBtn").click(() => {
 		poolConnect.then((pool) => {
 			pool
 				.request()
-				.input("cluster_id", cluster_id)
+				.input("cluster_id", BigInt(cluster_id))
 				.input("capacity", $($(cluster).children()[3]).val())
 				.input("cluster_order", index + 1)
 				.input("title", $($(cluster).children()[2]).val())

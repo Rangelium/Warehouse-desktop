@@ -405,7 +405,7 @@ $overall-box-fade-out-animation-delay: $overall-data-fade-in-animation-delay;
 				&::-webkit-scrollbar-thumb {
 					border-radius: 10px;
 					border-radius: 10px;
-					background: rgb(121, 121, 121);
+					background: $anbar-info-tree-view-scrollbar-color;
 					box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
 				}
 
