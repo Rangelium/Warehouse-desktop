@@ -242,6 +242,9 @@ $("#acceptNewSessionInfo").on("click", () => {
 			.input("user_id", mssql.Int, USER["id"])
 			.execute("dbo.retail_sale_info_accept_insert", (err, res) => {
 				console.log(err);
+			})
+		})
+})
 
 function fillSessions(dateFrom, dateTo){
 	// dateFrom = "20.07.2020";
