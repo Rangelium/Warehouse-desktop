@@ -2,7 +2,7 @@ var packagingSelectedId = -1;
 
 function fillTable() {
 	poolConnect.then((pool) => {
-		pool.request().execute("dbo.cluster_names_select_all", (err, res) => {
+		pool.request().execute("anbar.cluster_names_select_all", (err, res) => {
 			data = [];
 			for (let i of res.recordset) {
 				data.push(i);
@@ -55,7 +55,7 @@ $(".packagingInputButton").on("click", () => {
 			.request()
 			.input("title", mssql.NVarChar(250), title)
 			.input("user_id", mssql.Int, USER["id"])
-			.execute("dbo.cluster_names_insert", (err, res) => {
+			.execute("anbar.cluster_names_insert", (err, res) => {
 				console.log(err);
 				$("input").val("");
 				fillTable();
@@ -84,3 +84,19 @@ $("#restoreSection").click(() => {
 	// $("#restoreContainer").load("pages/deleted/deleted.html");
 	$("#restoreContainer").fadeIn(200);
 })
+$(".packagingDeleteButton").on("click", () => {
+	if (packagingSelectedId < 0) {
+		alert("Please select the row");
+		return;
+	}
+	poolConnect.then((pool) => {
+		pool
+			.request()
+			.input("id", mssql.Int, packagingSelectedId)
+			.input("user_id", mssql.Int, USER["id"])
+			.execute("anbar.cluster_names_delete", (err, res) => {
+				console.log(err);
+				fillTable();
+			});
+	});
+});

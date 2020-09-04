@@ -1227,7 +1227,11 @@
 							background: white;
 							border-radius: 25px;
 							padding: 5px 15px;
+							width: 440px;
 
+							p {
+								color: black;
+							}
 							input {
 								text-align: center;
 								font-weight: bold;
@@ -1238,7 +1242,7 @@
 								margin-right: 7px;
 							}
 							input[type="number"] {
-								width: 100px;
+								width: 90px;
 							}
 							img {
 								cursor: pointer;
