@@ -3,7 +3,7 @@ const { ipcRenderer, } = electron;
 const { sha256 } = require("../tools/sha256");
 const { MyCustomMenu } = require("../tools/customMenu");
 window.$ = window.jQuery = require("jquery");
-// const ssrs = require("mssql-ssrs");
+const ssrs = require("mssql-ssrs");
 
 // ====================================================================================
 //  													   Utils part
@@ -16,10 +16,10 @@ var USER = {
 	id: 1,
 };
 
-setTimeout(() => {
-	userLoggedIn();
-	openPage("inventory");
-}, 200);
+// setTimeout(() => {
+// 	userLoggedIn();
+// 	openPage("anbarAdd");
+// }, 200);
 
 // ====================================================================================
 //  													   Connection system part
@@ -35,7 +35,7 @@ let poolConnect = pool.connect();
 function getTranslations() {
 	languages = {};
 	poolConnect.then((pool) => {
-		pool.request().execute("dbo.language_translations", (err, res) => {
+		pool.request().execute("anbar.language_translations", (err, res) => {
 			if (err !== null) console.log(err);
 			data = res.recordset;
 			data.forEach((el) => {
@@ -75,12 +75,13 @@ $("form").submit((e) => {
 				.request()
 				.input("username", mssql.NVarChar(250), $("#username").val())
 				.input("password", mssql.NVarChar(250), sha256($("#password").val()))
-				.execute("dbo.user_login_check", (err, res) => {
+				.execute("anbar.user_login_check", (err, res) => {
 					if (res.recordset[0][""] == 1) {
 						pool
 							.request()
 							.input("username", mssql.NVarChar(250), $("#username").val())
-							.execute("dbo.user_select_info", (err, res) => {
+							.execute("anbar.user_select_info", (err, res) => {
+								console.log(res);
 								USER = res.recordset[0];
 							});
 						userLoggedIn();

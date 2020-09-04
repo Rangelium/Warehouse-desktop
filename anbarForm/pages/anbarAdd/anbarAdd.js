@@ -1,5 +1,6 @@
 // ======================================================================================================
 //                                             UTIL FUNCTIONS
+
 // ======================================================================================================
 async function showAlert(message) {
 	$("#alertMessage").html(message);
@@ -97,7 +98,6 @@ $(".moveableBorder").dblclick(function () {
 	$(".moveableBorder").css("top", moveLineBy);
 	$(".bulks").css("height", "50%");
 });
-
 $(document).mouseup(function () {
 	clearInterval(timeout);
 	return false;
@@ -133,7 +133,7 @@ function fillBulksTable(data) {
 			"DD MMMM YYYY, h:mm:ss"
 		)}">${moment(el.begin_date).format("DD MMMM YYYY")}</td>`;
 		row += `<td>${el.seller}</td>`;
-		row += `<td>${el.cost_price}</td>`;
+		row += `<td>${el.cost_price === null ? "0" : el.cost_price}</td>`;
 		row += `<td>${el.default_currency}</td>`;
 		row += "</tr>";
 		$(".anbarAddBulksTable > tbody").append(row);
@@ -172,7 +172,7 @@ function getAllBulks(date_from, date_to) {
 			.request()
 			.input("date_from", date_from)
 			.input("date_to", date_to)
-			.execute("dbo.bulk_buying_selection", (err, res) => {
+			.execute("anbar.bulk_buying_selection", (err, res) => {
 				if (err !== null) console.log(err);
 				fillBulksTable(res.recordset);
 			});
@@ -191,7 +191,7 @@ function deleteBulk(id) {
 		pool
 			.request()
 			.input("id", id)
-			.execute("dbo.bulk_buying_delete", (err) => {
+			.execute("anbar.bulk_buying_delete", (err) => {
 				if (err !== null) console.log(err);
 			});
 	});
@@ -202,7 +202,7 @@ function addNewBulk(begin_date, seller_id) {
 			.request()
 			.input("begin_date", begin_date)
 			.input("seller_id", seller_id)
-			.execute("dbo.bulk_buying_create", (err) => {
+			.execute("anbar.bulk_buying_create", (err) => {
 				if (err !== null) console.log(err);
 				return;
 			});
@@ -213,10 +213,12 @@ async function showAddNewBulkForm() {
 	$("#addNewBulkSellers").empty();
 	let sellersData = await new Promise((resolve) => {
 		poolConnect.then((pool) => {
-			pool.request().execute("dbo.product_seller_select_active", (err, res) => {
-				if (err !== null) console.log(err);
-				resolve(res.recordset);
-			});
+			pool
+				.request()
+				.execute("anbar.product_seller_select_active", (err, res) => {
+					if (err !== null) console.log(err);
+					resolve(res.recordset);
+				});
 		});
 	});
 	for (let i = 0; i < sellersData.length; i++) {
@@ -333,7 +335,7 @@ $(document).click((el) => {
 			$(el.target).attr("class") !== "addNewBulkForm" &&
 			$.inArray(el.target, $(".addNewBulkForm").children()) < 0 &&
 			$.inArray($(el.target).parent()[0], $(".addNewBulkForm").children()) <
-				0 &&
+			0 &&
 			$.inArray(
 				$(el.target).parent().parent()[0],
 				$(".addNewBulkForm").children()
@@ -374,13 +376,13 @@ function fillSessionsTable(data) {
 	data.forEach((el) => {
 		let row = `<tr class="bulk-session" data-finished='${
 			el.done === "+" ? true : false
-		}' data-voen='${el.session_voen}' data-id='${el.id}'>`;
+			}' data-voen='${el.session_voen}' data-id='${el.id}'>`;
 
 		row += `<td>${el.session_voen}</td>`;
 		row += `<td title="${moment(el.begin_date).format(
 			"DD MMMM YYYY, h:mm:ss"
 		)}">${moment(el.begin_date).format("DD MMMM YYYY")}</td>`;
-		row += `<td>${el.cost_price}</td>`;
+		row += `<td>${el.cost_price === null ? "0" : el.cost_price}</td>`;
 		row += `<td>${el.default_currency}</td>`;
 		row += `<td>${el.done === "+" ? "Finished" : "Not Finished"}</td>`;
 
@@ -423,7 +425,7 @@ function getBulkSessions(id) {
 		pool
 			.request()
 			.input("bulk_buying_id", id)
-			.execute("dbo.bulk_buying_session_selection", (err, res) => {
+			.execute("anbar.bulk_buying_session_selection", (err, res) => {
 				if (err !== null) console.log(err);
 				fillSessionsTable(res.recordset);
 			});
@@ -439,7 +441,7 @@ function deleteSession(session_id) {
 		pool
 			.request()
 			.input("id", parseInt(session_id))
-			.execute("dbo.bulk_buying_delete_session", (err) => {
+			.execute("anbar.bulk_buying_delete_session", (err) => {
 				if (err !== null) console.log(err);
 			});
 	});
@@ -451,7 +453,7 @@ function addNewSession(begin_date, session_voen) {
 			.input("bulk_buying_id", selectedBulkId)
 			.input("begin_date", begin_date)
 			.input("session_voen", parseInt(session_voen))
-			.execute("dbo.bulk_buying_create_new_session", (err) => {
+			.execute("anbar.bulk_buying_create_new_session", (err) => {
 				if (err != null) console.log(err);
 			});
 	});
@@ -463,7 +465,7 @@ function acceptAllInsert(bulk_id, session_id) {
 			.input("session_id", parseInt(session_id))
 			.input("bulk_buying_id", parseInt(bulk_id))
 			.input("user_id", USER.id)
-			.execute("dbo.bulk_buying_session_info_accept_insert", (err, res) => {
+			.execute("anbar.bulk_buying_session_info_accept_insert", (err, res) => {
 				if (err !== null) console.log(err);
 			});
 	});
@@ -474,7 +476,7 @@ function EndAllSessions(bulk_id) {
 		pool
 			.request()
 			.input("bulk_buying_id", parseInt(bulk_id))
-			.execute("dbo.bulk_buying_session_end_all", (err, res) => {
+			.execute("anbar.bulk_buying_session_end_all", (err, res) => {
 				if (err !== null) console.log(err);
 			});
 	});
@@ -633,7 +635,7 @@ $(document).click((el) => {
 			$(el.target).attr("class") !== "addNewSessionForm" &&
 			$.inArray(el.target, $(".addNewSessionForm").children()) < 0 &&
 			$.inArray($(el.target).parent()[0], $(".addNewSessionForm").children()) <
-				0 &&
+			0 &&
 			$.inArray(
 				$(el.target).parent().parent()[0],
 				$(".addNewSessionForm").children()
@@ -747,7 +749,7 @@ function getSessionInfo(id, voen) {
 		pool
 			.request()
 			.input("session_id", id)
-			.execute("dbo.bulk_buying_session_info", (err, res) => {
+			.execute("anbar.bulk_buying_session_info", (err, res) => {
 				if (err !== null) console.log(err);
 				showSessionInfo(res.recordset);
 			});
@@ -763,7 +765,7 @@ function deleteSessionInfo(sessionInfoId) {
 		pool
 			.request()
 			.input("id", sessionInfoId)
-			.execute("dbo.bulk_buying_session_info_delete", (err) => {
+			.execute("anbar.bulk_buying_session_info_delete", (err) => {
 				if (err !== null) console.log(err);
 			});
 	});
@@ -811,7 +813,7 @@ function addNewSessionInfo() {
 			.input("session_id", session_id)
 			.input("bulk_buying_id", bulk_id)
 			.input("product_voen", voen)
-			.execute("dbo.bulk_buying_session_info_insert", (err) => {
+			.execute("anbar.bulk_buying_session_info_insert", (err) => {
 				if (err !== null) console.log(err);
 			});
 	});
@@ -859,7 +861,7 @@ function updateSessionInfo(id) {
 			.input("currency", currency_id)
 			.input("barcode", barcode)
 			.input("user_id", USER.id)
-			.execute("dbo.bulk_buying_session_info_insert", (err) => {
+			.execute("anbar.bulk_buying_session_info_insert", (err) => {
 				if (err !== null) console.log(err);
 			});
 	});
@@ -904,7 +906,7 @@ async function showAddNewSessionInfoForm() {
 	$("#addNewSessionInfo_cluster").empty();
 	let clustersData = await new Promise((resolve) => {
 		poolConnect.then((pool) => {
-			pool.request().execute("dbo.cluster_names_select_all", (err, res) => {
+			pool.request().execute("anbar.cluster_names_select_all", (err, res) => {
 				if (err !== null) console.log(err);
 				resolve(res.recordset);
 			});
@@ -919,13 +921,12 @@ async function showAddNewSessionInfoForm() {
 	$("#addNewSessionInfo_currency").empty();
 	let currencyData = await new Promise((resolve) => {
 		poolConnect.then((pool) => {
-			pool.request().execute("dbo.currency_select", (err, res) => {
+			pool.request().execute("anbar.currency_select", (err, res) => {
 				if (err !== null) console.log(err);
 				resolve(res.recordset);
 			});
 		});
 	});
-	console.log(currencyData);
 	for (let i = 0; i < currencyData.length; i++) {
 		$("#addNewSessionInfo_currency").append(
 			`<option data-id="${currencyData[i].id}" title="${currencyData[i].full_title}">${currencyData[i].title}</option>`
@@ -937,7 +938,7 @@ async function showAddNewSessionInfoForm() {
 		poolConnect.then((pool) => {
 			pool
 				.request()
-				.execute("dbo.product_manufacturer_select_all", (err, res) => {
+				.execute("anbar.product_manufacturer_select_all", (err, res) => {
 					if (err !== null) console.log(err);
 					resolve(res.recordset);
 				});
@@ -1082,7 +1083,7 @@ $("#optionsEdit").click(async function () {
 			pool
 				.request()
 				.input("title", $(sessionInfoItemsArr[0]).html())
-				.execute("dbo.bulk_buying_session_info_search", (err, res) => {
+				.execute("anbar.bulk_buying_session_info_search", (err, res) => {
 					resolve(res.recordset[0]);
 				});
 		});
@@ -1110,7 +1111,7 @@ $(document).click((el) => {
 		if (
 			el.target === $("#addNewSessionInfoDropDownAddNewproductToTreeBtn")[0] ||
 			el.target ===
-				$("#addNewSessionInfoDropDownAddNewproductToTreeBarcodeBtn")[0] ||
+			$("#addNewSessionInfoDropDownAddNewproductToTreeBarcodeBtn")[0] ||
 			el.target === $(".anbarAddToTreeForm")[0] ||
 			$.inArray(el.target, $(".anbarAddToTreeForm").children()) !== -1 ||
 			$.inArray(
@@ -1127,6 +1128,10 @@ $(document).click((el) => {
 			) !== -1 ||
 			$.inArray(
 				$(el.target).parent().parent().parent().parent()[0],
+				$(".anbarAddToTreeForm").children()
+			) !== -1 ||
+			$.inArray(
+				$(el.target).parent().parent().parent().parent().parent()[0],
 				$(".anbarAddToTreeForm").children()
 			) !== -1
 		) {
@@ -1148,7 +1153,7 @@ $(document).click((el) => {
 		if ($(".anbarAddToTreeForm").attr("data-isActive") === "true") {
 			if (
 				el.target ===
-					$("#addNewSessionInfoDropDownAddNewproductToTreeBtn")[0] ||
+				$("#addNewSessionInfoDropDownAddNewproductToTreeBtn")[0] ||
 				el.target === $(".anbarAddToTreeForm")[0] ||
 				$.inArray(el.target, $(".anbarAddToTreeForm").children()) !== -1 ||
 				$.inArray(
@@ -1228,7 +1233,7 @@ $("#addNewSessionInfo_productId").keyup(function () {
 			pool
 				.request()
 				.input("product_id", textNum)
-				.execute("dbo.bulk_buying_session_info_search", (err, res) => {
+				.execute("anbar.bulk_buying_session_info_search", (err, res) => {
 					fillAddNewSessionInfoProductDropdown(res.recordset);
 				});
 		});
@@ -1237,7 +1242,7 @@ $("#addNewSessionInfo_productId").keyup(function () {
 			pool
 				.request()
 				.input("title", text)
-				.execute("dbo.bulk_buying_session_info_search", (err, res) => {
+				.execute("anbar.bulk_buying_session_info_search", (err, res) => {
 					fillAddNewSessionInfoProductDropdown(res.recordset);
 				});
 		});
@@ -1275,7 +1280,7 @@ $("#addNewSessionInfo_barcode").keyup(function () {
 		pool
 			.request()
 			.input("barcode", textNum)
-			.execute("dbo.bulk_buying_session_info_search", (err, res) => {
+			.execute("anbar.bulk_buying_session_info_search", (err, res) => {
 				fillAddNewSessionInfoProductBarcodeDropdown(res.recordset);
 			});
 	});
@@ -1284,6 +1289,8 @@ $("#addNewSessionInfo_barcode").keyup(function () {
 // ADD NEW PRODUCT TO TREE PART
 function warehouseTreeInsertAddNewCluster(pivot = undefined) {
 	let clusterEl = $(`<div class="clusterTemplateElement"></div>`);
+	let defaultCheck =
+		'<p>Default:</p><input type="radio" name="default_cluster" />';
 	let inputs = `<input type="text" placeholder="Cluster's name" />
 	<input type="number" min="0" placeholder="Capacity" />`;
 	let addNew = $(`<img src="../stylesGlobal/imgs/new_btn.svg" />`);
@@ -1294,6 +1301,7 @@ function warehouseTreeInsertAddNewCluster(pivot = undefined) {
 	} else {
 		$(".newClusterTemplateContainer").append(clusterEl);
 	}
+	clusterEl.append(defaultCheck);
 	clusterEl.append(inputs);
 	clusterEl.append(addNew);
 	clusterEl.append(remove);
@@ -1329,8 +1337,61 @@ function warehouseTreeInsertFormValidation() {
 		return false;
 	}
 
+	let clusterArr = Array.from(
+		$(".newClusterTemplateContainer .clusterTemplateElement")
+	);
+	if (clusterArr.length < 2) return false;
+
+	let tmp = 0;
+	clusterArr.forEach((cluster) => {
+		if ($(cluster).children()[1].checked) tmp += 1;
+		if ($($(cluster).children()[2]).val() === "") return false;
+		if ($($(cluster).children()[3]).val() === "") return false;
+	});
+
+	if (tmp !== 1) return false;
+
 	return true;
 }
+
+// Search category in addNewProductToTree
+function fillAddNewCategotyDropdown(data) {
+	$("#warehouseCategoryDropdown").empty();
+	let parent = $("#warehouseCategoryDropdown");
+	data.forEach((el) => {
+		parent.append(
+			`<p class="dropdown-member" data-barcode="${el.barcode}" data-parentId="${el.parent_id}">${el.title}</p>`
+		);
+	});
+
+	$(".dropdown-member").click(function () {
+		$("#warehouseTreeInsert_categoryId").attr(
+			"data-parentId",
+			$(this).attr("data-parentId")
+		);
+		$("#warehouseTreeInsert_categoryId").val($(this).html());
+		setTimeout(() => {
+			$("#warehouseCategoryDropdown").empty();
+		}, 100);
+	});
+}
+$("#warehouseTreeInsert_categoryId").keyup(function () {
+	if ($(this).val().trim() === "") return;
+	let text = $(this).val().trim();
+	poolConnect.then((pool) => {
+		pool
+			.request()
+			.input("title", text)
+			.execute("anbar.warehouse_tree_search", (err, res) => {
+				if (err !== null) console.log(err);
+				let tmp = res.recordset.filter((el) => {
+					return el.product_id === null;
+				});
+				fillAddNewCategotyDropdown(tmp);
+			});
+	});
+});
+
 function showAddNewProductToTreeForm() {
 	$(".newClusterTemplateContainer").empty();
 
@@ -1342,7 +1403,7 @@ function showAddNewProductToTreeForm() {
 
 	let now = new Date();
 	let day = ("0" + now.getDate()).slice(-2);
-	let month = ("0" + (now.getMonth() + 3)).slice(-2);
+	let month = ("0" + (now.getMonth() + 2)).slice(-2);
 	let date = now.getFullYear() + "-" + month + "-" + day;
 	$("#warehouseTreeInsert_expDateWarning").val(date);
 
@@ -1368,29 +1429,64 @@ function hideAddNewProductToTreeForm() {
 		});
 	}
 }
-function addNewProductToTree() {
-	if (!warehouseTreeInsertFormValidation()) return;
+function addNewProductToTree(cluster_id, cluster_default) {
+	if (!warehouseTreeInsertFormValidation()) return false;
 	poolConnect.then((pool) => {
 		pool
 			.request()
-			.input("parent_id")
+			.input(
+				"parent_id",
+				$("#warehouseTreeInsert_categoryId").attr("data-parentId")
+			)
 			.input("title", $("#warehouseTreeInsert_title"))
-			.input("product_id")
-			.input("cluster")
+			.input("product_id", Math.random() * 1000000)
+			.input("cluster", cluster_id)
+			.input("cluster_default", cluster_default)
 			.input("user_id", USER.id)
-			.input("exp_date_warning")
-			.input("cluster_default")
-			.input("barcode")
-			.execute("dbo.warehouse_tree_insert", (err, res) => {
+			.input(
+				"exp_date_warning",
+				moment($("#warehouseTreeInsert_expDateWarning").val()).format(
+					"yyyy-MM-DD HH:mm:ss"
+				)
+			)
+			.input("barcode", $("#warehouseTreeInsert_barcode").val())
+			.execute("anbar.warehouse_tree_insert", (err, res) => {
 				if (err !== null) console.log(err);
 			});
 	});
 }
 $("#warehouseTreeInsertSubmitBtn").click(() => {
-	addNewProductToTree();
-	setTimeout(() => {
-		hideAddNewProductToTreeForm();
-	}, 400);
+	if (!warehouseTreeInsertFormValidation()) return;
+
+	let cluster_id = new Date();
+	console.log(BigInt(cluster_id))
+	let cluster_default = undefined;
+
+	let clusterArr = Array.from(
+		$(".newClusterTemplateContainer .clusterTemplateElement")
+	);
+	clusterArr.forEach((cluster, index) => {
+		if ($(cluster).children()[1].checked) cluster_default = index;
+
+		poolConnect.then((pool) => {
+			pool
+				.request()
+				.input("cluster_id", BigInt(cluster_id))
+				.input("capacity", $($(cluster).children()[3]).val())
+				.input("cluster_order", index + 1)
+				.input("title", $($(cluster).children()[2]).val())
+				.input("user_id", USER.id)
+				.execute("anbar.cluster_insert", (err) => {
+					if (err !== null) console.log(err);
+				});
+		});
+	});
+
+	if (addNewProductToTree(cluster_id, cluster_default + 1)) {
+		setTimeout(() => {
+			hideAddNewProductToTreeForm();
+		}, 400);
+	}
 });
 $("#warehouseTreeInsertDiscardBtn").click(() => {
 	hideAddNewProductToTreeForm();
@@ -1426,9 +1522,9 @@ $("#date_to").change(function () {
 (function presetDate() {
 	var now = new Date();
 	var day = ("0" + now.getDate()).slice(-2);
-	var month = ("0" + now.getMonth()).slice(-2);
+	var month = ("0" + (now.getMonth() - 1)).slice(-2);
 	var today = now.getFullYear() + "-" + month + "-" + day;
-	var month2 = ("0" + now.getMonth()).slice(-2);
+	var month2 = ("0" + (now.getMonth() + 1)).slice(-2);
 	var today2 = now.getFullYear() + "-" + month2 + "-" + day;
 	$("#date_from").val(today);
 	$("#date_to").val(today2);
@@ -1436,4 +1532,12 @@ $("#date_to").change(function () {
 		moment($("#date_from").val()).format("yyyy-MM-DD HH:mm:ss"),
 		moment($("#date_to").val()).format("yyyy-MM-DD HH:mm:ss")
 	);
+
+	setInterval(() => {
+		console.log("Refreshed");
+		getAllBulks(
+			moment($("#date_from").val()).format("yyyy-MM-DD HH:mm:ss"),
+			moment($("#date_to").val()).format("yyyy-MM-DD HH:mm:ss")
+		);
+	}, 60000);
 })();

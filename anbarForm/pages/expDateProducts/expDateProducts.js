@@ -1,7 +1,7 @@
 async function fillExpDateOverTable() {
 	let data = await new Promise((resolve) => {
 		poolConnect.then((pool) => {
-			pool.request().execute("dbo.exp_date_over", (err, res) => {
+			pool.request().execute("anbar.exp_date_over", (err, res) => {
 				if (err !== null) console.log(err);
 				resolve(res.recordset);
 			});
@@ -82,7 +82,7 @@ async function fillExpDateOverTable() {
 async function fillExpDateSoCloseTable() {
 	let data = await new Promise((resolve) => {
 		poolConnect.then((pool) => {
-			pool.request().execute("dbo.exp_date_soclose", (err, res) => {
+			pool.request().execute("anbar.exp_date_soclose", (err, res) => {
 				if (err !== null) console.log(err);
 				resolve(res.recordset);
 			});

@@ -270,15 +270,15 @@ body main {
   position: absolute;
   top: 0;
   left: 0;
-  -webkit-filter: saturate(20%) opacity(80%);
-          filter: saturate(20%) opacity(80%);
+  -webkit-filter: brightness(40%);
+          filter: brightness(40%);
 }
 
 .login-section .login-container form {
   width: 30%;
   height: 70%;
   padding: 20px 0;
-  background-color: #3f3d3d;
+  background-color: #ffffff;
   overflow: hidden;
   border-radius: 20px;
   display: -webkit-box;
@@ -293,6 +293,16 @@ body main {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  position: relative;
+  -webkit-box-shadow: 0px 0px 22px 19px rgba(0, 0, 0, 0.75);
+          box-shadow: 0px 0px 22px 19px rgba(0, 0, 0, 0.75);
+}
+
+.login-section .login-container form #waves {
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 100%;
 }
 
 .login-section .login-container form .app-container {
@@ -312,9 +322,9 @@ body main {
 }
 
 .login-section .login-container form .app-container h1 {
-  color: #0088a9;
+  color: #188bc0;
   font-weight: bold;
-  font-size: 3rem;
+  font-size: 3.4rem;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
@@ -322,9 +332,9 @@ body main {
 }
 
 .login-section .login-container form .app-container h2 {
-  color: #ffffff;
+  color: #24252a;
   margin-top: 15px;
-  font-size: 1.7rem;
+  font-size: 2rem;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
@@ -337,6 +347,7 @@ body main {
           flex-grow: 2;
   width: 80%;
   position: relative;
+  bottom: 10px;
 }
 
 .login-section .login-container form .data-container .invalidData {
@@ -345,7 +356,8 @@ body main {
   text-align: center;
   color: #f12222;
   position: absolute;
-  top: 65%;
+  width: 100%;
+  top: 60%;
   left: 50%;
   -webkit-transform: translateX(-50%);
           transform: translateX(-50%);
@@ -361,7 +373,7 @@ body main {
 
 .login-section .login-container form .data-container .username p,
 .login-section .login-container form .data-container .password p {
-  color: #000000;
+  color: #24252a;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
@@ -382,36 +394,36 @@ body main {
   width: 100%;
   outline: none;
   border: none;
-  background-color: #bbb7b7;
   font-size: 1.2rem;
   padding: 5px 10px;
   -webkit-transition: 0.2s;
   transition: 0.2s;
-  color: black;
+  color: #ffffff;
+  border: 1px solid #24252a;
 }
 
 .login-section .login-container form .data-container .username input:focus,
 .login-section .login-container form .data-container .password input:focus {
-  background-color: #0e6636a9;
-  color: black;
+  border: 1px solid #188bc0;
+  color: #ffffff;
 }
 
 .login-section .login-container form .data-container .username input:focus + p,
 .login-section .login-container form .data-container .password input:focus + p {
   top: -3px;
   left: -10px;
-  color: #ffffff;
+  color: #24252a;
 }
 
 .login-section .login-container form .data-container input[data-active="true"] {
-  background-color: #0e6636a9;
-  color: black;
+  background-color: #188bc0;
+  color: #ffffff;
 }
 
 .login-section .login-container form .data-container input[data-active="true"] + p {
   top: -3px;
   left: -10px;
-  color: #ffffff;
+  color: #24252a;
 }
 
 .login-section .login-container form .data-container .username {
@@ -426,16 +438,20 @@ body main {
 }
 
 .login-section .login-container form .btn-container {
+  z-index: 10;
   -webkit-box-flex: 1;
       -ms-flex-positive: 1;
           flex-grow: 1;
+  position: relative;
+  bottom: 60px;
 }
 
 .login-section .login-container form .btn-container button {
   font-size: 2rem;
   font-weight: bold;
-  padding: 15px 25px;
-  background-color: #0088a9;
+  padding: 10px 45px;
+  -webkit-box-shadow: inset 18px 18px 36px #bbc2c5, inset -18px -18px 36px #bbc2c5;
+          box-shadow: inset 18px 18px 36px #bbc2c5, inset -18px -18px 36px #bbc2c5;
   border-radius: 20px;
   border: none;
   outline: none;
@@ -445,13 +461,15 @@ body main {
           user-select: none;
   -webkit-transition: 0.4s;
   transition: 0.4s;
-  color: #000000;
+  color: #24252a;
   cursor: pointer;
 }
 
 .login-section .login-container form .btn-container button:hover {
-  background-color: #0e6636;
+  background-color: #ffae00;
   color: #ffffff;
+  -webkit-box-shadow: inset 18px 18px 36px #ffae00, inset -18px -18px 36px #ffae00;
+          box-shadow: inset 18px 18px 36px #ffae00, inset -18px -18px 36px #ffae00;
 }
 
 nav {
@@ -663,11 +681,11 @@ nav .settings-container .settings {
 }
 
 nav .settings-container .settings:hover {
-  background-color: #a1e600;
+  background-color: #ffae00;
 }
 
 nav .settings-container .settings:hover::after {
-  background-color: #a1e600;
+  background-color: #ffae00;
 }
 
 nav .settings-container .settings:hover p {
@@ -704,14 +722,14 @@ nav .settings-container .settings[data-isClicked="true"] {
   width: 100%;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
-  background-color: #a1e600;
+  background-color: #ffae00;
   position: relative;
 }
 
 nav .settings-container .settings[data-isClicked="true"]::after {
   top: 100%;
   opacity: 1;
-  background-color: #a1e600;
+  background-color: #ffae00;
   width: 100%;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
@@ -727,7 +745,7 @@ nav .settings-container .dropdown {
   top: 100%;
   left: 0;
   position: absolute;
-  background-color: #a1e600;
+  background-color: #ffae00;
   -webkit-transition: 0.4s;
   transition: 0.4s;
   -webkit-transition-delay: 0.4s;
@@ -738,7 +756,7 @@ nav .settings-container .dropdown {
 }
 
 nav .settings-container .dropdown li {
-  background-color: #a1e600;
+  background-color: #ffae00;
   -webkit-transition: 0.4s;
   transition: 0.4s;
   cursor: pointer;
@@ -756,7 +774,7 @@ nav .settings-container .dropdown li {
 }
 
 nav .settings-container .dropdown li:hover {
-  background-color: #679202;
+  background-color: #ffae00;
 }
 
 nav .settings-container .dropdown li:hover p {
@@ -2954,6 +2972,11 @@ nav .settings-container .dropdown[data-isOpened="true"] {
   background: white;
   border-radius: 25px;
   padding: 5px 15px;
+  width: 440px;
+}
+
+.anbarAddData .anbarAdd-container .anbarAddToTreeForm .container .row .newClusterTemplateContainer .clusterTemplateElement p {
+  color: black;
 }
 
 .anbarAddData .anbarAdd-container .anbarAddToTreeForm .container .row .newClusterTemplateContainer .clusterTemplateElement input {
@@ -2968,7 +2991,7 @@ nav .settings-container .dropdown[data-isOpened="true"] {
 }
 
 .anbarAddData .anbarAdd-container .anbarAddToTreeForm .container .row .newClusterTemplateContainer .clusterTemplateElement input[type="number"] {
-  width: 100px;
+  width: 90px;
 }
 
 .anbarAddData .anbarAdd-container .anbarAddToTreeForm .container .row .newClusterTemplateContainer .clusterTemplateElement img {
@@ -3839,6 +3862,7 @@ ul#sessionsInfo li p {
 }
 
 .packaging {
+<<<<<<< HEAD
   background-color: white;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -3847,6 +3871,9 @@ ul#sessionsInfo li p {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+=======
+  background-color: #a8a4a4;
+>>>>>>> 638ff7ff358df24cc26f811bc3e5675367aeeb30
 }
 
 .packagingProductInfo {
@@ -4025,9 +4052,9 @@ ul#sessionsInfo li p {
 
 .packagingButtons {
   position: absolute;
-  -ms-flex-item-align: center;
-      align-self: center;
-  margin-top: 8vh;
+  -webkit-transform: translate(50%, 100%);
+          transform: translate(50%, 100%);
+  margin: 0 auto !important;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -4038,7 +4065,7 @@ ul#sessionsInfo li p {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  width: 60vw;
+  width: 50vw;
   z-index: 1000;
 }
 
