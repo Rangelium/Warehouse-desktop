@@ -153,6 +153,166 @@ $overall-box-fade-out-animation-delay: $overall-data-fade-in-animation-delay;
 		}
 	}
 
+	.editProductContainer {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		display: flex;
+		flex-direction: column;
+		justify-content: space-around;
+		padding: 10px 0;
+		align-items: center;
+		width: 400px;
+		height: 200px;
+		background-color: $primary-color;
+		z-index: 100000000;
+		border: 1px solid $dark-color;
+		box-shadow: 0px 0px 22px 19px rgba(0, 0, 0, 0.75);
+		transition: 0.4s;
+		opacity: 0;
+		pointer-events: none;
+
+		h1 {
+			font-size: 1.7rem;
+		}
+		input {
+			width: 90%;
+			padding: 2px 5px;
+			outline: none;
+			font-size: 1.3rem;
+			border: 2px solid $stand-out-color;
+		}
+
+		.row {
+			width: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+
+			button {
+				padding: 7px 15px;
+				outline: none;
+				transition: 0.3s;
+				cursor: pointer;
+				font-weight: bold;
+
+				&:hover {
+					transform: scale(1.1);
+				}
+
+				&:nth-child(1) {
+					color: white;
+					background: red;
+				}
+
+				&:nth-child(2) {
+					color: $dark-color;
+					background: $secondary-color;
+
+					&:hover {
+						background: $stand-out-color;
+					}
+				}
+			}
+		}
+	}
+
+	.createProductContainer {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		display: flex;
+		flex-direction: column;
+		justify-content: space-around;
+		padding: 10px 0;
+		align-items: center;
+		width: 400px;
+		height: 200px;
+		background-color: $primary-color;
+		z-index: 100000000;
+		border: 1px solid $dark-color;
+		box-shadow: 0px 0px 22px 19px rgba(0, 0, 0, 0.75);
+		transition: 0.4s;
+		opacity: 0;
+		pointer-events: none;
+
+		h1 {
+			font-size: 1.7rem;
+		}
+		input {
+			width: 90%;
+			padding: 2px 5px;
+			outline: none;
+			font-size: 1.3rem;
+			border: 2px solid $stand-out-color;
+		}
+
+		.row {
+			width: 40%;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+
+			button {
+				padding: 7px 15px;
+				outline: none;
+				transition: 0.3s;
+				cursor: pointer;
+				font-weight: bold;
+
+				&:hover {
+					transform: scale(1.1);
+				}
+
+				&:nth-child(1) {
+					color: white;
+					background: red;
+				}
+
+				&:nth-child(2) {
+					color: $dark-color;
+					background: $secondary-color;
+
+					&:hover {
+						background: $stand-out-color;
+					}
+				}
+			}
+		}
+	}
+
+	#productOptionsMenu {
+		position: absolute;
+		transition: 0.3s opacity;
+		height: fit-content;
+		background-color: $secondary-color;
+		z-index: 1000000;
+		opacity: 0;
+		pointer-events: none;
+
+		ul {
+			border: 1px solid $dark-color;
+
+			li {
+				border-bottom: 1px solid $dark-color;
+				padding: 5px 10px;
+				font-size: 1.1rem;
+				color: $dark-color;
+				cursor: pointer;
+				color: #000;
+				background-color: $secondary-color;
+				transition: 0.2s;
+
+				&:hover {
+					color: white;
+					background-color: $stand-out-color;
+				}
+			}
+		}
+	}
+
 	#categoryOptionsMenu {
 		position: absolute;
 		transition: 0.3s opacity;
@@ -575,40 +735,46 @@ $overall-box-fade-out-animation-delay: $overall-data-fade-in-animation-delay;
 				display: flex;
 				flex-grow: 1;
 				flex-direction: column;
-				justify-content: center;
+				justify-content: space-around;
 				align-items: center;
 				// height: 30%;
 				width: 100%;
 
-				h2 {
-					margin-bottom: 10px;
-					font-size: 1.6rem;
-					color: black;
-					user-select: none;
+				.row {
+					width: 100%;
+					display: flex;
+					align-items: center;
+					justify-content: space-around;
+
+					h2 {
+						font-size: 1.8rem;
+						color: black;
+						user-select: none;
+
+						span {
+							font-size: 1.8rem;
+						}
+					}
+
+					p {
+						color: black;
+						font-size: 1.4rem;
+						user-select: none;
+
+						span {
+							font-size: 1.4rem;
+						}
+					}
 
 					span {
-						font-size: 1.6rem;
-					}
-				}
+						user-select: initial;
+						color: $dark-color;
+						transition: 0.2s;
+						cursor: default;
 
-				p {
-					color: black;
-					font-size: 1.2rem;
-					user-select: none;
-
-					span {
-						font-size: 1.2rem;
-					}
-				}
-
-				span {
-					user-select: initial;
-					color: $dark-color;
-					transition: 0.2s;
-					cursor: default;
-
-					&:hover {
-						color: $primary-color;
+						&:hover {
+							color: $primary-color;
+						}
 					}
 				}
 			}
@@ -672,7 +838,7 @@ $overall-box-fade-out-animation-delay: $overall-data-fade-in-animation-delay;
 								font-size: 1.1rem;
 								cursor: default;
 								user-select: none;
-								color: $secondary-color;
+								color: #000;
 
 								border-top: 2px solid black;
 								border-bottom: 2px solid black;

@@ -8,11 +8,18 @@
 		<button id="alertYes">Yes</button>
 	</div>
 </div>
-<div id="categoryOptionsMenu" class="optionsMenuMenber">
-	<ul class="optionsMenuMenber">
-		<li id="createCategory" class="optionsMenuMenber">Create New</li>
-		<li id="editCategory" class="optionsMenuMenber">Edit</li>
-		<li id="deleteCategory" class="optionsMenuMenber">Delete</li>
+<div id="categoryOptionsMenu" class="categoryOptionsMenuMenber">
+	<ul class="categoryOptionsMenuMenber">
+		<li id="createCategory" class="categoryOptionsMenuMenber">Create New</li>
+		<li id="editCategory" class="categoryOptionsMenuMenber">Edit</li>
+		<li id="deleteCategory" class="categoryOptionsMenuMenber">Delete</li>
+	</ul>
+</div>
+<div id="productOptionsMenu" class="productOptionsMenuMenber">
+	<ul class="productOptionsMenuMenber">
+		<li id="createProduct" class="productOptionsMenuMenber">Create New</li>
+		<li id="editProduct" class="productOptionsMenuMenber">Edit</li>
+		<li id="deleteProduct" class="productOptionsMenuMenber">Delete</li>
 	</ul>
 </div>
 <div class="blur"></div>
@@ -29,7 +36,19 @@
 	<input type="text" id="createNewCategoryName" placeholder="Type title" />
 	<div class="row">
 		<button id="discardCreateCategoryBtn">Discard</button>
-		<button id="createCategoryTitleBtn">Add</button>
+		<button id="createCategoryBtn">Add</button>
+	</div>
+</div>
+<div class="editProductContainer">
+	<div class="row">
+		<button id="discardEditProductBtn">Discard</button>
+		<button id="editProductBtn">Change</button>
+	</div>
+</div>
+<div class="createProductContainer">
+	<div class="row">
+		<button id="discardCreateProductBtn">Discard</button>
+		<button id="createProductBtn">Add</button>
 	</div>
 </div>
 <aside class="treeViewContainer">
@@ -88,8 +107,29 @@
 		</div>
 		<div class="singleProductInfo">
 			<div class="text-data">
-				<h2>Product name: <span id="singleProductName"></span></h2>
-				<p>Product id: <span id="singleProductId"></span></p>
+				<div class="row">
+					<h2>Product name: <span id="singleProductName"></span></h2>
+				</div>
+				<div class="row">
+					<p>Product id: <span id="singleProductId"></span></p>
+				</div>
+				<div class="row">
+					<p>Price: <span id="singleProductPrice"></span></p>
+					<p>Currency: <span id="singleProductCurrency"></span></p>
+				</div>
+				<div class="row">
+					<p>Product cell: <span id="singleProductCell"></span></p>
+					<p>Expiration date: <span id="singleProductExpDate"></span></p>
+				</div>
+				<div class="row">
+					<p>Overall income: <span id="singleProductInQuantity"></span></p>
+				</div>
+				<div class="row">
+					<p>Left: <span id="singleProductLeft"></span></p>
+				</div>
+				<div class="row">
+					<p>Overall outcome: <span id="singleProductOutQuantity"></span></p>
+				</div>
 			</div>
 			<div class="table-data"></div>
 		</div>
