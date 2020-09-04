@@ -5,6 +5,8 @@
 $primary-color: #188bc0;
 $primary-color-shade1: #44b4e7;
 $secondary-color: #ffffff;
+$secondary-color-shade1: #ebe3e3;
+$secondary-color-shade2: #d8cece;
 $secondary-color-blured: rgb(136, 136, 136);
 $stand-out-color: #ffd900; // Previous : #ffae00
 $stand-out-color-blured: rgba(255, 174, 0, 0.692);
@@ -73,7 +75,7 @@ $anbar-info-default-screeniInfo-info-text-color: $primary-color;
 $anbar-info-tree-view-background-color: $primary-color-shade1;
 $anbar-info-tree-view-scrollbar-color: $stand-out-color;
 $anbar-info-tree-view-items-text-color: #000;
-$anbar-info-tree-view-items-text-hover-color: $stand-out-color;
+$anbar-info-tree-view-items-text-hover-color: $secondary-color;
 $anbar-info-tree-view-items-has-dropdown-color: #000;
 
 $anbar-info-search-box-background-color: $primary-color;
@@ -82,7 +84,7 @@ $anbar-info-search-box-sign-color: $secondary-color-blured;
 $anbar-info-search-box-sign-hover-color: $secondary-color;
 $anbar-info-search-box-placeholder-color: $secondary-color;
 $anbar-info-search-box-border-color: transparent;
-$anbar-info-search-box-border-hover-color: $secondary-color;
+$anbar-info-search-box-border-hover-color: $stand-out-color;
 
 $anbar-info-data-dividing-line-color: $dark-color;
 
@@ -93,7 +95,7 @@ $anbar-info-small-nav-btn-background-clicked-color: $stand-out-color;
 $anbar-info-small-nav-btn-border-color: $stand-out-color;
 $anbar-info-small-nav-btn-border-clicked-color: $dark-color;
 $anbar-info-small-nav-btn-text-color: $secondary-color;
-$anbar-info-small-nav-btn-text-clicked-color: $secondary-color;
+$anbar-info-small-nav-btn-text-clicked-color: #000;
 
 $anbar-info-overall-data-background-color: $anbar-info-small-nav-btn-background-clicked-color;
 $anbar-info-overall-data-header-text-color: #000;
