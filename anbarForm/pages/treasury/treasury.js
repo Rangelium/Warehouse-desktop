@@ -1,6 +1,6 @@
 var exchangeSelectedId = -1;
 poolConnect.then((pool) => {
-	pool.request().execute("dbo.currency_select", (err, res) => {
+	pool.request().execute("anbar.currency_select", (err, res) => {
 		let data = [];
 		for (let i of res.recordset) {
 			data.push(i);
@@ -16,7 +16,7 @@ poolConnect.then((pool) => {
 
 function fillTable() {
 	poolConnect.then((pool) => {
-		pool.request().execute("dbo.exchange_rate_select", (err, res) => {
+		pool.request().execute("anbar.exchange_rate_select", (err, res) => {
 			data = [];
 			console.log(res);
 			for (let i of res.recordset) {
@@ -86,7 +86,7 @@ $(".exchangeInputButton").on("click", () => {
 			.input("value", mssql.Float, value)
 			.input("time", mssql.DateTime, time)
 			.input("user_id", mssql.Int, USER["id"])
-			.execute("dbo.exchange_rate_insert", (err, res) => {
+			.execute("anbar.exchange_rate_insert", (err, res) => {
 				console.log(err);
 				$("input").val("");
 				fillTable();
@@ -104,7 +104,7 @@ $(".exchangeDeleteButton").on("click", () => {
 			.request()
 			.input("id", mssql.Int, exchangeSelectedId)
 			.input("user_id", mssql.Int, USER["id"])
-			.execute("dbo.exchange_rate_delete", (err, res) => {
+			.execute("anbar.exchange_rate_delete", (err, res) => {
 				fillTable();
 			});
 	});

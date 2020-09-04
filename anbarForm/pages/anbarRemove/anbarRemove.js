@@ -34,12 +34,17 @@ $("#createSessionDateFrom").attr("max", today);
 
 $("#sessionsDateFrom").attr("max", today);
 
-function getTotalPrice(){
-	return parseFloat(productPrice * productQuantity * (1 + parseInt(productExtraCharge) / 100) * (1 - (productDiscount / 100))).toFixed(2);
+function getTotalPrice() {
+	return parseFloat(
+		productPrice *
+			productQuantity *
+			(1 + parseInt(productExtraCharge) / 100) *
+			(1 - productDiscount / 100)
+	).toFixed(2);
 }
 
 poolConnect.then((pool) => {
-	pool.request().execute("dbo.currency_select", (err, res) => {
+	pool.request().execute("anbar.currency_select", (err, res) => {
 		let data = [];
 		for (let i of res.recordset) {
 			data.push(i);
@@ -163,18 +168,19 @@ $("#createSessionButton").on("click", () => {
 	// let dateTo = "01.01.2030";
 	console.log(dateFrom);
 	poolConnect.then((pool) => {
-		pool.request()
-				.input("begin_date", mssql.DateTime, dateFrom)
-				.execute("dbo.retail_sale_create_new_session", (err, res) => {
-					console.log("Session Create Error: \n", err, res);
-					fillSessions(dateFrom, new Date());
-					$(".sessionCreatePart").fadeOut(100);
-					$("#createSessionPartButton").fadeOut(100);
-					setTimeout(() => {
-						$(".sessionListPart").fadeIn(100);
-						// $("#createSessionPartButton").fadeOut(10);
-					}, 100);
-				});
+		pool
+			.request()
+			.input("begin_date", mssql.DateTime, dateFrom)
+			.execute("anbar.retail_sale_create_new_session", (err, res) => {
+				console.log("Session Create Error: \n", err, res);
+				fillSessions(dateFrom, new Date());
+				$(".sessionCreatePart").fadeOut(100);
+				$("#createSessionPartButton").fadeOut(100);
+				setTimeout(() => {
+					$(".sessionListPart").fadeIn(100);
+					// $("#createSessionPartButton").fadeOut(10);
+				}, 100);
+			});
 	});
 });
 
@@ -202,37 +208,38 @@ $("#submitSession").on("click", () => {
 	}
 
 	poolConnect.then((pool) => {
-		pool.request()
-				.input("extra_charge", mssql.Int, productExtraCharge)
-				.input("currency", mssql.Int, productCurrencyId)
-				.input("quantity", mssql.Int, productQuantity)
-				.input("price", mssql.Float, productPrice)
-				.input("exp_date", mssql.DateTime, productExpDate)
-				.input("cluster_id", mssql.Int, productClusterId)
-				.input("product_cell", mssql.Int, productCell)
-				.input("barcode", mssql.BigInt, 45684645654358)
-				.input("product_id", mssql.Int, productId)
-				.input("reason", mssql.NVarChar(250), productReason)
-				.input("document_id_as_parent", mssql.BigInt, productDocumentId)
-				.input("product_manufacturer", mssql.Int, productManufacture)
-				.input("retail_sale_session_id", mssql.Int, session_id)
-				.input("left", mssql.Float, productLeft)
-				.input("discount", mssql.SmallInt, productDiscount)
-				.execute("dbo.retail_sale_info_insert", (err, res) => {
-					console.log(err);
+		pool
+			.request()
+			.input("extra_charge", mssql.Int, productExtraCharge)
+			.input("currency", mssql.Int, productCurrencyId)
+			.input("quantity", mssql.Int, productQuantity)
+			.input("price", mssql.Float, productPrice)
+			.input("exp_date", mssql.DateTime, productExpDate)
+			.input("cluster_id", mssql.Int, productClusterId)
+			.input("product_cell", mssql.Int, productCell)
+			.input("barcode", mssql.BigInt, 45684645654358)
+			.input("product_id", mssql.Int, productId)
+			.input("reason", mssql.NVarChar(250), productReason)
+			.input("document_id_as_parent", mssql.BigInt, productDocumentId)
+			.input("product_manufacturer", mssql.Int, productManufacture)
+			.input("retail_sale_session_id", mssql.Int, session_id)
+			.input("left", mssql.Float, productLeft)
+			.input("discount", mssql.SmallInt, productDiscount)
+			.execute("anbar.retail_sale_info_insert", (err, res) => {
+				console.log(err);
 
-					$(".sessionsInfoNewInputs").fadeOut(100);
-					$(".sessionsInfoSearch").fadeOut(100);
-					fillSessionsInfo(session_id);
-					
-					setTimeout(() => {
-						$(".sessionsPart").fadeIn(100);
-						$(".sessionsInfoPart").fadeIn(100);
-					}, 100)
-					$("#acceptNewSessionInfo").fadeIn(0);
-				})
-	})
-})
+				$(".sessionsInfoNewInputs").fadeOut(100);
+				$(".sessionsInfoSearch").fadeOut(100);
+				fillSessionsInfo(session_id);
+
+				setTimeout(() => {
+					$(".sessionsPart").fadeIn(100);
+					$(".sessionsInfoPart").fadeIn(100);
+				}, 100);
+				$("#acceptNewSessionInfo").fadeIn(0);
+			});
+	});
+});
 
 $("#acceptNewSessionInfo").on("click", () => {
 	poolConnect.then((pool) => {
@@ -240,255 +247,267 @@ $("#acceptNewSessionInfo").on("click", () => {
 			.request()
 			.input("retail_sale_session_id", mssql.Int, session_id)
 			.input("user_id", mssql.Int, USER["id"])
-			.execute("dbo.retail_sale_info_accept_insert", (err, res) => {
+			.execute("anbar.retail_sale_info_accept_insert", (err, res) => {
 				console.log(err);
+			});
+	});
+});
 
-function fillSessions(dateFrom, dateTo){
+function fillSessions(dateFrom, dateTo) {
 	// dateFrom = "20.07.2020";
 	// dateTo = Date.now();
 	poolConnect.then((pool) => {
-		pool.request()
-				.input("date_from", mssql.DateTime, dateFrom)
-				.input("date_to", mssql.DateTime, dateTo)
-				.execute("dbo.retail_sale_session_selection", (err, res) => {
-					console.log("Session Selection Error: \n",err, res);
-					data = []
-					for(let i of res.recordset){
-						data.push(i);
-					}
-					$("#sessions").empty();
-					console.log(data);
-					//todo TABLE HEADER
-					let headLi          = document.createElement("li");
-					headLi.className 	 += "title";
-					let headDiv         = document.createElement("div")
-					headDiv.className   = "inventoryItemContainer";
-					headDiv.style.width = "100%";					
+		pool
+			.request()
+			.input("date_from", mssql.DateTime, dateFrom)
+			.input("date_to", mssql.DateTime, dateTo)
+			.execute("anbar.retail_sale_session_selection", (err, res) => {
+				console.log("Session Selection Error: \n", err, res);
+				data = [];
+				for (let i of res.recordset) {
+					data.push(i);
+				}
+				$("#sessions").empty();
+				console.log(data);
+				//todo TABLE HEADER
+				let headLi = document.createElement("li");
+				headLi.className += "title";
+				let headDiv = document.createElement("div");
+				headDiv.className = "inventoryItemContainer";
+				headDiv.style.width = "100%";
 
-					let head_BeginDate           = document.createElement("p");
-					head_BeginDate.innerHTML     = "Begin Date";
-					head_BeginDate.style.padding = "12px 16px"
-					
-					let head_CostPrice           = document.createElement("p");
-					head_CostPrice.innerHTML     = "Cost Price";
-					head_CostPrice.style.padding = "12px 16px";
-					
-					let head_DefaultCurrency           = document.createElement("p");
-					head_DefaultCurrency.innerHTML     = "Default Currency";  
-					head_DefaultCurrency.style.padding = "12px 16px";
-					
-					let head_IsDone           = document.createElement("p");
-					head_IsDone.innerHTML     = "Is Done";
-					head_IsDone.style.padding = "12px 16px";
-				
-					let head_WholePrice           = document.createElement("p");
-					head_WholePrice.innerHTML 	  = "Whole Price"
-					head_WholePrice.style.padding	= "12px 16px";
-					
-					headDiv.appendChild(head_BeginDate);
-					headDiv.appendChild(head_CostPrice);
-					headDiv.appendChild(head_DefaultCurrency);
-					headDiv.appendChild(head_IsDone);
-					headDiv.appendChild(head_WholePrice);
-					headLi.appendChild(headDiv);
-					document.getElementById('sessions').appendChild(headLi)
-					
-					//todo TABLE BODY
-					data.forEach((element) => {
-						
-						let li = document.createElement("li");
-						li.style.opacity = '1';
-						let titleDiv = document.createElement("div");
-						titleDiv.className   = "inventoryItemContainer";
-						titleDiv.style.width = "100%";
-						
-						let sessionId = element.id;
+				let head_BeginDate = document.createElement("p");
+				head_BeginDate.innerHTML = "Begin Date";
+				head_BeginDate.style.padding = "12px 16px";
 
-						let sessionBegin = document.createElement('p')
-						sessionBegin.textContent = moment(element.begin_date).format("DD/MM/YYYY")
+				let head_CostPrice = document.createElement("p");
+				head_CostPrice.innerHTML = "Cost Price";
+				head_CostPrice.style.padding = "12px 16px";
 
-						let sessionCost = document.createElement('p')
-						sessionCost.textContent = element.cost_price == null ? 'Empty' : element.cost_price.toFixed(2);
+				let head_DefaultCurrency = document.createElement("p");
+				head_DefaultCurrency.innerHTML = "Default Currency";
+				head_DefaultCurrency.style.padding = "12px 16px";
 
-						let sessionDefaultCurrency = document.createElement('p')
-						sessionDefaultCurrency.textContent = element.default_currency
+				let head_IsDone = document.createElement("p");
+				head_IsDone.innerHTML = "Is Done";
+				head_IsDone.style.padding = "12px 16px";
 
-						let sessionIsDone = document.createElement('p')
-						sessionIsDone.textContent = element.is_done
+				let head_WholePrice = document.createElement("p");
+				head_WholePrice.innerHTML = "Whole Price";
+				head_WholePrice.style.padding = "12px 16px";
 
-						let sessionWholePrice = document.createElement('p')
-						sessionWholePrice.textContent = element.whole_price == null ? 'Empty' : element.whole_price.toFixed(2);
+				headDiv.appendChild(head_BeginDate);
+				headDiv.appendChild(head_CostPrice);
+				headDiv.appendChild(head_DefaultCurrency);
+				headDiv.appendChild(head_IsDone);
+				headDiv.appendChild(head_WholePrice);
+				headLi.appendChild(headDiv);
+				document.getElementById("sessions").appendChild(headLi);
 
-					
-						titleDiv.appendChild(sessionBegin);
-						titleDiv.appendChild(sessionCost);
-						titleDiv.appendChild(sessionDefaultCurrency);
-						titleDiv.appendChild(sessionIsDone);
-						titleDiv.appendChild(sessionWholePrice);
-						li.appendChild(titleDiv);
-						li.onclick = function(){
-							$("li").removeClass("checked");
-							li.className += "checked";
-							console.log(sessionId);
-							session_id = sessionId;
-							fillSessionsInfo(sessionId);
-						}
-						document.getElementById("sessions").appendChild(li);
-					})
-				})
-	})
+				//todo TABLE BODY
+				data.forEach((element) => {
+					let li = document.createElement("li");
+					li.style.opacity = "1";
+					let titleDiv = document.createElement("div");
+					titleDiv.className = "inventoryItemContainer";
+					titleDiv.style.width = "100%";
+
+					let sessionId = element.id;
+
+					let sessionBegin = document.createElement("p");
+					sessionBegin.textContent = moment(element.begin_date).format(
+						"DD/MM/YYYY"
+					);
+
+					let sessionCost = document.createElement("p");
+					sessionCost.textContent =
+						element.cost_price == null
+							? "Empty"
+							: element.cost_price.toFixed(2);
+
+					let sessionDefaultCurrency = document.createElement("p");
+					sessionDefaultCurrency.textContent = element.default_currency;
+
+					let sessionIsDone = document.createElement("p");
+					sessionIsDone.textContent = element.is_done;
+
+					let sessionWholePrice = document.createElement("p");
+					sessionWholePrice.textContent =
+						element.whole_price == null
+							? "Empty"
+							: element.whole_price.toFixed(2);
+
+					titleDiv.appendChild(sessionBegin);
+					titleDiv.appendChild(sessionCost);
+					titleDiv.appendChild(sessionDefaultCurrency);
+					titleDiv.appendChild(sessionIsDone);
+					titleDiv.appendChild(sessionWholePrice);
+					li.appendChild(titleDiv);
+					li.onclick = function () {
+						$("li").removeClass("checked");
+						li.className += "checked";
+						console.log(sessionId);
+						session_id = sessionId;
+						fillSessionsInfo(sessionId);
+					};
+					document.getElementById("sessions").appendChild(li);
+				});
+			});
+	});
 }
 
-
-function fillSessionsInfo(sessionId){
+function fillSessionsInfo(sessionId) {
 	poolConnect.then((pool) => {
-		pool.request()
-				.input("retail_sale_session_id", mssql.Int, sessionId)
-				.execute("dbo.retail_sale_session_info", (err, res) => {
-					data = [];
-					for(let i of res.recordset){
-						data.push(i);
-					}
-					console.log(data);
-					$("#sessionsInfo").empty();
-					let headLi          =  document.createElement("li");
-					headLi.className 		+= "title";
-					let headDiv         =  document.createElement("div")
-					headDiv.className   =  "inventoryItemContainer";
-					headDiv.style.width =  "100%";					
+		pool
+			.request()
+			.input("retail_sale_session_id", mssql.Int, sessionId)
+			.execute("anbar.retail_sale_session_info", (err, res) => {
+				data = [];
+				for (let i of res.recordset) {
+					data.push(i);
+				}
+				console.log(data);
+				$("#sessionsInfo").empty();
+				let headLi = document.createElement("li");
+				headLi.className += "title";
+				let headDiv = document.createElement("div");
+				headDiv.className = "inventoryItemContainer";
+				headDiv.style.width = "100%";
 
-					let head_ProductTitle = document.createElement('p');
-					head_ProductTitle.textContent = 'Product Title'
+				let head_ProductTitle = document.createElement("p");
+				head_ProductTitle.textContent = "Product Title";
 
-					let head_ExpiryDate = document.createElement('p');
-					head_ExpiryDate.textContent = "Expiry Date";
-					
-					let head_Quantity = document.createElement('p');
-					head_Quantity.textContent = 'Quantity';
+				let head_ExpiryDate = document.createElement("p");
+				head_ExpiryDate.textContent = "Expiry Date";
 
-					let head_ProductUnit = document.createElement('p');
-					head_ProductUnit.textContent = "Product Unit";
+				let head_Quantity = document.createElement("p");
+				head_Quantity.textContent = "Quantity";
 
-					let head_PriceForOne = document.createElement('p');
-					head_PriceForOne.textContent = "Price For One";
+				let head_ProductUnit = document.createElement("p");
+				head_ProductUnit.textContent = "Product Unit";
 
-					let head_ExtraCharge = document.createElement('p');
-					head_ExtraCharge.textContent = "Extra Charge";
+				let head_PriceForOne = document.createElement("p");
+				head_PriceForOne.textContent = "Price For One";
 
-					let head_ForSalePrice = document.createElement('p');
-					head_ForSalePrice.textContent = "For Sale Price";
+				let head_ExtraCharge = document.createElement("p");
+				head_ExtraCharge.textContent = "Extra Charge";
 
-					let head_FullPrice = document.createElement('p');
-					head_FullPrice.textContent = "Full Price";
+				let head_ForSalePrice = document.createElement("p");
+				head_ForSalePrice.textContent = "For Sale Price";
 
-					let head_Currency = document.createElement('p');
-					head_Currency.textContent = "Currency";
+				let head_FullPrice = document.createElement("p");
+				head_FullPrice.textContent = "Full Price";
 
-					let head_Reason = document.createElement('p');
-					head_Reason.textContent = "Reason";
+				let head_Currency = document.createElement("p");
+				head_Currency.textContent = "Currency";
 
-					headDiv.appendChild(head_ProductTitle);
-					headDiv.appendChild(head_ExpiryDate);
-					headDiv.appendChild(head_Quantity);
-					headDiv.appendChild(head_ProductUnit);
-					headDiv.appendChild(head_PriceForOne);
-					headDiv.appendChild(head_ExtraCharge);
-					headDiv.appendChild(head_ForSalePrice);
-					headDiv.appendChild(head_FullPrice);
-					headDiv.appendChild(head_Currency);
-					headDiv.appendChild(head_Reason);
+				let head_Reason = document.createElement("p");
+				head_Reason.textContent = "Reason";
 
-					headLi.appendChild(headDiv);
-					document.getElementById("sessionsInfo").appendChild(headLi);
-					data.forEach((element) => {
-						let li = document.createElement('li');
-						let div = document.createElement("div");
-						div.className   = "inventoryItemContainer";
-						div.style.width = "100%";
-						
-						let productTitle = document.createElement("p");
-						productTitle.innerHTML = element['product_title'];
+				headDiv.appendChild(head_ProductTitle);
+				headDiv.appendChild(head_ExpiryDate);
+				headDiv.appendChild(head_Quantity);
+				headDiv.appendChild(head_ProductUnit);
+				headDiv.appendChild(head_PriceForOne);
+				headDiv.appendChild(head_ExtraCharge);
+				headDiv.appendChild(head_ForSalePrice);
+				headDiv.appendChild(head_FullPrice);
+				headDiv.appendChild(head_Currency);
+				headDiv.appendChild(head_Reason);
 
-						let expiryDate = document.createElement('p');
-						expiryDate.innerHTML = moment(element['exp_date']).format('DD/MM/YYYY');
+				headLi.appendChild(headDiv);
+				document.getElementById("sessionsInfo").appendChild(headLi);
+				data.forEach((element) => {
+					let li = document.createElement("li");
+					let div = document.createElement("div");
+					div.className = "inventoryItemContainer";
+					div.style.width = "100%";
 
-						let quantity = document.createElement('p');
-						quantity.innerHTML = element['quantity'];
+					let productTitle = document.createElement("p");
+					productTitle.innerHTML = element["product_title"];
 
-						let productUnit = document.createElement('p');
-						productUnit.innerHTML = element['unit_title'];
+					let expiryDate = document.createElement("p");
+					expiryDate.innerHTML = moment(element["exp_date"]).format(
+						"DD/MM/YYYY"
+					);
 
-						let priceForOne = document.createElement('p');
-						priceForOne.innerHTML = element['pricefor1'];
+					let quantity = document.createElement("p");
+					quantity.innerHTML = element["quantity"];
 
-						let extraCharge = document.createElement('p');
-						extraCharge.innerHTML = element['extra_charge'];
+					let productUnit = document.createElement("p");
+					productUnit.innerHTML = element["unit_title"];
 
-						let forSalePrice = document.createElement('p');
-						forSalePrice.innerHTML = element['for_sale_price'].toFixed(2);
+					let priceForOne = document.createElement("p");
+					priceForOne.innerHTML = element["pricefor1"];
 
-						let fullPrice = document.createElement('p');
-						fullPrice.innerHTML = element['sum_price'].toFixed(2);
+					let extraCharge = document.createElement("p");
+					extraCharge.innerHTML = element["extra_charge"];
 
-						let currency = document.createElement('p');
-						currency.innerHTML = element['currency_title'];
+					let forSalePrice = document.createElement("p");
+					forSalePrice.innerHTML = element["for_sale_price"].toFixed(2);
 
-						let reason = document.createElement('p');
-						reason.innerHTML = element['reason'];
-						
-						div.appendChild(productTitle);
-						div.appendChild(expiryDate);
-						div.appendChild(quantity);
-						div.appendChild(productUnit);
-						div.appendChild(priceForOne);
-						div.appendChild(priceForOne);
-						div.appendChild(extraCharge);
-						div.appendChild(forSalePrice);
-						div.appendChild(fullPrice);
-						div.appendChild(currency);
-						div.appendChild(reason);
+					let fullPrice = document.createElement("p");
+					fullPrice.innerHTML = element["sum_price"].toFixed(2);
 
-						li.appendChild(div);
-						document.getElementById("sessionsInfo").appendChild(li);
-					});
-					$(".sessionInfoList").fadeIn(100);
-					// $("#acceptNewSessionInfo").fadeOut(0)
-					$(".addNewSessionInfo").fadeIn(100);
-					$(".addNewSessionInfo").css("display", 'flex');
+					let currency = document.createElement("p");
+					currency.innerHTML = element["currency_title"];
+
+					let reason = document.createElement("p");
+					reason.innerHTML = element["reason"];
+
+					div.appendChild(productTitle);
+					div.appendChild(expiryDate);
+					div.appendChild(quantity);
+					div.appendChild(productUnit);
+					div.appendChild(priceForOne);
+					div.appendChild(priceForOne);
+					div.appendChild(extraCharge);
+					div.appendChild(forSalePrice);
+					div.appendChild(fullPrice);
+					div.appendChild(currency);
+					div.appendChild(reason);
+
+					li.appendChild(div);
+					document.getElementById("sessionsInfo").appendChild(li);
 				});
-	})
+				$(".sessionInfoList").fadeIn(100);
+				// $("#acceptNewSessionInfo").fadeOut(0)
+				$(".addNewSessionInfo").fadeIn(100);
+				$(".addNewSessionInfo").css("display", "flex");
+			});
+	});
 }
 
 function fillSessionSearch(value) {
 	let parameterName = "";
 	let parameterType = "";
-	
-	if(!isNaN(value)){
+
+	if (!isNaN(value)) {
 		parameterName = "product_id";
 		parameterType = mssql.Int;
-	}
-	else{
+	} else {
 		parameterName = "title";
 		parameterType = mssql.NVarChar(250);
 	}
 	poolConnect.then((pool) => {
 		console.log(parameterName);
-		pool.request()
-				.input(parameterName, parameterType, value)
-				.execute("dbo.retail_sale_search", (err, res) => {
-					if(err){
-						console.log(err);
-						return;
-					}
-					data = []
-					for(let i of res.recordset){
-						console.log(res.recordset)
-						data.push(i);
-					}
-					$(".sessionSearchContainer").remove();
-					for(let i of data){
-						$(".sessionSearchTables").append(
-							`<div class="sessionSearchContainer">
+		pool
+			.request()
+			.input(parameterName, parameterType, value)
+			.execute("anbar.retail_sale_search", (err, res) => {
+				if (err) {
+					console.log(err);
+					return;
+				}
+				data = [];
+				for (let i of res.recordset) {
+					console.log(res.recordset);
+					data.push(i);
+				}
+				$(".sessionSearchContainer").remove();
+				for (let i of data) {
+					$(".sessionSearchTables").append(
+						`<div class="sessionSearchContainer">
 									<div class="sessionSearchTable">
 											<div class="sessionSearchTableHeader">
 												<div class="sessionSearchHeaderItem">Product Title</div>
@@ -497,7 +516,7 @@ function fillSessionSearch(value) {
 												<div class="sessionSearchHeaderItem">Out Quantity</div>
 												<div class="sessionSearchHeaderItem">Left</div>
 												<div class="sessionSearchHeaderItem">Unit</div>
-												<div class="sessionSearchHeaderItem">Price</div>
+												<div class="sessionSearchHeaderItem">Unit Price</div>
 												<div class="sessionSearchHeaderItem">Currency</div>
 											</div>
 											<div class="sessionSearchTableContent">
@@ -522,7 +541,7 @@ function fillSessionSearch(value) {
 													<div class="sessionSearchTableData">${i.out_quantity}</div>
 													<div class="sessionSearchTableData" id="productLeft">${i.left}</div>
 													<div class="sessionSearchTableData" id="productunit">${i.unit_title}</div>
-													<div class="sessionSearchTableData" id="productPrice">${i.price}</div>
+													<div class="sessionSearchTableData" id="productPrice">${i.unit_price}</div>
 													<div class="sessionSearchTableData">${i.currency_title}</div>
 												</div>
 											</div>

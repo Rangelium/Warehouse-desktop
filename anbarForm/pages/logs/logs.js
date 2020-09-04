@@ -2,7 +2,7 @@
 // like this logs.js
 
 // poolConnect.then((pool) => {
-// 	pool.request().execute("dbo.exec_all_logs", (err, res) => {
+// 	pool.request().execute("anbar.exec_all_logs", (err, res) => {
 // 		generateTable($("#logsTable")[0], res.recordset);
 // 		generateTableHead($("#logsTable")[0], ["Operation", "Action", "Date", "Username"]);
 // 		$("td").addClass("logsTableElement");
@@ -13,7 +13,7 @@
 // 	});
 // });
 poolConnect.then((pool) => {
-	pool.request().execute("dbo.exec_all_logs", (err, res) => {
+	pool.request().execute("anbar.exec_all_logs", (err, res) => {
 		data = [];
 		for (let i of res.recordset) {
 			data.push(i);
