@@ -74,7 +74,7 @@ body main {
 .treeViewContainer::-webkit-scrollbar-thumb {
   border-radius: 10px;
   border-radius: 10px;
-  background: #0088a9;
+  background: #ffd900;
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
           box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
 }
@@ -84,7 +84,7 @@ body main {
 }
 
 .treeView p {
-  color: #0c0404;
+  color: #000;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
@@ -95,11 +95,11 @@ body main {
 }
 
 .treeView p:hover {
-  color: #e7e7e7;
+  color: #ffd900;
 }
 
 .treeView p[data-isSelected="true"] {
-  color: #e7e7e7;
+  color: #ffd900;
 }
 
 .treeView .tv-cont li {
@@ -466,10 +466,10 @@ body main {
 }
 
 .login-section .login-container form .btn-container button:hover {
-  background-color: #ffae00;
+  background-color: #ffd900;
   color: #ffffff;
-  -webkit-box-shadow: inset 18px 18px 36px #ffae00, inset -18px -18px 36px #ffae00;
-          box-shadow: inset 18px 18px 36px #ffae00, inset -18px -18px 36px #ffae00;
+  -webkit-box-shadow: inset 18px 18px 36px #ffd900, inset -18px -18px 36px #ffd900;
+          box-shadow: inset 18px 18px 36px #ffd900, inset -18px -18px 36px #ffd900;
 }
 
 nav {
@@ -526,11 +526,11 @@ nav .nav-links .nav-link:hover::after {
 }
 
 nav .nav-links .nav-link:hover p {
-  color: #0088a9;
+  color: #188bc0;
 }
 
 nav .nav-links .nav-link p {
-  color: #edf0f1;
+  color: #ffffff;
   font-weight: 500;
   font-size: 1.4rem;
   -webkit-transition: 0.4s;
@@ -567,7 +567,7 @@ nav .nav-links .nav-link[data-hasDropdown="true"]:hover::before {
 
 nav .nav-links .nav-link[data-hasDropdown="true"]::before {
   content: "\25B6";
-  color: #0088a9;
+  color: #188bc0;
   display: inline-block;
   margin-right: 6px;
   position: relative;
@@ -636,7 +636,7 @@ nav .nav-links .nav-link[data-hasDropdown="true"] .dropdown li p {
 }
 
 nav .nav-links .nav-link[data-active="true"] p {
-  color: #0088a9;
+  color: #188bc0;
 }
 
 nav .nav-links .nav-link[data-active="true"]::after {
@@ -681,11 +681,11 @@ nav .settings-container .settings {
 }
 
 nav .settings-container .settings:hover {
-  background-color: #ffae00;
+  background-color: #ffd900;
 }
 
 nav .settings-container .settings:hover::after {
-  background-color: #ffae00;
+  background-color: #ffd900;
 }
 
 nav .settings-container .settings:hover p {
@@ -722,14 +722,14 @@ nav .settings-container .settings[data-isClicked="true"] {
   width: 100%;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
-  background-color: #ffae00;
+  background-color: #ffd900;
   position: relative;
 }
 
 nav .settings-container .settings[data-isClicked="true"]::after {
   top: 100%;
   opacity: 1;
-  background-color: #ffae00;
+  background-color: #ffd900;
   width: 100%;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
@@ -745,7 +745,7 @@ nav .settings-container .dropdown {
   top: 100%;
   left: 0;
   position: absolute;
-  background-color: #ffae00;
+  background-color: #ffd900;
   -webkit-transition: 0.4s;
   transition: 0.4s;
   -webkit-transition-delay: 0.4s;
@@ -756,7 +756,7 @@ nav .settings-container .dropdown {
 }
 
 nav .settings-container .dropdown li {
-  background-color: #ffae00;
+  background-color: #ffd900;
   -webkit-transition: 0.4s;
   transition: 0.4s;
   cursor: pointer;
@@ -774,7 +774,7 @@ nav .settings-container .dropdown li {
 }
 
 nav .settings-container .dropdown li:hover {
-  background-color: #ffae00;
+  background-color: #ffd900;
 }
 
 nav .settings-container .dropdown li:hover p {
@@ -845,20 +845,20 @@ nav .settings-container .dropdown[data-isOpened="true"] {
 .tbody::-webkit-scrollbar-thumb {
   border-radius: 10px;
   border-radius: 10px;
-  background: #0088a9;
+  background: #ffd900;
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
           box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
 }
 
 .anbarInfo {
-  background-color: #a8a4a4;
+  background-color: #ffffff;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
 }
 
 .anbarInfo .treeViewContainer {
-  background-color: rgba(110, 68, 9, 0.404);
+  background-color: #44b4e7;
   overflow-y: scroll;
   overflow-x: hidden;
   direction: rtl;
@@ -881,13 +881,13 @@ nav .settings-container .dropdown[data-isOpened="true"] {
   font-size: 1.8rem;
   cursor: pointer;
   z-index: 100;
-  color: #b6b0b0;
+  color: #888888;
   -webkit-transition: 0.4s;
   transition: 0.4s;
 }
 
 .anbarInfo .treeViewContainer .searchContainer p:hover {
-  color: #fff;
+  color: #ffffff;
 }
 
 .anbarInfo .treeViewContainer .searchContainer #searchInputBox {
@@ -899,9 +899,9 @@ nav .settings-container .dropdown[data-isOpened="true"] {
   border: 3px solid transparent;
   -webkit-transition: 0.4s;
   transition: 0.4s;
-  background-color: rgba(110, 68, 9, 0.404);
+  background-color: #188bc0;
   font-weight: 500;
-  color: #fff;
+  color: #ffffff;
 }
 
 .anbarInfo .treeViewContainer .searchContainer #searchInputBox::-webkit-input-placeholder {
@@ -925,7 +925,7 @@ nav .settings-container .dropdown[data-isOpened="true"] {
 }
 
 .anbarInfo .treeViewContainer .searchContainer #searchInputBox:focus, .anbarInfo .treeViewContainer .searchContainer #searchInputBox:hover {
-  border: 3px solid #09acec;
+  border: 3px solid #ffffff;
 }
 
 .anbarInfo .data {
@@ -939,11 +939,11 @@ nav .settings-container .dropdown[data-isOpened="true"] {
   -webkit-box-flex: 1;
       -ms-flex-positive: 1;
           flex-grow: 1;
-  border-left: 3px solid #3a3838;
+  border-left: 3px solid #24252a;
 }
 
 .anbarInfo .data .smallNav {
-  background-color: rgba(110, 68, 9, 0.404);
+  background-color: #188bc0;
   position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -963,7 +963,7 @@ nav .settings-container .dropdown[data-isOpened="true"] {
   width: 100%;
   height: 100%;
   z-index: 10;
-  background-color: rgba(110, 68, 9, 0.404);
+  background-color: #188bc0;
 }
 
 .anbarInfo .data .smallNav #showOverallInfo,
@@ -971,7 +971,7 @@ nav .settings-container .dropdown[data-isOpened="true"] {
 .anbarInfo .data .smallNav #expandTreeView,
 .anbarInfo .data .smallNav #closeTreeView {
   z-index: 100;
-  border: 2px solid #1dc4ee;
+  border: 2px solid #ffd900;
   background-color: #9cdef841;
   margin-right: 10px;
 }
@@ -987,21 +987,21 @@ nav .settings-container .dropdown[data-isOpened="true"] {
 .anbarInfo .data .smallNav #hideShowTreeView::after,
 .anbarInfo .data .smallNav #expandTreeView::after,
 .anbarInfo .data .smallNav #closeTreeView::after {
-  background-color: white;
+  background-color: #ffd900;
 }
 
 .anbarInfo .data .smallNav #showOverallInfo p,
 .anbarInfo .data .smallNav #hideShowTreeView p,
 .anbarInfo .data .smallNav #expandTreeView p,
 .anbarInfo .data .smallNav #closeTreeView p {
-  color: white;
+  color: #ffffff;
 }
 
 .anbarInfo .data .smallNav #showOverallInfo[data-isClicked="true"],
 .anbarInfo .data .smallNav #hideShowTreeView[data-isClicked="true"],
 .anbarInfo .data .smallNav #expandTreeView[data-isClicked="true"],
 .anbarInfo .data .smallNav #closeTreeView[data-isClicked="true"] {
-  border: 2px solid #000;
+  border: 2px solid #24252a;
 }
 
 .anbarInfo .data .smallNav #showOverallInfo[data-isClicked="true"]::after,
@@ -1016,7 +1016,7 @@ nav .settings-container .dropdown[data-isOpened="true"] {
 .anbarInfo .data .smallNav #hideShowTreeView[data-isClicked="true"] p,
 .anbarInfo .data .smallNav #expandTreeView[data-isClicked="true"] p,
 .anbarInfo .data .smallNav #closeTreeView[data-isClicked="true"] p {
-  color: #000;
+  color: #ffffff;
 }
 
 .anbarInfo .data .smallNav #showOverallInfo[data-isClicked="false"]::after {
@@ -1065,7 +1065,7 @@ nav .settings-container .dropdown[data-isOpened="true"] {
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
-  color: #e7e4e4;
+  color: #188bc0;
   font-size: 1.5rem;
   text-shadow: 2px 2px 8px #797575, -2px -2px 8px white;
 }
@@ -1097,7 +1097,7 @@ nav .settings-container .dropdown[data-isOpened="true"] {
           flex-grow: 1;
   overflow: hidden;
   position: absolute;
-  background-color: white;
+  background-color: #ffd900;
 }
 
 .anbarInfo .data .screenInfo .overall-info .overall-info-data {
@@ -1125,7 +1125,7 @@ nav .settings-container .dropdown[data-isOpened="true"] {
 .anbarInfo .data .screenInfo .overall-info .overall-info-data h2 {
   padding: 15px;
   font-size: 1.9rem;
-  color: black;
+  color: #000;
 }
 
 .anbarInfo .data .screenInfo .overall-info .overall-info-data p {
@@ -1137,14 +1137,14 @@ nav .settings-container .dropdown[data-isOpened="true"] {
 .anbarInfo .data .screenInfo .overall-info .overall-info-data p span {
   font-size: 1.3rem;
   font-weight: bold;
-  color: #2e2727;
+  color: #252121;
   -webkit-transition: 0.2s;
   transition: 0.2s;
   cursor: default;
 }
 
 .anbarInfo .data .screenInfo .overall-info .overall-info-data p span:hover {
-  color: #000;
+  color: #ffffff;
 }
 
 .anbarInfo .data .screenInfo .overall-info .overall-info-data .upper-text {
@@ -1334,7 +1334,7 @@ nav .settings-container .dropdown[data-isOpened="true"] {
   position: absolute;
   width: 100%;
   height: 100%;
-  background-color: #a8a4a4;
+  background-color: #ffffff;
   z-index: -1;
   opacity: 0;
   pointer-events: none;
@@ -1447,7 +1447,7 @@ nav .settings-container .dropdown[data-isOpened="true"] {
 .anbarInfo .data .singleProductInfo .table-data::-webkit-scrollbar-thumb {
   border-radius: 10px;
   border-radius: 10px;
-  background: #797979;
+  background: #ffd900;
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
           box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
 }
@@ -3121,7 +3121,7 @@ nav .settings-container .dropdown[data-isOpened="true"] {
 }
 
 .anbarRemove {
-  background-color: #a8a4a4;
+  background-color: #ffffff;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -3862,7 +3862,7 @@ ul#sessionsInfo li p {
 }
 
 .packaging {
-  background-color: #a8a4a4;
+  background-color: #ffffff;
 }
 
 .packagingProductInfo {
@@ -3873,7 +3873,7 @@ ul#sessionsInfo li p {
   left: 10%;
   -webkit-transform: translate(0%, -40%);
           transform: translate(0%, -40%);
-  background-color: #a8a4a4;
+  background-color: #ffffff;
   opacity: 0;
   pointer-events: none;
   -webkit-transition: 0.6s;
@@ -4099,7 +4099,7 @@ ul#sessionsInfo li p {
 }
 
 .currency {
-  background-color: #a8a4a4;
+  background-color: #ffffff;
 }
 
 .currencyProductInfo {
@@ -4110,7 +4110,7 @@ ul#sessionsInfo li p {
   left: 10%;
   -webkit-transform: translate(0%, -40%);
           transform: translate(0%, -40%);
-  background-color: #a8a4a4;
+  background-color: #ffffff;
   opacity: 0;
   pointer-events: none;
   -webkit-transition: 0.6s;
@@ -4345,7 +4345,7 @@ ul#sessionsInfo li p {
 }
 
 .treasury {
-  background-color: #a8a4a4;
+  background-color: #ffffff;
 }
 
 select.exchangeSelectCurrency {
@@ -4377,7 +4377,7 @@ select.exchangeSelectCurrency option:hover() {
   left: 10%;
   -webkit-transform: translate(0%, -40%);
           transform: translate(0%, -40%);
-  background-color: #a8a4a4;
+  background-color: #ffffff;
   opacity: 0;
   pointer-events: none;
   -webkit-transition: 0.6s;
@@ -5039,7 +5039,7 @@ ul.inventoryTable li.checked {
 }
 
 .usersList {
-  background-color: #a8a4a4;
+  background-color: #ffffff;
 }
 
 .userListProductInfo {
@@ -5050,7 +5050,7 @@ ul.inventoryTable li.checked {
   left: 10%;
   -webkit-transform: translate(0%, -40%);
           transform: translate(0%, -40%);
-  background-color: #a8a4a4;
+  background-color: #ffffff;
   opacity: 0;
   pointer-events: none;
   -webkit-transition: 0.6s;
@@ -5382,7 +5382,7 @@ ul.inventoryTable li.checked {
 }
 
 .logs {
-  background-color: #a8a4a4;
+  background-color: #ffffff;
 }
 
 .logsProductInfo {
@@ -5394,7 +5394,7 @@ ul.inventoryTable li.checked {
   left: 10%;
   -webkit-transform: translate(0%, -50%);
           transform: translate(0%, -50%);
-  background-color: #a8a4a4;
+  background-color: #ffffff;
   opacity: 0;
   pointer-events: none;
   -webkit-transition: 0.6s;
@@ -5561,7 +5561,7 @@ ul.inventoryTable li.checked {
 }
 
 .sellers {
-  background-color: #a8a4a4;
+  background-color: #ffffff;
 }
 
 .sellersProductInfo {
@@ -5572,7 +5572,7 @@ ul.inventoryTable li.checked {
   left: 50%;
   -webkit-transform: translate(-50%, -40%);
           transform: translate(-50%, -40%);
-  background-color: #a8a4a4;
+  background-color: #ffffff;
   opacity: 0;
   pointer-events: none;
   -webkit-transition: 0.6s;

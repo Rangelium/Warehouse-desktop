@@ -15,10 +15,10 @@ var USER = {
 	id: 1,
 };
 
-// setTimeout(() => {
-// 	userLoggedIn();
-// 	openPage("anbarAdd");
-// }, 200);
+setTimeout(() => {
+	userLoggedIn();
+	openPage("anbarInfo");
+}, 200);
 
 // ====================================================================================
 //  													   Connection system part
