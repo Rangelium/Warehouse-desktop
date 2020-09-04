@@ -1,5 +1,5 @@
 const electron = require("electron");
-const { ipcRenderer, } = electron;
+const { ipcRenderer } = electron;
 const { sha256 } = require("../tools/sha256");
 const { MyCustomMenu } = require("../tools/customMenu");
 window.$ = window.jQuery = require("jquery");
@@ -9,17 +9,16 @@ const ssrs = require("mssql-ssrs");
 //  													   Utils part
 // ====================================================================================
 
-
 const { MyTreeView } = require("../tools/TreeView");
 const moment = require("moment");
 var USER = {
 	id: 1,
 };
 
-setTimeout(() => {
-	userLoggedIn();
-	openPage("anbarInfo");
-}, 200);
+// setTimeout(() => {
+// 	userLoggedIn();
+// 	openPage("anbarInfo");
+// }, 200);
 
 // ====================================================================================
 //  													   Connection system part
@@ -131,10 +130,8 @@ ipcRenderer.on("userLogOut", () => {
 });
 
 ipcRenderer.on("downloadReport complete", (event, file) => {
-	alert("File is Downloaded")
-})
-
-
+	alert("File is Downloaded");
+});
 
 // ====================================================================================
 //  														Switch pages system part
@@ -252,12 +249,8 @@ ipcRenderer.on("createNavBar", (e, menuItems) => {
 		$(".nav-links").append(
 			`<li class="nav-link" data-name="${menuItems[i].name}" data-id=${
 				menuItems[i].id
-			} data-hasDropdown="${
-				menuItems[i].submenu !== undefined ? true : false
-			}" title="${
-				menuItems[i].shortcut == undefined
-					? ""
-					: menuItems[i].shortcut.toUpperCase()
+			} data-hasDropdown="${menuItems[i].submenu !== undefined ? true : false}" title="${
+				menuItems[i].shortcut == undefined ? "" : menuItems[i].shortcut.toUpperCase()
 			}" data-active="false"><p>${menuItems[i].label}</p></li>`
 		);
 		// Adding click event handler
