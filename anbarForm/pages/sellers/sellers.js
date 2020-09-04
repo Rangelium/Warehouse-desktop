@@ -1,7 +1,7 @@
 var sellersSelectedId = -1;
 var procedures = [
-	"dbo.product_seller_select_active",
-	"dbo.product_seller_select_deactive",
+	"anbar.product_seller_select_active",
+	"anbar.product_seller_select_deactive",
 ];
 var procedureId = 0;
 
@@ -113,7 +113,7 @@ $(".addSellersButton").on("click", () => {
 			.input("active", mssql.Int, active)
 			.input("phonenumber", mssql.NVarChar(250), phoneNumber)
 			.input("p_address", mssql.NVarChar(250), p_address)
-			.execute("dbo.product_sellers_insert", (err, res) => {
+			.execute("anbar.product_sellers_insert", (err, res) => {
 				$("input").val("");
 				$("#active").prop("checked", false);
 				console.log(err);
@@ -155,7 +155,7 @@ $("#changeStatus").on("click", () => {
 			.request()
 			.input("id", mssql.Int, sellersSelectedId)
 			.input("user_id", mssql.Int, USER["id"])
-			.execute("dbo.product_sellers_deactivate_or_activate", (err, res) => {
+			.execute("anbar.product_sellers_deactivate_or_activate", (err, res) => {
 				console.log(err);
 				fillTable(procedureId);
 				sellersSelectedId = null;

@@ -2,7 +2,7 @@ var currencySelectedId = "";
 
 function fillTable() {
 	poolConnect.then((pool) => {
-		pool.request().execute("dbo.currency_select", (err, res) => {
+		pool.request().execute("anbar.currency_select", (err, res) => {
 			data = [];
 			for (let i of res.recordset) {
 				data.push(i);
@@ -62,7 +62,7 @@ $(".currencyInputButton").on("click", () => {
 			.input("full_title", mssql.NVarChar(250), full_title)
 			.input("title", mssql.NVarChar(250), title)
 			.input("user_id", mssql.Int, USER["id"])
-			.execute("dbo.currency_insert", (err, res) => {
+			.execute("anbar.currency_insert", (err, res) => {
 				$("input").val("");
 				fillTable();
 			});
@@ -79,7 +79,7 @@ $(".currencyDeleteButton").on("click", () => {
 			.request()
 			.input("title", mssql.NVarChar(250), currencySelectedId)
 			.input("user_id", mssql.Int, USER["id"])
-			.execute("dbo.currency_delete", (err, res) => {
+			.execute("anbar.currency_delete", (err, res) => {
 				fillTable();
 			});
 	});
