@@ -95,15 +95,16 @@ body main {
 }
 
 .treeView p:hover {
-  color: #ffd900;
+  color: #ffffff;
 }
 
 .treeView p[data-isSelected="true"] {
-  color: #ffd900;
+  color: #ffffff;
 }
 
 .treeView .tv-cont li {
-  padding-left: 30px;
+  padding-left: 25px;
+  text-align: left;
 }
 
 .treeView .tv-cont span {
@@ -742,7 +743,7 @@ nav .settings-container .settings[data-isClicked="true"] p {
 nav .settings-container .dropdown {
   width: calc(100% - 15px);
   height: 0;
-  top: 100%;
+  top: 95%;
   left: 0;
   position: absolute;
   background-color: #ffd900;
@@ -855,6 +856,305 @@ nav .settings-container .dropdown[data-isOpened="true"] {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  position: relative;
+}
+
+.anbarInfo .blur {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.507);
+  z-index: -1000;
+}
+
+.anbarInfo .editCategoryContainer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  padding: 10px 0;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 400px;
+  height: 200px;
+  background-color: #188bc0;
+  z-index: 100000000;
+  border: 1px solid #24252a;
+  -webkit-box-shadow: 0px 0px 22px 19px rgba(0, 0, 0, 0.75);
+          box-shadow: 0px 0px 22px 19px rgba(0, 0, 0, 0.75);
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.anbarInfo .editCategoryContainer h1 {
+  font-size: 1.7rem;
+}
+
+.anbarInfo .editCategoryContainer input {
+  width: 90%;
+  padding: 2px 5px;
+  outline: none;
+  font-size: 1.3rem;
+  border: 2px solid #ffd900;
+}
+
+.anbarInfo .editCategoryContainer .row {
+  width: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.anbarInfo .editCategoryContainer .row button {
+  padding: 7px 15px;
+  outline: none;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.anbarInfo .editCategoryContainer .row button:hover {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
+.anbarInfo .editCategoryContainer .row button:nth-child(1) {
+  color: white;
+  background: red;
+}
+
+.anbarInfo .editCategoryContainer .row button:nth-child(2) {
+  color: #24252a;
+  background: #ffffff;
+}
+
+.anbarInfo .editCategoryContainer .row button:nth-child(2):hover {
+  background: #ffd900;
+}
+
+.anbarInfo .createCategoryContainer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  padding: 10px 0;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 400px;
+  height: 200px;
+  background-color: #188bc0;
+  z-index: 100000000;
+  border: 1px solid #24252a;
+  -webkit-box-shadow: 0px 0px 22px 19px rgba(0, 0, 0, 0.75);
+          box-shadow: 0px 0px 22px 19px rgba(0, 0, 0, 0.75);
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.anbarInfo .createCategoryContainer h1 {
+  font-size: 1.7rem;
+}
+
+.anbarInfo .createCategoryContainer input {
+  width: 90%;
+  padding: 2px 5px;
+  outline: none;
+  font-size: 1.3rem;
+  border: 2px solid #ffd900;
+}
+
+.anbarInfo .createCategoryContainer .row {
+  width: 40%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.anbarInfo .createCategoryContainer .row button {
+  padding: 7px 15px;
+  outline: none;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.anbarInfo .createCategoryContainer .row button:hover {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
+.anbarInfo .createCategoryContainer .row button:nth-child(1) {
+  color: white;
+  background: red;
+}
+
+.anbarInfo .createCategoryContainer .row button:nth-child(2) {
+  color: #24252a;
+  background: #ffffff;
+}
+
+.anbarInfo .createCategoryContainer .row button:nth-child(2):hover {
+  background: #ffd900;
+}
+
+.anbarInfo #categoryOptionsMenu {
+  position: absolute;
+  -webkit-transition: 0.3s opacity;
+  transition: 0.3s opacity;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  background-color: #ffffff;
+  z-index: 1000000;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.anbarInfo #categoryOptionsMenu ul {
+  border: 1px solid #24252a;
+}
+
+.anbarInfo #categoryOptionsMenu ul li {
+  border-bottom: 1px solid #24252a;
+  padding: 5px 10px;
+  font-size: 1.1rem;
+  color: #24252a;
+  cursor: pointer;
+  color: #000;
+  background-color: #ffffff;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+
+.anbarInfo #categoryOptionsMenu ul li:hover {
+  color: white;
+  background-color: #ffd900;
+}
+
+.anbarInfo .cstmAlertBox {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  z-index: 1000000000000;
+  opacity: 0;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  border-radius: 25px;
+  background-color: rgba(78, 76, 76, 0.89);
+  display: none;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.anbarInfo .cstmAlertBox .up {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.anbarInfo .cstmAlertBox .up .alertTitle {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white;
+  padding-bottom: 15px;
+}
+
+.anbarInfo .cstmAlertBox .up p {
+  font-size: 1.1rem;
+  color: white;
+}
+
+.anbarInfo .cstmAlertBox .down {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 60%;
+}
+
+.anbarInfo .cstmAlertBox .down button {
+  font-size: 1.3rem;
+  font-weight: 500;
+  background-color: #202020;
+  border: 2px solid #202020;
+  color: white;
+  padding: 5px 20px;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  cursor: pointer;
+  outline: none;
+}
+
+.anbarInfo .cstmAlertBox .down button:hover {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
+.anbarInfo .cstmAlertBox .down #alertYes {
+  background-color: red;
+  border: 2px solid red;
 }
 
 .anbarInfo .treeViewContainer {
@@ -862,6 +1162,7 @@ nav .settings-container .dropdown[data-isOpened="true"] {
   overflow-y: scroll;
   overflow-x: hidden;
   direction: rtl;
+  width: 360px;
 }
 
 .anbarInfo .treeViewContainer .searchContainer {
@@ -925,7 +1226,7 @@ nav .settings-container .dropdown[data-isOpened="true"] {
 }
 
 .anbarInfo .treeViewContainer .searchContainer #searchInputBox:focus, .anbarInfo .treeViewContainer .searchContainer #searchInputBox:hover {
-  border: 3px solid #ffffff;
+  border: 3px solid #ffd900;
 }
 
 .anbarInfo .data {
@@ -1016,7 +1317,7 @@ nav .settings-container .dropdown[data-isOpened="true"] {
 .anbarInfo .data .smallNav #hideShowTreeView[data-isClicked="true"] p,
 .anbarInfo .data .smallNav #expandTreeView[data-isClicked="true"] p,
 .anbarInfo .data .smallNav #closeTreeView[data-isClicked="true"] p {
-  color: #ffffff;
+  color: #000;
 }
 
 .anbarInfo .data .smallNav #showOverallInfo[data-isClicked="false"]::after {
@@ -1407,14 +1708,14 @@ nav .settings-container .dropdown[data-isOpened="true"] {
      -moz-user-select: initial;
       -ms-user-select: initial;
           user-select: initial;
-  color: #3b3b3b;
+  color: #24252a;
   -webkit-transition: 0.2s;
   transition: 0.2s;
   cursor: default;
 }
 
 .anbarInfo .data .singleProductInfo .text-data span:hover {
-  color: white;
+  color: #188bc0;
 }
 
 .anbarInfo .data .singleProductInfo .table-data {
@@ -1461,15 +1762,15 @@ nav .settings-container .dropdown[data-isOpened="true"] {
 .anbarInfo .data .singleProductInfo .table-data .singleProductTable thead th {
   cursor: default;
   font-size: 1.2rem;
-  padding: 0 10px;
+  padding: 10px 5px;
   border-top: 2px solid black;
   border-bottom: 3px solid black;
   border-right: 2px solid black;
-  background-color: transparent;
+  background-color: #44b4e7;
 }
 
 .anbarInfo .data .singleProductInfo .table-data .singleProductTable tbody tr {
-  background-color: rgba(231, 182, 113, 0.568);
+  background-color: #ebe3e3;
   -webkit-transition: 0.4s;
   transition: 0.4s;
 }
@@ -1483,6 +1784,7 @@ nav .settings-container .dropdown[data-isOpened="true"] {
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
+  color: #ffffff;
   border-top: 2px solid black;
   border-bottom: 2px solid black;
   border-left: 2px solid #242424;
@@ -1494,11 +1796,11 @@ nav .settings-container .dropdown[data-isOpened="true"] {
 }
 
 .anbarInfo .data .singleProductInfo .table-data .singleProductTable tbody tr:nth-child(odd) {
-  background-color: rgba(156, 95, 9, 0.61);
+  background-color: #d8cece;
 }
 
 .anbarInfo .data .singleProductInfo .table-data .singleProductTable tbody tr:hover {
-  background-color: white;
+  background-color: #ffd900;
 }
 
 .anbarAddData {
