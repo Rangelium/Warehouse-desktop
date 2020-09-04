@@ -833,7 +833,7 @@ nav .settings-container .dropdown[data-isOpened="true"] {
 }
 
 .anbarInfo {
-  background-color: #a8a4a4;
+  background-color: white;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1316,7 +1316,7 @@ nav .settings-container .dropdown[data-isOpened="true"] {
   position: absolute;
   width: 100%;
   height: 100%;
-  background-color: #a8a4a4;
+  background-color: white;
   z-index: -1;
   opacity: 0;
   pointer-events: none;
@@ -3098,7 +3098,7 @@ nav .settings-container .dropdown[data-isOpened="true"] {
 }
 
 .anbarRemove {
-  background-color: #a8a4a4;
+  background-color: white;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -3839,7 +3839,7 @@ ul#sessionsInfo li p {
 }
 
 .packaging {
-  background-color: #a8a4a4;
+  background-color: white;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -3857,7 +3857,7 @@ ul#sessionsInfo li p {
   left: 10%;
   -webkit-transform: translate(0%, -40%);
           transform: translate(0%, -40%);
-  background-color: #a8a4a4;
+  background-color: white;
   opacity: 0;
   pointer-events: none;
   -webkit-transition: 0.6s;
@@ -4083,7 +4083,7 @@ ul#sessionsInfo li p {
 }
 
 .currency {
-  background-color: #a8a4a4;
+  background-color: white;
 }
 
 .currencyProductInfo {
@@ -4094,7 +4094,7 @@ ul#sessionsInfo li p {
   left: 10%;
   -webkit-transform: translate(0%, -40%);
           transform: translate(0%, -40%);
-  background-color: #a8a4a4;
+  background-color: white;
   opacity: 0;
   pointer-events: none;
   -webkit-transition: 0.6s;
@@ -4329,7 +4329,7 @@ ul#sessionsInfo li p {
 }
 
 .treasury {
-  background-color: #a8a4a4;
+  background-color: white;
 }
 
 select.exchangeSelectCurrency {
@@ -4361,7 +4361,7 @@ select.exchangeSelectCurrency option:hover() {
   left: 10%;
   -webkit-transform: translate(0%, -40%);
           transform: translate(0%, -40%);
-  background-color: #a8a4a4;
+  background-color: white;
   opacity: 0;
   pointer-events: none;
   -webkit-transition: 0.6s;
@@ -4945,7 +4945,7 @@ ul.inventoryTable li.checked {
 
 .inventoryFinishedTable {
   max-height: 75vh;
-  width: 60vw;
+  width: 70vw;
   margin-top: 1vh;
   border-radius: 10px;
   border: 2px solid black;
@@ -5023,7 +5023,7 @@ ul.inventoryTable li.checked {
 }
 
 .usersList {
-  background-color: #a8a4a4;
+  background-color: white;
 }
 
 .userListProductInfo {
@@ -5034,7 +5034,7 @@ ul.inventoryTable li.checked {
   left: 10%;
   -webkit-transform: translate(0%, -40%);
           transform: translate(0%, -40%);
-  background-color: #a8a4a4;
+  background-color: white;
   opacity: 0;
   pointer-events: none;
   -webkit-transition: 0.6s;
@@ -5366,7 +5366,7 @@ ul.inventoryTable li.checked {
 }
 
 .logs {
-  background-color: #a8a4a4;
+  background-color: white;
 }
 
 .logsProductInfo {
@@ -5378,7 +5378,7 @@ ul.inventoryTable li.checked {
   left: 10%;
   -webkit-transform: translate(0%, -50%);
           transform: translate(0%, -50%);
-  background-color: #a8a4a4;
+  background-color: white;
   opacity: 0;
   pointer-events: none;
   -webkit-transition: 0.6s;
@@ -5545,7 +5545,7 @@ ul.inventoryTable li.checked {
 }
 
 .sellers {
-  background-color: #a8a4a4;
+  background-color: white;
 }
 
 .sellersProductInfo {
@@ -5556,7 +5556,7 @@ ul.inventoryTable li.checked {
   left: 50%;
   -webkit-transform: translate(-50%, -40%);
           transform: translate(-50%, -40%);
-  background-color: #a8a4a4;
+  background-color: white;
   opacity: 0;
   pointer-events: none;
   -webkit-transition: 0.6s;
@@ -6039,5 +6039,115 @@ ul.inventoryTable li.checked {
 .expDateProducts .container .block .exp-date-soclose-data .exp-date-over-table tbody .single-expired-row td,
 .expDateProducts .container .block .exp-date-soclose-data .exp-date-soclose-table tbody .single-expired-row td {
   cursor: pointer;
+}
+
+.reportWebView {
+  height: 100%;
+  width: 100%;
+}
+
+.reportContainer {
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  width: 100%;
+  height: 100%;
+}
+
+.reportButton {
+  padding: 10px 30px;
+  background-color: #ffc400;
+  border: 1px solid rgba(0, 0, 0, 0.568);
+  color: black;
+  cursor: pointer;
+  outline: none;
+}
+
+.reportButton#downloadReport {
+  background-color: #1eff00;
+  border-left: none;
+}
+
+.reportButton#selectFolder {
+  border-right: none;
+  overflow-x: auto;
+}
+
+.reportInputContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  width: 80%;
+  -ms-flex-item-align: center;
+      align-self: center;
+  height: 4.6vh;
+}
+
+@media only screen and (max-width: 1368px) {
+  .reportInputContainer {
+    width: 90%;
+    height: 6.4vh;
+  }
+}
+
+.reportFolderConrainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  max-width: 35vw;
+}
+
+@media only screen and (max-width: 1368px) {
+  .reportFolderConrainer {
+    max-width: 45vw;
+  }
+}
+
+#folder {
+  border: 1px solid rgba(0, 0, 0, 0.568);
+  border-left: none;
+  border-right: none;
+  text-align: center;
+  width: 10vw;
+}
+
+@media only screen and (max-width: 1368px) {
+  #folder {
+    width: 15vw;
+  }
+}
+
+.reportInput {
+  padding: 10px 0px;
+  outline: none;
+}
+
+.reportLabel {
+  font-size: 20px;
+}
+
+select.reportSelectBox {
+  padding: 10px 20px;
+  text-align: center;
+  font-size: 20px;
+  outline: none;
+}
+
+select.reportSelectBox optgroup {
+  outline: none;
+}
+
+select.reportSelectBox optgroup option {
+  outline: none;
 }
 /*# sourceMappingURL=main.css.map */
