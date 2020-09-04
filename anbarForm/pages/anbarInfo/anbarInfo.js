@@ -7,7 +7,7 @@ function showOverallInfo() {
 	try {
 		new Promise((resolve) => {
 			poolConnect.then((pool) => {
-				pool.request().execute("dbo.dashboard", (err, res) => {
+				pool.request().execute("anbar.dashboard", (err, res) => {
 					if (err != null) console.log(err);
 					console.log(res);
 					resolve(res.recordset[0]);
@@ -139,7 +139,7 @@ $("#hideShowTreeView").click(function () {
 // Search box part
 $("#clearSearchBox").click(() => {
 	poolConnect.then((pool) => {
-		pool.request().execute("dbo.warehouse_tree_select", (err, res) => {
+		pool.request().execute("anbar.warehouse_tree_select", (err, res) => {
 			$("#searchInputBox").val("");
 			feelTree(res.recordset);
 		});
@@ -151,7 +151,7 @@ $("#searchInputBox").keyup(function () {
 		pool
 			.request()
 			.input("title", mssql.NVarChar(250), $(this).val())
-			.execute("dbo.warehouse_tree_search", (err, res) => {
+			.execute("anbar.warehouse_tree_search", (err, res) => {
 				feelTree(res.recordset);
 			});
 	});
@@ -160,7 +160,7 @@ $("#searchInputBox").focusout(function () {
 	if ($(this).val().trim() === "") $(this).val("");
 	if ($(this).val() === "") {
 		poolConnect.then((pool) => {
-			pool.request().execute("dbo.warehouse_tree_select", (err, res) => {
+			pool.request().execute("anbar.warehouse_tree_select", (err, res) => {
 				feelTree(res.recordset);
 			});
 		});
@@ -178,19 +178,29 @@ function fillSingleProductTable(data) {
 	$(".singleProductTable").append("<thead></thead>");
 	$(".singleProductTable").append("<tbody></tbody>");
 
-	$(".singleProductTable > thead").append(`<th>${languages["product_name"]}:</th>`);
+	$(".singleProductTable > thead").append(
+		`<th>${languages["product_name"]}:</th>`
+	);
 	$(".singleProductTable > thead").append(`<th>${languages["quantity"]}:</th>`);
 	$(".singleProductTable > thead").append(`<th>${languages["unit"]}:</th>`);
-	$(".singleProductTable > thead").append(`<th>${languages["unit_price"]}:</th>`);
-	$(".singleProductTable > thead").append(`<th>${languages["total_price"]}:</th>`);
+	$(".singleProductTable > thead").append(
+		`<th>${languages["unit_price"]}:</th>`
+	);
+	$(".singleProductTable > thead").append(
+		`<th>${languages["total_price"]}:</th>`
+	);
 	$(".singleProductTable > thead").append(`<th>${languages["currency"]}:</th>`);
 	// $(".singleProductTable > thead").append(`<th>Original price:</th>`);
 	// $(".singleProductTable > thead").append(`<th>Original currency:</th>`);
 	// $(".singleProductTable > thead").append(`<th>Current date:</th>`);
 	$(".singleProductTable > thead").append(`<th>${languages["exp_date"]}</th>`);
 	$(".singleProductTable > thead").append(`<th>${languages["action"]}</th>`);
-	$(".singleProductTable > thead").append(`<th>${languages["confirmed"]}:</th>`);
-	$(".singleProductTable > thead").append(`<th>${languages["product_cell"]}:</th>`);
+	$(".singleProductTable > thead").append(
+		`<th>${languages["confirmed"]}:</th>`
+	);
+	$(".singleProductTable > thead").append(
+		`<th>${languages["product_cell"]}:</th>`
+	);
 
 	data.forEach((el) => {
 		let row = "<tr>";
@@ -198,14 +208,14 @@ function fillSingleProductTable(data) {
 		row += `<td>${el.title}</td>`;
 		row += `<td>${el.quantity}</td>`;
 		row += `<td>${el.unit_title}</td>`;
-		row += `<td>${el.price}</td>`;
+		row += `<td>${el.unit_price}</td>`;
 		row += `<td>${el.total_price}</td>`;
 		row += `<td>${el.currency}</td>`;
 		// row += `<td>${el.original_price}</td>`;
 		// row += `<td>${el.original_currency}</td>`;
-		row += `<td title="${moment(el.exp_date).format("Da MMMM YYYY, h:mm:ss")}">${moment(
-			el.exp_date
-		).format("Da MMMM YYYY")}</td>`;
+		row += `<td title="${moment(el.exp_date).format(
+			"Da MMMM YYYY, h:mm:ss"
+		)}">${moment(el.exp_date).format("Da MMMM YYYY")}</td>`;
 		row += `<td>${el.is_out ? "Removed" : "Added"}</td>`;
 		row += `<td>${el.performed_by}</td>`;
 		row += `<td>${el.product_cell}</td>`;
@@ -252,7 +262,7 @@ async function showProductInfo(productData) {
 			pool
 				.request()
 				.input("product_id", productData.product_id)
-				.execute("dbo.main_tree_click_table", (err, res) => {
+				.execute("anbar.main_tree_click_table", (err, res) => {
 					if (err !== null) console.log(err);
 					resolve(res.recordset);
 				});
@@ -275,7 +285,7 @@ async function showProductInfo(productData) {
 
 // Load treeView from start
 poolConnect.then((pool) => {
-	pool.request().execute("dbo.warehouse_tree_select", (err, res) => {
+	pool.request().execute("anbar.warehouse_tree_select", (err, res) => {
 		feelTree(res.recordset);
 	});
 });

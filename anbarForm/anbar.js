@@ -34,7 +34,7 @@ let poolConnect = pool.connect();
 function getTranslations() {
 	languages = {};
 	poolConnect.then((pool) => {
-		pool.request().execute("dbo.language_translations", (err, res) => {
+		pool.request().execute("anbar.language_translations", (err, res) => {
 			if (err !== null) console.log(err);
 			data = res.recordset;
 			data.forEach((el) => {
@@ -74,12 +74,12 @@ $("form").submit((e) => {
 				.request()
 				.input("username", mssql.NVarChar(250), $("#username").val())
 				.input("password", mssql.NVarChar(250), sha256($("#password").val()))
-				.execute("dbo.user_login_check", (err, res) => {
+				.execute("anbar.user_login_check", (err, res) => {
 					if (res.recordset[0][""] == 1) {
 						pool
 							.request()
 							.input("username", mssql.NVarChar(250), $("#username").val())
-							.execute("dbo.user_select_info", (err, res) => {
+							.execute("anbar.user_select_info", (err, res) => {
 								console.log(res);
 								USER = res.recordset[0];
 							});
@@ -245,8 +245,12 @@ ipcRenderer.on("createNavBar", (e, menuItems) => {
 		$(".nav-links").append(
 			`<li class="nav-link" data-name="${menuItems[i].name}" data-id=${
 				menuItems[i].id
-			} data-hasDropdown="${menuItems[i].submenu !== undefined ? true : false}" title="${
-				menuItems[i].shortcut == undefined ? "" : menuItems[i].shortcut.toUpperCase()
+			} data-hasDropdown="${
+				menuItems[i].submenu !== undefined ? true : false
+			}" title="${
+				menuItems[i].shortcut == undefined
+					? ""
+					: menuItems[i].shortcut.toUpperCase()
 			}" data-active="false"><p>${menuItems[i].label}</p></li>`
 		);
 		// Adding click event handler

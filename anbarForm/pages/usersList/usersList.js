@@ -2,7 +2,7 @@ var userSelectedId = "";
 
 function fillTable() {
 	poolConnect.then((pool) => {
-		pool.request().execute("dbo.user_select_all", (err, res) => {
+		pool.request().execute("anbar.user_select_all", (err, res) => {
 			data = [];
 			for (let i of res.recordset) {
 				data.push(i);
@@ -55,7 +55,7 @@ function fillTable() {
 fillTable();
 
 poolConnect.then((pool) => {
-	pool.request().execute("dbo.user_privelage_select", (err, res) => {
+	pool.request().execute("anbar.user_privelage_select", (err, res) => {
 		let data = [];
 		for (let i of res.recordset) {
 			data.push(i);
@@ -85,7 +85,7 @@ $(".userListDeleteButton").click(() => {
 			.request()
 			.input("username", mssql.NVarChar(250), userSelectedId)
 			.input("user_id", mssql.Int, USER["id"])
-			.execute("dbo.user_delete", (err, res) => {
+			.execute("anbar.user_delete", (err, res) => {
 				console.log(res);
 				fillTable();
 			});
@@ -118,7 +118,7 @@ $(".addUserButton").on("click", () => {
 			.input("password", mssql.NVarChar(250), password)
 			.input("privelage", mssql.Int, privelage)
 			.input("user_id", mssql.Int, USER["id"])
-			.execute("dbo.user_insert", (err, res) => {
+			.execute("anbar.user_insert", (err, res) => {
 				console.log(res);
 				$("input").val("");
 				fillTable();
