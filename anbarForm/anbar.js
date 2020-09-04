@@ -15,10 +15,10 @@ var USER = {
 	id: 1,
 };
 
-// setTimeout(() => {
-// 	userLoggedIn();
-// 	openPage("anbarInfo");
-// }, 200);
+setTimeout(() => {
+	userLoggedIn();
+	openPage("anbarInfo");
+}, 200);
 
 // ====================================================================================
 //  													   Connection system part
@@ -75,12 +75,13 @@ $("form").submit((e) => {
 				.input("username", mssql.NVarChar(250), $("#username").val())
 				.input("password", mssql.NVarChar(250), sha256($("#password").val()))
 				.execute("anbar.user_login_check", (err, res) => {
+					if (err !== null) console.log(err);
 					if (res.recordset[0][""] == 1) {
 						pool
 							.request()
 							.input("username", mssql.NVarChar(250), $("#username").val())
 							.execute("anbar.user_select_info", (err, res) => {
-								console.log(res);
+								if (err !== null) console.log(err);
 								USER = res.recordset[0];
 							});
 						userLoggedIn();

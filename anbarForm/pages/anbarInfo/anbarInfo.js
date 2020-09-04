@@ -11,7 +11,9 @@ async function showAlert(message) {
 		opacity: "1",
 		width: "30%",
 		height: "30%",
+		"z-index": 10000000000,
 	});
+	$(".blur").css("z-index", 1000000000);
 	$(".anbarAdd-container").css({
 		filter: "brightness(40%)",
 		"pointer-events": "none",
@@ -29,7 +31,9 @@ async function showAlert(message) {
 function closeAlert() {
 	$(".cstmAlertBox").css({
 		opacity: "0",
+		"z-index": -1000,
 	});
+	$(".blur").css("z-index", -1000);
 	$(".anbarAdd-container").css({
 		filter: "brightness(100%)",
 		"pointer-events": "all",
@@ -140,6 +144,9 @@ function feelTree(data) {
 	$(".tv-groupname").contextmenu(function () {
 		showCategoryOptions($(this), treeView.giveDataOfElement($(this).parent()));
 	});
+	$(".tv-name").contextmenu(function () {
+		showProductOptions($(this), treeView.giveDataOfElement($(this)));
+	});
 }
 
 $("#expandTreeView").click(function () {
@@ -180,10 +187,13 @@ $("#hideShowTreeView").click(function () {
 	}
 });
 
-// Handle right click event
+// =====================================================================================
+//                             RIGHT CLICK ON CATEGORY TREEVIEW
+// =====================================================================================
 function showCategoryOptions(element, data) {
-	$(".optionsMenuMenber").attr("data-id", data.id);
-	$(".optionsMenuMenber").attr("data-name", data.title);
+	hideProductOptions();
+	$(".categoryOptionsMenuMenber").attr("data-id", data.id);
+	$(".categoryOptionsMenuMenber").attr("data-name", data.title);
 
 	if (currentMousePos.y < $(document).height() * 0.8) {
 		$("#categoryOptionsMenu").css({
@@ -208,17 +218,16 @@ function hideCategoryOptions() {
 	});
 }
 $(document).click((el) => {
-	if ($(el.target).attr("class") !== "optionsMenuMenber") {
+	if ($(el.target).attr("class") !== "categoryOptionsMenuMenber") {
 		hideCategoryOptions();
 	}
 });
 
-function showCreateCategory() {}
-function hideCreateCategory() {}
+// Create new
 $("#discardCreateCategoryBtn").click(() => {
 	hideCreateCategory();
 });
-$("#createCategoryTitleBtn").click(function () {
+$("#createCategoryBtn").click(function () {
 	if ($("#createNewCategoryName").val().trim() === "") return;
 
 	poolConnect.then((pool) => {
@@ -244,7 +253,7 @@ function hideCreateCategory() {
 	});
 }
 function showCreateCategory(parentId) {
-	$("#createCategoryTitleBtn").attr("data-parentId", parentId);
+	$("#createCategoryBtn").attr("data-parentId", parentId);
 
 	$(".blur").css("z-index", 1000000000);
 	$(".createCategoryContainer").css({
@@ -257,6 +266,7 @@ $("#createCategory").click(function () {
 	showCreateCategory($(this).attr("data-id"));
 });
 
+// Change Name
 $("#discardChangeCategoryBtn").click(() => {
 	hideEditCategory();
 });
@@ -304,7 +314,152 @@ $("#editCategory").click(function () {
 	showEditCategory($(this).attr("data-id"), $(this).attr("data-name"));
 });
 
+// Delete
 $("#deleteCategory").click(function () {
+	showAlert(`Are you sure you want delete "${$(this).attr("data-name")}"`).then((res) => {
+		if (res) {
+			poolConnect.then((pool) => {
+				pool
+					.request()
+					.input("id", parseInt($(this).attr("data-id")))
+					.input("user_id", USER.id)
+					.execute("anbar.warehouse_tree_delete", (err, res) => {
+						if (err !== null) console.log(err);
+						fillTreeView();
+					});
+			});
+		}
+		closeAlert();
+	});
+});
+
+// =====================================================================================
+//                             RIGHT CLICK ON PRODUCT TREEVIEW
+// =====================================================================================
+
+function showProductOptions(element, data) {
+	hideCategoryOptions();
+	$(".productOptionsMenuMenber").attr("data-id", data.id);
+	$(".productOptionsMenuMenber").attr("data-productId", data.product_id);
+	$(".productOptionsMenuMenber").attr("data-name", data.title);
+
+	if (currentMousePos.y < $(document).height() * 0.8) {
+		$("#productOptionsMenu").css({
+			top: currentMousePos.y - 60,
+			left: currentMousePos.x,
+			opacity: 1,
+			"pointer-events": "all",
+		});
+	} else {
+		$("#productOptionsMenu").css({
+			top: currentMousePos.y - $("#productOptionsMenu").width() - 60,
+			left: currentMousePos.x,
+			opacity: 1,
+			"pointer-events": "all",
+		});
+	}
+}
+function hideProductOptions() {
+	$("#productOptionsMenu").css({
+		opacity: 0,
+		"pointer-events": "none",
+	});
+}
+$(document).click((el) => {
+	if ($(el.target).attr("class") !== "productOptionsMenuMenber") {
+		hideProductOptions();
+	}
+});
+
+// Create new
+$("#discardCreateProductBtn").click(() => {
+	hideCreateProduct();
+});
+$("#createProductBtn").click(function () {
+	return;
+	if ($("#createNewCategoryName").val().trim() === "") return;
+
+	poolConnect.then((pool) => {
+		pool
+			.request()
+			.input("user_id", USER.id)
+			.execute("anbar.warehouse_tree_insert", (err) => {
+				if (err !== null) console.log(err);
+				hideCreateProduct();
+				fillTreeView();
+			});
+	});
+});
+function hideCreateProduct() {
+	$(".blur").css("z-index", -1000);
+	$(".createProductContainer").css({
+		opacity: 0,
+		"pointer-events": "none",
+		"z-index": 1,
+	});
+}
+function showCreateProduct(parentId) {
+	$("#createProductBtn").attr("data-parentId", parentId);
+
+	$(".blur").css("z-index", 1000000000);
+	$(".createProductContainer").css({
+		opacity: 1,
+		"pointer-events": "all",
+		"z-index": 10000000000,
+	});
+}
+$("#createProduct").click(function () {
+	showCreateProduct($(this).attr("data-id"));
+});
+
+// Change product
+$("#discardEditProductBtn").click(() => {
+	hideEditProduct();
+});
+$("#editProductBtn").click(function () {
+	return;
+	if (
+		$("#newCategoryName").val().trim() === "" ||
+		$("#newCategoryName").val() === $(this).attr("data-title")
+	)
+		return;
+
+	poolConnect.then((pool) => {
+		pool
+			.request()
+			.input("user_id", USER.id)
+			.execute("anbar.warehouse_tree_update_title", (err) => {
+				if (err !== null) console.log(err);
+				hideEditCategory();
+				fillTreeView();
+			});
+	});
+});
+function hideEditProduct() {
+	$(".blur").css("z-index", -1000);
+	$(".editProductContainer").css({
+		opacity: 0,
+		"pointer-events": "none",
+		"z-index": 1,
+	});
+}
+function showEditProduct(id, title) {
+	$("#editProductBtn").attr("data-id", id);
+	$("#editProductBtn").attr("data-title", title);
+
+	$(".blur").css("z-index", 1000000000);
+	$(".editProductContainer").css({
+		opacity: 1,
+		"pointer-events": "all",
+		"z-index": 10000000000,
+	});
+}
+$("#editProduct").click(function () {
+	showEditProduct($(this).attr("data-id"), $(this).attr("data-name"));
+});
+
+// Delete
+$("#deleteProduct").click(function () {
 	showAlert(`Are you sure you want delete "${$(this).attr("data-name")}"`).then((res) => {
 		if (res) {
 			poolConnect.then((pool) => {
@@ -434,11 +589,6 @@ async function showProductInfo(productData) {
 		return;
 	}
 
-	$("#singleProductName").html(productData.title);
-	$("#singleProductId").html(productData.product_id);
-
-	console.log(productData);
-
 	let product_info = await new Promise((resolve) => {
 		poolConnect.then((pool) => {
 			pool
@@ -446,10 +596,32 @@ async function showProductInfo(productData) {
 				.input("product_id", parseInt(productData.product_id))
 				.execute("anbar.main_tree_click_info", (err, res) => {
 					if (err !== null) console.log(err);
-					resolve(res.recordset);
+					resolve(res.recordset[0]);
 				});
 		});
 	});
+
+	$("#singleProductName").html(productData.title);
+	$("#singleProductId").html(productData.product_id);
+	try {
+		$("#singleProductPrice").html(product_info.price);
+		$("#singleProductCurrency").html(product_info.currency);
+		$("#singleProductCell").html(product_info.product_cell);
+		$("#singleProductExpDate").html(
+			moment(product_info.exp_date).format("DD-MM-yyyy HH:mm:ss")
+		);
+		$("#singleProductInQuantity").html(product_info.in_quantity);
+		$("#singleProductLeft").html(product_info.left);
+		$("#singleProductOutQuantity").html(product_info.out_quantity);
+	} catch (err) {
+		$("#singleProductPrice").html("null");
+		$("#singleProductCurrency").html("null");
+		$("#singleProductCell").html("null");
+		$("#singleProductExpDate").html("null");
+		$("#singleProductInQuantity").html("null");
+		$("#singleProductLeft").html("null");
+		$("#singleProductOutQuantity").html("null");
+	}
 
 	let table_product = await new Promise((resolve, reject) => {
 		poolConnect.then((pool) => {
@@ -463,13 +635,6 @@ async function showProductInfo(productData) {
 		});
 	});
 
-	console.log(product_info);
-	console.log(table_product);
-
-	// let data = [];
-	// table_product.forEach((el) => {
-	// 	data.push(el);
-	// });
 	fillSingleProductTable(table_product);
 
 	$(".singleProductInfo").css("opacity", "1");
