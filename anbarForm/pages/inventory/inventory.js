@@ -529,3 +529,4 @@ function fillListItemTable(data){
     document.getElementById("listItemFinalTable").appendChild(li);
   })
 }
+
