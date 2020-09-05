@@ -1,20 +1,27 @@
 <div class="packagingButtons">
   <input class="packagingInputField" id="title">
-  <button class="packagingInputButton">Input</button>
+  <button class="packagingInputButton" id="addButton">Input</button>
   <button class="packagingDeleteButton" id="deleteButton">Delete</button>
-  <button class="packagingDeleteButton" style="width: 5vw;" id='restoreSection'>Restore</button>
+  <button class="packagingDeleteButton" id='restoreSection' data-state="restore">Restore</button>
 </div>
 
-<div id="restoreContainer" style="display: none;">
-  <ul>
-    <li>One</li>
-    <li>Two</li>
-  </ul>
+<div class="optionsCard">
+  <p class="optionsElement" id="returnElement">
+    Return
+  </p>
+</div>
+
+<div id="restoreContainer">
+  <div class="packagingProductInfo" id="deletedInfo">
+    <div class="packaging-table-data" id="deletedTableData">
+
+    </div>
+  </div>
 </div>
 
 <div class="packagingContainer" id="mainContainer">
-  <div class="packagingProductInfo">
-    <div class="packaging-table-data">
+  <div class="packagingProductInfo" id="packageProductInfo">
+    <div class="packaging-table-data" id="packageTableData">
       
     </div>
   </div>
