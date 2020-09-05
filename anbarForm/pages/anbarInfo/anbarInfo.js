@@ -336,9 +336,15 @@ $("#deleteCategory").click(function () {
 // Create new product
 function warehouseTreeInsertAddNewCluster(pivot = undefined) {
 	let clusterEl = $(`<div class="clusterTemplateElement"></div>`);
-	let defaultCheck = '<p>Default:</p><input type="radio" name="default_cluster" />';
-	let inputs = `<input required type="text" placeholder="Cluster's name" />
-	<input required type="number" min="0" placeholder="Capacity" />`;
+	let defaultCheck =
+		'<div class="item"><p>Default:</p><input type="radio" name="default_cluster" /></div>';
+	let inputs = `<div class="warehouseClustersDrowdown">
+									<input required type="text" class="warehouseNewClusterInput" placeholder="Cluster's name" />
+								<div class="dropdown">
+									<div id="warehouseClustersDropdown" class="containerDropdown"></div>
+								</div>
+								</div>
+								<input required type="number" min="0" placeholder="Capacity" />`;
 	let addNew = $(`<img src="../stylesGlobal/imgs/new_btn.svg" />`);
 	let remove = $(`<img src="../stylesGlobal/imgs/delete_btn.svg" />`);
 
@@ -374,6 +380,9 @@ function warehouseTreeInsertAddNewCluster(pivot = undefined) {
 			$(el.target).parent().css("display", "none");
 		}, 400);
 	});
+	$(".warehouseNewClusterInput").keyup(function () {
+		clusterNewInputKeyUp.call(this);
+	});
 }
 function warehouseTreeInsertFormValidation() {
 	if (
@@ -385,13 +394,12 @@ function warehouseTreeInsertFormValidation() {
 	}
 
 	let clusterArr = Array.from($(".newClusterTemplateContainer .clusterTemplateElement"));
-	if (clusterArr.length < 2) return false;
 
 	let tmp = 0;
 	clusterArr.forEach((cluster) => {
-		if ($(cluster).children()[1].checked) tmp += 1;
+		if ($($(cluster).children()[0]).children()[1].checked) tmp += 1;
+		if ($($($(cluster).children()[1]).children()[0]).val() === "") return false;
 		if ($($(cluster).children()[2]).val() === "") return false;
-		if ($($(cluster).children()[3]).val() === "") return false;
 	});
 
 	if (tmp !== 1) return false;
@@ -401,64 +409,99 @@ function warehouseTreeInsertFormValidation() {
 $("#discardCreateProductBtn").click(() => {
 	hideCreateProduct();
 });
-$("#createProductBtn").click(function () {
-	if (!warehouseTreeInsertFormValidation()) return false;
-
-	return;
-
-	let cluster_id = new Date();
-	let product_id = new Date() + 1;
-	let cluster_default = undefined;
-
-	let clusterArr = Array.from($(".newClusterTemplateContainer .clusterTemplateElement"));
-	clusterArr.forEach((cluster, index) => {
-		if ($(cluster).children()[1].checked) cluster_default = index;
-
+async function createNewClusterName(name) {
+	let res = await new Promise((resolve) => {
 		poolConnect.then((pool) => {
 			pool
 				.request()
-				.input("cluster_id", BigInt(cluster_id))
-				.input("capacity", $($(cluster).children()[3]).val())
-				.input("cluster_order", index + 1)
-				.input("title", $($(cluster).children()[2]).val())
+				.input("title", name)
 				.input("user_id", USER.id)
-				.execute("anbar.cluster_insert", (err) => {
+				.execute("anbar.cluster_names_insert", (err, res) => {
 					if (err !== null) console.log(err);
+					resolve(res.recordset[0].id);
 				});
 		});
 	});
 
-	console.log($("#warehouseTreeInsert_categoryId").attr("data-parentId"));
-	console.log($("#warehouseTreeInsert_title").val());
-	console.log(product_id);
-	console.log(cluster_id);
-	console.log(cluster_default);
-	console.log(
-		moment($("#warehouseTreeInsert_expDateWarning").val()).format("yyyy-MM-DD HH:mm:ss")
-	);
-	console.log($("#warehouseTreeInsert_barcode").val());
+	return res;
+}
+async function handleCreateClusters(cluster_id) {
+	let cluster_default;
+	let clusterArr = Array.from($(".newClusterTemplateContainer .clusterTemplateElement"));
+	clusterArr.forEach(async (cluster, index) => {
+		if ($(cluster).attr("data-active") !== "false") {
+			if ($($(cluster).children()[0]).children()[1].checked) cluster_default = index;
+
+			let title =
+				$(cluster).attr("data-clusterId") === undefined
+					? await createNewClusterName(
+							$($($($(cluster).children()[1]).children()[0])).val()
+					  )
+					: parseInt($(cluster).attr("data-clusterId"));
+
+			poolConnect.then((pool) => {
+				pool
+					.request()
+					.input("cluster_id", BigInt(cluster_id))
+					.input("capacity", $($(cluster).children()[2]).val())
+					.input("cluster_order", index + 1)
+					.input("title", title)
+					.input("user_id", USER.id)
+					.execute("anbar.cluster_insert", (err) => {
+						if (err !== null) console.log(err);
+					});
+			});
+		}
+	});
+
+	return cluster_default + 1;
+}
+$("#createProductBtn").click(async function () {
+	if (!warehouseTreeInsertFormValidation()) return false;
+
+	let cluster_id;
+	let cluster_default;
+	let product_id = new Date().getTime() + 1;
+
+	if ($("#warehouseTreeInsert_clusterTemplate").attr("data-clusterId") !== undefined) {
+		cluster_id = parseInt(
+			$("#warehouseTreeInsert_clusterTemplate").attr("data-clusterId")
+		);
+		cluster_default = parseInt(
+			$("#warehouseTreeInsert_clusterTemplate").attr("data-clusterDef")
+		);
+	} else {
+		cluster_id = new Date().getTime();
+		cluster_default = await handleCreateClusters(cluster_id);
+	}
 
 	poolConnect.then((pool) => {
 		pool
 			.request()
-			.input("parent_id", $("#warehouseTreeInsert_categoryId").attr("data-parentId"))
+			.input(
+				"parent_id",
+				parseInt($("#warehouseTreeInsert_categoryId").attr("data-parentId"))
+			)
 			.input("title", $("#warehouseTreeInsert_title").val())
 			.input("product_id", BigInt(product_id))
-			.input("cluster", cluster_id)
+			.input("cluster", BigInt(cluster_id))
 			.input("cluster_default", cluster_default)
 			.input("user_id", USER.id)
+			.input("exp_date_warning", parseInt($("#warehouseTreeInsert_expDateWarning").val()))
+			.input("barcode", BigInt($("#warehouseTreeInsert_barcode").val()))
+			.input("min_quantity", parseFloat($("#warehouseTreeInsert_minQuantity").val()))
+			.input("optimal_quantity", parseFloat($("#warehouseTreeInsert_optQuantity").val()))
 			.input(
-				"exp_date_warning",
-				moment($("#warehouseTreeInsert_expDateWarning").val()).format(
-					"yyyy-MM-DD HH:mm:ss"
-				)
+				"department_id",
+				parseInt($("#warehouseTreeInsert_categoryId").attr("data-departmentid"))
 			)
-			.input("barcode", $("#warehouseTreeInsert_barcode").val())
-			.input("min_quantity")
-			.input("optimal_quantity")
-			.input("department_id")
 			.execute("anbar.warehouse_tree_insert", (err, res) => {
 				if (err !== null) console.log(err);
+				console.log("Added");
+				setTimeout(() => {
+					fillTreeView();
+					hideCreateProduct();
+				}, 400);
 			});
 	});
 });
@@ -470,7 +513,7 @@ function hideCreateProduct() {
 		"z-index": 1,
 	});
 }
-function showCreateProduct(parentId) {
+function showCreateProduct(parentId, catName) {
 	$("#createProductBtn").attr("data-parentId", parentId);
 
 	$(".newClusterTemplateContainer").empty();
@@ -479,21 +522,39 @@ function showCreateProduct(parentId) {
 	$("#warehouseTreeInsert_title").val("");
 	$("#warehouseTreeInsert_barcode").val("");
 	$("#warehouseTreeInsert_categoryId").val("");
+	$("#warehouseTreeInsert_minQuantity").val("");
+	$("#warehouseTreeInsert_optQuantity").val("");
+	$("#warehouseTreeInsert_expDateWarning").val("");
 
 	poolConnect.then((pool) => {
-		pool.request().execute("anbar.warehouse_category_select", (err, res) => {
+		pool.request().execute("anbar.warehouse_category_search", (err, res) => {
 			if (err !== null) console.log(err);
+
+			res.recordset.forEach((el) => {
+				if (el.id === parseInt(parentId)) {
+					$("#warehouseTreeInsert_categoryId").val(catName);
+					$("#warehouseTreeInsert_categoryId").attr("data-parentId", parentId);
+					$("#warehouseTreeInsert_categoryId").attr(
+						"data-departmentId",
+						el.department_id
+					);
+				}
+			});
 			fillAddNewCategotyDropdown(res.recordset);
 		});
 	});
 
-	let now = new Date();
-	let day = ("0" + now.getDate()).slice(-2);
-	let month = ("0" + (now.getMonth() + 2)).slice(-2);
-	let date = now.getFullYear() + "-" + month + "-" + day;
-	$("#warehouseTreeInsert_expDateWarning").val(date);
+	poolConnect.then((pool) => {
+		pool
+			.request()
+			.input("title", "")
+			.execute("anbar.cluster_select_from_product", (err, res) => {
+				if (err !== null) console.log(err);
+				fillClusterDefault(res.recordset);
+			});
+	});
 
-	// Shoving form
+	// Showing form
 	$(".blur").css("z-index", 1000000000);
 	$(".createProductContainer").css({
 		opacity: 1,
@@ -502,21 +563,22 @@ function showCreateProduct(parentId) {
 	});
 }
 $("#createProduct").click(function () {
-	showCreateProduct($(this).attr("data-id"));
+	showCreateProduct($(this).attr("data-id"), $(this).attr("data-name"));
 });
 function fillAddNewCategotyDropdown(data) {
 	$("#warehouseCategoryDropdown").empty();
 	let parent = $("#warehouseCategoryDropdown");
 	data.forEach((el) => {
 		parent.append(
-			`<p class="dropdown-member" data-barcode="${el.barcode}" data-parentId="${el.parent_id}">${el.title}</p>`
+			`<p class="dropdown-member-category" data-id="${el.id}" data-departmentId="${el.department_id}">${el.title}</p>`
 		);
 	});
 
-	$(".dropdown-member").click(function () {
+	$(".dropdown-member-category").click(function () {
+		$("#warehouseTreeInsert_categoryId").attr("data-parentId", $(this).attr("data-id"));
 		$("#warehouseTreeInsert_categoryId").attr(
-			"data-parentId",
-			$(this).attr("data-parentId")
+			"data-departmentId",
+			$(this).attr("data-departmentId")
 		);
 		$("#warehouseTreeInsert_categoryId").val($(this).html());
 		setTimeout(() => {
@@ -527,7 +589,7 @@ function fillAddNewCategotyDropdown(data) {
 $("#warehouseTreeInsert_categoryId").keyup(function () {
 	if ($(this).val().trim() === "") {
 		poolConnect.then((pool) => {
-			pool.request().execute("anbar.warehouse_category_select", (err, res) => {
+			pool.request().execute("anbar.warehouse_category_search", (err, res) => {
 				if (err !== null) console.log(err);
 				fillAddNewCategotyDropdown(res.recordset);
 			});
@@ -540,12 +602,104 @@ $("#warehouseTreeInsert_categoryId").keyup(function () {
 		pool
 			.request()
 			.input("title", text)
-			.execute("anbar.warehouse_tree_search", (err, res) => {
+			.execute("anbar.warehouse_category_search", (err, res) => {
 				if (err !== null) console.log(err);
-				let tmp = res.recordset.filter((el) => {
-					return el.product_id === null;
-				});
-				fillAddNewCategotyDropdown(tmp);
+				fillAddNewCategotyDropdown(res.recordset);
+			});
+	});
+});
+function fillNewClusterTittles(mount, data) {
+	$(mount).empty();
+	let parent = $(mount);
+	data.forEach((el) => {
+		parent.append(
+			`<p class="dropdown-member-cluster"  data-clusterId="${el.id}">${el.title}</p>`
+		);
+	});
+
+	$(".dropdown-member-cluster").click(function () {
+		let parent = $($(this).parent().parent().parent().parent());
+		let input = $(
+			$($($(this).parent().parent().parent().parent()).children()[1]).children()[0]
+		);
+		parent.attr("data-clusterId", $(this).attr("data-clusterId"));
+		input.val($(this).html());
+		setTimeout(() => {
+			$("#warehouseCategoryDropdown").empty();
+		}, 100);
+	});
+}
+function clusterNewInputKeyUp() {
+	let text = $(this).val().trim();
+	poolConnect.then((pool) => {
+		pool
+			.request()
+			.input("title", text)
+			.execute("anbar.cluster_names_search", (err, res) => {
+				if (err !== null) console.log(err);
+
+				fillNewClusterTittles($($(this).siblings().children()[0]), res.recordset);
+			});
+	});
+}
+function fillClusterDefault(data) {
+	$("#warehouseClusterDefaultDropdown").empty();
+	let parent = $("#warehouseClusterDefaultDropdown");
+	data.forEach((el) => {
+		parent.append(
+			`<p class="dropdown-member-cluster-default" data-clusterDef="${el.cluster_default}"  data-clusterId="${el.cluster}">${el.title}</p>`
+		);
+	});
+
+	$(".dropdown-member-cluster-default").click(function () {
+		$("#warehouseTreeInsert_clusterTemplate").attr(
+			"data-clusterDef",
+			$(this).attr("data-clusterDef")
+		);
+		$("#warehouseTreeInsert_clusterTemplate").attr(
+			"data-clusterId",
+			$(this).attr("data-clusterId")
+		);
+		$("#warehouseTreeInsert_clusterTemplate").val($(this).html());
+		setTimeout(() => {
+			$("#warehouseClusterDefaultDropdown").empty();
+		}, 100);
+	});
+}
+setInterval(() => {
+	if ($("#warehouseTreeInsert_clusterTemplate").val() !== "") {
+		$(".newClusterTemplateContainer").css({
+			opacity: 0.6,
+			"pointer-events": "none",
+		});
+	} else {
+		$(".newClusterTemplateContainer").css({
+			opacity: 1,
+			"pointer-events": "all",
+		});
+	}
+}, 400);
+$("#warehouseTreeInsert_clusterTemplate").keyup(function () {
+	let text = $(this).val().trim();
+	if (text !== "") {
+		$(".newClusterTemplateContainer").css({
+			opacity: 0.6,
+			"pointer-events": "none",
+		});
+	} else {
+		$(".newClusterTemplateContainer").css({
+			opacity: 1,
+			"pointer-events": "all",
+		});
+	}
+
+	poolConnect.then((pool) => {
+		pool
+			.request()
+			.input("title", text)
+			.execute("anbar.cluster_select_from_product", (err, res) => {
+				if (err !== null) console.log(err);
+				fillClusterDefault(res.recordset);
 			});
 	});
 });
@@ -728,7 +882,7 @@ function fillSingleProductTable(data) {
 			el.exp_date
 		).format("Da MMMM YYYY")}</td>`;
 		row += `<td>${el.is_out ? "Removed" : "Added"}</td>`;
-		row += `<td>${el.performed_by}</td>`;
+		row += `<td>${el.performed_by === undefined ? "-" : el.performed_by}</td>`;
 		row += `<td>${el.product_cell}</td>`;
 
 		row += "</tr>";
@@ -769,7 +923,7 @@ async function showProductInfo(productData) {
 		poolConnect.then((pool) => {
 			pool
 				.request()
-				.input("product_id", parseInt(productData.product_id))
+				.input("product_id", BigInt(productData.product_id))
 				.execute("anbar.main_tree_click_info", (err, res) => {
 					if (err !== null) console.log(err);
 					resolve(res.recordset[0]);
@@ -799,11 +953,11 @@ async function showProductInfo(productData) {
 		$("#singleProductOutQuantity").html("null");
 	}
 
-	let table_product = await new Promise((resolve, reject) => {
+	let table_product = await new Promise((resolve) => {
 		poolConnect.then((pool) => {
 			pool
 				.request()
-				.input("product_id", parseInt(productData.product_id))
+				.input("product_id", BigInt(productData.product_id))
 				.execute("anbar.main_tree_click_table", (err, res) => {
 					if (err !== null) console.log(err);
 					resolve(res.recordset);
