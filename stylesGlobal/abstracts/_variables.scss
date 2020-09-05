@@ -3,9 +3,13 @@
 // -----------------------------------------------------------------------------
 
 $primary-color: #188bc0;
+$primary-color-shade1: #44b4e7;
+$primary-color-shade2: #2ab3f3;
 $secondary-color: #ffffff;
+$secondary-color-shade1: #ebe3e3;
+$secondary-color-shade2: #d8cece;
 $secondary-color-blured: rgb(136, 136, 136);
-$stand-out-color: #ffae00;
+$stand-out-color: #ffd900; // Previous : #ffae00
 $stand-out-color-blured: rgba(255, 174, 0, 0.692);
 $dark-color: #24252a;
 
@@ -37,12 +41,12 @@ $login-form-wrong-data-info-text-color: rgb(241, 34, 34);
 //                             Anbar Form Colors
 // -----------------------------------------------------------------------------
 // Nav bar Colors
-$nav-bar-background-color: #24252a;
-$nav-bar-items-text-color: #edf0f1;
-$nav-bar-items-text-hover-color: #0088a9;
-$nav-bar-items-underline-color: #ffffff;
-$nav-bar-has-dropdown-color: #0088a9;
-$nav-bar-has-dropdown-hover-color: #ffffff;
+$nav-bar-background-color: $dark-color;
+$nav-bar-items-text-color: $secondary-color;
+$nav-bar-items-text-hover-color: $primary-color;
+$nav-bar-items-underline-color: $secondary-color;
+$nav-bar-has-dropdown-color: $primary-color;
+$nav-bar-has-dropdown-hover-color: $secondary-color;
 
 $nav-bar-dropdown-background-color: #0087a97c;
 $nav-bar-dropdown-items-background-color: #0087a97c;
@@ -65,40 +69,40 @@ $nav-bar-settings-dropdown-text-color: rgba(0, 0, 0, 0.623);
 $nav-bar-settings-dropdown-text-hover-color: black;
 
 // Anbar Info colors
-$anbar-info-background-color: rgb(255, 255, 255);
+$anbar-info-background-color: $secondary-color;
 
-$anbar-info-default-screeniInfo-info-text-color: rgb(231, 228, 228);
+$anbar-info-default-screeniInfo-info-text-color: $primary-color;
 
-$anbar-info-tree-view-background-color: rgba(110, 68, 9, 0.404);
-$anbar-info-tree-view-scrollbar-color: #0088a9;
-$anbar-info-tree-view-items-text-color: rgb(12, 4, 4);
-$anbar-info-tree-view-items-text-hover-color: rgb(231, 231, 231);
+$anbar-info-tree-view-background-color: $primary-color-shade1;
+$anbar-info-tree-view-scrollbar-color: $stand-out-color;
+$anbar-info-tree-view-items-text-color: #000;
+$anbar-info-tree-view-items-text-hover-color: $secondary-color;
 $anbar-info-tree-view-items-has-dropdown-color: #000;
 
-$anbar-info-search-box-background-color: rgba(110, 68, 9, 0.404);
-$anbar-info-search-box-text-color: #fff;
-$anbar-info-search-box-sign-color: rgb(182, 176, 176);
-$anbar-info-search-box-sign-hover-color: #fff;
-$anbar-info-search-box-placeholder-color: #ffffff;
+$anbar-info-search-box-background-color: $primary-color;
+$anbar-info-search-box-text-color: $secondary-color;
+$anbar-info-search-box-sign-color: $secondary-color-blured;
+$anbar-info-search-box-sign-hover-color: $secondary-color;
+$anbar-info-search-box-placeholder-color: $secondary-color;
 $anbar-info-search-box-border-color: transparent;
-$anbar-info-search-box-border-hover-color: rgb(9, 172, 236);
+$anbar-info-search-box-border-hover-color: $stand-out-color;
 
-$anbar-info-data-dividing-line-color: rgb(58, 56, 56);
+$anbar-info-data-dividing-line-color: $dark-color;
 
 $anbar-info-small-nav-background-color: $anbar-info-search-box-background-color;
 $anbar-info-small-nav-btn-background-color: #9cdef841;
 $anbar-info-small-nav-btn-background-hover-color: #00aff541;
-$anbar-info-small-nav-btn-background-clicked-color: white;
-$anbar-info-small-nav-btn-border-color: #1dc4ee;
-$anbar-info-small-nav-btn-border-clicked-color: #000;
-$anbar-info-small-nav-btn-text-color: white;
+$anbar-info-small-nav-btn-background-clicked-color: $stand-out-color;
+$anbar-info-small-nav-btn-border-color: $stand-out-color;
+$anbar-info-small-nav-btn-border-clicked-color: $dark-color;
+$anbar-info-small-nav-btn-text-color: $secondary-color;
 $anbar-info-small-nav-btn-text-clicked-color: #000;
 
 $anbar-info-overall-data-background-color: $anbar-info-small-nav-btn-background-clicked-color;
-$anbar-info-overall-data-header-text-color: rgb(0, 0, 0);
+$anbar-info-overall-data-header-text-color: #000;
 $anbar-info-overall-data-text-color: #000;
-$anbar-info-overall-data-values-color: rgb(46, 39, 39);
-$anbar-info-overall-data-values-hover-color: #000;
+$anbar-info-overall-data-values-color: rgb(37, 33, 33);
+$anbar-info-overall-data-values-hover-color: $secondary-color;
 
 // Data table JAFAR
 $dataTable-background-color: rgb(189, 189, 189);

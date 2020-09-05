@@ -1,3 +1,112 @@
+<div class="cstmAlertBox">
+	<div class="up">
+		<p class="alertTitle">!Warning!</p>
+		<p id="alertMessage">asdadsad</p>
+	</div>
+	<div class="down">
+		<button id="alertNo">No</button>
+		<button id="alertYes">Yes</button>
+	</div>
+</div>
+<div id="categoryOptionsMenu" class="categoryOptionsMenuMenber">
+	<ul class="categoryOptionsMenuMenber">
+		<li id="createCategory" class="categoryOptionsMenuMenber">Create new category</li>
+		<li id="createProduct" class="productOptionsMenuMenber">Create new product</li>
+		<li id="editCategory" class="categoryOptionsMenuMenber">Edit category</li>
+		<li id="deleteCategory" class="categoryOptionsMenuMenber">Delete category</li>
+		<li
+			id="clearCategory"
+			class="categoryOptionsMenuMenber"
+			title="Delete all child products and categories"
+		>
+			Clear category
+		</li>
+	</ul>
+</div>
+<div id="productOptionsMenu" class="productOptionsMenuMenber">
+	<ul class="productOptionsMenuMenber">
+		<li id="editProduct" class="productOptionsMenuMenber">Edit</li>
+		<li id="deleteProduct" class="productOptionsMenuMenber">Delete</li>
+	</ul>
+</div>
+<div class="blur"></div>
+<div class="editCategoryContainer">
+	<h1>Edit tittle:</h1>
+	<input type="text" id="newCategoryName" placeholder="Type new title" />
+	<div class="row">
+		<button id="discardChangeCategoryBtn">Discard</button>
+		<button id="changeCategoryTitleBtn">Change</button>
+	</div>
+</div>
+<div class="createCategoryContainer">
+	<h1>Create category:</h1>
+	<input type="text" id="createNewCategoryName" placeholder="Type title" />
+	<div class="row">
+		<button id="discardCreateCategoryBtn">Discard</button>
+		<button id="createCategoryBtn">Add</button>
+	</div>
+</div>
+<div class="editProductContainer">
+	<div class="row">
+		<button id="discardEditProductBtn">Discard</button>
+		<button id="editProductBtn">Change</button>
+	</div>
+</div>
+<div class="createProductContainer">
+	<h1>Add new product</h1>
+	<div class="container">
+		<div class="row">
+			<p>Title:</p>
+			<input
+				type="text"
+				placeholder="Product title"
+				id="warehouseTreeInsert_title"
+				required
+			/>
+		</div>
+		<div class="row">
+			<p>Barcode:</p>
+			<input
+				type="number"
+				placeholder="Barcode"
+				min="0"
+				id="warehouseTreeInsert_barcode"
+				required
+			/>
+		</div>
+		<div class="row">
+			<p>Category:</p>
+			<div class="warehouseCategoryDrowdown">
+				<input
+					type="text"
+					placeholder="Category name"
+					id="warehouseTreeInsert_categoryId"
+					required
+				/>
+				<div class="dropdown">
+					<div id="warehouseCategoryDropdown" class="containerDropdown"></div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<p>Expiration date warning:</p>
+			<input type="date" id="warehouseTreeInsert_expDateWarning" />
+		</div>
+		<hr />
+		<div class="row special">
+			<h2>Clusters</h2>
+			<input type="text" placeholder="Select cluster's template" disabled />
+		</div>
+		<div class="row special">
+			<h2>Or create new template</h2>
+			<div class="newClusterTemplateContainer"></div>
+		</div>
+		<div class="row">
+			<button id="discardCreateProductBtn">Discard</button>
+			<button id="createProductBtn">Add</button>
+		</div>
+	</div>
+</div>
 <aside class="treeViewContainer">
 	<div class="searchContainer">
 		<input type="text" placeholder="Type to search" id="searchInputBox" />
@@ -54,8 +163,29 @@
 		</div>
 		<div class="singleProductInfo">
 			<div class="text-data">
-				<h2>Product name: <span id="singleProductName"></span></h2>
-				<p>Product id: <span id="singleProductId"></span></p>
+				<div class="row">
+					<h2>Product name: <span id="singleProductName"></span></h2>
+				</div>
+				<div class="row">
+					<p>Product id: <span id="singleProductId"></span></p>
+				</div>
+				<div class="row">
+					<p>Price: <span id="singleProductPrice"></span></p>
+					<p>Currency: <span id="singleProductCurrency"></span></p>
+				</div>
+				<div class="row">
+					<p>Product cell: <span id="singleProductCell"></span></p>
+					<p>Expiration date: <span id="singleProductExpDate"></span></p>
+				</div>
+				<div class="row">
+					<p>Overall income: <span id="singleProductInQuantity"></span></p>
+				</div>
+				<div class="row">
+					<p>Left: <span id="singleProductLeft"></span></p>
+				</div>
+				<div class="row">
+					<p>Overall outcome: <span id="singleProductOutQuantity"></span></p>
+				</div>
 			</div>
 			<div class="table-data"></div>
 		</div>
