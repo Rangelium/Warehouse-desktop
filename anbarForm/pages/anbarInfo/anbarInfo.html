@@ -11,7 +11,7 @@
 <div id="categoryOptionsMenu" class="categoryOptionsMenuMenber">
 	<ul class="categoryOptionsMenuMenber">
 		<li id="createCategory" class="categoryOptionsMenuMenber">Create new category</li>
-		<li id="createProduct" class="productOptionsMenuMenber">Create new product</li>
+		<li id="createProduct" class="categoryOptionsMenuMenber">Create new product</li>
 		<li id="editCategory" class="categoryOptionsMenuMenber">Edit category</li>
 		<li id="deleteCategory" class="categoryOptionsMenuMenber">Delete category</li>
 		<li
@@ -55,24 +55,26 @@
 <div class="createProductContainer">
 	<h1>Add new product</h1>
 	<div class="container">
-		<div class="row">
-			<p>Title:</p>
-			<input
-				type="text"
-				placeholder="Product title"
-				id="warehouseTreeInsert_title"
-				required
-			/>
-		</div>
-		<div class="row">
-			<p>Barcode:</p>
-			<input
-				type="number"
-				placeholder="Barcode"
-				min="0"
-				id="warehouseTreeInsert_barcode"
-				required
-			/>
+		<div class="row kek">
+			<div class="block">
+				<p>Title:</p>
+				<input
+					type="text"
+					placeholder="Product title"
+					id="warehouseTreeInsert_title"
+					required
+				/>
+			</div>
+			<div class="block">
+				<p>Barcode:</p>
+				<input
+					type="number"
+					placeholder="Barcode"
+					min="0"
+					id="warehouseTreeInsert_barcode"
+					required
+				/>
+			</div>
 		</div>
 		<div class="row">
 			<p>Category:</p>
@@ -88,14 +90,48 @@
 				</div>
 			</div>
 		</div>
+		<div class="row kek">
+			<div class="block">
+				<p>Minimal quantity:</p>
+				<input
+					type="number"
+					placeholder="Minimal"
+					min="0"
+					id="warehouseTreeInsert_minQuantity"
+				/>
+			</div>
+			<div class="block">
+				<p>Optimal quantity:</p>
+				<input
+					type="number"
+					placeholder="Optimal"
+					min="0"
+					id="warehouseTreeInsert_optQuantity"
+				/>
+			</div>
+		</div>
 		<div class="row">
 			<p>Expiration date warning:</p>
-			<input type="date" id="warehouseTreeInsert_expDateWarning" />
+			<input
+				type="number"
+				placeholder="Days"
+				min="1"
+				id="warehouseTreeInsert_expDateWarning"
+			/>
 		</div>
 		<hr />
 		<div class="row special">
-			<h2>Clusters</h2>
-			<input type="text" placeholder="Select cluster's template" disabled />
+			<div class="warehouseClusterDefaultDrowdown">
+				<input
+					type="text"
+					id="warehouseTreeInsert_clusterTemplate"
+					placeholder="Select cluster's template"
+				/>
+
+				<div class="dropdown">
+					<div id="warehouseClusterDefaultDropdown" class="containerDropdown"></div>
+				</div>
+			</div>
 		</div>
 		<div class="row special">
 			<h2>Or create new template</h2>
