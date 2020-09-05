@@ -1,5 +1,7 @@
 .currency{
   background-color: $anbar-info-background-color;
+  display: flex;
+  flex-direction: column;
 }
 
 // currency Table Part
@@ -153,13 +155,15 @@
 // currency Input Part
 
 .currencyButtons{
-  position: absolute;
-  transform: translate(20%, 100%);
-  margin: 0 auto !important;
+  // position: absolute;
+  // transform: translate(20%, 100%);
+  // margin: 0 auto !important;
+  margin-top: 7vh;
+  align-self: center;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 70vw;
+  width: 80vw;
   z-index: 1000;
 }
 
@@ -188,10 +192,10 @@
 }
 
 .currencyInputField{
-  padding: 5px;
+  padding: 10px;
   border: 1px solid black;
   font-size: 24px;
-  margin-bottom: 5px;
+  // margin-bottom: 5px;
   outline: none;
   &:focus{
     outline: 1px solid rgb(7, 7, 65);

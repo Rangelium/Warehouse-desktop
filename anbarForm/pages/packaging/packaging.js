@@ -171,7 +171,6 @@ $(".optionsCard .optionsElement#returnElement").click(function(){
 					fillTable();
 				})
 	})
-
 })
 
 $(document).click(() => {
