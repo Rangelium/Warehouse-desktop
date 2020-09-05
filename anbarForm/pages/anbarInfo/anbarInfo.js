@@ -1,3 +1,48 @@
+var currentMousePos = { x: -1, y: -1 };
+$(document).mousemove(function (event) {
+	currentMousePos.x = parseInt(event.pageX);
+	currentMousePos.y = parseInt(event.pageY);
+});
+
+async function showAlert(message) {
+	$("#alertMessage").html(message);
+	$(".cstmAlertBox").css({
+		display: "flex",
+		opacity: "1",
+		width: "30%",
+		height: "30%",
+		"z-index": 10000000000,
+	});
+	$(".blur").css("z-index", 1000000000);
+	$(".anbarAdd-container").css({
+		filter: "brightness(40%)",
+		"pointer-events": "none",
+	});
+
+	return await new Promise((resolve) => {
+		$("#alertYes").click(() => {
+			resolve(true);
+		});
+		$("#alertNo").click(() => {
+			resolve(false);
+		});
+	});
+}
+function closeAlert() {
+	$(".cstmAlertBox").css({
+		opacity: "0",
+		"z-index": -1000,
+	});
+	$(".blur").css("z-index", -1000);
+	$(".anbarAdd-container").css({
+		filter: "brightness(100%)",
+		"pointer-events": "all",
+	});
+	setTimeout(() => {
+		$(".cstmAlertBox").css("display", "none");
+	}, 600);
+}
+
 // =====================================================================================
 //                                Anbar Overall Info part
 // =====================================================================================
@@ -9,8 +54,11 @@ function showOverallInfo() {
 			poolConnect.then((pool) => {
 				pool.request().execute("anbar.dashboard", (err, res) => {
 					if (err != null) console.log(err);
-					console.log(res);
-					resolve(res.recordset[0]);
+					if (res.recordset.length !== 0) {
+						resolve(res.recordset[0]);
+					} else {
+						console.log("Anbar is empty!");
+					}
 				});
 			});
 		}).then((data) => {
@@ -92,6 +140,13 @@ function feelTree(data) {
 
 		showProductInfo(treeView.giveDataOfElement($(this)));
 	});
+
+	$(".tv-groupname").contextmenu(function () {
+		showCategoryOptions($(this), treeView.giveDataOfElement($(this).parent()));
+	});
+	$(".tv-name").contextmenu(function () {
+		showProductOptions($(this), treeView.giveDataOfElement($(this)));
+	});
 }
 
 $("#expandTreeView").click(function () {
@@ -130,6 +185,472 @@ $("#hideShowTreeView").click(function () {
 		$(this).attr("data-isClicked", "true");
 		$(".treeViewContainer").css("display", "none");
 	}
+});
+
+// =====================================================================================
+//                             RIGHT CLICK ON CATEGORY TREEVIEW
+// =====================================================================================
+function showCategoryOptions(element, data) {
+	hideProductOptions();
+	$(".categoryOptionsMenuMenber").attr("data-id", data.id);
+	$(".categoryOptionsMenuMenber").attr("data-name", data.title);
+
+	if (currentMousePos.y < $(document).height() * 0.5) {
+		$("#categoryOptionsMenu").css({
+			top: currentMousePos.y - 60,
+			left: currentMousePos.x,
+			opacity: 1,
+			"pointer-events": "all",
+		});
+	} else {
+		$("#categoryOptionsMenu").css({
+			top: currentMousePos.y - $("#categoryOptionsMenu").width() - 60,
+			left: currentMousePos.x,
+			opacity: 1,
+			"pointer-events": "all",
+		});
+	}
+}
+function hideCategoryOptions() {
+	$("#categoryOptionsMenu").css({
+		opacity: 0,
+		"pointer-events": "none",
+	});
+}
+$(document).click((el) => {
+	if ($(el.target).attr("class") !== "categoryOptionsMenuMenber") {
+		hideCategoryOptions();
+	}
+});
+
+// Create new
+$("#discardCreateCategoryBtn").click(() => {
+	hideCreateCategory();
+});
+$("#createCategoryBtn").click(function () {
+	if ($("#createNewCategoryName").val().trim() === "") return;
+
+	poolConnect.then((pool) => {
+		pool
+			.request()
+			.input("parent_id", $(this).attr("data-parentId"))
+			.input("title", $("#createNewCategoryName").val())
+			.input("product_id", null)
+			.input("user_id", USER.id)
+			.execute("anbar.warehouse_tree_insert", (err) => {
+				if (err !== null) console.log(err);
+				hideCreateCategory();
+				fillTreeView();
+			});
+	});
+});
+function hideCreateCategory() {
+	$(".blur").css("z-index", -1000);
+	$(".createCategoryContainer").css({
+		opacity: 0,
+		"pointer-events": "none",
+		"z-index": 1,
+	});
+}
+function showCreateCategory(parentId) {
+	$("#createCategoryBtn").attr("data-parentId", parentId);
+
+	$(".blur").css("z-index", 1000000000);
+	$(".createCategoryContainer").css({
+		opacity: 1,
+		"pointer-events": "all",
+		"z-index": 10000000000,
+	});
+}
+$("#createCategory").click(function () {
+	showCreateCategory($(this).attr("data-id"));
+});
+
+// Change Name
+$("#discardChangeCategoryBtn").click(() => {
+	hideEditCategory();
+});
+$("#changeCategoryTitleBtn").click(function () {
+	if (
+		$("#newCategoryName").val().trim() === "" ||
+		$("#newCategoryName").val() === $(this).attr("data-title")
+	)
+		return;
+
+	poolConnect.then((pool) => {
+		pool
+			.request()
+			.input("id", $(this).attr("data-id"))
+			.input("title", $("#newCategoryName").val())
+			.input("user_id", USER.id)
+			.execute("anbar.warehouse_tree_update_title", (err) => {
+				if (err !== null) console.log(err);
+				hideEditCategory();
+				fillTreeView();
+			});
+	});
+});
+function hideEditCategory() {
+	$(".blur").css("z-index", -1000);
+	$(".editCategoryContainer").css({
+		opacity: 0,
+		"pointer-events": "none",
+		"z-index": 1,
+	});
+}
+function showEditCategory(id, title) {
+	$("#changeCategoryTitleBtn").attr("data-id", id);
+	$("#changeCategoryTitleBtn").attr("data-title", title);
+	$("#newCategoryName").val(title);
+
+	$(".blur").css("z-index", 1000000000);
+	$(".editCategoryContainer").css({
+		opacity: 1,
+		"pointer-events": "all",
+		"z-index": 10000000000,
+	});
+}
+$("#editCategory").click(function () {
+	showEditCategory($(this).attr("data-id"), $(this).attr("data-name"));
+});
+
+// Delete
+$("#deleteCategory").click(function () {
+	showAlert(`Are you sure you want delete "${$(this).attr("data-name")}"`).then((res) => {
+		if (res) {
+			poolConnect.then((pool) => {
+				pool
+					.request()
+					.input("id", parseInt($(this).attr("data-id")))
+					.input("user_id", USER.id)
+					.execute("anbar.warehouse_tree_delete", (err, res) => {
+						if (err !== null) console.log(err);
+						fillTreeView();
+					});
+			});
+		}
+		closeAlert();
+	});
+});
+
+// Create new product
+function warehouseTreeInsertAddNewCluster(pivot = undefined) {
+	let clusterEl = $(`<div class="clusterTemplateElement"></div>`);
+	let defaultCheck = '<p>Default:</p><input type="radio" name="default_cluster" />';
+	let inputs = `<input required type="text" placeholder="Cluster's name" />
+	<input required type="number" min="0" placeholder="Capacity" />`;
+	let addNew = $(`<img src="../stylesGlobal/imgs/new_btn.svg" />`);
+	let remove = $(`<img src="../stylesGlobal/imgs/delete_btn.svg" />`);
+
+	if (pivot !== undefined) {
+		pivot.after(clusterEl);
+	} else {
+		$(".newClusterTemplateContainer").append(clusterEl);
+	}
+	clusterEl.append(defaultCheck);
+	clusterEl.append(inputs);
+	clusterEl.append(addNew);
+	clusterEl.append(remove);
+
+	addNew.click((el) => {
+		warehouseTreeInsertAddNewCluster($(el.target).parent());
+	});
+	remove.click((el) => {
+		let counterActiveClusterTemplate = 0;
+		$(".newClusterTemplateContainer")
+			.children()
+			.each(function () {
+				if ($(this).attr("data-Active") !== "false") {
+					counterActiveClusterTemplate++;
+				}
+			});
+		if (counterActiveClusterTemplate < 2) {
+			return;
+		}
+
+		$(el.target).parent().css("opacity", "0");
+		$(el.target).parent().attr("data-Active", "false");
+		setTimeout(() => {
+			$(el.target).parent().css("display", "none");
+		}, 400);
+	});
+}
+function warehouseTreeInsertFormValidation() {
+	if (
+		$("#warehouseTreeInsert_title").val() === "" ||
+		$("#warehouseTreeInsert_barcode").val() === "" ||
+		$("#warehouseTreeInsert_categoryId").val() === ""
+	) {
+		return false;
+	}
+
+	let clusterArr = Array.from($(".newClusterTemplateContainer .clusterTemplateElement"));
+	if (clusterArr.length < 2) return false;
+
+	let tmp = 0;
+	clusterArr.forEach((cluster) => {
+		if ($(cluster).children()[1].checked) tmp += 1;
+		if ($($(cluster).children()[2]).val() === "") return false;
+		if ($($(cluster).children()[3]).val() === "") return false;
+	});
+
+	if (tmp !== 1) return false;
+
+	return true;
+}
+$("#discardCreateProductBtn").click(() => {
+	hideCreateProduct();
+});
+$("#createProductBtn").click(function () {
+	if (!warehouseTreeInsertFormValidation()) return false;
+
+	return;
+
+	let cluster_id = new Date();
+	let product_id = new Date() + 1;
+	let cluster_default = undefined;
+
+	let clusterArr = Array.from($(".newClusterTemplateContainer .clusterTemplateElement"));
+	clusterArr.forEach((cluster, index) => {
+		if ($(cluster).children()[1].checked) cluster_default = index;
+
+		poolConnect.then((pool) => {
+			pool
+				.request()
+				.input("cluster_id", BigInt(cluster_id))
+				.input("capacity", $($(cluster).children()[3]).val())
+				.input("cluster_order", index + 1)
+				.input("title", $($(cluster).children()[2]).val())
+				.input("user_id", USER.id)
+				.execute("anbar.cluster_insert", (err) => {
+					if (err !== null) console.log(err);
+				});
+		});
+	});
+
+	console.log($("#warehouseTreeInsert_categoryId").attr("data-parentId"));
+	console.log($("#warehouseTreeInsert_title").val());
+	console.log(product_id);
+	console.log(cluster_id);
+	console.log(cluster_default);
+	console.log(
+		moment($("#warehouseTreeInsert_expDateWarning").val()).format("yyyy-MM-DD HH:mm:ss")
+	);
+	console.log($("#warehouseTreeInsert_barcode").val());
+
+	poolConnect.then((pool) => {
+		pool
+			.request()
+			.input("parent_id", $("#warehouseTreeInsert_categoryId").attr("data-parentId"))
+			.input("title", $("#warehouseTreeInsert_title").val())
+			.input("product_id", BigInt(product_id))
+			.input("cluster", cluster_id)
+			.input("cluster_default", cluster_default)
+			.input("user_id", USER.id)
+			.input(
+				"exp_date_warning",
+				moment($("#warehouseTreeInsert_expDateWarning").val()).format(
+					"yyyy-MM-DD HH:mm:ss"
+				)
+			)
+			.input("barcode", $("#warehouseTreeInsert_barcode").val())
+			.input("min_quantity")
+			.input("optimal_quantity")
+			.input("department_id")
+			.execute("anbar.warehouse_tree_insert", (err, res) => {
+				if (err !== null) console.log(err);
+			});
+	});
+});
+function hideCreateProduct() {
+	$(".blur").css("z-index", -1000);
+	$(".createProductContainer").css({
+		opacity: 0,
+		"pointer-events": "none",
+		"z-index": 1,
+	});
+}
+function showCreateProduct(parentId) {
+	$("#createProductBtn").attr("data-parentId", parentId);
+
+	$(".newClusterTemplateContainer").empty();
+	warehouseTreeInsertAddNewCluster();
+
+	$("#warehouseTreeInsert_title").val("");
+	$("#warehouseTreeInsert_barcode").val("");
+	$("#warehouseTreeInsert_categoryId").val("");
+
+	poolConnect.then((pool) => {
+		pool.request().execute("anbar.warehouse_category_select", (err, res) => {
+			if (err !== null) console.log(err);
+			fillAddNewCategotyDropdown(res.recordset);
+		});
+	});
+
+	let now = new Date();
+	let day = ("0" + now.getDate()).slice(-2);
+	let month = ("0" + (now.getMonth() + 2)).slice(-2);
+	let date = now.getFullYear() + "-" + month + "-" + day;
+	$("#warehouseTreeInsert_expDateWarning").val(date);
+
+	// Shoving form
+	$(".blur").css("z-index", 1000000000);
+	$(".createProductContainer").css({
+		opacity: 1,
+		"pointer-events": "all",
+		"z-index": 10000000000,
+	});
+}
+$("#createProduct").click(function () {
+	showCreateProduct($(this).attr("data-id"));
+});
+function fillAddNewCategotyDropdown(data) {
+	$("#warehouseCategoryDropdown").empty();
+	let parent = $("#warehouseCategoryDropdown");
+	data.forEach((el) => {
+		parent.append(
+			`<p class="dropdown-member" data-barcode="${el.barcode}" data-parentId="${el.parent_id}">${el.title}</p>`
+		);
+	});
+
+	$(".dropdown-member").click(function () {
+		$("#warehouseTreeInsert_categoryId").attr(
+			"data-parentId",
+			$(this).attr("data-parentId")
+		);
+		$("#warehouseTreeInsert_categoryId").val($(this).html());
+		setTimeout(() => {
+			$("#warehouseCategoryDropdown").empty();
+		}, 100);
+	});
+}
+$("#warehouseTreeInsert_categoryId").keyup(function () {
+	if ($(this).val().trim() === "") {
+		poolConnect.then((pool) => {
+			pool.request().execute("anbar.warehouse_category_select", (err, res) => {
+				if (err !== null) console.log(err);
+				fillAddNewCategotyDropdown(res.recordset);
+			});
+		});
+
+		return;
+	}
+	let text = $(this).val().trim();
+	poolConnect.then((pool) => {
+		pool
+			.request()
+			.input("title", text)
+			.execute("anbar.warehouse_tree_search", (err, res) => {
+				if (err !== null) console.log(err);
+				let tmp = res.recordset.filter((el) => {
+					return el.product_id === null;
+				});
+				fillAddNewCategotyDropdown(tmp);
+			});
+	});
+});
+
+// =====================================================================================
+//                             RIGHT CLICK ON PRODUCT TREEVIEW
+// =====================================================================================
+
+function showProductOptions(element, data) {
+	hideCategoryOptions();
+	$(".productOptionsMenuMenber").attr("data-id", data.id);
+	$(".productOptionsMenuMenber").attr("data-productId", data.product_id);
+	$(".productOptionsMenuMenber").attr("data-name", data.title);
+
+	if (currentMousePos.y < $(document).height() * 0.8) {
+		$("#productOptionsMenu").css({
+			top: currentMousePos.y - 60,
+			left: currentMousePos.x,
+			opacity: 1,
+			"pointer-events": "all",
+		});
+	} else {
+		$("#productOptionsMenu").css({
+			top: currentMousePos.y - $("#productOptionsMenu").width() - 60,
+			left: currentMousePos.x,
+			opacity: 1,
+			"pointer-events": "all",
+		});
+	}
+}
+function hideProductOptions() {
+	$("#productOptionsMenu").css({
+		opacity: 0,
+		"pointer-events": "none",
+	});
+}
+$(document).click((el) => {
+	if ($(el.target).attr("class") !== "productOptionsMenuMenber") {
+		hideProductOptions();
+	}
+});
+
+// Change name
+$("#discardEditProductBtn").click(() => {
+	hideEditProduct();
+});
+$("#editProductBtn").click(function () {
+	return;
+	if (
+		$("#newCategoryName").val().trim() === "" ||
+		$("#newCategoryName").val() === $(this).attr("data-title")
+	)
+		return;
+
+	poolConnect.then((pool) => {
+		pool
+			.request()
+			.input("user_id", USER.id)
+			.execute("anbar.warehouse_tree_update_title", (err) => {
+				if (err !== null) console.log(err);
+				hideEditCategory();
+				fillTreeView();
+			});
+	});
+});
+function hideEditProduct() {
+	$(".blur").css("z-index", -1000);
+	$(".editProductContainer").css({
+		opacity: 0,
+		"pointer-events": "none",
+		"z-index": 1,
+	});
+}
+function showEditProduct(id, title) {
+	$("#editProductBtn").attr("data-id", id);
+	$("#editProductBtn").attr("data-title", title);
+
+	$(".blur").css("z-index", 1000000000);
+	$(".editProductContainer").css({
+		opacity: 1,
+		"pointer-events": "all",
+		"z-index": 10000000000,
+	});
+}
+$("#editProduct").click(function () {
+	showEditProduct($(this).attr("data-id"), $(this).attr("data-name"));
+});
+
+// Delete
+$("#deleteProduct").click(function () {
+	showAlert(`Are you sure you want delete "${$(this).attr("data-name")}"`).then((res) => {
+		if (res) {
+			poolConnect.then((pool) => {
+				pool
+					.request()
+					.input("id", parseInt($(this).attr("data-id")))
+					.input("user_id", USER.id)
+					.execute("anbar.warehouse_tree_delete", (err, res) => {
+						if (err !== null) console.log(err);
+						fillTreeView();
+					});
+			});
+		}
+		closeAlert();
+	});
 });
 
 // =====================================================================================
@@ -178,29 +699,19 @@ function fillSingleProductTable(data) {
 	$(".singleProductTable").append("<thead></thead>");
 	$(".singleProductTable").append("<tbody></tbody>");
 
-	$(".singleProductTable > thead").append(
-		`<th>${languages["product_name"]}:</th>`
-	);
+	$(".singleProductTable > thead").append(`<th>${languages["product_name"]}:</th>`);
 	$(".singleProductTable > thead").append(`<th>${languages["quantity"]}:</th>`);
 	$(".singleProductTable > thead").append(`<th>${languages["unit"]}:</th>`);
-	$(".singleProductTable > thead").append(
-		`<th>${languages["unit_price"]}:</th>`
-	);
-	$(".singleProductTable > thead").append(
-		`<th>${languages["total_price"]}:</th>`
-	);
+	$(".singleProductTable > thead").append(`<th>${languages["unit_price"]}:</th>`);
+	$(".singleProductTable > thead").append(`<th>${languages["total_price"]}:</th>`);
 	$(".singleProductTable > thead").append(`<th>${languages["currency"]}:</th>`);
 	// $(".singleProductTable > thead").append(`<th>Original price:</th>`);
 	// $(".singleProductTable > thead").append(`<th>Original currency:</th>`);
 	// $(".singleProductTable > thead").append(`<th>Current date:</th>`);
 	$(".singleProductTable > thead").append(`<th>${languages["exp_date"]}</th>`);
 	$(".singleProductTable > thead").append(`<th>${languages["action"]}</th>`);
-	$(".singleProductTable > thead").append(
-		`<th>${languages["confirmed"]}:</th>`
-	);
-	$(".singleProductTable > thead").append(
-		`<th>${languages["product_cell"]}:</th>`
-	);
+	$(".singleProductTable > thead").append(`<th>${languages["confirmed"]}:</th>`);
+	$(".singleProductTable > thead").append(`<th>${languages["product_cell"]}:</th>`);
 
 	data.forEach((el) => {
 		let row = "<tr>";
@@ -213,9 +724,9 @@ function fillSingleProductTable(data) {
 		row += `<td>${el.currency}</td>`;
 		// row += `<td>${el.original_price}</td>`;
 		// row += `<td>${el.original_currency}</td>`;
-		row += `<td title="${moment(el.exp_date).format(
-			"Da MMMM YYYY, h:mm:ss"
-		)}">${moment(el.exp_date).format("Da MMMM YYYY")}</td>`;
+		row += `<td title="${moment(el.exp_date).format("Da MMMM YYYY, h:mm:ss")}">${moment(
+			el.exp_date
+		).format("Da MMMM YYYY")}</td>`;
 		row += `<td>${el.is_out ? "Removed" : "Added"}</td>`;
 		row += `<td>${el.performed_by}</td>`;
 		row += `<td>${el.product_cell}</td>`;
@@ -254,14 +765,45 @@ async function showProductInfo(productData) {
 		return;
 	}
 
+	let product_info = await new Promise((resolve) => {
+		poolConnect.then((pool) => {
+			pool
+				.request()
+				.input("product_id", parseInt(productData.product_id))
+				.execute("anbar.main_tree_click_info", (err, res) => {
+					if (err !== null) console.log(err);
+					resolve(res.recordset[0]);
+				});
+		});
+	});
+
 	$("#singleProductName").html(productData.title);
 	$("#singleProductId").html(productData.product_id);
+	try {
+		$("#singleProductPrice").html(product_info.price);
+		$("#singleProductCurrency").html(product_info.currency);
+		$("#singleProductCell").html(product_info.product_cell);
+		$("#singleProductExpDate").html(
+			moment(product_info.exp_date).format("DD-MM-yyyy HH:mm:ss")
+		);
+		$("#singleProductInQuantity").html(product_info.in_quantity);
+		$("#singleProductLeft").html(product_info.left);
+		$("#singleProductOutQuantity").html(product_info.out_quantity);
+	} catch (err) {
+		$("#singleProductPrice").html("null");
+		$("#singleProductCurrency").html("null");
+		$("#singleProductCell").html("null");
+		$("#singleProductExpDate").html("null");
+		$("#singleProductInQuantity").html("null");
+		$("#singleProductLeft").html("null");
+		$("#singleProductOutQuantity").html("null");
+	}
 
 	let table_product = await new Promise((resolve, reject) => {
 		poolConnect.then((pool) => {
 			pool
 				.request()
-				.input("product_id", productData.product_id)
+				.input("product_id", parseInt(productData.product_id))
 				.execute("anbar.main_tree_click_table", (err, res) => {
 					if (err !== null) console.log(err);
 					resolve(res.recordset);
@@ -269,12 +811,8 @@ async function showProductInfo(productData) {
 		});
 	});
 
-	let data = [];
-	table_product.forEach((el) => {
-		data.push(el);
-	});
+	fillSingleProductTable(table_product);
 
-	fillSingleProductTable(data);
 	$(".singleProductInfo").css("opacity", "1");
 	$(".singleProductInfo").css("pointer-events", "unset");
 }
@@ -284,11 +822,14 @@ async function showProductInfo(productData) {
 // =====================================================================================
 
 // Load treeView from start
-poolConnect.then((pool) => {
-	pool.request().execute("anbar.warehouse_tree_select", (err, res) => {
-		feelTree(res.recordset);
+function fillTreeView() {
+	poolConnect.then((pool) => {
+		pool.request().execute("anbar.warehouse_tree_select", (err, res) => {
+			feelTree(res.recordset);
+		});
 	});
-});
+}
+fillTreeView();
 
 // Set const width
 $(".smallNav").css("height", $(".searchContainer").height());

@@ -1,5 +1,5 @@
 const electron = require("electron");
-const { ipcRenderer, } = electron;
+const { ipcRenderer } = electron;
 const { sha256 } = require("../tools/sha256");
 const { MyCustomMenu } = require("../tools/customMenu");
 window.$ = window.jQuery = require("jquery");
@@ -9,7 +9,6 @@ const ssrs = require("mssql-ssrs");
 //  													   Utils part
 // ====================================================================================
 
-
 const { MyTreeView } = require("../tools/TreeView");
 const moment = require("moment");
 var USER = {
@@ -18,7 +17,7 @@ var USER = {
 
 setTimeout(() => {
 	userLoggedIn();
-	openPage("anbarAdd");
+	openPage("anbarInfo");
 }, 200);
 
 // ====================================================================================
@@ -76,12 +75,13 @@ $("form").submit((e) => {
 				.input("username", mssql.NVarChar(250), $("#username").val())
 				.input("password", mssql.NVarChar(250), sha256($("#password").val()))
 				.execute("anbar.user_login_check", (err, res) => {
+					if (err !== null) console.log(err);
 					if (res.recordset[0][""] == 1) {
 						pool
 							.request()
 							.input("username", mssql.NVarChar(250), $("#username").val())
 							.execute("anbar.user_select_info", (err, res) => {
-								console.log(res);
+								if (err !== null) console.log(err);
 								USER = res.recordset[0];
 							});
 						userLoggedIn();
@@ -131,10 +131,8 @@ ipcRenderer.on("userLogOut", () => {
 });
 
 ipcRenderer.on("downloadReport complete", (event, file) => {
-	alert("File is Downloaded")
-})
-
-
+	alert("File is Downloaded");
+});
 
 // ====================================================================================
 //  														Switch pages system part
@@ -252,12 +250,8 @@ ipcRenderer.on("createNavBar", (e, menuItems) => {
 		$(".nav-links").append(
 			`<li class="nav-link" data-name="${menuItems[i].name}" data-id=${
 				menuItems[i].id
-			} data-hasDropdown="${
-				menuItems[i].submenu !== undefined ? true : false
-			}" title="${
-				menuItems[i].shortcut == undefined
-					? ""
-					: menuItems[i].shortcut.toUpperCase()
+			} data-hasDropdown="${menuItems[i].submenu !== undefined ? true : false}" title="${
+				menuItems[i].shortcut == undefined ? "" : menuItems[i].shortcut.toUpperCase()
 			}" data-active="false"><p>${menuItems[i].label}</p></li>`
 		);
 		// Adding click event handler
