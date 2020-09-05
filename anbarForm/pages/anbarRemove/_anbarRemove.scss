@@ -7,15 +7,37 @@ $color-form-highlight: black;
 
 $session-table-header-background-color: #8d560d;
 $session-table-row-bacground-color: white;
-
 $session-info-table-header-background-color: #8d560d;
 $session-info-table-row-bacground-color: white;
+
+$anbar-remove-select-session-button-background-color: $primary-color-shade3;
+$anbar-remove-create-session-part-button-color: $primary-color-shade3;
+$anbar-remove-input-background-color: $primary-color-shade3;
+$anbar-remove-input-border-color: $stand-out-color;
+
+#selectSessionsButton{
+  background-color: $anbar-remove-select-session-button-background-color;
+  color: #000000;
+  user-select: none;
+  &:hover{
+    background-color: $primary-color-shade2;
+  }
+  // font-weight: bold;
+}  
+
+#createSessionPartButton{
+  background-color: $anbar-remove-create-session-part-button-color;
+  color: #000000;
+  user-select: none;
+  &:hover{
+    background-color: $primary-color-shade2;
+  }
+}
 
 .anbarRemove{
   background-color: $anbar-info-background-color;
   display: flex;
   flex-direction: column;
-
   .sessionSelected{
     // border-color: rgb(52, 52, 160) !important;
     // box-shadow: 0px 0px 10px 10px rgba(54, 93, 219, 0.589);
@@ -23,7 +45,12 @@ $session-info-table-row-bacground-color: white;
     box-shadow: 4px 4px 4px 0px rgba(1, 0, 66, 0.644);
     border-radius: 0 !important;
   }
-
+  .sessionsInputBlock{
+    p{
+      font-size: 24px;
+      font-weight: 600;
+    }
+  }
   .sessionsPart{
     overflow: hidden;
     flex: 1;
@@ -76,14 +103,22 @@ $session-info-table-row-bacground-color: white;
       font-weight: bold;
     }
     input.sessionsDateInput{
+      user-select: none;
       margin-top: 3vh;
       font-size: 25px;
       width: 20vw;
       cursor: pointer;
+      background-color: $anbar-remove-input-background-color;
       padding: 5px;
+      border: 1px solid $dark-color;
+      // box-shadow: 0 0 0 1px $dark-color;
+      // transition: all 0.2s;
+      outline: none;
       &:focus,
+      &:hover,
       &:active{
-        outline: 2px solid rgb(33, 33, 116);
+        // box-shadow: 0 0 2px 2px $anbar-remove-input-border-color;
+        background-color: $primary-color-shade2;
       }
     }
     .sessionListPart{
