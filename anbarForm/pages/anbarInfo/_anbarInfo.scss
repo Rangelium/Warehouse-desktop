@@ -229,8 +229,8 @@ $overall-box-fade-out-animation-delay: $overall-data-fade-in-animation-delay;
 		align-items: center;
 		padding: 10px 0;
 		align-items: center;
-		width: 550px;
-		height: 550px;
+		width: 660px;
+		height: 600px;
 		background-color: $primary-color;
 		z-index: 100000000;
 		border: 1px solid $dark-color;
@@ -247,7 +247,7 @@ $overall-box-fade-out-animation-delay: $overall-data-fade-in-animation-delay;
 			color: #000;
 			font-weight: bold;
 			letter-spacing: 1px;
-			font-size: 1.7rem;
+			font-size: 1.9rem;
 			padding: 10px 0;
 		}
 
@@ -269,7 +269,7 @@ $overall-box-fade-out-animation-delay: $overall-data-fade-in-animation-delay;
 					font-size: 1.1rem;
 					font-weight: 500;
 					color: #000;
-					margin-bottom: 15px;
+					margin-bottom: 5px;
 				}
 
 				input[type="date"] {
@@ -356,10 +356,11 @@ $overall-box-fade-out-animation-delay: $overall-data-fade-in-animation-delay;
 					}
 				}
 
-				.warehouseCategoryDrowdown {
+				.warehouseCategoryDrowdown,
+				.warehouseClustersDrowdown,
+				.warehouseClusterDefaultDrowdown {
 					width: 270px;
 					position: relative;
-					z-index: 10000000;
 
 					input {
 						width: 100%;
@@ -378,6 +379,7 @@ $overall-box-fade-out-animation-delay: $overall-data-fade-in-animation-delay;
 						border-top: none;
 						display: none;
 						position: absolute;
+						z-index: 100000;
 
 						.containerDropdown {
 							max-height: 300px;
@@ -425,12 +427,21 @@ $overall-box-fade-out-animation-delay: $overall-data-fade-in-animation-delay;
 						}
 					}
 				}
+				.warehouseClustersDrowdown {
+					width: fit-content;
+
+					.dropdown {
+						.containerDropdown {
+							max-height: 130px;
+						}
+					}
+				}
 
 				.newClusterTemplateContainer {
 					display: flex;
 					flex-direction: column;
 					align-items: center;
-					height: 110px;
+					height: 200px;
 					overflow-y: scroll;
 
 					&::-webkit-scrollbar {
@@ -456,11 +467,22 @@ $overall-box-fade-out-animation-delay: $overall-data-fade-in-animation-delay;
 						opacity: 1;
 						display: flex;
 						align-items: center;
-						justify-content: center;
+						justify-content: space-around;
 						background: white;
 						border-radius: 25px;
 						padding: 5px 15px;
-						width: 440px;
+						width: 480px;
+
+						.item {
+							display: flex;
+							justify-content: center;
+							align-items: center;
+
+							input {
+								margin-left: 5px;
+								width: fit-content;
+							}
+						}
 
 						p {
 							color: black;
@@ -480,7 +502,7 @@ $overall-box-fade-out-animation-delay: $overall-data-fade-in-animation-delay;
 							margin-right: 7px;
 						}
 						input[type="number"] {
-							width: 90px;
+							width: 100px;
 						}
 						img {
 							cursor: pointer;
@@ -493,6 +515,26 @@ $overall-box-fade-out-animation-delay: $overall-data-fade-in-animation-delay;
 								transform: scale(1.1);
 							}
 						}
+					}
+				}
+			}
+
+			.row.kek {
+				display: flex;
+				justify-content: space-around;
+				align-items: center;
+				.block {
+					display: flex;
+					justify-content: center;
+					align-items: center;
+
+					p {
+						margin-right: 0;
+						left: 0;
+					}
+
+					input {
+						width: 140px;
 					}
 				}
 			}
