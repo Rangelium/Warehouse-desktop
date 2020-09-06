@@ -1,6 +1,6 @@
 .treeViewContainer {
 	overflow-y: scroll;
-	overflow-x: hidden;
+	overflow-x: auto;
 	direction: rtl;
 
 	&::-webkit-scrollbar {
@@ -22,7 +22,7 @@
 }
 
 .treeView {
-	padding: 0 70px 0 0;
+	// padding: 0 70px 0 0;
 
 	p {
 		color: $anbar-info-tree-view-items-text-color;
@@ -40,13 +40,13 @@
 
 	.tv-cont {
 		li {
-			padding-left: 25px;
+			padding-left: 15px;
 			text-align: left;
 		}
 
 		// Groupnames
 		span {
-			padding: 2px 5px;
+			padding: 2px 0;
 			display: flex;
 			justify-content: flex-end;
 

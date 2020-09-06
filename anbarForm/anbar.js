@@ -11,17 +11,13 @@ const ssrs = require("mssql-ssrs");
 
 const { MyTreeView } = require("../tools/TreeView");
 const moment = require("moment");
-var USER = {
-	id: 1,
-};
+// var USER = {
+// 	id: 1,
+// };
 
 // setTimeout(() => {
 // 	userLoggedIn();
-<<<<<<< HEAD
 // 	openPage("anbarInfo");
-=======
-// 	openPage("anbarRemove");
->>>>>>> f573568951e1b76498e28b238df3c2d764bfa780
 // }, 200);
 
 // ====================================================================================
