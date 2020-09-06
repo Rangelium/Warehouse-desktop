@@ -17,7 +17,7 @@ const moment = require("moment");
 
 // setTimeout(() => {
 // 	userLoggedIn();
-// 	openPage("anbarInfo");
+// 	openPage("anbarAdd");
 // }, 200);
 
 // ====================================================================================
