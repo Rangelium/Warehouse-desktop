@@ -14,10 +14,10 @@ const moment = require("moment");
 var USER = {
 	id: 1,
 };
-setTimeout(() => {
-	userLoggedIn();
-	openPage("productAuth");
-}, 200);
+// setTimeout(() => {
+// 	userLoggedIn();
+// 	openPage("productAuth");
+// }, 200);
 //todo CURRENCY POP UP SECTION
 
 $.get(
@@ -30,7 +30,6 @@ $.get(
 					console.log(err);
 					return;
 				}
-				console.log(res);
 				let isChanged = false;
 				res.recordset.forEach((elem) => {
 					if (elem.title == "AZN") return;
@@ -56,13 +55,12 @@ $.get(
 				if (isChanged) $(".sellersPopUpContainer").show();
 			});
 		});
-		console.log(data);
 
-		$(data)
-			.find('Valute[Code="USD"]')
-			.each(function () {
-				console.log($(this).find("Value").text());
-			});
+		// $(data)
+		// 	.find('Valute[Code="USD"]')
+		// 	.each(function () {
+		// 		console.log($(this).find("Value").text());
+		// 	});
 	}
 );
 
@@ -123,7 +121,6 @@ function getTranslations() {
 }
 
 getTranslations();
-console.log(languages);
 
 var DEFAULTS = {
 	language: "AZE",

@@ -65,7 +65,7 @@ function startAnbarForm() {
 		AppMenu.addItems([
 			// Anbar info
 			{
-				label: "Anbar haqqında məlumat",
+				label: "Anbar haqqında",
 				name: "anbarInfo",
 				shortcut: "ctrl+shift+i",
 				click: function () {
@@ -91,7 +91,7 @@ function startAnbarForm() {
 				},
 			},
 			{
-				label: "Product Auth",
+				label: "Avtorizasiya",
 				name: "productAuth",
 				shortcut: "ctrl+shift+p",
 				click: function () {
