@@ -444,8 +444,8 @@ async function handleCreateClusters(cluster_id) {
 			let title =
 				$(cluster).attr("data-clusterId") === undefined
 					? await createNewClusterName(
-						$($($($(cluster).children()[1]).children()[0])).val()
-					)
+							$($($($(cluster).children()[1]).children()[0])).val()
+					  )
 					: parseInt($(cluster).attr("data-clusterId"));
 
 			poolConnect.then((pool) => {
@@ -472,12 +472,7 @@ $("#createProductBtn").click(async function () {
 
 	let cluster_id;
 	let cluster_default;
-<<<<<<< HEAD
 	let product_id = parseInt(new Date().getTime() / 1000);
-=======
-	let product_id = new Date().getTime();
-	console.log(product_id)
->>>>>>> a3db05b17636908b374cb0f349574881d7a17919
 
 	if (
 		$("#warehouseTreeInsert_clusterTemplate").attr("data-clusterId") !== undefined &&
@@ -490,12 +485,7 @@ $("#createProductBtn").click(async function () {
 			$("#warehouseTreeInsert_clusterTemplate").attr("data-clusterDef")
 		);
 	} else {
-<<<<<<< HEAD
 		cluster_id = parseInt(new Date().getTime() / 1000);
-=======
-		cluster_id = new Date().getTime();
-		console.log(cluster_id)
->>>>>>> a3db05b17636908b374cb0f349574881d7a17919
 		cluster_default = await handleCreateClusters(cluster_id);
 	}
 
@@ -827,15 +817,15 @@ function edit_warehouseTreeInsertAddNewCluster(cluster, pivot = undefined) {
 		'<div class="item"><p>Default:</p><input type="radio" class="edit_radio" name="edit_default_cluster" /></div>';
 	let inputs = `<div class="edit_warehouseClustersDrowdown">
 									<input required value="${
-		cluster.title ? cluster.title : ""
-		}" type="text" class="edit_warehouseNewClusterInput" placeholder="Cluster's name" />
+										cluster.title ? cluster.title : ""
+									}" type="text" class="edit_warehouseNewClusterInput" placeholder="Cluster's name" />
 								<div class="dropdown">
 									<div id="edit_warehouseClustersDropdown" class="containerDropdown"></div>
 								</div>
 								</div>
 								<input required value="${
-		cluster.capacity ? cluster.capacity : ""
-		}" type="number" min="0" placeholder="Capacity" />`;
+									cluster.capacity ? cluster.capacity : ""
+								}" type="number" min="0" placeholder="Capacity" />`;
 	let addNew = $(`<img src="../stylesGlobal/imgs/new_btn.svg" />`);
 	let remove = $(`<img src="../stylesGlobal/imgs/delete_btn.svg" />`);
 
