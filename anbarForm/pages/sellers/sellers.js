@@ -77,11 +77,11 @@ function fillTable(procedureId) {
 fillTable(procedureId);
 
 $(".sellersInputButton").click(() => {
-	$(".sellersPopUpContainer").show();
+	$("#createSeller").show();
 });
 
 $(".sellersPopupCloseButton").click(() => {
-	$(".sellersPopUpContainer").hide();
+	$("#createSeller").hide();
 });
 
 $(".addSellersButton").on("click", () => {

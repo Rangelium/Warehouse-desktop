@@ -117,7 +117,11 @@ function getTranslations() {
 		});
 	});
 }
+
+
+
 getTranslations();
+console.log(languages)
 
 var DEFAULTS = {
 	"language": "AZE",
@@ -418,7 +422,7 @@ $("input[name='language']").change(function(){
 						console.log(err);
 						return;
 					}
-					console.log("Lang changed");
+					getTranslations();
 				})
 	})
 })
