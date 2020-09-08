@@ -54,6 +54,7 @@ function showOverallInfo() {
 			poolConnect.then((pool) => {
 				pool.request().execute("anbar.dashboard", (err, res) => {
 					if (err != null) console.log(err);
+					console.log(res);
 					if (res.recordset.length !== 0) {
 						resolve(res.recordset[0]);
 					} else {
@@ -263,6 +264,7 @@ function showCreateCategory(parentId) {
 	});
 }
 $("#createCategory").click(function () {
+	$("#createNewCategoryName").val("");
 	showCreateCategory($(this).attr("data-id"));
 });
 
@@ -393,16 +395,23 @@ function warehouseTreeInsertFormValidation() {
 		return false;
 	}
 
-	let clusterArr = Array.from($(".newClusterTemplateContainer .clusterTemplateElement"));
+	if (
+		$("#warehouseTreeInsert_clusterTemplate").attr("data-clusterId") !== undefined &&
+		$("#warehouseTreeInsert_clusterTemplate").val() !== ""
+	) {
+	} else {
+		let clusterArr = Array.from(
+			$(".newClusterTemplateContainer .clusterTemplateElement")
+		);
+		let tmp = 0;
+		clusterArr.forEach((cluster) => {
+			if ($($(cluster).children()[0]).children()[1].checked) tmp += 1;
+			if ($($($(cluster).children()[1]).children()[0]).val() === "") return false;
+			if ($($(cluster).children()[2]).val() === "") return false;
+		});
 
-	let tmp = 0;
-	clusterArr.forEach((cluster) => {
-		if ($($(cluster).children()[0]).children()[1].checked) tmp += 1;
-		if ($($($(cluster).children()[1]).children()[0]).val() === "") return false;
-		if ($($(cluster).children()[2]).val() === "") return false;
-	});
-
-	if (tmp !== 1) return false;
+		if (tmp !== 1) return false;
+	}
 
 	return true;
 }
@@ -435,8 +444,8 @@ async function handleCreateClusters(cluster_id) {
 			let title =
 				$(cluster).attr("data-clusterId") === undefined
 					? await createNewClusterName(
-							$($($($(cluster).children()[1]).children()[0])).val()
-					  )
+						$($($($(cluster).children()[1]).children()[0])).val()
+					)
 					: parseInt($(cluster).attr("data-clusterId"));
 
 			poolConnect.then((pool) => {
@@ -457,13 +466,19 @@ async function handleCreateClusters(cluster_id) {
 	return cluster_default + 1;
 }
 $("#createProductBtn").click(async function () {
+	console.log("started");
 	if (!warehouseTreeInsertFormValidation()) return false;
+	console.log("validation passed");
 
 	let cluster_id;
 	let cluster_default;
-	let product_id = new Date().getTime() + 1;
+	let product_id = new Date().getTime();
+	console.log(product_id)
 
-	if ($("#warehouseTreeInsert_clusterTemplate").attr("data-clusterId") !== undefined) {
+	if (
+		$("#warehouseTreeInsert_clusterTemplate").attr("data-clusterId") !== undefined &&
+		$("#warehouseTreeInsert_clusterTemplate").val() !== ""
+	) {
 		cluster_id = parseInt(
 			$("#warehouseTreeInsert_clusterTemplate").attr("data-clusterId")
 		);
@@ -472,6 +487,7 @@ $("#createProductBtn").click(async function () {
 		);
 	} else {
 		cluster_id = new Date().getTime();
+		console.log(cluster_id)
 		cluster_default = await handleCreateClusters(cluster_id);
 	}
 
@@ -704,6 +720,53 @@ $("#warehouseTreeInsert_clusterTemplate").keyup(function () {
 	});
 });
 
+// Clear category
+async function clearElements(data) {
+	console.log("deleting");
+	console.log(data);
+	data.forEach((el) => {
+		poolConnect.then((pool) => {
+			pool
+				.request()
+				.input("id", el.id)
+				.input("user_id", USER.id)
+				.execute("anbar.warehouse_tree_delete", (err, res) => {
+					if (err !== null) console.log(err);
+					fillTreeView();
+				});
+		});
+	});
+}
+$("#clearCategory").click(async function () {
+	let catId = parseInt($(this).attr("data-id"));
+
+	let data = await new Promise((resolve) => {
+		poolConnect.then((pool) => {
+			pool.request().execute("anbar.warehouse_tree_select", (err, res) => {
+				if (err !== null) console.log(err);
+				resolve(res.recordset.filter((el) => el.parent_id === catId));
+			});
+		});
+	});
+
+	let names = [];
+	data.forEach((el) => {
+		names.push(`${el.title} `);
+	});
+
+	showAlert(`Are you sure you want to delete flowing elements: \n [${names}]`).then(
+		async (res) => {
+			if (res) {
+				await clearElements(data);
+			}
+			closeAlert();
+			fillTreeView();
+		}
+	);
+
+	console.log(data);
+});
+
 // =====================================================================================
 //                             RIGHT CLICK ON PRODUCT TREEVIEW
 // =====================================================================================
@@ -742,30 +805,177 @@ $(document).click((el) => {
 	}
 });
 
-// Change name
-$("#discardEditProductBtn").click(() => {
-	hideEditProduct();
-});
-$("#editProductBtn").click(function () {
-	return;
-	if (
-		$("#newCategoryName").val().trim() === "" ||
-		$("#newCategoryName").val() === $(this).attr("data-title")
-	)
-		return;
+// Change product data
+var edit_selectedProductData;
+var edit_selectedProductCatData;
+var edit_selectedProductClusterData;
+function edit_warehouseTreeInsertAddNewCluster(cluster, pivot = undefined) {
+	let clusterEl = $(`<div class="edit_clusterTemplateElement"></div>`);
+	let defaultCheck =
+		'<div class="item"><p>Default:</p><input type="radio" class="edit_radio" name="edit_default_cluster" /></div>';
+	let inputs = `<div class="edit_warehouseClustersDrowdown">
+									<input required value="${
+		cluster.title ? cluster.title : ""
+		}" type="text" class="edit_warehouseNewClusterInput" placeholder="Cluster's name" />
+								<div class="dropdown">
+									<div id="edit_warehouseClustersDropdown" class="containerDropdown"></div>
+								</div>
+								</div>
+								<input required value="${
+		cluster.capacity ? cluster.capacity : ""
+		}" type="number" min="0" placeholder="Capacity" />`;
+	let addNew = $(`<img src="../stylesGlobal/imgs/new_btn.svg" />`);
+	let remove = $(`<img src="../stylesGlobal/imgs/delete_btn.svg" />`);
 
+	if (pivot !== undefined) {
+		pivot.after(clusterEl);
+	} else {
+		$(".edit_newClusterTemplateContainer").append(clusterEl);
+	}
+	clusterEl.append(defaultCheck);
+	clusterEl.append(inputs);
+	clusterEl.append(addNew);
+	clusterEl.append(remove);
+
+	addNew.click((el) => {
+		edit_warehouseTreeInsertAddNewCluster([], $(el.target).parent());
+	});
+	remove.click((el) => {
+		let counterActiveClusterTemplate = 0;
+		$(".edit_newClusterTemplateContainer")
+			.children()
+			.each(function () {
+				if ($(this).attr("data-Active") !== "false") {
+					counterActiveClusterTemplate++;
+				}
+			});
+		if (counterActiveClusterTemplate < 2) {
+			return;
+		}
+
+		$(el.target).parent().css("opacity", "0");
+		$(el.target).parent().attr("data-Active", "false");
+		setTimeout(() => {
+			$(el.target).parent().css("display", "none");
+		}, 400);
+	});
+	$(".edit_warehouseNewClusterInput").keyup(function () {
+		edit_clusterNewInputKeyUp.call(this);
+	});
+}
+function edit_fillNewClusterTittles(mount, data) {
+	$(mount).empty();
+	let parent = $(mount);
+	data.forEach((el) => {
+		parent.append(
+			`<p class="edit_dropdown-member-cluster"  data-clusterId="${el.id}">${el.title}</p>`
+		);
+	});
+
+	$(".edit_dropdown-member-cluster").click(function () {
+		let parent = $($(this).parent().parent().parent().parent());
+		let input = $(
+			$($($(this).parent().parent().parent().parent()).children()[1]).children()[0]
+		);
+		parent.attr("data-clusterId", $(this).attr("data-clusterId"));
+		input.val($(this).html());
+		setTimeout(() => {
+			$("#edit_warehouseCategoryDropdown").empty();
+		}, 100);
+	});
+}
+function edit_clusterNewInputKeyUp() {
+	let text = $(this).val().trim();
 	poolConnect.then((pool) => {
 		pool
 			.request()
-			.input("user_id", USER.id)
-			.execute("anbar.warehouse_tree_update_title", (err) => {
+			.input("title", text)
+			.execute("anbar.cluster_names_search", (err, res) => {
 				if (err !== null) console.log(err);
-				hideEditCategory();
-				fillTreeView();
+
+				fillNewClusterTittles($($(this).siblings().children()[0]), res.recordset);
 			});
 	});
+}
+$("#discardEditProductBtn").click(() => {
+	hideEditProduct();
+});
+function edit_warehouseTreeInsertFormValidation() {
+	if (
+		$("#edit_warehouseTreeInsert_title").val() === "" ||
+		$("#edit_warehouseTreeInsert_barcode").val() === "" ||
+		$("#edit_warehouseTreeInsert_categoryId").val() === ""
+	) {
+		return false;
+	}
+
+	if (
+		$("#edit_warehouseTreeInsert_clusterTemplate").attr("data-clusterId") !== undefined &&
+		$("#edit_warehouseTreeInsert_clusterTemplate").val() !== ""
+	) {
+	} else {
+		let clusterArr = Array.from(
+			$(".edit_newClusterTemplateContainer .edit_clusterTemplateElement")
+		);
+		let tmp = 0;
+		clusterArr.forEach((cluster) => {
+			if ($($(cluster).children()[0]).children()[1].checked) tmp += 1;
+			if ($($($(cluster).children()[1]).children()[0]).val() === "") return false;
+			if ($($(cluster).children()[2]).val() === "") return false;
+		});
+
+		if (tmp !== 1) return false;
+	}
+
+	return true;
+}
+$("#editProductBtn").click(async function () {
+	if (!edit_warehouseTreeInsertFormValidation()) return;
+
+	console.log(edit_selectedProductData);
+	console.log(edit_selectedProductCatData);
+
+	let new_parent_id = $("#edit_warehouseTreeInsert_categoryId").attr("data-parentId");
+	let department_id = $("#edit_warehouseTreeInsert_categoryId").attr("data-departmentId");
+	let cluster_default;
+
+	if (new_parent_id === undefined || department_id === undefined) {
+		new_parent_id = edit_selectedProductCatData.id;
+		department_id = edit_selectedProductCatData.department_id;
+	}
+	Array.from($(".edit_radio")).forEach((r, i) => {
+		if ($(r)[0].checked) {
+			cluster_default = i + 1;
+		}
+	});
+
+	return;
+	poolConnect.then((pool) => {
+		pool
+			.request()
+			.input("id", edit_selectedProductData.id)
+			.input("new_title", $("#edit_warehouseTreeInsert_title").val())
+			.input("new_parent_id", parseInt(new_parent_id))
+			.input("new_cluster", edit_selectedProductData.cluster)
+			.input("exp_date_warning", $("#edit_warehouseTreeInsert_expDateWarning").val())
+			.input("cluster_default", cluster_default)
+			.input("user_id", USER.id)
+			.input("barcode", $("#edit_warehouseTreeInsert_barcode").val())
+			.input("min_quantity", $("#edit_warehouseTreeInsert_minQuantity").val())
+			.input("optimal_quantity", $("#edit_warehouseTreeInsert_optQuantity").val())
+			.input("department_id", parseInt(department_id))
+			.execute("anbar.warehouse_tree_update", (err) => {
+				if (err !== null) console.log(err);
+
+				console.log("Edited");
+				hideEditProduct();
+			});
+	});
+
+	console.log("kek");
 });
 function hideEditProduct() {
+	fillTreeView();
 	$(".blur").css("z-index", -1000);
 	$(".editProductContainer").css({
 		opacity: 0,
@@ -773,10 +983,84 @@ function hideEditProduct() {
 		"z-index": 1,
 	});
 }
-function showEditProduct(id, title) {
-	$("#editProductBtn").attr("data-id", id);
-	$("#editProductBtn").attr("data-title", title);
+async function showEditProduct(productId) {
+	// $("#editProductBtn").attr("data-productId", productId);
+	let productData = await new Promise((resolve) => {
+		poolConnect.then((pool) => {
+			pool
+				.request()
+				.input("product_id", BigInt(productId))
+				.execute("anbar.warehouse_select_one_product", (err, res) => {
+					if (err !== null) console.log(err);
+					resolve(res.recordset[0]);
+				});
+		});
+	});
+	let categoryData = await new Promise((resolve) => {
+		poolConnect.then((pool) => {
+			pool.request().execute("anbar.warehouse_category_search", (err, res) => {
+				if (err !== null) console.log(err);
+				res.recordset.forEach((el) => {
+					if (el.id === productData.parent_id) resolve(el);
+				});
+				resolve(null);
+			});
+		});
+	});
+	let productClusterData = await new Promise((resolve) => {
+		poolConnect.then((pool) => {
+			pool
+				.request()
+				.input("cluster_id", BigInt(productData.cluster))
+				.execute("anbar.cluster_info_by_id", (err, res) => {
+					if (err !== null) console.log(err);
+					resolve(res.recordset);
+				});
+		});
+	});
 
+	edit_selectedProductData = productData;
+	edit_selectedProductCatData = categoryData;
+	edit_selectedProductClusterData = productClusterData;
+
+	$("#edit_warehouseTreeInsert_title").val(productData.title);
+	$("#edit_warehouseTreeInsert_barcode").val(productData.barcode);
+	$("#edit_warehouseTreeInsert_categoryId").val(categoryData.title);
+	$("#edit_warehouseTreeInsert_minQuantity").val(productData.min_quantity);
+	$("#edit_warehouseTreeInsert_optQuantity").val(productData.optimal_quantity);
+	$("#edit_warehouseTreeInsert_expDateWarning").val(productData.exp_date_warning);
+	$("#edit_warehouseTreeInsert_clusterTemplate").val("");
+	$(".edit_newClusterTemplateContainer").empty();
+
+	Array.from(productClusterData)
+		.sort((el1, el2) => el1.cluster_order - el2.cluster_order)
+		.forEach((cluster) => {
+			edit_warehouseTreeInsertAddNewCluster(cluster);
+		});
+
+	Array.from($(".edit_radio")).forEach((r, i) => {
+		if (i + 1 === productData.cluster_default) {
+			$(r)[0].checked = true;
+		}
+	});
+
+	poolConnect.then((pool) => {
+		pool.request().execute("anbar.warehouse_category_search", (err, res) => {
+			if (err !== null) console.log(err);
+			edit_fillAddNewCategotyDropdown(res.recordset);
+		});
+	});
+	poolConnect.then((pool) => {
+		pool
+			.request()
+			.input("title", "")
+			.execute("anbar.cluster_select_from_product", (err, res) => {
+				if (err !== null) console.log(err);
+				edit_fillClusterDefault(res.recordset);
+			});
+	});
+
+	// Showing form
 	$(".blur").css("z-index", 1000000000);
 	$(".editProductContainer").css({
 		opacity: 1,
@@ -784,8 +1068,115 @@ function showEditProduct(id, title) {
 		"z-index": 10000000000,
 	});
 }
+function edit_fillAddNewCategotyDropdown(data) {
+	$("#edit_warehouseCategoryDropdown").empty();
+	let parent = $("#edit_warehouseCategoryDropdown");
+	data.forEach((el) => {
+		parent.append(
+			`<p class="edit_dropdown-member-category" data-id="${el.id}" data-departmentId="${el.department_id}">${el.title}</p>`
+		);
+	});
+
+	$(".edit_dropdown-member-category").click(function () {
+		$("#edit_warehouseTreeInsert_categoryId").attr(
+			"data-parentId",
+			$(this).attr("data-id")
+		);
+		$("#edit_warehouseTreeInsert_categoryId").attr(
+			"data-departmentId",
+			$(this).attr("data-departmentId")
+		);
+		$("#edit_warehouseTreeInsert_categoryId").val($(this).html());
+		setTimeout(() => {
+			$("#edit_warehouseCategoryDropdown").empty();
+		}, 100);
+	});
+}
+$("#edit_warehouseTreeInsert_categoryId").keyup(function () {
+	if ($(this).val().trim() === "") {
+		poolConnect.then((pool) => {
+			pool.request().execute("anbar.warehouse_category_search", (err, res) => {
+				if (err !== null) console.log(err);
+				edit_fillAddNewCategotyDropdown(res.recordset);
+			});
+		});
+
+		return;
+	}
+	let text = $(this).val().trim();
+	poolConnect.then((pool) => {
+		pool
+			.request()
+			.input("title", text)
+			.execute("anbar.warehouse_category_search", (err, res) => {
+				if (err !== null) console.log(err);
+				edit_fillAddNewCategotyDropdown(res.recordset);
+			});
+	});
+});
+function edit_fillClusterDefault(data) {
+	$("#edit_warehouseClusterDefaultDropdown").empty();
+	let parent = $("#edit_warehouseClusterDefaultDropdown");
+	data.forEach((el) => {
+		parent.append(
+			`<p class="edit_dropdown-member-cluster-default" data-clusterDef="${el.cluster_default}"  data-clusterId="${el.cluster}">${el.title}</p>`
+		);
+	});
+
+	$(".edit_dropdown-member-cluster-default").click(function () {
+		$("#edit_warehouseTreeInsert_clusterTemplate").attr(
+			"data-clusterDef",
+			$(this).attr("data-clusterDef")
+		);
+		$("#edit_warehouseTreeInsert_clusterTemplate").attr(
+			"data-clusterId",
+			$(this).attr("data-clusterId")
+		);
+		$("#edit_warehouseTreeInsert_clusterTemplate").val($(this).html());
+		setTimeout(() => {
+			$("#edit_warehouseClusterDefaultDropdown").empty();
+		}, 100);
+	});
+}
+$("#edit_warehouseTreeInsert_clusterTemplate").keyup(function () {
+	let text = $(this).val().trim();
+	if (text !== "") {
+		$(".edit_newClusterTemplateContainer").css({
+			opacity: 0.6,
+			"pointer-events": "none",
+		});
+	} else {
+		$(".edit_newClusterTemplateContainer").css({
+			opacity: 1,
+			"pointer-events": "all",
+		});
+	}
+
+	poolConnect.then((pool) => {
+		pool
+			.request()
+			.input("title", text)
+			.execute("anbar.cluster_select_from_product", (err, res) => {
+				if (err !== null) console.log(err);
+				edit_fillClusterDefault(res.recordset);
+			});
+	});
+});
+setInterval(() => {
+	if ($("#edit_warehouseTreeInsert_clusterTemplate").val() !== "") {
+		$(".edit_newClusterTemplateContainer").css({
+			opacity: 0.6,
+			"pointer-events": "none",
+		});
+	} else {
+		$(".edit_newClusterTemplateContainer").css({
+			opacity: 1,
+			"pointer-events": "all",
+		});
+	}
+}, 400);
 $("#editProduct").click(function () {
-	showEditProduct($(this).attr("data-id"), $(this).attr("data-name"));
+	showEditProduct(parseInt($(this).attr("data-productId")));
 });
 
 // Delete

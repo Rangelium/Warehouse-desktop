@@ -242,7 +242,7 @@ function openPage(name) {
 	// Removing prev page's script
 	try {
 		$("#pageScript").remove();
-	} catch (error) {}
+	} catch (error) { }
 
 	// Changing attribute of main to differ pages
 	$("main").attr("class", name);
@@ -297,9 +297,9 @@ ipcRenderer.on("createNavBar", (e, menuItems) => {
 					menuItems[i].submenu[j].shortcut == undefined
 						? ""
 						: menuItems[i].submenu[j].shortcut.toUpperCase()
-				}" data-id="${menuItems[i].submenu[j].id}"><p>${
+					}" data-id="${menuItems[i].submenu[j].id}"><p>${
 					menuItems[i].submenu[j].label
-				}</p></li>`;
+					}</p></li>`;
 			}
 			dropdown += "</ul>";
 			parent.append(dropdown);
@@ -320,9 +320,9 @@ ipcRenderer.on("createNavBar", (e, menuItems) => {
 		// Creating element of nav bar
 		$(".nav-links").append(
 			`<li class="nav-link" data-name="${menuItems[i].name}" data-id=${
-				menuItems[i].id
+			menuItems[i].id
 			} data-hasDropdown="${menuItems[i].submenu !== undefined ? true : false}" title="${
-				menuItems[i].shortcut == undefined ? "" : menuItems[i].shortcut.toUpperCase()
+			menuItems[i].shortcut == undefined ? "" : menuItems[i].shortcut.toUpperCase()
 			}" data-active="false"><p>${menuItems[i].label}</p></li>`
 		);
 		// Adding click event handler
@@ -344,9 +344,9 @@ ipcRenderer.on("createNavBar", (e, menuItems) => {
 					menuItems[i].submenu[j].shortcut == undefined
 						? ""
 						: menuItems[i].submenu[j].shortcut.toUpperCase()
-				}" data-id="${menuItems[i].submenu[j].id}"><p>${
+					}" data-id="${menuItems[i].submenu[j].id}"><p>${
 					menuItems[i].submenu[j].label
-				}</p></li>`;
+					}</p></li>`;
 			}
 			dropdown += "</ul>";
 			parent.append(dropdown);

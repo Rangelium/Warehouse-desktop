@@ -47,9 +47,94 @@
 	</div>
 </div>
 <div class="editProductContainer">
-	<div class="row">
-		<button id="discardEditProductBtn">Discard</button>
-		<button id="editProductBtn">Change</button>
+	<h1>Edit product info:</h1>
+	<div class="container">
+		<div class="row kek">
+			<div class="block">
+				<p>Title:</p>
+				<input
+					type="text"
+					placeholder="Product title"
+					id="edit_warehouseTreeInsert_title"
+					required
+				/>
+			</div>
+			<div class="block">
+				<p>Barcode:</p>
+				<input
+					type="number"
+					placeholder="Barcode"
+					min="0"
+					id="edit_warehouseTreeInsert_barcode"
+					required
+				/>
+			</div>
+		</div>
+		<div class="row">
+			<p>Category:</p>
+			<div class="edit_warehouseCategoryDrowdown">
+				<input
+					type="text"
+					placeholder="Category name"
+					id="edit_warehouseTreeInsert_categoryId"
+					required
+				/>
+				<div class="dropdown">
+					<div id="edit_warehouseCategoryDropdown" class="containerDropdown"></div>
+				</div>
+			</div>
+		</div>
+		<div class="row kek">
+			<div class="block">
+				<p>Minimal quantity:</p>
+				<input
+					type="number"
+					placeholder="Minimal"
+					min="0"
+					id="edit_warehouseTreeInsert_minQuantity"
+				/>
+			</div>
+			<div class="block">
+				<p>Optimal quantity:</p>
+				<input
+					type="number"
+					placeholder="Optimal"
+					min="0"
+					id="edit_warehouseTreeInsert_optQuantity"
+				/>
+			</div>
+		</div>
+		<div class="row">
+			<p>Expiration date warning:</p>
+			<input
+				type="number"
+				placeholder="Days"
+				min="1"
+				id="edit_warehouseTreeInsert_expDateWarning"
+			/>
+		</div>
+		<hr />
+		<div class="row special">
+			<div class="edit_warehouseClusterDefaultDrowdown">
+				<input
+					type="text"
+					id="edit_warehouseTreeInsert_clusterTemplate"
+					placeholder="Select cluster's template"
+				/>
+
+				<div class="dropdown">
+					<div id="edit_warehouseClusterDefaultDropdown" class="containerDropdown"></div>
+				</div>
+			</div>
+		</div>
+		<div class="row special">
+			<h2>Or create new template</h2>
+			<div class="edit_newClusterTemplateContainer"></div>
+		</div>
+		<div class="row">
+			<button id="discardEditProductBtn">Discard</button>
+			<button id="editProductBtn">Change</button>
+		</div>
 	</div>
 </div>
 <div class="createProductContainer">
