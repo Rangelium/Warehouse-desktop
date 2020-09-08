@@ -162,20 +162,26 @@ function startAnbarForm() {
 							mainWindow.webContents.send("changeAnbarPage", "usersList");
 						},
 					},
-					{
-						label: "Logs",
-						name: "logs",
-						click: function () {
-							mainWindow.webContents.send("changeAnbarPage", "logs");
-						},
-					},
+					// {
+					// 	label: "Logs",
+					// 	name: "logs",
+					// 	click: function () {
+					// 		mainWindow.webContents.send("changeAnbarPage", "logs");
+					// 	},
+					// },
 				],
 			},
 		]);
 
 		AppMenu.setSettings({
-			label: "Settings",
+			label: "Menu",
 			submenu: [
+				{
+					label: "Settings",
+					click: function () {
+						mainWindow.webContents.send("openSettings");
+					},
+				},
 				{
 					label: "Logout",
 					click: function () {
