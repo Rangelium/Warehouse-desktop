@@ -30,6 +30,9 @@ async function fillExpDateOverTable() {
 		`<th>${languages["quantity"]}:</th>`
 	);
 	$(".exp-date-over-table > thead").append(
+		`<th>${languages["unit"]}:</th>`
+	);
+	$(".exp-date-over-table > thead").append(
 		`<th>${languages["unit_price"]}:</th>`
 	);
 	$(".exp-date-over-table > thead").append(
@@ -49,7 +52,8 @@ async function fillExpDateOverTable() {
 		row += `<td>${el.product_title}</td>`;
 		row += `<td>${el.barcode}</td>`;
 		row += `<td>${el.manufacturer_title}</td>`;
-		row += `<td>${el.quantity}</td>`;
+		row += `<td>${el.left}</td>`;
+		row += `<td>${el.unit_title}</td>`;
 		row += `<td>${el.price}</td>`;
 		row += `<td>${el.currency_title}</td>`;
 		row += `<td>${el.sum_price}</td>`;
@@ -63,7 +67,7 @@ async function fillExpDateOverTable() {
 		for (let i = 0; i < 12 - data.length; i++) {
 			let row = "<tr style='height: 40px'>";
 
-			for (let j = 0; j < 9; j++) {
+			for (let j = 0; j < 10; j++) {
 				row += "<td></td>";
 			}
 
@@ -113,6 +117,9 @@ async function fillExpDateSoCloseTable() {
 		`<th>${languages["quantity"]}:</th>`
 	);
 	$(".exp-date-soclose-table > thead").append(
+		`<th>${languages["unit"]}:</th>`
+	);
+	$(".exp-date-soclose-table > thead").append(
 		`<th>${languages["unit_price"]}:</th>`
 	);
 	$(".exp-date-soclose-table > thead").append(
@@ -133,6 +140,7 @@ async function fillExpDateSoCloseTable() {
 		row += `<td>${el.barcode}</td>`;
 		row += `<td>${el.manufacturer_title}</td>`;
 		row += `<td>${el.quantity}</td>`;
+		row += `<td>${el.unit_title}</td>`;
 		row += `<td>${el.price}</td>`;
 		row += `<td>${el.currency_title}</td>`;
 		row += `<td>${el.sum_price}</td>`;
@@ -146,7 +154,7 @@ async function fillExpDateSoCloseTable() {
 		for (let i = 0; i < 12 - data.length; i++) {
 			let row = "<tr style='height: 40px'>";
 
-			for (let j = 0; j < 9; j++) {
+			for (let j = 0; j < 10; j++) {
 				row += "<td></td>";
 			}
 

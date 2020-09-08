@@ -11,13 +11,13 @@ const ssrs = require("mssql-ssrs");
 
 const { MyTreeView } = require("../tools/TreeView");
 const moment = require("moment");
-// var USER = {
-// 	id: 1,
-// };
+var USER = {
+	id: 1,
+};
 
 // setTimeout(() => {
 // 	userLoggedIn();
-// 	openPage("anbarAdd");
+// 	openPage("anbarRemove");
 // }, 200);
 
 // ====================================================================================
@@ -171,7 +171,7 @@ function openPage(name) {
 	// Removing prev page's script
 	try {
 		$("#pageScript").remove();
-	} catch (error) {}
+	} catch (error) { }
 
 	// Changing attribute of main to differ pages
 	$("main").attr("class", name);
@@ -226,9 +226,9 @@ ipcRenderer.on("createNavBar", (e, menuItems) => {
 					menuItems[i].submenu[j].shortcut == undefined
 						? ""
 						: menuItems[i].submenu[j].shortcut.toUpperCase()
-				}" data-id="${menuItems[i].submenu[j].id}"><p>${
+					}" data-id="${menuItems[i].submenu[j].id}"><p>${
 					menuItems[i].submenu[j].label
-				}</p></li>`;
+					}</p></li>`;
 			}
 			dropdown += "</ul>";
 			parent.append(dropdown);
@@ -249,9 +249,9 @@ ipcRenderer.on("createNavBar", (e, menuItems) => {
 		// Creating element of nav bar
 		$(".nav-links").append(
 			`<li class="nav-link" data-name="${menuItems[i].name}" data-id=${
-				menuItems[i].id
+			menuItems[i].id
 			} data-hasDropdown="${menuItems[i].submenu !== undefined ? true : false}" title="${
-				menuItems[i].shortcut == undefined ? "" : menuItems[i].shortcut.toUpperCase()
+			menuItems[i].shortcut == undefined ? "" : menuItems[i].shortcut.toUpperCase()
 			}" data-active="false"><p>${menuItems[i].label}</p></li>`
 		);
 		// Adding click event handler
@@ -273,9 +273,9 @@ ipcRenderer.on("createNavBar", (e, menuItems) => {
 					menuItems[i].submenu[j].shortcut == undefined
 						? ""
 						: menuItems[i].submenu[j].shortcut.toUpperCase()
-				}" data-id="${menuItems[i].submenu[j].id}"><p>${
+					}" data-id="${menuItems[i].submenu[j].id}"><p>${
 					menuItems[i].submenu[j].label
-				}</p></li>`;
+					}</p></li>`;
 			}
 			dropdown += "</ul>";
 			parent.append(dropdown);
@@ -315,3 +315,23 @@ function generateTable(table, data) {
 		}
 	}
 }
+
+// function translateHTMLpage() {
+// 	$('#alertYes').html(languages['accept']);
+// 	$('#alertNo').html(languages['deny']);
+// 	$('#createCategory').html(languages['create_new_category']);
+// 	$('#createProduct').html(languages['create_product']);
+// 	$('#editCategory').html(languages['edit_category']);
+// 	$('#deleteCategory').html(languages['delete_category']);
+// 	$('#clearCategory').html(languages['clear_category']);
+// 	$('#editProduct').html(languages['edit_product']);
+// 	$('#deleteProduct').html(languages['delete_product']);
+// 	$('#editCategoryContainerTitle').html(languages['edit_title']);
+// 	$('#discardChangeCategoryBtn').html(languages['deny']);
+// 	$('#discardCreateCategoryBtn').html(languages['deny']);
+// 	$('#changeCategoryTitleBtn').html(languages['accept']);
+// 	$('#createCategoryBtn').html(languages['accept']);
+// 	$('#createCategoryContainerCreateCategory').html(languages['create_new_category']);
+// 	$('#editProductContainerEditProductInfo').html(languages['edit_product'])
+// 	$('#editProductContainerEditProductTitle').html(languages['product_name']);
+// };
