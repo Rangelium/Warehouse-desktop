@@ -1,37 +1,37 @@
 <div class="sessionsPart">
 	<button class="createSessionPartButton" id="createSessionPartButton">
-		Create New Session
+		Yeni sessiya yarat
 	</button>
 	<div class="sessionSelectionPart">
 		<div class="sessionsInputs">
 			<div class="sessionsInputBlock">
 				<!-- <label for="sessionsDateFrom">Date From</label> -->
-				<p>Date From</p>
+				<p>-dan</p>
 				<input type="date" class="sessionsDateInput" id="sessionsDateFrom" value="mm.dd.yyyy">
 			</div>
 			<div class="sessionsInputBlock">
-				<p>Date To</p>
+				<p>-dək</p>
 				<!-- <label for="sessionsDateTo">Date To</label> -->
 				<input type="date" class="sessionsDateInput" id="sessionsDateTo" value="mm.dd.yyyy">
 			</div>
 		</div>
 		<button class="sessionAcceptButton" id="selectSessionsButton">
-			Select
+			Qəbul etmək
 		</button>
 	</div>
 	<div class="sessionCreatePart">
 		<div class="sessionGetBack">
 			<button class="getBackButton" id="getBack">
-				&LeftArrow; Back
+				&LeftArrow; Qeri
 			</button>
 		</div>
 		<div id="sessionCreate">
 			<div class="sessionInputBlock">
-				<label for="createSessionDateFrom">Date From</label>
+				<label for="createSessionDateFrom">-dan</label>
 				<input type="date" class="sessionsDateInput" id="createSessionDateFrom">
 			</div>
 			<button class="sessionAcceptButton" id="createSessionButton" style="margin-top: 5vh;">
-				Create
+				Yarat
 			</button>
 		</div>
 	</div>
@@ -39,12 +39,12 @@
 	<div class="sessionListPart">
 		<div class="sessionGetBack">
 			<button class="getBackButton" id="getBackFromSessionsList" style="margin-top: 0;">
-				&LeftArrow; Back
+				&LeftArrow; Qeri
 			</button>
 		</div>
 		<div class="sessionTables">
 			<ul class="sessionsTable" id="sessions">
-				
+
 			</ul>
 		</div>
 	</div>
@@ -55,16 +55,16 @@
 	<div class="sessionInfoList">
 		<div class="sessionInfoTables">
 			<ul class="sessionsTable" id="sessionsInfo">
-				
+
 			</ul>
 		</div>
 	</div>
 	<div class="addNewSessionInfo">
 		<button id="addNewSessionInfo">
-			Add
+			Əlavə et
 		</button>
 		<button id="acceptNewSessionInfo" style="display: none;">
-			Accept
+			Qəbul et
 		</button>
 	</div>
 </div>
@@ -72,50 +72,51 @@
 <div class="sessionsInfoNewInputs">
 	<div class="sessionInfoNewGetBack">
 		<button id="sessionInfoNewGetBack" style="margin-top: 0">
-			&LeftArrow; Back
+			&LeftArrow; Qeri
 		</button>
 	</div>
 	<div style="align-self: center;">
-		<div class="sessionInfoInputWrapper"> <!-- Start Inputs -->
+		<div class="sessionInfoInputWrapper">
+			<!-- Start Inputs -->
 			<div class="sessionInfoInputBlock">
-				<p for="sessionInfoQuantity">Quantity</label>
-				<input type="number" class="sessionInfoNewInput" max="100" id="sessionInfoQuantity">
+				<label for="sessionInfoQuantity">Miqdar</label>
+				<input type="number" class="sessionInfoNewInput" max="100" min="0" id="sessionInfoQuantity">
 			</div>
 			<div class="sessionInfoInputBlock">
-				<label for="sessionInfoExtraCharge">Extra Charge(%)</label>
+				<label for="sessionInfoExtraCharge">Əlavə haqq(%)</label>
 				<input type="number" class="sessionInfoNewInput" id="sessionInfoExtraCharge">
 			</div>
 			<div class="sessionInfoInputBlock">
-				<label for="sessionInfoPrice">Price</label>
+				<label for="sessionInfoPrice">Qiymət</label>
 				<input type="number" class="sessionInfoNewInput" id="sessionInfoPrice" disabled>
 			</div>
 		</div>
 		<div class="sessionInfoInputWrapper" style="margin-top: 10px;">
 			<div class="sessionInfoInputBlock">
-				<label for="sessionNewCurrencyId">Currency</label>
+				<label for="sessionNewCurrencyId">Valyuta</label>
 				<select id="sessionNewCurrencyId" class="sessionInfoSelectCurrency">
-					<option value="" selected disabled>-- Select Currency --</option>
+					<option value="" selected disabled>-- Valyuta sec --</option>
 				</select>
 			</div>
 			<div class="sessionInfoInputBlock">
-				<label for="sessionInfoReason">Reason</label>
+				<label for="sessionInfoReason">Fəaliyyət</label>
 				<input type="text" class="sessionInfoNewInput" id="sessionInfoReason">
 			</div>
 			<div class="sessionInfoInputBlock">
-				<label for="sessionInfoTotalPrice">Total Price</label>
+				<label for="sessionInfoTotalPrice">Ümumi qiymət</label>
 				<input type="number" class="sessionInfoNewInput" id="sessionInfoTotalPrice" disabled>
 			</div>
 		</div>
 		<div class="sessionInfoInputWrapper" style="margin-top: 10px;justify-content: center">
 			<div class="sessionInfoInputBlock" style="padding: 0;">
-				<label for="sessinoInfoDiscount">Discount(%)</label>
+				<label for="sessinoInfoDiscount">Endirim(%)</label>
 				<input type="number" class="sessionInfoNewInput" id="sessionInfoDiscount">
 			</div>
 		</div>
 		<!-- Inputs -->
 		<div class="submitSessionInfo">
 			<button id="submitSession">
-				Submit
+				Qəbul etmək
 			</button>
 		</div>
 	</div>
@@ -124,21 +125,21 @@
 <div class="sessionsInfoSearch">
 	<div class="sessionsInfoSearchInputBlock">
 		<div style="align-self: center;display: flex;flex-direction: column;">
-			<label for="infoSearchInput">Product name</label>
-			<input type="text" class="infoSearchInput" id="infoSearchInput" placeholder="Enter product id or Title">
+			<label for="infoSearchInput">Məhsulun adı</label>
+			<input type="text" class="infoSearchInput" id="infoSearchInput"
+				placeholder="Məhsulun adını və ya kodunu daxil edin">
 		</div>
 		<button class="infoSearchSubmit" id="infoSearchButton">
-			Submit
+			Təsdiq etmək
 		</button>
 	</div>
 	<div class="sessionSearchGetBack">
 		<button id="searchBack">
-			&LeftArrow; Back
+			&LeftArrow; Qeri
 		</button>
 	</div>
 	<div class="sessionSearchResult">
 		<div class="sessionSearchTables">
-			
 		</div>
 	</div>
 </div>

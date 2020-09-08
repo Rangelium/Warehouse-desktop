@@ -5,8 +5,8 @@
 			<p id="alertMessage">asdadsad</p>
 		</div>
 		<div class="down">
-			<button id="alertNo">No</button>
-			<button id="alertYes">Yes</button>
+			<button id="alertNo">İnkar et</button>
+			<button id="alertYes">Qəbul et</button>
 		</div>
 	</div>
 	<div class="anbarAdd-container">
@@ -52,20 +52,20 @@
 			<div class="bulksSmallMenu">
 				<div class="bulksDate">
 					<div class="groupDate">
-						<p>From:</p>
 						<input type="date" id="date_from" />
+						<p>-dan:</p>
 					</div>
 					<div class="groupDate">
-						<p>To:</p>
 						<input type="date" id="date_to" />
+						<p>-dək:</p>
 					</div>
 				</div>
 			</div>
 			<div class="addNewBulkForm">
-				<h1>Add new Bulk</h1>
+				<h1>Yeni topdan satış yarat</h1>
 				<div class="container">
 					<div class="row">
-						<p>Begin date:</p>
+						<p>Başlanğıc tarixi:</p>
 						<input type="date" id="addNewBulkBeginDate" />
 					</div>
 					<div class="row">
@@ -73,12 +73,12 @@
 						<input type="number" id="addNewBulkVOEN" />
 					</div>
 					<div class="row">
-						<p>Seller:</p>
+						<p>Təchizatçı:</p>
 						<select id="addNewBulkSellers"></select>
 					</div>
 					<div class="row">
-						<button id="addNewBulkDiscardBtn">Discard</button>
-						<button id="addNewBulkSubmitBtn">Add</button>
+						<button id="addNewBulkDiscardBtn">İnkar et</button>
+						<button id="addNewBulkSubmitBtn">Qəbul et</button>
 					</div>
 				</div>
 			</div>
@@ -86,57 +86,59 @@
 		</div>
 		<div class="moveableBorder"></div>
 		<div class="sessions">
-			<p id="defaultSessionsText">Click on the bulk to show bulk's sessions</p>
+			<p id="defaultSessionsText">
+				Sessiya haqqında məlumatı görmək üçün topdan satışa tıklayın
+			</p>
 			<div class="sessions-table"></div>
 			<div class="addNewSessionForm">
-				<h1>Add new session</h1>
+				<h1>Yeni sessiya yarat</h1>
 				<div class="container">
 					<div class="row">
-						<p>Begin date:</p>
+						<p>Başlanğıc tarixi:</p>
 						<input type="date" id="addNewSessionBeginDate" />
 					</div>
 					<div class="row">
-						<p>Receipt number:</p>
+						<p>Qaimə nömrəsi:</p>
 						<input type="number" min="0" id="addNewSessionVOEN" />
 					</div>
 					<div class="row">
-						<button id="addNewSessionDiscardBtn">Discard</button>
-						<button id="addNewSessionSubmitBtn">Add</button>
+						<button id="addNewSessionDiscardBtn">İnkar et</button>
+						<button id="addNewSessionSubmitBtn">Qəbul et</button>
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="session-info">
-			<h1 id="sessionInfoPageHeading">Selected session's information</h1>
+			<h1 id="sessionInfoPageHeading">Sessiya haqqında məlumat</h1>
 			<button id="sessionInfoGoBackBtn">Return</button>
 			<div class="session-info-table"></div>
 			<div class="addNewSessionInfoForm">
-				<h1>Add new product income</h1>
+				<h1>Yeni məhsul daxil et</h1>
 				<div class="container">
 					<div class="row">
-						<p>Product:</p>
+						<p>Məhsulun adı:</p>
 						<div class="addNewSessionInfoProductSearchDropDown">
 							<input
 								type="text"
 								id="addNewSessionInfo_productId"
-								placeholder="Product id"
+								placeholder="məhsulun kodu/adı"
 								required
 							/>
 							<div class="dropdown">
 								<div id="addNewSessionInfoDrowdown" class="containerDropdown"></div>
 								<button id="addNewSessionInfoDropDownAddNewproductToTreeBtn">
-									Add new product
+									Yeni məhsul əlavə et
 								</button>
 							</div>
 						</div>
 					</div>
 					<div class="row">
-						<p>Barcode:</p>
+						<p>Ştrixkod:</p>
 						<div class="addNewSessionInfoProductSearchBarcodeDropDown">
 							<input
 								type="number"
 								min="1"
-								placeholder="Barcode"
+								placeholder="ştrixkod"
 								id="addNewSessionInfo_barcode"
 								required
 							/>
@@ -146,13 +148,13 @@
 									class="containerDropdown"
 								></div>
 								<button id="addNewSessionInfoDropDownAddNewproductToTreeBarcodeBtn">
-									Add new product
+									Yeni məhsul əlavə et
 								</button>
 							</div>
 						</div>
 					</div>
 					<div class="row">
-						<p>VOEN:</p>
+						<p>Qaimə nömrəsi:</p>
 						<input
 							type="number"
 							min="1"
@@ -165,32 +167,32 @@
 					<div class="row">
 						<div class="column">
 							<div class="columnElement">
-								<p>Quantity:</p>
+								<p>Miqdar:</p>
 								<input
 									type="number"
 									min="1"
 									id="addNewSessionInfo_quantity"
-									placeholder="Quantity"
+									placeholder="miqdar"
 									required
 								/>
 							</div>
 							<div class="columnElement">
-								<p>Price:</p>
+								<p>Qiymət:</p>
 								<input
 									type="number"
 									min="1"
 									id="addNewSessionInfo_price"
-									placeholder="Price"
+									placeholder="qiymət"
 									required
 								/>
 							</div>
 							<div class="columnElement">
-								<p>Product cell:</p>
+								<p>Hüceyrə nömrəsi:</p>
 								<input
 									type="number"
 									min="1"
 									id="addNewSessionInfo_productCell"
-									placeholder="Product cell"
+									placeholder="nömrə"
 									required
 								/>
 							</div>
@@ -201,15 +203,15 @@
 								<select id="addNewSessionInfo_cluster"></select>
 							</div>
 							<div class="columnElement">
-								<p>Currency:</p>
+								<p>Valyuta:</p>
 								<select id="addNewSessionInfo_currency"></select>
 							</div>
 							<div class="columnElement">
-								<p>Expiration date:</p>
+								<p>Yararlılıq müddəti:</p>
 								<input type="date" id="addNewSessionInfo_expDate" />
 							</div>
 							<div class="columnElement">
-								<p>Manufacturer:</p>
+								<p>İstehsalçı:</p>
 								<select id="addNewSessionInfo_productManufacturer"></select>
 							</div>
 						</div>
@@ -219,22 +221,22 @@
 							id="addNewSessionInfo_reason"
 							cols="30"
 							rows="10"
-							placeholder="Reason"
+							placeholder="Fəaliyyət haqqında məlumat"
 						></textarea>
 					</div>
 					<div class="row" id="addNewSessionInfoBtnsRow">
-						<button id="addNewSessionInfoDiscardBtn">Discard</button>
-						<button id="addNewSessionInfoSubmitBtn">Add</button>
+						<button id="addNewSessionInfoDiscardBtn">İnkar et</button>
+						<button id="addNewSessionInfoSubmitBtn">Qəbul et</button>
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="createProductContainer">
-			<h1>Add new product</h1>
+			<h1>Yeni məhsul əlavə et</h1>
 			<div class="container">
 				<div class="row kek">
 					<div class="block">
-						<p>Title:</p>
+						<p>Məhsulun adı:</p>
 						<input
 							type="text"
 							placeholder="Product title"
@@ -243,10 +245,10 @@
 						/>
 					</div>
 					<div class="block">
-						<p>Barcode:</p>
+						<p>Ştrixkod:</p>
 						<input
 							type="number"
-							placeholder="Barcode"
+							placeholder=""
 							min="0"
 							id="warehouseTreeInsert_barcode"
 							required
@@ -254,11 +256,11 @@
 					</div>
 				</div>
 				<div class="row">
-					<p>Category:</p>
+					<p>Kategoriya:</p>
 					<div class="warehouseCategoryDrowdown">
 						<input
 							type="text"
-							placeholder="Category name"
+							placeholder="adı"
 							id="warehouseTreeInsert_categoryId"
 							required
 						/>
@@ -269,7 +271,7 @@
 				</div>
 				<div class="row kek">
 					<div class="block">
-						<p>Minimal quantity:</p>
+						<p>Minimal miqdar:</p>
 						<input
 							type="number"
 							placeholder="Minimal"
@@ -278,7 +280,7 @@
 						/>
 					</div>
 					<div class="block">
-						<p>Optimal quantity:</p>
+						<p>Optimal miqdar:</p>
 						<input
 							type="number"
 							placeholder="Optimal"
@@ -288,10 +290,10 @@
 					</div>
 				</div>
 				<div class="row">
-					<p>Expiration date warning:</p>
+					<p>Son istifadə tarixi xəbərdarlığı:</p>
 					<input
 						type="number"
-						placeholder="Days"
+						placeholder="gün"
 						min="1"
 						id="warehouseTreeInsert_expDateWarning"
 					/>
@@ -302,7 +304,7 @@
 						<input
 							type="text"
 							id="warehouseTreeInsert_clusterTemplate"
-							placeholder="Select cluster's template"
+							placeholder="Hazır şablon sec"
 						/>
 
 						<div class="dropdown">
@@ -311,12 +313,12 @@
 					</div>
 				</div>
 				<div class="row special">
-					<h2>Or create new template</h2>
+					<h2>Yeni şablon yarat</h2>
 					<div class="newClusterTemplateContainer"></div>
 				</div>
 				<div class="row">
-					<button id="ai_discardCreateProductBtn">Discard</button>
-					<button id="ai_createProductBtn">Add</button>
+					<button id="ai_discardCreateProductBtn">İnkar et</button>
+					<button id="ai_createProductBtn">Qəbul et</button>
 				</div>
 			</div>
 		</div>

@@ -72,17 +72,27 @@ $report-download-button-background-color:rgb(30, 255, 0);
 
 .reportLabel{
   font-size: 20px;
+  margin-left: 10px;
 }
+
 
 select.reportSelectBox{
   padding: 10px 20px;
   text-align: center;
   font-size: 20px;
   outline: none;
+  cursor: pointer;
   optgroup{
     outline: none;
     option{
       outline: none;
     }
   }
+}
+// select#selectTable{
+//   display: none;
+// }
+
+label[for="selectTable"]{
+  display: none;
 }

@@ -77,11 +77,11 @@ function fillTable(procedureId) {
 fillTable(procedureId);
 
 $(".sellersInputButton").click(() => {
-	$(".sellersPopUpContainer").show();
+	$("#createSeller").show();
 });
 
 $(".sellersPopupCloseButton").click(() => {
-	$(".sellersPopUpContainer").hide();
+	$("#createSeller").hide();
 });
 
 $(".addSellersButton").on("click", () => {
@@ -131,7 +131,8 @@ $("#sellerDelete").on("click", () => {
 			.request()
 			.input("id", mssql.Int, sellersSelectedId)
 			.input("user_id", mssql.Int, USER["id"])
-			.execute("product_sellers_delete", (err, res) => {
+			.execute("anbar.product_sellers_delete", (err, res) => {
+				console.log(err);
 				fillTable(procedureId);
 			});
 	});
@@ -140,10 +141,10 @@ $("#sellerDelete").on("click", () => {
 $("#showContent").on("click", () => {
 	if (procedureId == 0) {
 		procedureId = 1;
-		$("#showContent").text("Show Active");
+		$("#showContent").text("Aktiv olan satıcıları göstər");
 	} else {
 		procedureId = 0;
-		$("#showContent").text("Show Inactive");
+		$("#showContent").text("Aktiv olmayan satıcıları göstər");
 	}
 	fillTable(procedureId);
 });
