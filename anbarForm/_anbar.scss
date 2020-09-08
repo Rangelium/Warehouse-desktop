@@ -1,3 +1,11 @@
+$accept-currency-changes-button: #ffc400;
+$decline-currency-changes-button: rgb(224, 18, 18);
+$currency-popup-backround-color: $primary-color;
+
+$settings-accentcolor: $stand-out-color;
+$settings-lightcolor: #fff;
+$settings-darkcolor: $dark-color;
+
 .login-section {
 	position: absolute;
 	top: 0;
@@ -483,3 +491,269 @@ nav {
 		box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
 	}
 }
+
+// todo CENTRAL BANK API POP UP
+#currencyApiPopUp{
+	> div{
+		max-width: none;
+		background-color: $currency-popup-backround-color;
+		width: 35%;
+		padding: 0;
+		@media only screen and(max-width: 1368px){
+			width: 45%;
+		}
+	}
+	.currencyPopUpSection{
+		display: flex;
+		flex-direction: column;
+		.currencyPopUpDataWrapper{
+			width: 100%;
+			max-height: 50vh;
+			overflow-y: auto;
+			padding: 15px;
+			.currencyPopUpData{
+				display: flex;
+				flex-direction: column;
+				width: 100%;
+				.currencyPopUpDataRow{
+					width: 100%;
+					height: 4vh;
+					display: flex;
+					flex-direction: row;
+					justify-content: space-around;
+					.dataRow{
+						display: flex;
+						flex-direction: row;
+					}
+					p{
+						align-self: center;
+						font-size: 22px;
+						width: 5vw;;
+					}
+					input{
+						margin-left: 10px;
+						width: 7vw;
+						text-align: center;
+						outline: none;
+						font-size: 20px;
+						padding: 7px;
+					}
+					&:not(:first-child){
+						margin-top: 1vh;
+					}
+				}
+			}
+			&::-webkit-scrollbar {
+				width: 10px;
+			}
+		
+			/* Track */
+			&::-webkit-scrollbar-track {
+				box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+				border-radius: 10px;
+				border-radius: 10px;
+			}
+		
+			/* Handle */
+			&::-webkit-scrollbar-thumb {
+				border-radius: 10px;
+				border-radius: 10px;
+				background: $anbar-info-tree-view-scrollbar-color;
+				box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+			}
+		}
+		.currencyPopUpRow{
+			display: flex;
+			flex-direction: row;
+			justify-content: center;
+			width: 100%;
+			padding: 10px;
+			.currencyPopUpRowCentered{
+				display: flex;
+				flex-direction: row;
+				justify-content: space-between;
+				width: 45%;
+				button.currencyPopUpButton{
+					padding: 15px 20px;
+					border: 1px;
+					border-radius: 4px;
+					outline: none;	
+					color: white;
+					font-size: 20px;
+				 -webkit-box-shadow: 0px 0px 18px 0px rgba(0,0,0,0.75);
+					-moz-box-shadow: 0px 0px 18px 0px rgba(0,0,0,0.75);
+					box-shadow: 0px 0px 18px 0px rgba(0,0,0,0.75);;
+					cursor: pointer;
+				}
+				#acceptCurrencyChanges{
+					background-color: $accept-currency-changes-button;
+				}
+				#declineCurrencyChanges{
+					background-color: $decline-currency-changes-button;
+				}
+			}
+		}
+	}
+}
+
+#openSettings{
+	> div{
+		max-width: none;
+		background-color: $currency-popup-backround-color;
+		width: 30%;
+		padding: 0;
+		@media only screen and(max-width: 1368px){
+			width: 40%;
+		}
+	}
+	.settingsContainer{
+		width: 100%;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		padding: 20px;
+		.choicesContainer{
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+			width: 100%;
+			&:not(:first-child){
+				margin-top: 15px;
+			}
+			p{
+				font-size: 20px;
+				justify-self: center;
+				align-self: center;
+			}
+		}
+		.choices{
+			user-select: none;
+			display: flex;
+			flex-direction: row;
+			width: 15vw;
+			position: relative;
+			justify-content: stretch;
+			// margin: 50px auto 0;
+			font-size: 15px;
+			@media only screen and(max-width: 1368px){
+				width: 25vw;
+			}
+			.settings-radiobtn {
+				position: relative;
+				display: block;
+				width: 15vw;
+				label {
+					display: block;
+					// background: lighten($settings-accentcolor, 10%);
+					background: transparent;
+					color: $settings-darkcolor;
+					border-radius: 5px;
+					padding: 10px 20px;
+					// border: 2px solid lighten($settings-accentcolor, 20%);
+					border: 2px solid transparent;
+					margin-bottom: 5px;
+					cursor: pointer;
+					&:after,
+					&:before {
+						content: "";
+						position: absolute;
+						right: 11px;
+						top: 11px;
+						width: 20px;
+						height: 20px;
+						border-radius: 3px;
+						background: lighten($settings-accentcolor, 15%);
+					}
+					&:before {
+						background: transparent;
+						transition: 0.1s width cubic-bezier(0.075, 0.82, 0.165, 1) 0s,
+							0.3s height cubic-bezier(0.075, 0.82, 0.165, 2) 0.1s;
+						z-index: 2;
+						overflow: hidden;
+						background-repeat: no-repeat;
+						background-size: 13px;
+						background-position: center;
+						width: 0;
+						height: 0;
+						background-image: url("C:\\Users\\qaqa-\\Documents\\STDC ANBAR\\Anbar-electron\\stylesGlobal\\imgs\\checkmark.svg");
+					}
+				}
+				input[type="radio"] {
+					display: none;
+					position: absolute;
+					width: 100%;
+					appearance: none;
+					&:checked + label {
+						background: lighten($settings-accentcolor, 15%);
+						animation-name: blink;
+						animation-duration: 1s;
+						border-color: $settings-accentcolor;
+						&:after {
+							background: $settings-accentcolor;
+						}
+						&:before {
+							width: 20px;
+							height: 20px;
+						}
+					}
+				}
+			}
+			
+			.currencyDropdown{
+				width: 100%;
+				background-color: lighten($settings-accentcolor, 15%);
+				padding: 10px;
+				text-align-last: center;
+				outline: none;
+				z-index: 10000;
+				cursor: pointer;
+				border-radius: 5px;
+				optgroup{
+					outline: none;
+					background-color: lighten($settings-accentcolor, 5%);
+					option{
+						outline: none;
+						padding: 5px;
+					}
+				}
+			}
+
+			@keyframes blink {
+				0% {
+					background-color: lighten($settings-accentcolor, 15%);
+				}
+				10% {
+					background-color: lighten($settings-accentcolor, 15%);
+				}
+				11% {
+					background-color: lighten($settings-accentcolor, 20%);
+				}
+				29% {
+					background-color: lighten($settings-accentcolor, 20%);
+				}
+				30% {
+					background-color: lighten($settings-accentcolor, 15%);
+				}
+				50% {
+					background-color: lighten($settings-accentcolor, 20%);
+				}
+				45% {
+					background-color: lighten($settings-accentcolor, 15%);
+				}
+				50% {
+					background-color: lighten($settings-accentcolor, 20%);
+				}
+				100% {
+					background-color: lighten($settings-accentcolor, 15%);
+				}
+			}			
+		}
+	}
+}
+
+#closeSettings{
+	background-color: $stand-out-color;
+	// color: black;
+	border: 4px solid transparent;
+}
+

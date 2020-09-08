@@ -31,15 +31,26 @@ if (mm < 10) {
 }
 today = yyyy + "-" + mm + "-" + dd;
 $("#createSessionDateFrom").attr("max", today);
+$("#createSessionDateTo").attr("max", today);
 
 $("#sessionsDateFrom").attr("max", today);
+$("#sessionsDateTo").attr("max", today);
+
+var now = new Date();
+now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+$("#sessionsDateTo").val(now.toISOString().slice(0, 10));
+var monthAgo = new Date();
+monthAgo.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+monthAgo.addMonths(-1);
+$("#sessionsDateFrom").val(monthAgo.toISOString().slice(0, 10))
+
 
 function getTotalPrice() {
 	return parseFloat(
 		productPrice *
-			productQuantity *
-			(1 + parseInt(productExtraCharge) / 100) *
-			(1 - productDiscount / 100)
+		productQuantity *
+		(1 + parseInt(productExtraCharge) / 100) *
+		(1 - productDiscount / 100)
 	).toFixed(2);
 }
 
@@ -277,23 +288,23 @@ function fillSessions(dateFrom, dateTo) {
 				headDiv.style.width = "100%";
 
 				let head_BeginDate = document.createElement("p");
-				head_BeginDate.innerHTML = "Begin Date";
+				head_BeginDate.innerHTML = languages['creation_date'];
 				head_BeginDate.style.padding = "12px 16px";
 
 				let head_CostPrice = document.createElement("p");
-				head_CostPrice.innerHTML = "Cost Price";
+				head_CostPrice.innerHTML = languages['cost_price'];
 				head_CostPrice.style.padding = "12px 16px";
 
 				let head_DefaultCurrency = document.createElement("p");
-				head_DefaultCurrency.innerHTML = "Default Currency";
+				head_DefaultCurrency.innerHTML = languages['currency'];
 				head_DefaultCurrency.style.padding = "12px 16px";
 
 				let head_IsDone = document.createElement("p");
-				head_IsDone.innerHTML = "Is Done";
+				head_IsDone.innerHTML = languages['status'];
 				head_IsDone.style.padding = "12px 16px";
 
 				let head_WholePrice = document.createElement("p");
-				head_WholePrice.innerHTML = "Whole Price";
+				head_WholePrice.innerHTML = languages['total_price'];
 				head_WholePrice.style.padding = "12px 16px";
 
 				headDiv.appendChild(head_BeginDate);
@@ -375,34 +386,34 @@ function fillSessionsInfo(sessionId) {
 				headDiv.style.width = "100%";
 
 				let head_ProductTitle = document.createElement("p");
-				head_ProductTitle.textContent = "Product Title";
+				head_ProductTitle.textContent = languages['product_name'];
 
 				let head_ExpiryDate = document.createElement("p");
-				head_ExpiryDate.textContent = "Expiry Date";
+				head_ExpiryDate.textContent = languages['exp_date'];
 
 				let head_Quantity = document.createElement("p");
-				head_Quantity.textContent = "Quantity";
+				head_Quantity.textContent = languages['quantity'];
 
 				let head_ProductUnit = document.createElement("p");
-				head_ProductUnit.textContent = "Product Unit";
+				head_ProductUnit.textContent = languages['unit'];
 
 				let head_PriceForOne = document.createElement("p");
-				head_PriceForOne.textContent = "Price For One";
+				head_PriceForOne.textContent = languages['unit_price'];
 
 				let head_ExtraCharge = document.createElement("p");
-				head_ExtraCharge.textContent = "Extra Charge";
+				head_ExtraCharge.textContent = languages['extra_charge'];
 
 				let head_ForSalePrice = document.createElement("p");
-				head_ForSalePrice.textContent = "For Sale Price";
+				head_ForSalePrice.textContent = languages['left_quantity'];
 
 				let head_FullPrice = document.createElement("p");
-				head_FullPrice.textContent = "Full Price";
+				head_FullPrice.textContent = languages['total_price'];
 
 				let head_Currency = document.createElement("p");
-				head_Currency.textContent = "Currency";
+				head_Currency.textContent = languages['currency'];
 
 				let head_Reason = document.createElement("p");
-				head_Reason.textContent = "Reason";
+				head_Reason.textContent = languages["action"];
 
 				headDiv.appendChild(head_ProductTitle);
 				headDiv.appendChild(head_ExpiryDate);
@@ -510,14 +521,14 @@ function fillSessionSearch(value) {
 						`<div class="sessionSearchContainer">
 									<div class="sessionSearchTable">
 											<div class="sessionSearchTableHeader">
-												<div class="sessionSearchHeaderItem">Product Title</div>
-												<div class="sessionSearchHeaderItem">Expiry Date</div>
-												<div class="sessionSearchHeaderItem">In Quantity</div>
-												<div class="sessionSearchHeaderItem">Out Quantity</div>
-												<div class="sessionSearchHeaderItem">Left</div>
-												<div class="sessionSearchHeaderItem">Unit</div>
-												<div class="sessionSearchHeaderItem">Unit Price</div>
-												<div class="sessionSearchHeaderItem">Currency</div>
+												<div class="sessionSearchHeaderItem">${languages['product_name']}</div>
+												<div class="sessionSearchHeaderItem">${languages['exp_date']}</div>
+												<div class="sessionSearchHeaderItem">${languages['in_quantity']}</div>
+												<div class="sessionSearchHeaderItem">${languages['out_quantity']}</div>
+												<div class="sessionSearchHeaderItem">${languages['left_quantity']}</div>
+												<div class="sessionSearchHeaderItem">${languages['unit']}</div>
+												<div class="sessionSearchHeaderItem">${languages['unit_price']}</div>
+												<div class="sessionSearchHeaderItem">${languages['currency']}</div>
 											</div>
 											<div class="sessionSearchTableContent">
 												<div class="sessionSearchTableRow">
@@ -528,13 +539,13 @@ function fillSessionSearch(value) {
 													<div style="display:none;" id="documentId">${i.document_id}</div>
 													<div style="display:none;" id="productCell">${i.product_cell}</div>
 													<div style="display:none;" id="productManufacturer">${
-														i.product_manufacturer
-													}</div>
+						i.product_manufacturer
+						}</div>
 													<div style="display:none;" id="productBarcode">${i.barcode}</div>
 													<div class="sessionSearchTableData">${i.product_title}</div>
 													<div class="sessionSearchTableData" id="productExpDate" title="${moment(
-														i.exp_date
-													).format("DD MMMM YYYY, h:mm:ss")}">${moment(
+							i.exp_date
+						).format("DD MMMM YYYY, h:mm:ss")}">${moment(
 							i.exp_date
 						).format("DD/MM/YYYY")}</div>
 													<div class="sessionSearchTableData">${i.in_quantity}</div>

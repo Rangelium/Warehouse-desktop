@@ -11,14 +11,91 @@ const ssrs = require("mssql-ssrs");
 
 const { MyTreeView } = require("../tools/TreeView");
 const moment = require("moment");
-// var USER = {
-// 	id: 1,
-// };
-
+var USER = {
+	id: 1,
+};
 setTimeout(() => {
 	userLoggedIn();
 	openPage("productAuth");
 }, 200);
+//todo CURRENCY POP UP SECTION
+
+$.get(
+	`https://cbar.az/currencies/${moment(new Date()).format("DD.MM.YYYY")}.xml`,
+	{},
+	function (data) {
+		poolConnect.then((pool) => {
+			pool.request().execute("anbar.exchange_rate_last", (err, res) => {
+				if (err != null) {
+					console.log(err);
+					return;
+				}
+				console.log(res);
+				let isChanged = false;
+				res.recordset.forEach((elem) => {
+					if (elem.title == "AZN") return;
+					let currency = $(data).find(`Valute[Code='${elem.title}']`);
+					let currencyValue = currency.find("Value").text();
+					if (currencyValue != elem.value) {
+						isChanged = true;
+						$(".currencyPopUpData").append(`
+									<div class="currencyPopUpDataRow">
+										<p>${elem.title}</p>
+										<div class="dataRow">
+											<p>OLD:</p>
+											<input type="number" disabled value="${elem.value}">
+										</div>
+										<div class="dataRow">
+											<p>NEW:</p>
+											<input type="number" name='currencyValue' data-id='${elem.currency_id}' data-title='${elem.title}' value="${currencyValue}">
+										</div>
+									</div>
+								`);
+					}
+				});
+				if (isChanged) $(".sellersPopUpContainer").show();
+			});
+		});
+		console.log(data);
+
+		$(data)
+			.find('Valute[Code="USD"]')
+			.each(function () {
+				console.log($(this).find("Value").text());
+			});
+	}
+);
+
+$("#declineCurrencyChanges").click(() => {
+	$("#currencyApiPopUp").fadeOut(200);
+});
+
+$("#acceptCurrencyChanges").click(() => {
+	let inputs = $("input[name='currencyValue']");
+	inputs.each(function () {
+		poolConnect.then((pool) => {
+			pool
+				.request()
+				.input("currency_id", mssql.Int, $(this).attr("data-id"))
+				.input("value", mssql.Float, $(this).val())
+				.input("time", mssql.DateTime, new Date())
+				.input("user_id", mssql.Int, USER.id)
+				.execute("anbar.exchange_rate_insert", (err, res) => {
+					if (err != null) {
+						console.log(err);
+						return;
+					}
+					$(".sellersPopUpContainer").fadeOut(100);
+				});
+		});
+	});
+});
+
+// =======================================================
+// setTimeout(() => {
+// 	userLoggedIn();
+// 	openPage("anbarRemove");
+// }, 200);
 
 // ====================================================================================
 //  													   Connection system part
@@ -44,7 +121,14 @@ function getTranslations() {
 		});
 	});
 }
+
 getTranslations();
+console.log(languages);
+
+var DEFAULTS = {
+	language: "AZE",
+	currency: "AZN",
+};
 
 // ====================================================================================
 //  														    Login system
@@ -128,6 +212,10 @@ function userLoggedIn() {
 ipcRenderer.on("userLogOut", () => {
 	openPage("anbarInfo");
 	showLoginForm();
+});
+
+ipcRenderer.on("openSettings", () => {
+	$("#openSettings").show();
 });
 
 ipcRenderer.on("downloadReport complete", (event, file) => {
@@ -292,26 +380,50 @@ ipcRenderer.on("createNavBar", (e, menuItems) => {
 	openPage("anbarInfo");
 });
 
-// Generate Table Function For Logs Currency Exchange UserList Measurments
-function generateTableHead(table, columnNames) {
-	let thead = table.createTHead();
-	let headRow = thead.insertRow();
-	for (let name in columnNames) {
-		let th = document.createElement("th");
-		let text = document.createTextNode(columnNames[name]);
-		th.appendChild(text);
-		headRow.appendChild(th);
-	}
-}
+// todo SETTINGS
 
-function generateTable(table, data) {
-	for (let element of data) {
-		let row = table.insertRow();
-		for (key in element) {
-			if (key == "id") continue;
-			let cell = row.insertCell();
-			let text = document.createTextNode(element[key]);
-			cell.appendChild(text);
+$("#closeSettings").click(() => {
+	$("#openSettings").fadeOut(100);
+});
+
+poolConnect.then((pool) => {
+	pool.request().execute("anbar.currency_select", (err, res) => {
+		if (err != null) {
+			console.log(err);
+			return;
 		}
-	}
-}
+		for (let i of res.recordset) {
+			$("#settingsCurrencySelect").append($("<option>", { value: i.id, text: i.title }));
+		}
+	});
+});
+
+$("#settingCurrencyDropdown").change(function () {
+	poolConnect.then((pool) => {
+		pool
+			.request()
+			.input("id", mssql.Int, $(this).val())
+			.execute("anbar.settings_change_currency", (err, res) => {
+				if (err != null) {
+					console.log(err);
+					return;
+				}
+			});
+	});
+});
+
+$("input[name='language']").change(function () {
+	let val = $("input[name='language']:checked").val();
+	poolConnect.then((pool) => {
+		pool
+			.request()
+			.input("id", mssql.Int, val)
+			.execute("anbar.settings_change_language", (err, res) => {
+				if (err != null) {
+					console.log(err);
+					return;
+				}
+				getTranslations();
+			});
+	});
+});

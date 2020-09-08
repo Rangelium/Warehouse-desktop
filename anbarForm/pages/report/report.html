@@ -1,27 +1,39 @@
 <div style="display: flex;flex-direction: column;width: 100%;height: 100%;">
   <div class="reportInputContainer">
     <div style="display: flex;flex-direction: row;justify-content: center;">
-      <label for="dateFrom" class="reportLabel">
-        Date From: 
+      <select name="selectReport" id="selectReport" class="reportSelectBox">
+        <option value="reportBuy">Mədaxil Report</option>
+        <option value="reportSale">Məxaric Report</option>
+        <option value="Decomission">Silinmələr Report</option>
+        <option value="Inventory">İnventarizasiya</option>
+        <option value="CommodityCirculationOfAllProducts">Bütün malların dövriyyəsi</option>
+      </select>
+      <label for="dateFrom" data-id="dateInput" class="reportLabel">
         <input type="date" id="dateFrom" class="reportInput">
+        -dən
       </label>
-      <label for="dateTo" class="reportLabel" style="margin-left: 5px;">
-        Date To: 
+      <label for="dateTo" data-id="dateInput" class="reportLabel" style="margin-left: 5px;">
         <input type="date" id="dateTo" class="reportInput">
+        -dək
       </label>
-      <button id="submitReport" class="reportButton">Submit</button>
+      <label for='selectTable' class="reportLabel">
+        Tarix:
+        <select name="selectTable" id="selectTable" class="reportSelectBox">
+          <optgroup id="tableOptions">
+            <option value="" selected disabled>-- Seç --</option>
+          </optgroup>
+        </select>
+      </label>
     </div>
     <div class="reportFolderConrainer">
-      <button id="selectFolder" class="reportButton">Select Folder(click here)</button>
+      <!-- <button id="selectFolder" class="reportButton">Select Folder(click here)</button> -->
       <!-- <p id="folder"></p> -->
       <select name="selectFormat" id="selectFormat" class="reportSelectBox">
-        <optgroup>
-          <option value="HTML">HTML</option>
-          <option value="PDF">PDF</option>
-          <option value="EXCEL">EXCEL</option>
-        </optgroup>
+        <option value="HTML">HTML</option>
+        <option value="PDF">PDF</option>
+        <option value="EXCEL">EXCEL</option>
       </select>
-      <button id="downloadReport" class="reportButton">Download</button>
+      <button id="downloadReport" class="reportButton">Yüklə</button>
     </div>
   </div>
   <div id="reportView" class="reportContainer">

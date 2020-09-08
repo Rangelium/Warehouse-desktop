@@ -14,6 +14,10 @@ poolConnect.then((pool) => {
 	});
 });
 
+var now = new Date();
+now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+$("#time").val(now.toISOString().slice(0, 16));
+
 function fillTable() {
 	poolConnect.then((pool) => {
 		pool.request().execute("anbar.exchange_rate_select", (err, res) => {

@@ -361,7 +361,7 @@ function fillSessionsTable(data) {
 	data.forEach((el) => {
 		let row = `<tr class="bulk-session" data-finished='${
 			el.done === "+" ? true : false
-		}' data-voen='${el.session_voen}' data-id='${el.id}'>`;
+			}' data-voen='${el.session_voen}' data-id='${el.id}'>`;
 
 		row += `<td>${el.session_voen}</td>`;
 		row += `<td title="${moment(el.begin_date).format("DD MMMM YYYY, h:mm:ss")}">${moment(
@@ -426,6 +426,7 @@ function deleteSession(session_id) {
 		pool
 			.request()
 			.input("id", parseInt(session_id))
+			.input('user_id', USER.id)
 			.execute("anbar.bulk_buying_delete_session", (err) => {
 				if (err !== null) console.log(err);
 			});
@@ -725,7 +726,11 @@ function deleteSessionInfo(sessionInfoId) {
 		pool
 			.request()
 			.input("id", sessionInfoId)
+<<<<<<< HEAD
 			.input("user_id", USER.id)
+=======
+			.input('user_id', USER.id)
+>>>>>>> a3db05b17636908b374cb0f349574881d7a17919
 			.execute("anbar.bulk_buying_session_info_delete", (err) => {
 				if (err !== null) console.log(err);
 			});
@@ -1345,8 +1350,8 @@ async function handleCreateClusters(cluster_id) {
 			let title =
 				$(cluster).attr("data-clusterId") === undefined
 					? await createNewClusterName(
-							$($($($(cluster).children()[1]).children()[0])).val()
-					  )
+						$($($($(cluster).children()[1]).children()[0])).val()
+					)
 					: parseInt($(cluster).attr("data-clusterId"));
 
 			poolConnect.then((pool) => {
