@@ -62,6 +62,11 @@ $.get(
 	}
 )
 
+$("#declineCurrencyChanges").click(() => {
+	$("#currencyApiPopUp").fadeOut(200);
+})
+
+
 $("#acceptCurrencyChanges").click(() => {
 	let inputs = $("input[name='currencyValue']");
 	inputs.each(function(){
@@ -82,9 +87,6 @@ $("#acceptCurrencyChanges").click(() => {
 	})
 })
 
-$("#declineCurrencyChanges").click(() => {
-	$("#currencyApiPopUp").fadeOut(200);
-})
 // =======================================================
 // setTimeout(() => {
 // 	userLoggedIn();
@@ -116,6 +118,11 @@ function getTranslations() {
 	});
 }
 getTranslations();
+
+var DEFAULTS = {
+	"language": "AZE",
+	"currency": "AZN"
+}
 
 // ====================================================================================
 //  														    Login system
@@ -200,6 +207,10 @@ ipcRenderer.on("userLogOut", () => {
 	openPage("anbarInfo");
 	showLoginForm();
 });
+
+ipcRenderer.on("openSettings", () => {
+	$("#openSettings").show();
+})
 
 ipcRenderer.on("downloadReport complete", (event, file) => {
 	alert("File is Downloaded");
@@ -363,7 +374,8 @@ ipcRenderer.on("createNavBar", (e, menuItems) => {
 	openPage("anbarInfo");
 });
 
-// Generate Table Function For Logs Currency Exchange UserList Measurments
-$("#declineCurrencyChanges").click(() => {
-	$("#currencyApiPopUp").fadeOut(200);
+// todo SETTINGS
+
+$("#closeSettings").click(() => {
+	$("#openSettings").fadeOut(100);
 })
