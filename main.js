@@ -65,7 +65,7 @@ function startAnbarForm() {
 		AppMenu.addItems([
 			// Anbar info
 			{
-				label: "Anbar info",
+				label: "Anbar haqqında məlumat",
 				name: "anbarInfo",
 				shortcut: "ctrl+shift+i",
 				click: function () {
@@ -74,7 +74,7 @@ function startAnbarForm() {
 			},
 			// Anbar add
 			{
-				label: "Anbar add",
+				label: "Mədaxil",
 				name: "anbarAdd",
 				shortcut: "ctrl+shift+a",
 				click: function () {
@@ -83,7 +83,7 @@ function startAnbarForm() {
 			},
 			// Anbar remove
 			{
-				label: "Anbar remove",
+				label: "Məxaric",
 				name: "anbarRemove",
 				shortcut: "ctrl+shift+r",
 				click: function () {
@@ -92,38 +92,38 @@ function startAnbarForm() {
 			},
 			// Lists(Soraqcalar)
 			{
-				label: "Lists",
+				label: "Siyahı",
 				submenu: [
 					{
-						label: "Packaging",
+						label: "Bağlaşdırma",
 						name: "packaging",
 						click: function () {
 							mainWindow.webContents.send("changeAnbarPage", "packaging");
 						},
 					},
 					{
-						label: "Currency",
+						label: "Valyutalar",
 						name: "currency",
 						click: function () {
 							mainWindow.webContents.send("changeAnbarPage", "currency");
 						},
 					},
 					{
-						label: "Exchange",
+						label: "Məzənnə",
 						name: "treasury",
 						click: function () {
 							mainWindow.webContents.send("changeAnbarPage", "treasury");
 						},
 					},
 					{
-						label: "Sellers",
+						label: "Təchizatçılar",
 						name: "sellers",
 						click: function () {
 							mainWindow.webContents.send("changeAnbarPage", "sellers");
 						},
 					},
 					{
-						label: "Close to expiration",
+						label: "Yararlılıq müddəti keçmiş/sona yaxın məhsullar",
 						name: "expDateProducts",
 						click: function () {
 							mainWindow.webContents.send("changeAnbarPage", "expDateProducts");
@@ -133,17 +133,17 @@ function startAnbarForm() {
 			},
 			// Reports(Hesabatlar)
 			{
-				label: "Reports",
+				label: "Reportlar",
 				submenu: [
 					{
-						label: "Invetory",
+						label: "İnventarizasiya",
 						name: "inventory",
 						click: function () {
 							mainWindow.webContents.send("changeAnbarPage", "inventory");
 						},
 					},
 					{
-						label: "Report",
+						label: "Reportlar",
 						name: "report",
 						click: function () {
 							mainWindow.webContents.send("changeAnbarPage", "report");
@@ -153,10 +153,10 @@ function startAnbarForm() {
 			},
 			// Admin
 			{
-				label: "Admin",
+				label: "Admin Panel",
 				submenu: [
 					{
-						label: "Users list",
+						label: "İstifadəçilər siyahıları",
 						name: "usersList",
 						click: function () {
 							mainWindow.webContents.send("changeAnbarPage", "usersList");
@@ -174,10 +174,10 @@ function startAnbarForm() {
 		]);
 
 		AppMenu.setSettings({
-			label: "Menu",
+			label: "Menyu",
 			submenu: [
 				{
-					label: "Settings",
+					label: "Parametrlər",
 					click: function () {
 						mainWindow.webContents.send("openSettings");
 					},

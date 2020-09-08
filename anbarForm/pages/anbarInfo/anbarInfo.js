@@ -1335,13 +1335,13 @@ async function showProductInfo(productData) {
 		$("#singleProductLeft").html(product_info.left);
 		$("#singleProductOutQuantity").html(product_info.out_quantity);
 	} catch (err) {
-		$("#singleProductPrice").html("null");
-		$("#singleProductCurrency").html("null");
-		$("#singleProductCell").html("null");
-		$("#singleProductExpDate").html("null");
-		$("#singleProductInQuantity").html("null");
-		$("#singleProductLeft").html("null");
-		$("#singleProductOutQuantity").html("null");
+		$("#singleProductPrice").html("0");
+		$("#singleProductCurrency").html("0");
+		$("#singleProductCell").html("0");
+		$("#singleProductExpDate").html("0");
+		$("#singleProductInQuantity").html("0");
+		$("#singleProductLeft").html("0");
+		$("#singleProductOutQuantity").html("0");
 	}
 
 	let table_product = await new Promise((resolve) => {

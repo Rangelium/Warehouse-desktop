@@ -4,81 +4,60 @@
 		<p id="alertMessage">asdadsad</p>
 	</div>
 	<div class="down">
-		<button id="alertNo">No</button>
-		<button id="alertYes">Yes</button>
+		<button id="alertNo">İnkar et</button>
+		<button id="alertYes">Qəbul et</button>
 	</div>
 </div>
 <div id="categoryOptionsMenu" class="categoryOptionsMenuMenber">
 	<ul class="categoryOptionsMenuMenber">
-		<li id="createCategory" class="categoryOptionsMenuMenber">Create new category</li>
-		<li id="createProduct" class="categoryOptionsMenuMenber">Create new product</li>
-		<li id="editCategory" class="categoryOptionsMenuMenber">Edit category</li>
-		<li id="deleteCategory" class="categoryOptionsMenuMenber">Delete category</li>
-		<li
-			id="clearCategory"
-			class="categoryOptionsMenuMenber"
-			title="Delete all child products and categories"
-		>
-			Clear category
-		</li>
+		<li id="createCategory" class="categoryOptionsMenuMenber">Yeni kateqoriya yarat</li>
+		<li id="createProduct" class="categoryOptionsMenuMenber">Yeni məhsul əlavə et</li>
+		<li id="editCategory" class="categoryOptionsMenuMenber">Kateqoriyanı yenilə</li>
+		<li id="deleteCategory" class="categoryOptionsMenuMenber">Kateqoriyanı sil</li>
+		<li id="clearCategory" class="categoryOptionsMenuMenber" title="Bütun məhsulları və kategoriyaları sil">
+			Kateqoriyanı təmizlə</li>
 	</ul>
 </div>
 <div id="productOptionsMenu" class="productOptionsMenuMenber">
 	<ul class="productOptionsMenuMenber">
-		<li id="editProduct" class="productOptionsMenuMenber">Edit</li>
-		<li id="deleteProduct" class="productOptionsMenuMenber">Delete</li>
+		<li id="editProduct" class="productOptionsMenuMenber">Yenilə</li>
+		<li id="deleteProduct" class="productOptionsMenuMenber">Sil</li>
 	</ul>
 </div>
 <div class="blur"></div>
 <div class="editCategoryContainer">
-	<h1>Edit tittle:</h1>
+	<h1>Yeni adı:</h1>
 	<input type="text" id="newCategoryName" placeholder="Type new title" />
 	<div class="row">
-		<button id="discardChangeCategoryBtn">Discard</button>
-		<button id="changeCategoryTitleBtn">Change</button>
+		<button id="discardChangeCategoryBtn">İnkar et</button>
+		<button id="changeCategoryTitleBtn">Yenilə</button>
 	</div>
 </div>
 <div class="createCategoryContainer">
-	<h1>Create category:</h1>
+	<h1>Yeni kateqoriya yarat:</h1>
 	<input type="text" id="createNewCategoryName" placeholder="Type title" />
 	<div class="row">
-		<button id="discardCreateCategoryBtn">Discard</button>
-		<button id="createCategoryBtn">Add</button>
+		<button id="discardCreateCategoryBtn">İnkar et</button>
+		<button id="createCategoryBtn">Əlavə et</button>
 	</div>
 </div>
 <div class="editProductContainer">
-	<h1>Edit product info:</h1>
+	<h1>Məhsul haqqında məlumat:</h1>
 	<div class="container">
 		<div class="row kek">
 			<div class="block">
-				<p>Title:</p>
-				<input
-					type="text"
-					placeholder="Product title"
-					id="edit_warehouseTreeInsert_title"
-					required
-				/>
+				<p>Məhsulun adı:</p>
+				<input type="text" placeholder="Product title" id="edit_warehouseTreeInsert_title" required />
 			</div>
 			<div class="block">
-				<p>Barcode:</p>
-				<input
-					type="number"
-					placeholder="Barcode"
-					min="0"
-					id="edit_warehouseTreeInsert_barcode"
-					required
-				/>
+				<p>Ştrixkod:</p>
+				<input type="number" placeholder="" min="0" id="edit_warehouseTreeInsert_barcode" required />
 			</div>
 		</div>
 		<div class="row">
-			<p>Category:</p>
+			<p>Kategoriya:</p>
 			<div class="edit_warehouseCategoryDrowdown">
-				<input
-					type="text"
-					placeholder="Category name"
-					id="edit_warehouseTreeInsert_categoryId"
-					required
-				/>
+				<input type="text" placeholder="Category name" id="edit_warehouseTreeInsert_categoryId" required />
 				<div class="dropdown">
 					<div id="edit_warehouseCategoryDropdown" class="containerDropdown"></div>
 				</div>
@@ -86,41 +65,22 @@
 		</div>
 		<div class="row kek">
 			<div class="block">
-				<p>Minimal quantity:</p>
-				<input
-					type="number"
-					placeholder="Minimal"
-					min="0"
-					id="edit_warehouseTreeInsert_minQuantity"
-				/>
+				<p>Minimum miqdar:</p>
+				<input type="number" placeholder="Minimal" min="0" id="edit_warehouseTreeInsert_minQuantity" />
 			</div>
 			<div class="block">
-				<p>Optimal quantity:</p>
-				<input
-					type="number"
-					placeholder="Optimal"
-					min="0"
-					id="edit_warehouseTreeInsert_optQuantity"
-				/>
+				<p>Optimal miqdar:</p>
+				<input type="number" placeholder="Optimal" min="0" id="edit_warehouseTreeInsert_optQuantity" />
 			</div>
 		</div>
 		<div class="row">
-			<p>Expiration date warning:</p>
-			<input
-				type="number"
-				placeholder="Days"
-				min="1"
-				id="edit_warehouseTreeInsert_expDateWarning"
-			/>
+			<p>Son istifadə tarixi xəbərdarlığı:</p>
+			<input type="number" placeholder="gün" min="1" id="edit_warehouseTreeInsert_expDateWarning" />
 		</div>
 		<hr />
 		<div class="row special">
 			<div class="edit_warehouseClusterDefaultDrowdown">
-				<input
-					type="text"
-					id="edit_warehouseTreeInsert_clusterTemplate"
-					placeholder="Select cluster's template"
-				/>
+				<input type="text" id="edit_warehouseTreeInsert_clusterTemplate" placeholder="Hazır şablon sec" />
 
 				<div class="dropdown">
 					<div id="edit_warehouseClusterDefaultDropdown" class="containerDropdown"></div>
@@ -128,48 +88,32 @@
 			</div>
 		</div>
 		<div class="row special">
-			<h2>Or create new template</h2>
+			<h2>Yeni şablon yarat</h2>
 			<div class="edit_newClusterTemplateContainer"></div>
 		</div>
 		<div class="row">
-			<button id="discardEditProductBtn">Discard</button>
-			<button id="editProductBtn">Change</button>
+			<button id="discardEditProductBtn">İnkar et</button>
+			<button id="editProductBtn">Yenilə</button>
 		</div>
 	</div>
 </div>
 <div class="createProductContainer">
-	<h1>Add new product</h1>
+	<h1>Yeni məhsul:</h1>
 	<div class="container">
 		<div class="row kek">
 			<div class="block">
-				<p>Title:</p>
-				<input
-					type="text"
-					placeholder="Product title"
-					id="warehouseTreeInsert_title"
-					required
-				/>
+				<p>Məhsulun adı:</p>
+				<input type="text" placeholder="Məhsulun adı" id="warehouseTreeInsert_title" required />
 			</div>
 			<div class="block">
-				<p>Barcode:</p>
-				<input
-					type="number"
-					placeholder="Barcode"
-					min="0"
-					id="warehouseTreeInsert_barcode"
-					required
-				/>
+				<p>Ştrixkod:</p>
+				<input type="number" placeholder="Ştrixkod" min="0" id="warehouseTreeInsert_barcode" required />
 			</div>
 		</div>
 		<div class="row">
-			<p>Category:</p>
+			<p>Kategoriya:</p>
 			<div class="warehouseCategoryDrowdown">
-				<input
-					type="text"
-					placeholder="Category name"
-					id="warehouseTreeInsert_categoryId"
-					required
-				/>
+				<input type="text" placeholder="Kategoriyanın adı" id="warehouseTreeInsert_categoryId" required />
 				<div class="dropdown">
 					<div id="warehouseCategoryDropdown" class="containerDropdown"></div>
 				</div>
@@ -177,41 +121,22 @@
 		</div>
 		<div class="row kek">
 			<div class="block">
-				<p>Minimal quantity:</p>
-				<input
-					type="number"
-					placeholder="Minimal"
-					min="0"
-					id="warehouseTreeInsert_minQuantity"
-				/>
+				<p>Minimal miqdar:</p>
+				<input type="number" placeholder="Minimal" min="0" id="warehouseTreeInsert_minQuantity" />
 			</div>
 			<div class="block">
-				<p>Optimal quantity:</p>
-				<input
-					type="number"
-					placeholder="Optimal"
-					min="0"
-					id="warehouseTreeInsert_optQuantity"
-				/>
+				<p>Optimal miqdar:</p>
+				<input type="number" placeholder="Optimal" min="0" id="warehouseTreeInsert_optQuantity" />
 			</div>
 		</div>
 		<div class="row">
-			<p>Expiration date warning:</p>
-			<input
-				type="number"
-				placeholder="Days"
-				min="1"
-				id="warehouseTreeInsert_expDateWarning"
-			/>
+			<p>Son istifadə tarixi xəbərdarlığı:</p>
+			<input type="number" placeholder="gün" min="1" id="warehouseTreeInsert_expDateWarning" />
 		</div>
 		<hr />
 		<div class="row special">
 			<div class="warehouseClusterDefaultDrowdown">
-				<input
-					type="text"
-					id="warehouseTreeInsert_clusterTemplate"
-					placeholder="Select cluster's template"
-				/>
+				<input type="text" id="warehouseTreeInsert_clusterTemplate" placeholder="Select cluster's template" />
 
 				<div class="dropdown">
 					<div id="warehouseClusterDefaultDropdown" class="containerDropdown"></div>
@@ -219,65 +144,73 @@
 			</div>
 		</div>
 		<div class="row special">
-			<h2>Or create new template</h2>
+			<h2>Yeni şablon yarat</h2>
 			<div class="newClusterTemplateContainer"></div>
 		</div>
 		<div class="row">
-			<button id="discardCreateProductBtn">Discard</button>
-			<button id="createProductBtn">Add</button>
+			<button id="discardCreateProductBtn">İnkar et</button>
+			<button id="createProductBtn">Əlavə et</button>
 		</div>
 	</div>
 </div>
 <aside class="treeViewContainer">
 	<div class="searchContainer">
-		<input type="text" placeholder="Type to search" id="searchInputBox" />
+		<input type="text" placeholder="Axtarış üçün məhsulun/kategoriyanın adını yazın" id="searchInputBox" />
 		<p id="clearSearchBox">✖</p>
 	</div>
 </aside>
 <section class="data">
 	<div class="smallNav">
-		<div class="btn-type1" id="showOverallInfo"><p>Overall Info</p></div>
-		<div class="btn-type1" id="hideShowTreeView"><p>Hide/Show TreeView</p></div>
-		<div class="btn-type1" id="expandTreeView"><p>Expand TreeView</p></div>
-		<div class="btn-type1" id="closeTreeView"><p>Close TreeView</p></div>
+		<div class="btn-type1" id="showOverallInfo">
+			<p>Ümumi məlumat</p>
+		</div>
+		<div class="btn-type1" id="hideShowTreeView">
+			<p>Ağac görünüşü gizlət/göstər</p>
+		</div>
+		<div class="btn-type1" id="expandTreeView">
+			<p>Ağac görünüşü genişləndir</p>
+		</div>
+		<div class="btn-type1" id="closeTreeView">
+			<p>Ağac görünüşü bağla</p>
+		</div>
 	</div>
 	<div class="screenInfo">
 		<div class="info">
 			<div class="text">
-				<p>Click on the product in the Tree on the left</p>
-				<p>to show detailed information</p>
+				<p>Ətraflı məlumatı göstərmək üçün </p>
+				<p>soldakı Ağacdakı məhsula tıklayın</p>
 			</div>
 			<div class="text">
-				<p>Or click on <span>'Overall'</span> button on top to show</p>
-				<p>overall information about this Anbar</p>
+				<p>Anbar haqqında ümumi məlumat göstərmək üçün yuxarıdakı <span>"Ümumi məlumat"</span></p>
+				<p>düyməsini tıklayın</p>
 			</div>
 		</div>
 		<div class="overall-info">
 			<div class="overall-info-data">
 				<div class="upper-text">
-					<h2>Overall info:</h2>
-					<p>Quantity of products: <span id="products_quantity"></span></p>
-					<p>Remaining of products: <span id="products_remaining"></span></p>
-					<p>Total cost of Anbar: <span id="anbar_total_cost"></span></p>
+					<h2>Ümumi məlumat:</h2>
+					<p>Məhsulun miqdarı: <span id="products_quantity"></span></p>
+					<p>Məhsulların qalan hissəsi: <span id="products_remaining"></span></p>
+					<p>Anbarın ümumi dəyəri: <span id="anbar_total_cost"></span></p>
 				</div>
 				<div class="lover-text">
 					<div class="left-text">
-						<h2>Last added product:</h2>
-						<p>Product name: <span id="add_product_name"></span></p>
-						<p>Date: <span id="add_product_date"></span></p>
-						<p>Price: <span id="add_product_price"></span></p>
-						<p>Quantity: <span id="add_product_quantity"></span></p>
-						<p>Total price: <span id="add_product_total_price"></span></p>
-						<p>Currency: <span id="add_product_currency"></span></p>
+						<h2>Son daxil olunmuş məhsul:</h2>
+						<p>Məhsulun adı: <span id="add_product_name"></span></p>
+						<p>Tarix: <span id="add_product_date"></span></p>
+						<p>Qiymət: <span id="add_product_price"></span></p>
+						<p>Miqdar: <span id="add_product_quantity"></span></p>
+						<p>Ümumi qiymət: <span id="add_product_total_price"></span></p>
+						<p>Valyuta: <span id="add_product_currency"></span></p>
 					</div>
 					<div class="right-text">
-						<h2>Last removed product:</h2>
-						<p>Product name: <span id="rm_product_name"></span></p>
-						<p>Date: <span id="rm_product_date"></span></p>
-						<p>Price: <span id="rm_product_price"></span></p>
-						<p>Quantity: <span id="rm_product_quantity"></span></p>
-						<p>Total price: <span id="rm_product_total_price"></span></p>
-						<p>Currency: <span id="rm_product_currency"></span></p>
+						<h2>Son satılan məhsul:</h2>
+						<p>Məhsulun adı: <span id="rm_product_name"></span></p>
+						<p>Tarix: <span id="rm_product_date"></span></p>
+						<p>Qiymət: <span id="rm_product_price"></span></p>
+						<p>Miqdar: <span id="rm_product_quantity"></span></p>
+						<p>Ümumi qiymət: <span id="rm_product_total_price"></span></p>
+						<p>Valyuta: <span id="rm_product_currency"></span></p>
 					</div>
 				</div>
 			</div>
@@ -285,27 +218,25 @@
 		<div class="singleProductInfo">
 			<div class="text-data">
 				<div class="row">
-					<h2>Product name: <span id="singleProductName"></span></h2>
+					<h2>Məhsulun adı: <span id="singleProductName"></span></h2>
 				</div>
 				<div class="row">
-					<p>Product id: <span id="singleProductId"></span></p>
+					<p>Məhsulun kodu: <span id="singleProductId"></span></p>
 				</div>
 				<div class="row">
-					<p>Price: <span id="singleProductPrice"></span></p>
-					<p>Currency: <span id="singleProductCurrency"></span></p>
+					<p>Qiymət: <span id="singleProductPrice"></span></p>
+					<p>Valyuta: <span id="singleProductCurrency"></span></p>
 				</div>
 				<div class="row">
-					<p>Product cell: <span id="singleProductCell"></span></p>
-					<p>Expiration date: <span id="singleProductExpDate"></span></p>
+					<p>Hüceyrə nömrəsi: <span id="singleProductCell"></span></p>
+					<p>Yararlılıq müddəti: <span id="singleProductExpDate"></span></p>
 				</div>
 				<div class="row">
-					<p>Overall income: <span id="singleProductInQuantity"></span></p>
+					<p>Ümumi daxil olunan miqdar: <span id="singleProductInQuantity"></span></p>
+					<p>Ümumi satılan miqdar: <span id="singleProductOutQuantity"></span></p>
 				</div>
 				<div class="row">
-					<p>Left: <span id="singleProductLeft"></span></p>
-				</div>
-				<div class="row">
-					<p>Overall outcome: <span id="singleProductOutQuantity"></span></p>
+					<p>Qalıq: <span id="singleProductLeft"></span></p>
 				</div>
 			</div>
 			<div class="table-data"></div>
