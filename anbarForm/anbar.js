@@ -379,3 +379,46 @@ ipcRenderer.on("createNavBar", (e, menuItems) => {
 $("#closeSettings").click(() => {
 	$("#openSettings").fadeOut(100);
 })
+
+poolConnect.then((pool) => {
+	pool.request()
+			.execute("anbar.currency_select", (err, res) => {
+				if(err != null){
+					console.log(err);
+					return;
+				}
+				for(let i of res.recordset){
+					$("#settingsCurrencySelect").append(
+						$("<option>", {value: i.id, text: i.title})
+					);
+				}
+			})
+})
+
+$("#settingCurrencyDropdown").change(function(){
+	poolConnect.then((pool) => {
+		pool.request()
+				.input("id", mssql.Int, $(this).val())
+				.execute("anbar.settings_change_currency", (err, res) => {
+					if(err != null) {
+						console.log(err);
+						return;
+					}
+				})
+	})
+})
+
+$("input[name='language']").change(function(){
+	let val = $("input[name='language']:checked").val();
+	poolConnect.then((pool) => {
+		pool.request()
+				.input("id", mssql.Int, val)
+				.execute("anbar.settings_change_language", (err, res) => {
+					if(err != null){
+						console.log(err);
+						return;
+					}
+					console.log("Lang changed");
+				})
+	})
+})
