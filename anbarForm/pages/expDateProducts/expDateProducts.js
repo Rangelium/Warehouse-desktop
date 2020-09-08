@@ -41,7 +41,7 @@ async function fillExpDateOverTable() {
 	$(".exp-date-over-table > thead").append(
 		`<th>${languages["total_price"]}:</th>`
 	);
-	$(".exp-date-over-table > thead").append(`<th>VOEN:</th>`);
+	$(".exp-date-over-table > thead").append(`<th>${languages['receipt_num']}:</th>`);
 
 	data.forEach((el) => {
 		let row = `<tr class="single-expired-row">`;
@@ -128,7 +128,7 @@ async function fillExpDateSoCloseTable() {
 	$(".exp-date-soclose-table > thead").append(
 		`<th>${languages["total_price"]}:</th>`
 	);
-	$(".exp-date-soclose-table > thead").append(`<th>VOEN:</th>`);
+	$(".exp-date-soclose-table > thead").append(`<th>${languages['receipt_num']}:</th>`);
 
 	data.forEach((el) => {
 		let row = `<tr>`;
