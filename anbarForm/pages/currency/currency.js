@@ -1,6 +1,7 @@
 var currencySelectedId = "";
 var restoreId = -1;
 
+
 function fillDeletedTable(){
 	const table_name = "anbar.currency";
 	poolConnect.then((pool) => {
@@ -49,7 +50,7 @@ function fillDeletedTable(){
 							restoreId = this.firstChild.textContent;
 							let x = e.pageX;
 							let y = e.pageY;
-							let optionCard = $(".optionsCard");
+							let optionCard = $("#deletedCard");
 							optionCard.css({
 								left: x,
 								top: y,
@@ -66,6 +67,7 @@ function fillDeletedTable(){
 function fillTable() {
 	poolConnect.then((pool) => {
 		pool.request().execute("anbar.currency_select", (err, res) => {
+			console.log(err);
 			data = [];
 			for (let i of res.recordset) {
 				data.push(i);
@@ -96,16 +98,34 @@ function fillTable() {
 			console.log("lol");
 			$("#currencyInfo").css("opacity", "1");
 			$("#currencyInfo").css("pointer-events", "unset");
-			let tr = document.querySelectorAll("#currencyTable tbody tr");
-			tr.forEach((el) => {
-				el.addEventListener("click", () => {
-					tr.forEach((trel) => {
-						trel.classList.remove("selected");
+			// let tr = document.querySelectorAll("#currencyTable tbody tr");
+			// tr.forEach((el) => {
+			// 	el.addEventListener("click", () => {
+			// 		tr.forEach((trel) => {
+			// 			trel.classList.remove("selected");
+			// 		});
+			// 		el.classList.toggle("selected");
+			// 		currencySelectedId = el.children.item(2).textContent;
+			// 	});
+			// });
+			$("#currencyTable tbody tr").mousedown(function(e){
+				console.log("button click")
+				if(e.button == 2){
+					$("#currencyTable tbody tr").removeClass("selected");
+					$(this).addClass("selected");
+					currencySelectedId = this.children.item(2).textContent;
+					let x = e.pageX;
+					let y = e.pageY;
+					let optionCard = $("#mainCard");
+					optionCard.css({
+						left: x,
+						top: y,
+						display: "flex"
 					});
-					el.classList.toggle("selected");
-					currencySelectedId = el.children.item(2).textContent;
-				});
-			});
+					return false;
+				}
+				return true;
+			})
 		});
 	});
 }
@@ -133,17 +153,21 @@ $("#addButton").on("click", () => {
 	});
 });
 
-$("#deleteButton").on("click", () => {
+$("p#deleteButton").click(() => {
 	if (currencySelectedId.length == 0) {
 		alert("Nothing selected");
 		return;
 	}
+
+	// console.log("delete click")
+	console.log(currencySelectedId);
 	poolConnect.then((pool) => {
 		pool
 			.request()
 			.input("title", mssql.NVarChar(250), currencySelectedId)
 			.input("user_id", mssql.Int, USER["id"])
 			.execute("anbar.currency_delete", (err, res) => {
+				console.log(err);
 				fillTable();
 			});
 	});

@@ -63,6 +63,7 @@ function fillDeletedTable(){
 function fillTable() {
 	poolConnect.then((pool) => {
 		pool.request().execute("anbar.cluster_names_select_all", (err, res) => {
+			console.log(err);
 			data = [];
 			for (let i of res.recordset) {
 				data.push(i);
