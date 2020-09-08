@@ -106,17 +106,17 @@
 						<div class="choices">
 							
 							<div class="settings-radiobtn">
-								<input type="radio" id="aze" name="language" checked>
+								<input type="radio" id="aze" name="language" value="1" checked>
 								<label for="aze">AZE</label>
 							</div>
 
 							<div class="settings-radiobtn">
-								<input type="radio" id="eng" name="language">
+								<input type="radio" id="eng" name="language" value="2">
 								<label for="eng">ENG</label>
 							</div>
 
 							<div class="settings-radiobtn">
-								<input type="radio" id="ru" name="language">
+								<input type="radio" id="ru" name="language" value="3">
 								<label for="ru">RU</label>
 							</div>
 
@@ -126,7 +126,7 @@
 						<p>Currency:</p>
 						<div class="choices">
 							
-							<div class="settings-radiobtn">
+							<!-- <div class="settings-radiobtn">
 								<input type="radio" id="azn" name="currencyTitle" checked>
 								<label for="azn">AZN</label>
 							</div>
@@ -139,7 +139,14 @@
 							<div class="settings-radiobtn">
 								<input type="radio" id="rub" name="currencyTitle">
 								<label for="rub">RUB</label>
-							</div>
+							</div> -->
+							<select name="currencySelect" class="currencyDropdown" id="settingCurrencyDropdown">
+								<optgroup label="Currencies" id="settingsCurrencySelect">
+									<!-- <option value='1'>AZN</option>
+									<option value='2'>USD</option>
+									<option value='3'>RUB</option> -->
+								</optgroup>
+							</select>
 
 						</div>
 					</div>

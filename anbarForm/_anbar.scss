@@ -699,6 +699,25 @@ nav {
 				}
 			}
 			
+			.currencyDropdown{
+				width: 100%;
+				background-color: lighten($settings-accentcolor, 15%);
+				padding: 10px;
+				text-align-last: center;
+				outline: none;
+				z-index: 10000;
+				cursor: pointer;
+				border-radius: 5px;
+				optgroup{
+					outline: none;
+					background-color: lighten($settings-accentcolor, 5%);
+					option{
+						outline: none;
+						padding: 5px;
+					}
+				}
+			}
+
 			@keyframes blink {
 				0% {
 					background-color: lighten($settings-accentcolor, 15%);
