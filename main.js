@@ -90,6 +90,14 @@ function startAnbarForm() {
 					mainWindow.webContents.send("changeAnbarPage", "anbarRemove");
 				},
 			},
+			{
+				label: "Product Auth",
+				name: "productAuth",
+				shortcut: "ctrl+shift+p",
+				click: function () {
+					mainWindow.webContents.send("changeAnbarPage", "productAuth");
+				},
+			},
 			// Lists(Soraqcalar)
 			{
 				label: "Lists",

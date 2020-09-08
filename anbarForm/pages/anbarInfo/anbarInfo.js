@@ -472,7 +472,7 @@ $("#createProductBtn").click(async function () {
 
 	let cluster_id;
 	let cluster_default;
-	let product_id = new Date().getTime() / 1000;
+	let product_id = parseInt(new Date().getTime() / 1000);
 
 	if (
 		$("#warehouseTreeInsert_clusterTemplate").attr("data-clusterId") !== undefined &&
@@ -485,7 +485,7 @@ $("#createProductBtn").click(async function () {
 			$("#warehouseTreeInsert_clusterTemplate").attr("data-clusterDef")
 		);
 	} else {
-		cluster_id = new Date().getTime() / 1000;
+		cluster_id = parseInt(new Date().getTime() / 1000);
 		cluster_default = await handleCreateClusters(cluster_id);
 	}
 
@@ -808,7 +808,11 @@ var edit_selectedProductData;
 var edit_selectedProductCatData;
 var edit_selectedProductClusterData;
 function edit_warehouseTreeInsertAddNewCluster(cluster, pivot = undefined) {
-	let clusterEl = $(`<div class="edit_clusterTemplateElement"></div>`);
+	let clusterEl = $(
+		`<div data-id="${
+			cluster.id ? cluster.id : "none"
+		}" class="edit_clusterTemplateElement"></div>`
+	);
 	let defaultCheck =
 		'<div class="item"><p>Default:</p><input type="radio" class="edit_radio" name="edit_default_cluster" /></div>';
 	let inputs = `<div class="edit_warehouseClustersDrowdown">
@@ -927,11 +931,71 @@ function edit_warehouseTreeInsertFormValidation() {
 
 	return true;
 }
+async function edit_createNewClusterName(name) {
+	let res = await new Promise((resolve) => {
+		poolConnect.then((pool) => {
+			pool
+				.request()
+				.input("title", name)
+				.input("user_id", USER.id)
+				.execute("anbar.cluster_names_insert", (err, res) => {
+					if (err !== null) console.log(err);
+					resolve(res.recordset[0].id);
+				});
+		});
+	});
+
+	return res;
+}
+async function handleEditCluster(cluster_id, last_order) {
+	let clusterArr = Array.from(
+		$(".edit_newClusterTemplateContainer .edit_clusterTemplateElement")
+	);
+
+	let order = last_order;
+	clusterArr.forEach(async (cluster, last_order) => {
+		if ($(cluster).attr("data-active") !== "false") {
+			let clusterUniqueId = $(cluster).attr("data-id");
+			let cluster_title = $($($(cluster).children()[1]).children()[0]).val();
+			let cluster_capacity = $($(cluster).children()[2]).val();
+			if (clusterUniqueId !== "none") {
+				poolConnect.then((pool) => {
+					pool
+						.request()
+						.input("id", clusterUniqueId)
+						.input("title", cluster_title)
+						.input("capacity", cluster_capacity)
+						.input("user_id", USER.id)
+						.execute("anbar.cluster_update", (err) => {
+							if (err !== null) console.log(err);
+						});
+				});
+			} else {
+				let title =
+					$(cluster).attr("data-clusterId") === undefined
+						? await edit_createNewClusterName(
+								$($($($(cluster).children()[1]).children()[0])).val()
+						  )
+						: parseInt($(cluster).attr("data-clusterId"));
+				poolConnect.then((pool) => {
+					pool
+						.request()
+						.input("cluster_id", BigInt(cluster_id))
+						.input("capacity", cluster_capacity)
+						.input("cluster_order", order)
+						.input("title", title)
+						.input("user_id", USER.id)
+						.execute("anbar.cluster_insert", (err) => {
+							if (err !== null) console.log(err);
+							order += 1;
+						});
+				});
+			}
+		}
+	});
+}
 $("#editProductBtn").click(async function () {
 	if (!edit_warehouseTreeInsertFormValidation()) return;
-
-	console.log(edit_selectedProductData);
-	console.log(edit_selectedProductCatData);
 
 	let new_parent_id = $("#edit_warehouseTreeInsert_categoryId").attr("data-parentId");
 	let department_id = $("#edit_warehouseTreeInsert_categoryId").attr("data-departmentId");
@@ -947,7 +1011,12 @@ $("#editProductBtn").click(async function () {
 		}
 	});
 
-	return;
+	await handleEditCluster(
+		edit_selectedProductData.cluster,
+		edit_selectedProductClusterData[edit_selectedProductClusterData.length - 1]
+			.cluster_order + 1
+	);
+
 	poolConnect.then((pool) => {
 		pool
 			.request()
@@ -969,8 +1038,6 @@ $("#editProductBtn").click(async function () {
 				hideEditProduct();
 			});
 	});
-
-	console.log("kek");
 });
 function hideEditProduct() {
 	fillTreeView();
@@ -1020,6 +1087,8 @@ async function showEditProduct(productId) {
 	edit_selectedProductData = productData;
 	edit_selectedProductCatData = categoryData;
 	edit_selectedProductClusterData = productClusterData;
+
+	console.log(productClusterData);
 
 	$("#edit_warehouseTreeInsert_title").val(productData.title);
 	$("#edit_warehouseTreeInsert_barcode").val(productData.barcode);

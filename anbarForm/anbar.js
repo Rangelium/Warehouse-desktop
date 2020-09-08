@@ -15,10 +15,10 @@ const moment = require("moment");
 // 	id: 1,
 // };
 
-// setTimeout(() => {
-// 	userLoggedIn();
-// 	openPage("anbarAdd");
-// }, 200);
+setTimeout(() => {
+	userLoggedIn();
+	openPage("productAuth");
+}, 200);
 
 // ====================================================================================
 //  													   Connection system part

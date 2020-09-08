@@ -114,18 +114,20 @@ function fillBulksTable(data) {
 	$(".anbarAddBulksTable").append("<thead></thead>");
 	$(".anbarAddBulksTable").append("<tbody></tbody>");
 
-	$(".anbarAddBulksTable > thead").append(`<th>${languages["creation_date"]}</th>`);
+	$(".anbarAddBulksTable > thead").append(`<th>${languages["contract_num"]}</th>`);
 	$(".anbarAddBulksTable > thead").append(`<th>${languages["seller"]}</th>`);
+	$(".anbarAddBulksTable > thead").append(`<th>${languages["creation_date"]}</th>`);
 	$(".anbarAddBulksTable > thead").append(`<th>${languages["total_price"]}:</th>`);
 	$(".anbarAddBulksTable > thead").append(`<th>${languages["currency"]}:</th>`);
 
 	data.forEach((el) => {
 		let row = `<tr class="single-bulk" data-id='${el.id}'>`;
 
+		row += `<td>${el.seller_voen ? el.seller_voen : "unset"}</td>`;
+		row += `<td>${el.seller}</td>`;
 		row += `<td title="${moment(el.begin_date).format("DD MMMM YYYY, h:mm:ss")}">${moment(
 			el.begin_date
 		).format("DD MMMM YYYY")}</td>`;
-		row += `<td>${el.seller}</td>`;
 		row += `<td>${el.cost_price === null ? "0" : el.cost_price}</td>`;
 		row += `<td>${el.default_currency}</td>`;
 		row += "</tr>";
@@ -137,7 +139,7 @@ function fillBulksTable(data) {
 		for (let i = 0; i < 9 - data.length; i++) {
 			let row = "<tr class='empty-single-bulk' style='height: 40px'>";
 
-			for (let j = 0; j < 4; j++) {
+			for (let j = 0; j < 5; j++) {
 				row += "<td></td>";
 			}
 
@@ -184,17 +186,21 @@ function deleteBulk(id) {
 		pool
 			.request()
 			.input("id", id)
+			.input("user_id", USER.id)
 			.execute("anbar.bulk_buying_delete", (err) => {
 				if (err !== null) console.log(err);
 			});
 	});
 }
 function addNewBulk(begin_date, seller_id) {
+	if ($("#addNewBulkVOEN").val().trim() === "") return;
+
 	poolConnect.then((pool) => {
 		pool
 			.request()
 			.input("begin_date", begin_date)
 			.input("seller_id", seller_id)
+			.input("seller_voen", BigInt($("#addNewBulkVOEN").val()))
 			.execute("anbar.bulk_buying_create", (err) => {
 				if (err !== null) console.log(err);
 				return;
@@ -346,7 +352,7 @@ function fillSessionsTable(data) {
 	$(".anbarAddSessionsTable").append("<thead></thead>");
 	$(".anbarAddSessionsTable").append("<tbody></tbody>");
 
-	$(".anbarAddSessionsTable > thead").append(`<th>VOEN:</th>`);
+	$(".anbarAddSessionsTable > thead").append(`<th>${languages["receipt_num"]}:</th>`);
 	$(".anbarAddSessionsTable > thead").append(`<th>${languages["creation_date"]}:</th>`);
 	$(".anbarAddSessionsTable > thead").append(`<th>${languages["total_price"]}:</th>`);
 	$(".anbarAddSessionsTable > thead").append(`<th>${languages["currency"]}:</th>`);
@@ -558,13 +564,15 @@ $("#optionsAccept").click(function () {
 	if ($("#optionsMenu").attr("data-belongsTo") !== "Sessions") {
 		return;
 	}
-	showAlert("Are you sure you want to accept all insert in this session?").then((res) => {
-		if (res) {
-			acceptAllInsert(selectedBulkId, $(this).attr("data-sessionId"));
-			refreshSessionsTable(600);
+	showAlert("Are you sure you want to accept this insertion in this session?").then(
+		(res) => {
+			if (res) {
+				acceptAllInsert(selectedBulkId, $(this).attr("data-sessionId"));
+				refreshSessionsTable(600);
+			}
+			closeAlert();
 		}
-		closeAlert();
-	});
+	);
 });
 $("#optionsEndAll").click(function () {
 	if ($("#optionsMenu").attr("data-belongsTo") !== "Sessions") {
@@ -717,6 +725,7 @@ function deleteSessionInfo(sessionInfoId) {
 		pool
 			.request()
 			.input("id", sessionInfoId)
+			.input("user_id", USER.id)
 			.execute("anbar.bulk_buying_session_info_delete", (err) => {
 				if (err !== null) console.log(err);
 			});
@@ -769,8 +778,6 @@ function addNewSessionInfo() {
 	});
 }
 function updateSessionInfo(id) {
-	console.log(id);
-	return;
 	let product_id = parseInt($("#addNewSessionInfo_productId").attr("data-productId"));
 	let barcode = parseInt($("#addNewSessionInfo_barcode").val());
 	let voen = parseInt($("#addNewSessionInfo_voen").val());
@@ -843,6 +850,25 @@ function addNewSessinoInfoFormEmptyInputs() {
 
 	$("#addNewSessionInfo_reason").val("");
 }
+async function fillClusterForSelectedProduct(productId) {
+	$("#addNewSessionInfo_cluster").empty();
+	let clustersData = await new Promise((resolve) => {
+		poolConnect.then((pool) => {
+			pool
+				.request()
+				.input("product_id", BigInt(productId))
+				.execute("anbar.cluster_names_select_all_for_specific_product", (err, res) => {
+					if (err !== null) console.log(err);
+					resolve(res.recordset);
+				});
+		});
+	});
+	for (let i = 0; i < clustersData.length; i++) {
+		$("#addNewSessionInfo_cluster").append(
+			`<option data-id="${clustersData[i].cluster_order}">${clustersData[i].title}</option>`
+		);
+	}
+}
 async function showAddNewSessionInfoForm() {
 	// Preparing form
 	let now = new Date();
@@ -852,19 +878,6 @@ async function showAddNewSessionInfoForm() {
 	$("#addNewSessionInfo_expDate").val(date);
 
 	$("#addNewSessionInfo_cluster").empty();
-	let clustersData = await new Promise((resolve) => {
-		poolConnect.then((pool) => {
-			pool.request().execute("anbar.cluster_names_select_all", (err, res) => {
-				if (err !== null) console.log(err);
-				resolve(res.recordset);
-			});
-		});
-	});
-	for (let i = 0; i < clustersData.length; i++) {
-		$("#addNewSessionInfo_cluster").append(
-			`<option data-id="${clustersData[i].id}">${clustersData[i].title}</option>`
-		);
-	}
 
 	$("#addNewSessionInfo_currency").empty();
 	let currencyData = await new Promise((resolve) => {
@@ -953,6 +966,7 @@ $("#addNewSessionInfoSubmitBtn").click(() => {
 function showSingleSessionInfoOptions(sessionInfoEl) {
 	$("#optionsAccept").hide();
 	$("#optionsEndAll").hide();
+	$("#optionsEdit").hide();
 	if (sessionInfoEl.attr("class") === "empty-single-session-info") {
 		$(".single-session-info").attr("data-isSelected", "False");
 		$(".optionsBtn").attr("data-isActive", "False");
@@ -977,7 +991,7 @@ function showSingleSessionInfoOptions(sessionInfoEl) {
 	$(".single-session-info").attr("data-isSelected", "False");
 	$(".optionsBtn").attr("data-isActive", "False");
 	$("#optionsDelete").show();
-	$("#optionsEdit").show();
+	// $("#optionsEdit").show();
 	$("#optionsMenu").attr("data-belongsTo", "SessionsInfo");
 	$("#optionsMenu").css({
 		top:
@@ -1031,6 +1045,7 @@ $("#optionsEdit").click(async function () {
 		});
 	});
 
+	fillClusterForSelectedProduct(tmp.product_id);
 	$(".addNewSessionInfoForm").attr("data-updatedSessionInfoId", id);
 
 	$("#addNewSessionInfo_productId").css("pointer-events", "none");
@@ -1143,6 +1158,9 @@ function fillAddNewSessionInfoProductDropdown(data) {
 		$("#addNewSessionInfo_barcode").val($(this).attr("data-barcode"));
 		setTimeout(() => {
 			$("#addNewSessionInfoDrowdown").empty();
+			fillClusterForSelectedProduct(
+				parseInt($("#addNewSessionInfo_productId").attr("data-productId"))
+			);
 		}, 100);
 	});
 }
@@ -1190,6 +1208,9 @@ function fillAddNewSessionInfoProductBarcodeDropdown(data) {
 		$("#addNewSessionInfo_barcode").val($(this).attr("data-barcode"));
 		setTimeout(() => {
 			$("#addNewSessionInfoDrowdown").empty();
+			fillClusterForSelectedProduct(
+				parseInt($("#addNewSessionInfo_productId").attr("data-productId"))
+			);
 		}, 100);
 	});
 }
