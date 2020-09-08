@@ -359,7 +359,7 @@ function fillFinishedTable(data) {
 		difference.style.padding = "12px 16px";
 
 		let price_differnce = document.createElement("p");
-		price_differnce.innerHTML = element["price_difference"];
+		price_differnce.innerHTML = element["price_difference"].toFixed(2);
 		price_differnce.style.padding = "12px 16px";
 
 		titleDiv.appendChild(productTitle);
@@ -516,7 +516,7 @@ function fillListItemTable(data) {
 		difference.style.padding = "12px 16px";
 
 		let price_differnce = document.createElement("p");
-		price_differnce.innerHTML = element["price_difference"];
+		price_differnce.innerHTML = element["price_difference"].toFixed(2);
 		price_differnce.style.padding = "12px 16px";
 
 		titleDiv.appendChild(productTitle);

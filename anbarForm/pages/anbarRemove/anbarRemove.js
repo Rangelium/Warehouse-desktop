@@ -31,8 +31,19 @@ if (mm < 10) {
 }
 today = yyyy + "-" + mm + "-" + dd;
 $("#createSessionDateFrom").attr("max", today);
+$("#createSessionDateTo").attr("max", today);
 
 $("#sessionsDateFrom").attr("max", today);
+$("#sessionsDateTo").attr("max", today);
+
+var now = new Date();
+now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+$("#sessionsDateTo").val(now.toISOString().slice(0, 10));
+var monthAgo = new Date();
+monthAgo.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+monthAgo.addMonths(-1);
+$("#sessionsDateFrom").val(monthAgo.toISOString().slice(0, 10))
+
 
 function getTotalPrice() {
 	return parseFloat(

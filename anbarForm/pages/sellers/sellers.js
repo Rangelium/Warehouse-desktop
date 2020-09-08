@@ -131,7 +131,8 @@ $("#sellerDelete").on("click", () => {
 			.request()
 			.input("id", mssql.Int, sellersSelectedId)
 			.input("user_id", mssql.Int, USER["id"])
-			.execute("product_sellers_delete", (err, res) => {
+			.execute("anbar.product_sellers_delete", (err, res) => {
+				console.log(err);
 				fillTable(procedureId);
 			});
 	});
