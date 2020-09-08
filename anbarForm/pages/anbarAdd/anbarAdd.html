@@ -10,7 +10,7 @@
 		</div>
 	</div>
 	<div class="anbarAdd-container">
-		<div class="anbarAddInfo">
+		<!-- <div class="anbarAddInfo">
 			<div id="anbarAddShowInfoBtn" class="closedState">
 				<img src="../stylesGlobal/imgs/info_btn.svg" />
 			</div>
@@ -30,7 +30,7 @@
 					</ul>
 				</div>
 			</div>
-		</div>
+		</div> -->
 		<div id="optionsMenu">
 			<div id="optionsNew" class="optionsBtn">
 				<img src="../stylesGlobal/imgs/new_btn.svg" />
@@ -119,10 +119,7 @@
 								required
 							/>
 							<div class="dropdown">
-								<div
-									id="addNewSessionInfoDrowdown"
-									class="containerDropdown"
-								></div>
+								<div id="addNewSessionInfoDrowdown" class="containerDropdown"></div>
 								<button id="addNewSessionInfoDropDownAddNewproductToTreeBtn">
 									Add new product
 								</button>
@@ -144,9 +141,7 @@
 									id="addNewSessionInfoBarcodeDrowdown"
 									class="containerDropdown"
 								></div>
-								<button
-									id="addNewSessionInfoDropDownAddNewproductToTreeBarcodeBtn"
-								>
+								<button id="addNewSessionInfoDropDownAddNewproductToTreeBarcodeBtn">
 									Add new product
 								</button>
 							</div>
@@ -216,7 +211,6 @@
 						</div>
 					</div>
 					<div class="row">
-						<p>Reason:</p>
 						<textarea
 							id="addNewSessionInfo_reason"
 							cols="30"
@@ -231,27 +225,29 @@
 				</div>
 			</div>
 		</div>
-		<div class="anbarAddToTreeForm">
-			<h1>Add new product income</h1>
+		<div class="createProductContainer">
+			<h1>Add new product</h1>
 			<div class="container">
-				<div class="row">
-					<p>Title:</p>
-					<input
-						type="text"
-						placeholder="Product title"
-						id="warehouseTreeInsert_title"
-						required
-					/>
-				</div>
-				<div class="row">
-					<p>Barcode:</p>
-					<input
-						type="number"
-						placeholder="Barcode"
-						min="0"
-						id="warehouseTreeInsert_barcode"
-						required
-					/>
+				<div class="row kek">
+					<div class="block">
+						<p>Title:</p>
+						<input
+							type="text"
+							placeholder="Product title"
+							id="warehouseTreeInsert_title"
+							required
+						/>
+					</div>
+					<div class="block">
+						<p>Barcode:</p>
+						<input
+							type="number"
+							placeholder="Barcode"
+							min="0"
+							id="warehouseTreeInsert_barcode"
+							required
+						/>
+					</div>
 				</div>
 				<div class="row">
 					<p>Category:</p>
@@ -263,37 +259,60 @@
 							required
 						/>
 						<div class="dropdown">
-							<div
-								id="warehouseCategoryDropdown"
-								class="containerDropdown"
-							></div>
-							<button id="warehouseCreateCategoryBtn">Add new category</button>
+							<div id="warehouseCategoryDropdown" class="containerDropdown"></div>
 						</div>
+					</div>
+				</div>
+				<div class="row kek">
+					<div class="block">
+						<p>Minimal quantity:</p>
+						<input
+							type="number"
+							placeholder="Minimal"
+							min="0"
+							id="warehouseTreeInsert_minQuantity"
+						/>
+					</div>
+					<div class="block">
+						<p>Optimal quantity:</p>
+						<input
+							type="number"
+							placeholder="Optimal"
+							min="0"
+							id="warehouseTreeInsert_optQuantity"
+						/>
 					</div>
 				</div>
 				<div class="row">
 					<p>Expiration date warning:</p>
-					<input type="date" id="warehouseTreeInsert_expDateWarning" />
+					<input
+						type="number"
+						placeholder="Days"
+						min="1"
+						id="warehouseTreeInsert_expDateWarning"
+					/>
 				</div>
 				<hr />
 				<div class="row special">
-					<h2>Clusters</h2>
-					<input type="text" placeholder="Select cluster's template" disabled />
-				</div>
-				<div class="row special">
-					<h2>Or create new template</h2>
-					<div class="newClusterTemplateContainer">
-						<div class="clusterTemplateElement">
-							<input type="text" placeholder="Cluster's name" />
-							<input type="number" min="0" placeholder="Capacity" />
-							<img src="../stylesGlobal/imgs/new_btn.svg" />
-							<img src="../stylesGlobal/imgs/delete_btn.svg" />
+					<div class="warehouseClusterDefaultDrowdown">
+						<input
+							type="text"
+							id="warehouseTreeInsert_clusterTemplate"
+							placeholder="Select cluster's template"
+						/>
+
+						<div class="dropdown">
+							<div id="warehouseClusterDefaultDropdown" class="containerDropdown"></div>
 						</div>
 					</div>
 				</div>
-				<div class="row" id="warehouseTreeInsertBtnsRow">
-					<button id="warehouseTreeInsertDiscardBtn">Discard</button>
-					<button id="warehouseTreeInsertSubmitBtn">Add</button>
+				<div class="row special">
+					<h2>Or create new template</h2>
+					<div class="newClusterTemplateContainer"></div>
+				</div>
+				<div class="row">
+					<button id="ai_discardCreateProductBtn">Discard</button>
+					<button id="ai_createProductBtn">Add</button>
 				</div>
 			</div>
 		</div>

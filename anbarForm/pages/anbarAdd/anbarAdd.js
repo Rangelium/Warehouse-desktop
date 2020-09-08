@@ -27,8 +27,6 @@ async function showAlert(message) {
 function closeAlert() {
 	$(".cstmAlertBox").css({
 		opacity: "0",
-		width: "0",
-		height: "0",
 	});
 	$(".anbarAdd-container").css({
 		filter: "brightness(100%)",
@@ -598,6 +596,7 @@ $("#optionsNew").click(function () {
 	if ($("#optionsMenu").attr("data-belongsTo") !== "Sessions") {
 		return;
 	}
+	$("#addNewSessionVOEN").val("");
 	showAddNewSessionForm();
 });
 $(document).click((el) => {
@@ -725,7 +724,7 @@ function deleteSessionInfo(sessionInfoId) {
 }
 function addNewSessionInfo() {
 	let product_id = parseInt($("#addNewSessionInfo_productId").attr("data-productId"));
-	let barcode = parseInt($("#addNewSessionInfo_barcode").val());
+	let barcode = parseInt($("#addNewSessionInfo_barcode").attr("data-barcode"));
 	let voen = parseInt($("#addNewSessionInfo_voen").val());
 	let quantity = parseInt($("#addNewSessionInfo_quantity").val());
 	let price = parseInt($("#addNewSessionInfo_price").val());
@@ -1050,39 +1049,32 @@ $(document).click((el) => {
 	$(".bulk-session").attr("data-isSelected", "False");
 	$(".optionsBtn").attr("data-isActive", "False");
 
-	if ($(".anbarAddToTreeForm").attr("data-isActive") === "true") {
-		if (
-			el.target === $("#addNewSessionInfoDropDownAddNewproductToTreeBtn")[0] ||
-			el.target === $("#addNewSessionInfoDropDownAddNewproductToTreeBarcodeBtn")[0] ||
-			el.target === $(".anbarAddToTreeForm")[0] ||
-			$.inArray(el.target, $(".anbarAddToTreeForm").children()) !== -1 ||
-			$.inArray($(el.target).parent()[0], $(".anbarAddToTreeForm").children()) !== -1 ||
-			$.inArray(
-				$(el.target).parent().parent()[0],
-				$(".anbarAddToTreeForm").children()
-			) !== -1 ||
-			$.inArray(
-				$(el.target).parent().parent().parent()[0],
-				$(".anbarAddToTreeForm").children()
-			) !== -1 ||
-			$.inArray(
-				$(el.target).parent().parent().parent().parent()[0],
-				$(".anbarAddToTreeForm").children()
-			) !== -1 ||
-			$.inArray(
-				$(el.target).parent().parent().parent().parent().parent()[0],
-				$(".anbarAddToTreeForm").children()
-			) !== -1
-		) {
-			return;
-		} else {
-			// console.log("Closing");
-			// console.log(el.target);
-			// console.log($("#warehouseTreeInsertDeleteCluster"));
-			// console.log($.inArray(el.target, $("#warehouseTreeInsertDeleteCluster")) !== -1);
-			hideAddNewProductToTreeForm();
-			return;
-		}
+	if (
+		el.target === $("#addNewSessionInfoDropDownAddNewproductToTreeBtn")[0] ||
+		el.target === $("#addNewSessionInfoDropDownAddNewproductToTreeBarcodeBtn")[0] ||
+		el.target === $(".createProductContainer")[0] ||
+		$.inArray(el.target, $(".createProductContainer").children()) !== -1 ||
+		$.inArray($(el.target).parent()[0], $(".createProductContainer").children()) !== -1 ||
+		$.inArray(
+			$(el.target).parent().parent()[0],
+			$(".createProductContainer").children()
+		) !== -1 ||
+		$.inArray(
+			$(el.target).parent().parent().parent()[0],
+			$(".createProductContainer").children()
+		) !== -1 ||
+		$.inArray(
+			$(el.target).parent().parent().parent().parent()[0],
+			$(".createProductContainer").children()
+		) !== -1 ||
+		$.inArray(
+			$(el.target).parent().parent().parent().parent().parent()[0],
+			$(".createProductContainer").children()
+		) !== -1
+	) {
+		return;
+	} else {
+		hideCreateProduct();
 	}
 
 	if ($(".addNewSessionInfoForm").attr("data-isActive") === "True") {
@@ -1139,15 +1131,16 @@ function fillAddNewSessionInfoProductDropdown(data) {
 	data.forEach((el) => {
 		if (el.product_id !== null) {
 			parent.append(
-				`<p class="dropdown-member" data-barcode="${el.barcode}" data-id="${el.product_id}">${el.title}</p>`
+				`<p class="dropdown-member-category" data-barcode="${el.barcode}" data-id="${el.product_id}">${el.title}</p>`
 			);
 		}
 	});
 
-	$(".dropdown-member").click(function () {
+	$(".dropdown-member-category").click(function () {
 		$("#addNewSessionInfo_productId").attr("data-productId", $(this).attr("data-id"));
 		$("#addNewSessionInfo_productId").val($(this).html());
-		$("#addNewSessionInfo_barcode").val();
+		$("#addNewSessionInfo_barcode").attr("data-barcode", $(this).attr("data-barcode"));
+		$("#addNewSessionInfo_barcode").val($(this).attr("data-barcode"));
 		setTimeout(() => {
 			$("#addNewSessionInfoDrowdown").empty();
 		}, 100);
@@ -1193,6 +1186,8 @@ function fillAddNewSessionInfoProductBarcodeDropdown(data) {
 	$(".dropdown-member").click(function () {
 		$("#addNewSessionInfo_productId").attr("data-productId", $(this).attr("data-id"));
 		$("#addNewSessionInfo_productId").val($(this).html());
+		$("#addNewSessionInfo_barcode").attr("data-barcode", $(this).attr("data-barcode"));
+		$("#addNewSessionInfo_barcode").val($(this).attr("data-barcode"));
 		setTimeout(() => {
 			$("#addNewSessionInfoDrowdown").empty();
 		}, 100);
@@ -1205,19 +1200,33 @@ $("#addNewSessionInfo_barcode").keyup(function () {
 	poolConnect.then((pool) => {
 		pool
 			.request()
-			.input("barcode", textNum)
+			.input("barcode", BigInt(textNum))
 			.execute("anbar.bulk_buying_session_info_search", (err, res) => {
+				if (err !== null) console.log(err);
 				fillAddNewSessionInfoProductBarcodeDropdown(res.recordset);
 			});
 	});
 });
 
+$("#addNewSessionInfoDropDownAddNewproductToTreeBtn").click(function () {
+	showCreateProduct();
+});
+$("#addNewSessionInfoDropDownAddNewproductToTreeBarcodeBtn").click(function () {
+	showCreateProduct();
+});
+
 // ADD NEW PRODUCT TO TREE PART
 function warehouseTreeInsertAddNewCluster(pivot = undefined) {
 	let clusterEl = $(`<div class="clusterTemplateElement"></div>`);
-	let defaultCheck = '<p>Default:</p><input type="radio" name="default_cluster" />';
-	let inputs = `<input type="text" placeholder="Cluster's name" />
-	<input type="number" min="0" placeholder="Capacity" />`;
+	let defaultCheck =
+		'<div class="item"><p>Default:</p><input type="radio" name="default_cluster" /></div>';
+	let inputs = `<div class="warehouseClustersDrowdown">
+									<input required type="text" class="warehouseNewClusterInput" placeholder="Cluster's name" />
+								<div class="dropdown">
+									<div id="warehouseClustersDropdown" class="containerDropdown"></div>
+								</div>
+								</div>
+								<input required type="number" min="0" placeholder="Capacity" />`;
 	let addNew = $(`<img src="../stylesGlobal/imgs/new_btn.svg" />`);
 	let remove = $(`<img src="../stylesGlobal/imgs/delete_btn.svg" />`);
 
@@ -1230,6 +1239,7 @@ function warehouseTreeInsertAddNewCluster(pivot = undefined) {
 	clusterEl.append(inputs);
 	clusterEl.append(addNew);
 	clusterEl.append(remove);
+
 	addNew.click((el) => {
 		warehouseTreeInsertAddNewCluster($(el.target).parent());
 	});
@@ -1252,6 +1262,9 @@ function warehouseTreeInsertAddNewCluster(pivot = undefined) {
 			$(el.target).parent().css("display", "none");
 		}, 400);
 	});
+	$(".warehouseNewClusterInput").keyup(function () {
+		clusterNewInputKeyUp.call(this);
+	});
 }
 function warehouseTreeInsertFormValidation() {
 	if (
@@ -1262,35 +1275,188 @@ function warehouseTreeInsertFormValidation() {
 		return false;
 	}
 
-	let clusterArr = Array.from($(".newClusterTemplateContainer .clusterTemplateElement"));
-	if (clusterArr.length < 2) return false;
+	if (
+		$("#warehouseTreeInsert_clusterTemplate").attr("data-clusterId") !== undefined &&
+		$("#warehouseTreeInsert_clusterTemplate").val() !== ""
+	) {
+	} else {
+		let clusterArr = Array.from(
+			$(".newClusterTemplateContainer .clusterTemplateElement")
+		);
+		let tmp = 0;
+		clusterArr.forEach((cluster) => {
+			if ($($(cluster).children()[0]).children()[1].checked) tmp += 1;
+			if ($($($(cluster).children()[1]).children()[0]).val() === "") return false;
+			if ($($(cluster).children()[2]).val() === "") return false;
+		});
 
-	let tmp = 0;
-	clusterArr.forEach((cluster) => {
-		if ($(cluster).children()[1].checked) tmp += 1;
-		if ($($(cluster).children()[2]).val() === "") return false;
-		if ($($(cluster).children()[3]).val() === "") return false;
-	});
-
-	if (tmp !== 1) return false;
+		if (tmp !== 1) return false;
+	}
 
 	return true;
 }
+$("#ai_discardCreateProductBtn").click(() => {
+	hideCreateProduct();
+});
+async function createNewClusterName(name) {
+	let res = await new Promise((resolve) => {
+		poolConnect.then((pool) => {
+			pool
+				.request()
+				.input("title", name)
+				.input("user_id", USER.id)
+				.execute("anbar.cluster_names_insert", (err, res) => {
+					if (err !== null) console.log(err);
+					resolve(res.recordset[0].id);
+				});
+		});
+	});
 
-// Search category in addNewProductToTree
+	return res;
+}
+async function handleCreateClusters(cluster_id) {
+	let cluster_default;
+	let clusterArr = Array.from($(".newClusterTemplateContainer .clusterTemplateElement"));
+	clusterArr.forEach(async (cluster, index) => {
+		if ($(cluster).attr("data-active") !== "false") {
+			if ($($(cluster).children()[0]).children()[1].checked) cluster_default = index;
+
+			let title =
+				$(cluster).attr("data-clusterId") === undefined
+					? await createNewClusterName(
+							$($($($(cluster).children()[1]).children()[0])).val()
+					  )
+					: parseInt($(cluster).attr("data-clusterId"));
+
+			poolConnect.then((pool) => {
+				pool
+					.request()
+					.input("cluster_id", BigInt(cluster_id))
+					.input("capacity", $($(cluster).children()[2]).val())
+					.input("cluster_order", index + 1)
+					.input("title", title)
+					.input("user_id", USER.id)
+					.execute("anbar.cluster_insert", (err) => {
+						if (err !== null) console.log(err);
+					});
+			});
+		}
+	});
+
+	return cluster_default + 1;
+}
+$("#ai_createProductBtn").click(async function () {
+	console.log("started");
+	if (!warehouseTreeInsertFormValidation()) return false;
+	console.log("validation passed");
+
+	let cluster_id;
+	let cluster_default;
+	let product_id = parseInt(new Date().getTime() / 1000);
+
+	if (
+		$("#warehouseTreeInsert_clusterTemplate").attr("data-clusterId") !== undefined &&
+		$("#warehouseTreeInsert_clusterTemplate").val() !== ""
+	) {
+		cluster_id = parseInt(
+			$("#warehouseTreeInsert_clusterTemplate").attr("data-clusterId")
+		);
+		cluster_default = parseInt(
+			$("#warehouseTreeInsert_clusterTemplate").attr("data-clusterDef")
+		);
+	} else {
+		cluster_id = parseInt(new Date().getTime() / 1000);
+		cluster_default = await handleCreateClusters(cluster_id);
+	}
+
+	poolConnect.then((pool) => {
+		pool
+			.request()
+			.input(
+				"parent_id",
+				parseInt($("#warehouseTreeInsert_categoryId").attr("data-parentId"))
+			)
+			.input("title", $("#warehouseTreeInsert_title").val())
+			.input("product_id", BigInt(product_id))
+			.input("cluster", BigInt(cluster_id))
+			.input("cluster_default", cluster_default)
+			.input("user_id", USER.id)
+			.input("exp_date_warning", parseInt($("#warehouseTreeInsert_expDateWarning").val()))
+			.input("barcode", BigInt($("#warehouseTreeInsert_barcode").val()))
+			.input("min_quantity", parseFloat($("#warehouseTreeInsert_minQuantity").val()))
+			.input("optimal_quantity", parseFloat($("#warehouseTreeInsert_optQuantity").val()))
+			.input(
+				"department_id",
+				parseInt($("#warehouseTreeInsert_categoryId").attr("data-departmentid"))
+			)
+			.execute("anbar.warehouse_tree_insert", (err, res) => {
+				if (err !== null) console.log(err);
+				console.log("Added");
+				setTimeout(() => {
+					fillTreeView();
+					hideCreateProduct();
+				}, 400);
+			});
+	});
+});
+function hideCreateProduct() {
+	$(".blur").css("z-index", -1000);
+	$(".createProductContainer").css({
+		opacity: 0,
+		"pointer-events": "none",
+		"z-index": 1,
+	});
+}
+function showCreateProduct() {
+	$(".newClusterTemplateContainer").empty();
+	warehouseTreeInsertAddNewCluster();
+
+	$("#warehouseTreeInsert_title").val("");
+	$("#warehouseTreeInsert_barcode").val("");
+	$("#warehouseTreeInsert_categoryId").val("");
+	$("#warehouseTreeInsert_minQuantity").val("");
+	$("#warehouseTreeInsert_optQuantity").val("");
+	$("#warehouseTreeInsert_expDateWarning").val("");
+
+	poolConnect.then((pool) => {
+		pool.request().execute("anbar.warehouse_category_search", (err, res) => {
+			if (err !== null) console.log(err);
+			fillAddNewCategotyDropdown(res.recordset);
+		});
+	});
+
+	poolConnect.then((pool) => {
+		pool
+			.request()
+			.input("title", "")
+			.execute("anbar.cluster_select_from_product", (err, res) => {
+				if (err !== null) console.log(err);
+				fillClusterDefault(res.recordset);
+			});
+	});
+
+	// Showing form
+	$(".blur").css("z-index", 1000000000);
+	$(".createProductContainer").css({
+		opacity: 1,
+		"pointer-events": "all",
+		"z-index": 10000000000,
+	});
+}
 function fillAddNewCategotyDropdown(data) {
 	$("#warehouseCategoryDropdown").empty();
 	let parent = $("#warehouseCategoryDropdown");
 	data.forEach((el) => {
 		parent.append(
-			`<p class="dropdown-member" data-barcode="${el.barcode}" data-parentId="${el.parent_id}">${el.title}</p>`
+			`<p class="dropdown-member-category" data-id="${el.id}" data-departmentId="${el.department_id}">${el.title}</p>`
 		);
 	});
 
-	$(".dropdown-member").click(function () {
+	$(".dropdown-member-category").click(function () {
+		$("#warehouseTreeInsert_categoryId").attr("data-parentId", $(this).attr("data-id"));
 		$("#warehouseTreeInsert_categoryId").attr(
-			"data-parentId",
-			$(this).attr("data-parentId")
+			"data-departmentId",
+			$(this).attr("data-departmentId")
 		);
 		$("#warehouseTreeInsert_categoryId").val($(this).html());
 		setTimeout(() => {
@@ -1299,121 +1465,121 @@ function fillAddNewCategotyDropdown(data) {
 	});
 }
 $("#warehouseTreeInsert_categoryId").keyup(function () {
-	if ($(this).val().trim() === "") return;
+	if ($(this).val().trim() === "") {
+		poolConnect.then((pool) => {
+			pool.request().execute("anbar.warehouse_category_search", (err, res) => {
+				if (err !== null) console.log(err);
+				fillAddNewCategotyDropdown(res.recordset);
+			});
+		});
+
+		return;
+	}
 	let text = $(this).val().trim();
 	poolConnect.then((pool) => {
 		pool
 			.request()
 			.input("title", text)
-			.execute("anbar.warehouse_tree_search", (err, res) => {
+			.execute("anbar.warehouse_category_search", (err, res) => {
 				if (err !== null) console.log(err);
-				let tmp = res.recordset.filter((el) => {
-					return el.product_id === null;
-				});
-				fillAddNewCategotyDropdown(tmp);
+				fillAddNewCategotyDropdown(res.recordset);
 			});
 	});
 });
+function fillNewClusterTittles(mount, data) {
+	$(mount).empty();
+	let parent = $(mount);
+	data.forEach((el) => {
+		parent.append(
+			`<p class="dropdown-member-cluster"  data-clusterId="${el.id}">${el.title}</p>`
+		);
+	});
 
-function showAddNewProductToTreeForm() {
-	$(".newClusterTemplateContainer").empty();
-
-	warehouseTreeInsertAddNewCluster();
-
-	$("#warehouseTreeInsert_title").val("");
-	$("#warehouseTreeInsert_barcode").val("");
-	$("#warehouseTreeInsert_categoryId").val("");
-
-	let now = new Date();
-	let day = ("0" + now.getDate()).slice(-2);
-	let month = ("0" + (now.getMonth() + 2)).slice(-2);
-	let date = now.getFullYear() + "-" + month + "-" + day;
-	$("#warehouseTreeInsert_expDateWarning").val(date);
-
-	$(".anbarAddToTreeForm").attr("data-isActive", "true");
-	let arr = $(".anbarAdd-container").children();
-	for (let i = 0; i < arr.length; i++) {
-		if ($(arr[i]).attr("class") === "anbarAddToTreeForm") continue;
-		$(arr[i]).css({
-			filter: "brightness(40%)",
-			"pointer-events": "none",
-		});
-	}
+	$(".dropdown-member-cluster").click(function () {
+		let parent = $($(this).parent().parent().parent().parent());
+		let input = $(
+			$($($(this).parent().parent().parent().parent()).children()[1]).children()[0]
+		);
+		parent.attr("data-clusterId", $(this).attr("data-clusterId"));
+		input.val($(this).html());
+		setTimeout(() => {
+			$("#warehouseCategoryDropdown").empty();
+		}, 100);
+	});
 }
-function hideAddNewProductToTreeForm() {
-	$(".anbarAddToTreeForm").attr("data-isActive", "false");
-
-	let arr = $(".anbarAdd-container").children();
-	for (let i = 0; i < arr.length; i++) {
-		if ($(arr[i]).attr("class") === "anbarAddToTreeForm") continue;
-		$(arr[i]).css({
-			filter: "brightness(100%)",
-			"pointer-events": "all",
-		});
-	}
-}
-function addNewProductToTree(cluster_id, cluster_default) {
-	if (!warehouseTreeInsertFormValidation()) return false;
+function clusterNewInputKeyUp() {
+	let text = $(this).val().trim();
 	poolConnect.then((pool) => {
 		pool
 			.request()
-			.input("parent_id", $("#warehouseTreeInsert_categoryId").attr("data-parentId"))
-			.input("title", $("#warehouseTreeInsert_title"))
-			.input("product_id", Math.random() * 1000000)
-			.input("cluster", cluster_id)
-			.input("cluster_default", cluster_default)
-			.input("user_id", USER.id)
-			.input(
-				"exp_date_warning",
-				moment($("#warehouseTreeInsert_expDateWarning").val()).format(
-					"yyyy-MM-DD HH:mm:ss"
-				)
-			)
-			.input("barcode", $("#warehouseTreeInsert_barcode").val())
-			.execute("anbar.warehouse_tree_insert", (err, res) => {
+			.input("title", text)
+			.execute("anbar.cluster_names_search", (err, res) => {
 				if (err !== null) console.log(err);
+
+				fillNewClusterTittles($($(this).siblings().children()[0]), res.recordset);
 			});
 	});
 }
-$("#warehouseTreeInsertSubmitBtn").click(() => {
-	if (!warehouseTreeInsertFormValidation()) return;
-
-	let cluster_id = new Date();
-	console.log(BigInt(cluster_id));
-	let cluster_default = undefined;
-
-	let clusterArr = Array.from($(".newClusterTemplateContainer .clusterTemplateElement"));
-	clusterArr.forEach((cluster, index) => {
-		if ($(cluster).children()[1].checked) cluster_default = index;
-
-		poolConnect.then((pool) => {
-			pool
-				.request()
-				.input("cluster_id", BigInt(cluster_id))
-				.input("capacity", $($(cluster).children()[3]).val())
-				.input("cluster_order", index + 1)
-				.input("title", $($(cluster).children()[2]).val())
-				.input("user_id", USER.id)
-				.execute("anbar.cluster_insert", (err) => {
-					if (err !== null) console.log(err);
-				});
-		});
+function fillClusterDefault(data) {
+	$("#warehouseClusterDefaultDropdown").empty();
+	let parent = $("#warehouseClusterDefaultDropdown");
+	data.forEach((el) => {
+		parent.append(
+			`<p class="dropdown-member-cluster-default" data-clusterDef="${el.cluster_default}"  data-clusterId="${el.cluster}">${el.title}</p>`
+		);
 	});
 
-	if (addNewProductToTree(cluster_id, cluster_default + 1)) {
+	$(".dropdown-member-cluster-default").click(function () {
+		$("#warehouseTreeInsert_clusterTemplate").attr(
+			"data-clusterDef",
+			$(this).attr("data-clusterDef")
+		);
+		$("#warehouseTreeInsert_clusterTemplate").attr(
+			"data-clusterId",
+			$(this).attr("data-clusterId")
+		);
+		$("#warehouseTreeInsert_clusterTemplate").val($(this).html());
 		setTimeout(() => {
-			hideAddNewProductToTreeForm();
-		}, 400);
+			$("#warehouseClusterDefaultDropdown").empty();
+		}, 100);
+	});
+}
+setInterval(() => {
+	if ($("#warehouseTreeInsert_clusterTemplate").val() !== "") {
+		$(".newClusterTemplateContainer").css({
+			opacity: 0.6,
+			"pointer-events": "none",
+		});
+	} else {
+		$(".newClusterTemplateContainer").css({
+			opacity: 1,
+			"pointer-events": "all",
+		});
 	}
-});
-$("#warehouseTreeInsertDiscardBtn").click(() => {
-	hideAddNewProductToTreeForm();
-});
-$("#addNewSessionInfoDropDownAddNewproductToTreeBtn").click(function () {
-	showAddNewProductToTreeForm();
-});
-$("#addNewSessionInfoDropDownAddNewproductToTreeBarcodeBtn").click(function () {
-	showAddNewProductToTreeForm();
+}, 400);
+$("#warehouseTreeInsert_clusterTemplate").keyup(function () {
+	let text = $(this).val().trim();
+	if (text !== "") {
+		$(".newClusterTemplateContainer").css({
+			opacity: 0.6,
+			"pointer-events": "none",
+		});
+	} else {
+		$(".newClusterTemplateContainer").css({
+			opacity: 1,
+			"pointer-events": "all",
+		});
+	}
+
+	poolConnect.then((pool) => {
+		pool
+			.request()
+			.input("title", text)
+			.execute("anbar.cluster_select_from_product", (err, res) => {
+				if (err !== null) console.log(err);
+				fillClusterDefault(res.recordset);
+			});
+	});
 });
 
 // ====================================================================================================

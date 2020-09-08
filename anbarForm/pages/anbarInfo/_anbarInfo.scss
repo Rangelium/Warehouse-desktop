@@ -161,10 +161,10 @@ $overall-box-fade-out-animation-delay: $overall-data-fade-in-animation-delay;
 		display: flex;
 		flex-direction: column;
 		justify-content: space-around;
-		padding: 10px 0;
 		align-items: center;
-		width: 400px;
-		height: 200px;
+		padding: 10px 0;
+		width: 660px;
+		height: 600px;
 		background-color: $primary-color;
 		z-index: 100000000;
 		border: 1px solid $dark-color;
@@ -173,47 +173,317 @@ $overall-box-fade-out-animation-delay: $overall-data-fade-in-animation-delay;
 		opacity: 0;
 		pointer-events: none;
 
+		hr {
+			width: 100%;
+		}
+
 		h1 {
-			font-size: 1.7rem;
-		}
-		input {
-			width: 90%;
-			padding: 2px 5px;
-			outline: none;
-			font-size: 1.3rem;
-			border: 2px solid $stand-out-color;
+			color: #000;
+			font-weight: bold;
+			letter-spacing: 1px;
+			font-size: 1.9rem;
+			padding: 10px 0;
 		}
 
-		.row {
-			width: 50%;
+		.container {
+			width: 100%;
 			display: flex;
+			flex-direction: column;
 			align-items: center;
-			justify-content: space-between;
+			flex-grow: 1;
 
-			button {
-				padding: 7px 15px;
-				outline: none;
-				transition: 0.3s;
-				cursor: pointer;
-				font-weight: bold;
+			.row {
+				padding: 10px 0;
+				width: 100%;
+				display: flex;
+				justify-content: center;
+				align-items: center;
 
-				&:hover {
-					transform: scale(1.1);
+				h2 {
+					font-size: 1.1rem;
+					font-weight: 500;
+					color: #000;
+					margin-bottom: 5px;
 				}
 
-				&:nth-child(1) {
+				input[type="date"] {
+					width: 200px;
 					color: white;
-					background: red;
-				}
-
-				&:nth-child(2) {
-					color: $dark-color;
-					background: $secondary-color;
+					border: 2px solid white !important;
+					cursor: pointer;
 
 					&:hover {
-						background: $stand-out-color;
+						color: $stand-out-color;
+						border: 2px solid $stand-out-color !important;
 					}
 				}
+
+				p {
+					color: #000;
+					font-size: 1.1rem;
+					font-weight: 500;
+					user-select: none;
+					position: relative;
+					left: 10px;
+					margin-right: 20px;
+				}
+
+				#edit_warehouseTreeInsert_expDateWarning {
+					width: 140px !important;
+				}
+				input {
+					outline: none;
+					background-color: transparent;
+					color: white;
+					border: 2px solid transparent;
+					border-bottom: 2px solid white;
+					font-size: 1.1rem;
+					font-weight: 500;
+					transition: 0.4s;
+					width: 270px;
+					padding: 0 10px;
+
+					&:hover {
+						border-bottom: 2px solid $stand-out-color;
+					}
+
+					&:valid {
+						border-bottom: 2px solid $stand-out-color;
+					}
+
+					&:invalid {
+						border-bottom: 2px solid red;
+					}
+
+					&::placeholder {
+						color: rgb(201, 201, 201);
+					}
+				}
+				input[type="number"]::-webkit-outer-spin-button,
+				input[type="number"]::-webkit-inner-spin-button {
+					-webkit-appearance: none;
+					margin: 0;
+				}
+
+				button {
+					padding: 5px 15px;
+					outline: none;
+					transition: 0.3s;
+					font-size: 1.3rem;
+					cursor: pointer;
+					font-weight: bold;
+
+					&:hover {
+						transform: scale(1.1);
+					}
+
+					&:nth-child(1) {
+						color: white;
+						background: red;
+						margin-right: 25px;
+					}
+
+					&:nth-child(2) {
+						color: $dark-color;
+						background: $secondary-color;
+
+						&:hover {
+							background: $stand-out-color;
+						}
+					}
+				}
+
+				.edit_warehouseCategoryDrowdown,
+				.edit_warehouseClustersDrowdown,
+				.edit_warehouseClusterDefaultDrowdown {
+					width: 270px;
+					position: relative;
+
+					input {
+						width: 100%;
+					}
+					input:hover ~ .dropdown {
+						display: block;
+					}
+					.dropdown:hover {
+						display: block;
+					}
+
+					.dropdown {
+						width: 100%;
+						background-color: rgba(0, 0, 0, 0.877);
+						border: 2px solid $secondary-color;
+						border-top: none;
+						display: none;
+						position: absolute;
+						z-index: 100000;
+
+						.containerDropdown {
+							max-height: 300px;
+							overflow-y: scroll;
+							overflow-x: hidden;
+
+							&::-webkit-scrollbar {
+								width: 10px;
+							}
+							/* Track */
+							&::-webkit-scrollbar-track {
+								box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+								border-radius: 10px;
+								border-radius: 10px;
+							}
+							/* Handle */
+							&::-webkit-scrollbar-thumb {
+								border-radius: 10px;
+								border-radius: 10px;
+								background: $anbar-info-tree-view-scrollbar-color;
+								box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+							}
+
+							p {
+								color: white;
+								width: 100%;
+								padding: 7px 0 7px 1px;
+								transition: 0.3s;
+								cursor: pointer;
+
+								&:hover {
+									color: #0088a9;
+								}
+							}
+						}
+
+						button {
+							width: 100%;
+
+							&:hover {
+								background-color: rgb(121, 121, 121);
+								transform: scale(1);
+								border: 2px solid rgb(121, 121, 121);
+							}
+						}
+					}
+				}
+				.edit_warehouseClustersDrowdown {
+					width: fit-content;
+
+					.dropdown {
+						.containerDropdown {
+							max-height: 130px;
+						}
+					}
+				}
+
+				.edit_newClusterTemplateContainer {
+					display: flex;
+					flex-direction: column;
+					align-items: center;
+					height: 200px;
+					overflow-y: scroll;
+
+					&::-webkit-scrollbar {
+						width: 10px;
+					}
+					/* Track */
+					&::-webkit-scrollbar-track {
+						box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+						border-radius: 10px;
+						border-radius: 10px;
+					}
+					/* Handle */
+					&::-webkit-scrollbar-thumb {
+						border-radius: 10px;
+						border-radius: 10px;
+						background: $anbar-info-tree-view-scrollbar-color;
+						box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+					}
+
+					.edit_clusterTemplateElement {
+						margin: 10px 0;
+						transition: 0.4s;
+						opacity: 1;
+						display: flex;
+						align-items: center;
+						justify-content: space-around;
+						background: white;
+						border-radius: 25px;
+						padding: 5px 15px;
+						width: 480px;
+
+						.item {
+							display: flex;
+							justify-content: center;
+							align-items: center;
+
+							input {
+								margin-left: 5px;
+								width: fit-content;
+							}
+						}
+
+						p {
+							color: black;
+							margin-right: 10px;
+						}
+						input {
+							text-align: center;
+							font-weight: bold;
+							color: black;
+
+							&::placeholder {
+								color: rgb(78, 78, 78);
+							}
+						}
+						input[type="text"] {
+							width: 140px;
+							margin-right: 7px;
+						}
+						input[type="number"] {
+							width: 100px;
+						}
+						img {
+							cursor: pointer;
+							width: 25px;
+							margin-right: 5px;
+							margin-left: 5px;
+							transition: 0.3s;
+
+							&:hover {
+								transform: scale(1.1);
+							}
+						}
+					}
+				}
+			}
+
+			.row.kek {
+				display: flex;
+				justify-content: space-around;
+				align-items: center;
+				.block {
+					display: flex;
+					justify-content: center;
+					align-items: center;
+
+					p {
+						margin-right: 0;
+						left: 0;
+					}
+
+					#edit_warehouseTreeInsert_title {
+						width: 240px !important;
+					}
+					input {
+						width: 140px;
+					}
+				}
+			}
+
+			.row.special {
+				display: flex;
+				flex-direction: column;
+				justify-content: space-around;
+				align-items: center;
 			}
 		}
 	}
@@ -228,7 +498,6 @@ $overall-box-fade-out-animation-delay: $overall-data-fade-in-animation-delay;
 		justify-content: space-around;
 		align-items: center;
 		padding: 10px 0;
-		align-items: center;
 		width: 660px;
 		height: 600px;
 		background-color: $primary-color;
@@ -629,7 +898,7 @@ $overall-box-fade-out-animation-delay: $overall-data-fade-in-animation-delay;
 			align-items: center;
 
 			.alertTitle {
-				font-size: 1.5rem;
+				font-size: 1.7rem;
 				font-weight: bold;
 				color: white;
 				padding-bottom: 15px;
@@ -637,6 +906,7 @@ $overall-box-fade-out-animation-delay: $overall-data-fade-in-animation-delay;
 			p {
 				font-size: 1.1rem;
 				color: white;
+				text-align: center;
 			}
 		}
 

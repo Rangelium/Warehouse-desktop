@@ -1,6 +1,6 @@
 const electron = require("electron");
 const path = require("path");
-const {download} = require("electron-dl");
+const { download } = require("electron-dl");
 const { app, BrowserWindow, screen, ipcMain, Menu, globalShortcut } = electron;
 const { MyCustomMenu } = require("./tools/customMenu");
 // require("events").EventEmitter.defaultMaxListeners = Infinity;
@@ -32,10 +32,12 @@ app.on("ready", () => {
 
 	//Dev Tools
 	// mainWindow.webContents.openDevTools();
+
 	ipcMain.on("downloadReport", (event, info) => {
-		download(BrowserWindow.getFocusedWindow(), info.url, info.properties)
-			.then(dl => 	mainWindow.webContents.send("downloadReport complete", dl.getSavePath()));
-	})
+		download(BrowserWindow.getFocusedWindow(), info.url, info.properties).then((dl) =>
+			mainWindow.webContents.send("downloadReport complete", dl.getSavePath())
+		);
+	});
 	// Start Anbar Form
 	startAnbarForm();
 });
@@ -141,8 +143,8 @@ function startAnbarForm() {
 						},
 					},
 					{
-						label: 'Report',
-						name: 'report',
+						label: "Report",
+						name: "report",
 						click: function () {
 							mainWindow.webContents.send("changeAnbarPage", "report");
 						},
