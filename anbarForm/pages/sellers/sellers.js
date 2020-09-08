@@ -141,10 +141,10 @@ $("#sellerDelete").on("click", () => {
 $("#showContent").on("click", () => {
 	if (procedureId == 0) {
 		procedureId = 1;
-		$("#showContent").text("Show Active");
+		$("#showContent").text("Aktiv olan satıcıları göstər");
 	} else {
 		procedureId = 0;
-		$("#showContent").text("Show Inactive");
+		$("#showContent").text("Aktiv olmayan satıcıları göstər");
 	}
 	fillTable(procedureId);
 });
