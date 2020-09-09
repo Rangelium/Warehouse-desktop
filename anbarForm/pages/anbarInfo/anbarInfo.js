@@ -444,8 +444,8 @@ async function handleCreateClusters(cluster_id) {
 			let title =
 				$(cluster).attr("data-clusterId") === undefined
 					? await createNewClusterName(
-							$($($($(cluster).children()[1]).children()[0])).val()
-					  )
+						$($($($(cluster).children()[1]).children()[0])).val()
+					)
 					: parseInt($(cluster).attr("data-clusterId"));
 
 			poolConnect.then((pool) => {
@@ -810,22 +810,22 @@ var edit_selectedProductClusterData;
 function edit_warehouseTreeInsertAddNewCluster(cluster, pivot = undefined) {
 	let clusterEl = $(
 		`<div data-id="${
-			cluster.id ? cluster.id : "none"
+		cluster.id ? cluster.id : "none"
 		}" class="edit_clusterTemplateElement"></div>`
 	);
 	let defaultCheck =
 		'<div class="item"><p>Default:</p><input type="radio" class="edit_radio" name="edit_default_cluster" /></div>';
 	let inputs = `<div class="edit_warehouseClustersDrowdown">
 									<input required value="${
-										cluster.title ? cluster.title : ""
-									}" type="text" class="edit_warehouseNewClusterInput" placeholder="Cluster's name" />
+		cluster.title ? cluster.title : ""
+		}" type="text" class="edit_warehouseNewClusterInput" placeholder="Cluster's name" />
 								<div class="dropdown">
 									<div id="edit_warehouseClustersDropdown" class="containerDropdown"></div>
 								</div>
 								</div>
 								<input required value="${
-									cluster.capacity ? cluster.capacity : ""
-								}" type="number" min="0" placeholder="Capacity" />`;
+		cluster.capacity ? cluster.capacity : ""
+		}" type="number" min="0" placeholder="Capacity" />`;
 	let addNew = $(`<img src="../stylesGlobal/imgs/new_btn.svg" />`);
 	let remove = $(`<img src="../stylesGlobal/imgs/delete_btn.svg" />`);
 
@@ -974,8 +974,8 @@ async function handleEditCluster(cluster_id, last_order) {
 				let title =
 					$(cluster).attr("data-clusterId") === undefined
 						? await edit_createNewClusterName(
-								$($($($(cluster).children()[1]).children()[0])).val()
-						  )
+							$($($($(cluster).children()[1]).children()[0])).val()
+						)
 						: parseInt($(cluster).attr("data-clusterId"));
 				poolConnect.then((pool) => {
 					pool
@@ -1393,6 +1393,7 @@ async function showProductInfo(productData) {
 	$("#singleProductId").html(productData.product_id);
 	try {
 		$("#singleProductPrice").html(product_info.price);
+		$("#singleProductPriceOut").html(product_info.out_price);
 		$("#singleProductCurrency").html(product_info.currency);
 		$("#singleProductCell").html(product_info.product_cell);
 		$("#singleProductExpDate").html(
