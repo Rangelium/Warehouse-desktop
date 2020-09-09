@@ -4,7 +4,7 @@
 		<p id="alertMessage">asdadsad</p>
 	</div>
 	<div class="down">
-		<button id="alertNo">İnkar et</button>
+		<button id="alertNo">Ləğv et</button>
 		<button id="alertYes">Qəbul et</button>
 	</div>
 </div>
@@ -14,7 +14,7 @@
 		<li id="createProduct" class="categoryOptionsMenuMenber">Yeni məhsul əlavə et</li>
 		<li id="editCategory" class="categoryOptionsMenuMenber">Kateqoriyanı yenilə</li>
 		<li id="deleteCategory" class="categoryOptionsMenuMenber">Kateqoriyanı sil</li>
-		<li id="clearCategory" class="categoryOptionsMenuMenber" title="Bütun məhsulları və kategoriyaları sil">
+		<li id="clearCategory" class="categoryOptionsMenuMenber" title="Bütun məhsulları və kateqoriyaları sil">
 			Kateqoriyanı təmizlə</li>
 	</ul>
 </div>
@@ -29,7 +29,7 @@
 	<h1>Yeni adı:</h1>
 	<input type="text" id="newCategoryName" placeholder="Type new title" />
 	<div class="row">
-		<button id="discardChangeCategoryBtn">İnkar et</button>
+		<button id="discardChangeCategoryBtn">Ləğv et</button>
 		<button id="changeCategoryTitleBtn">Yenilə</button>
 	</div>
 </div>
@@ -37,7 +37,7 @@
 	<h1>Yeni kateqoriya yarat:</h1>
 	<input type="text" id="createNewCategoryName" placeholder="Type title" />
 	<div class="row">
-		<button id="discardCreateCategoryBtn">İnkar et</button>
+		<button id="discardCreateCategoryBtn">Ləğv et</button>
 		<button id="createCategoryBtn">Əlavə et</button>
 	</div>
 </div>
@@ -80,7 +80,7 @@
 		<hr />
 		<div class="row special">
 			<div class="edit_warehouseClusterDefaultDrowdown">
-				<input type="text" id="edit_warehouseTreeInsert_clusterTemplate" placeholder="Hazır şablon sec" />
+				<input type="text" id="edit_warehouseTreeInsert_clusterTemplate" placeholder="Hazır şablon seç" />
 
 				<div class="dropdown">
 					<div id="edit_warehouseClusterDefaultDropdown" class="containerDropdown"></div>
@@ -92,7 +92,7 @@
 			<div class="edit_newClusterTemplateContainer"></div>
 		</div>
 		<div class="row">
-			<button id="discardEditProductBtn">İnkar et</button>
+			<button id="discardEditProductBtn">Ləğv et</button>
 			<button id="editProductBtn">Yenilə</button>
 		</div>
 	</div>
@@ -148,14 +148,14 @@
 			<div class="newClusterTemplateContainer"></div>
 		</div>
 		<div class="row">
-			<button id="discardCreateProductBtn">İnkar et</button>
+			<button id="discardCreateProductBtn">Ləğv et</button>
 			<button id="createProductBtn">Əlavə et</button>
 		</div>
 	</div>
 </div>
 <aside class="treeViewContainer">
 	<div class="searchContainer">
-		<input type="text" placeholder="Axtarış üçün məhsulun/kategoriyanın adını yazın" id="searchInputBox" />
+		<input type="text" placeholder="Axtarış üçün məhsulun/kateqoriyanın adını yazın" id="searchInputBox" />
 		<p id="clearSearchBox">✖</p>
 	</div>
 </aside>
@@ -224,7 +224,8 @@
 					<p>Məhsulun kodu: <span id="singleProductId"></span></p>
 				</div>
 				<div class="row">
-					<p>Qiymət: <span id="singleProductPrice"></span></p>
+					<p>Orta alış qiyməti: <span id="singleProductPrice"></span></p>
+					<p>Orta satış qiyməti: <span id="singleProductPriceOut"></span></p>
 					<p>Valyuta: <span id="singleProductCurrency"></span></p>
 				</div>
 				<div class="row">

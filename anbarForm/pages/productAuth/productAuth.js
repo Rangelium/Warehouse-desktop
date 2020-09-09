@@ -48,12 +48,12 @@ function fillTable(data) {
 	$("#dataTable").append("<thead></thead>");
 	$("#dataTable").append("<tbody></tbody>");
 
-	$("#dataTable > thead").append(`<th>Title:</th>`);
-	$("#dataTable > thead").append(`<th>Existing quality:</th>`);
-	$("#dataTable > thead").append(`<th>Necessary quality:</th>`);
-	$("#dataTable > thead").append(`<th>Optimal quality:</th>`);
-	$("#dataTable > thead").append(`<th>Unit:</th>`);
-	$("#dataTable > thead").append(`<th>Status:</th>`);
+	$("#dataTable > thead").append(`<th>${languages['product_name']}:</th>`);
+	$("#dataTable > thead").append(`<th>${languages['existing_quantity']}:</th>`);
+	$("#dataTable > thead").append(`<th>${languages['necessary_quantity']}:</th>`);
+	$("#dataTable > thead").append(`<th>${languages['optimal_quantity']}:</th>`);
+	$("#dataTable > thead").append(`<th>${languages['unit']}:</th>`);
+	$("#dataTable > thead").append(`<th>${languages['status']}:</th>`);
 
 	data.forEach((el) => {
 		let row = `<tr class="single-product" data-id='${el.product_id}'>`;
@@ -61,16 +61,16 @@ function fillTable(data) {
 		let status;
 		switch (el.is_confirmed) {
 			case null:
-				status = "Processing";
+				status = languages['order_processing'];
 				break;
 			case 0:
-				status = "Refused";
+				status = languages['order_refused'];
 				break;
 			case 1:
-				status = "Acceptes";
+				status = languages['order_accepted'];
 				break;
 			case 2:
-				status = "Changed";
+				status = languages['order_updated'];
 				break;
 		}
 
@@ -125,20 +125,20 @@ function addProductCard(productData) {
     </div>
     <div class="row">
       <div class="block">
-        <p>Optimal quality:<span id="card_optQuality">${productData.optimal_quantity}<span></p>
-        <p>Minimum quality:<span id="card_minQuality">${productData.min_quantity}<span></p>
+        <p>${languages['optimal_quantity']}:<span id="card_optQuality">${productData.optimal_quantity}<span></p>
+        <p>${languages['minimum_quantity']}:<span id="card_minQuality">${productData.min_quantity}<span></p>
       </div>
       <div class="block">
-        <p>Left:<span id="card_left">${productData.min_quantity}<span></p>
-        <p>Required:<span id="card_required">${productData.quantity_necessary}<span></p>
+        <p>${languages['left_quantity']}:<span id="card_left">${productData.min_quantity}<span></p>
+        <p>${languages['necessary_quantity']}:<span id="card_required">${productData.quantity_necessary}<span></p>
       </div>
     </div>
     <div class="row">
-      <p>Amount of order:</p>
-      <input placeholder="Amount number" id="card_orderAmount" required type="number" />
+      <p>${languages['order_amount']}:</p>
+      <input placeholder="${languages['order_amount']}" id="card_orderAmount" required type="number" />
     </div>
     <div class="row">
-      <textarea placeholder="Here goes your comment" id="card_comment"></textarea>
+      <textarea placeholder="${languages['comment_textarea']}" id="card_comment"></textarea>
     </div>`
 	);
 	let deleteBtn = $(`<img src="../stylesGlobal/imgs/delete_btn.svg" />`);
