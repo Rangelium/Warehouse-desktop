@@ -252,7 +252,7 @@ $("#submitSession").on("click", () => {
 	});
 });
 
-$("#acceptNewSessionInfo").on("click", () => {
+$("#acceptNewSessionInfo").on("click", function(){
 	poolConnect.then((pool) => {
 		pool
 			.request()
@@ -260,6 +260,7 @@ $("#acceptNewSessionInfo").on("click", () => {
 			.input("user_id", mssql.Int, USER["id"])
 			.execute("anbar.retail_sale_info_accept_insert", (err, res) => {
 				console.log(err);
+				$(this).fadeOut(70);
 			});
 	});
 });
