@@ -1614,6 +1614,7 @@ $("#date_from").change(function () {
 			moment($("#date_from").val()).format("yyyy-MM-DD HH:mm:ss"),
 			moment($("#date_to").val()).format("yyyy-MM-DD HH:mm:ss")
 		);
+		fillSessionsTable([]);
 	}
 });
 $("#date_to").change(function () {
@@ -1622,6 +1623,7 @@ $("#date_to").change(function () {
 			moment($("#date_from").val()).format("yyyy-MM-DD HH:mm:ss"),
 			moment($("#date_to").val()).format("yyyy-MM-DD HH:mm:ss")
 		);
+		fillSessionsTable([]);
 	}
 });
 
