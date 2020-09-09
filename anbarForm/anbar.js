@@ -16,7 +16,7 @@ var USER = {
 };
 // setTimeout(() => {
 // 	userLoggedIn();
-// 	openPage("anbarAdd");
+// 	openPage("productAuth");
 // }, 200);
 
 //todo CURRENCY POP UP SECTION
@@ -82,12 +82,6 @@ $("#acceptCurrencyChanges").click(() => {
 		});
 	});
 });
-
-// =======================================================
-// setTimeout(() => {
-// 	userLoggedIn();
-// 	openPage("anbarRemove");
-// }, 200);
 
 // ====================================================================================
 //  													   Connection system part
