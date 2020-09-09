@@ -16,10 +16,10 @@ var USER = {
 };
 // setTimeout(() => {
 // 	userLoggedIn();
-// 	openPage("productAuth");
+// 	openPage("anbarAdd");
 // }, 200);
-//todo CURRENCY POP UP SECTION
 
+//todo CURRENCY POP UP SECTION
 $.get(
 	`https://cbar.az/currencies/${moment(new Date()).format("DD.MM.YYYY")}.xml`,
 	{},
@@ -55,12 +55,6 @@ $.get(
 				if (isChanged) $(".sellersPopUpContainer").show();
 			});
 		});
-
-		// $(data)
-		// 	.find('Valute[Code="USD"]')
-		// 	.each(function () {
-		// 		console.log($(this).find("Value").text());
-		// 	});
 	}
 );
 

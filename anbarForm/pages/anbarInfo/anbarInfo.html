@@ -10,12 +10,20 @@
 </div>
 <div id="categoryOptionsMenu" class="categoryOptionsMenuMenber">
 	<ul class="categoryOptionsMenuMenber">
+		<li id="showCategoryInfo" class="categoryOptionsMenuMenber">
+			Kateqoriyanin info goster
+		</li>
 		<li id="createCategory" class="categoryOptionsMenuMenber">Yeni kateqoriya yarat</li>
 		<li id="createProduct" class="categoryOptionsMenuMenber">Yeni məhsul əlavə et</li>
 		<li id="editCategory" class="categoryOptionsMenuMenber">Kateqoriyanı yenilə</li>
 		<li id="deleteCategory" class="categoryOptionsMenuMenber">Kateqoriyanı sil</li>
-		<li id="clearCategory" class="categoryOptionsMenuMenber" title="Bütun məhsulları və kategoriyaları sil">
-			Kateqoriyanı təmizlə</li>
+		<li
+			id="clearCategory"
+			class="categoryOptionsMenuMenber"
+			title="Bütun məhsulları və kategoriyaları sil"
+		>
+			Kateqoriyanı təmizlə
+		</li>
 	</ul>
 </div>
 <div id="productOptionsMenu" class="productOptionsMenuMenber">
@@ -47,17 +55,32 @@
 		<div class="row kek">
 			<div class="block">
 				<p>Məhsulun adı:</p>
-				<input type="text" placeholder="Product title" id="edit_warehouseTreeInsert_title" required />
+				<input
+					type="text"
+					placeholder="Product title"
+					id="edit_warehouseTreeInsert_title"
+					required
+				/>
 			</div>
 			<div class="block">
 				<p>Ştrixkod:</p>
-				<input type="number" placeholder="" min="0" id="edit_warehouseTreeInsert_barcode" required />
+				<input
+					type="number"
+					placeholder="Barcode"
+					min="0"
+					id="edit_warehouseTreeInsert_barcode"
+				/>
 			</div>
 		</div>
 		<div class="row">
 			<p>Kategoriya:</p>
 			<div class="edit_warehouseCategoryDrowdown">
-				<input type="text" placeholder="Category name" id="edit_warehouseTreeInsert_categoryId" required />
+				<input
+					type="text"
+					placeholder="Category name"
+					id="edit_warehouseTreeInsert_categoryId"
+					required
+				/>
 				<div class="dropdown">
 					<div id="edit_warehouseCategoryDropdown" class="containerDropdown"></div>
 				</div>
@@ -66,21 +89,40 @@
 		<div class="row kek">
 			<div class="block">
 				<p>Minimum miqdar:</p>
-				<input type="number" placeholder="Minimal" min="0" id="edit_warehouseTreeInsert_minQuantity" />
+				<input
+					type="number"
+					placeholder="Minimal"
+					min="0"
+					id="edit_warehouseTreeInsert_minQuantity"
+				/>
 			</div>
 			<div class="block">
 				<p>Optimal miqdar:</p>
-				<input type="number" placeholder="Optimal" min="0" id="edit_warehouseTreeInsert_optQuantity" />
+				<input
+					type="number"
+					placeholder="Optimal"
+					min="0"
+					id="edit_warehouseTreeInsert_optQuantity"
+				/>
 			</div>
 		</div>
 		<div class="row">
 			<p>Son istifadə tarixi xəbərdarlığı:</p>
-			<input type="number" placeholder="gün" min="1" id="edit_warehouseTreeInsert_expDateWarning" />
+			<input
+				type="number"
+				placeholder="gün"
+				min="1"
+				id="edit_warehouseTreeInsert_expDateWarning"
+			/>
 		</div>
 		<hr />
 		<div class="row special">
 			<div class="edit_warehouseClusterDefaultDrowdown">
-				<input type="text" id="edit_warehouseTreeInsert_clusterTemplate" placeholder="Hazır şablon sec" />
+				<input
+					type="text"
+					id="edit_warehouseTreeInsert_clusterTemplate"
+					placeholder="Hazır şablon sec"
+				/>
 
 				<div class="dropdown">
 					<div id="edit_warehouseClusterDefaultDropdown" class="containerDropdown"></div>
@@ -103,17 +145,33 @@
 		<div class="row kek">
 			<div class="block">
 				<p>Məhsulun adı:</p>
-				<input type="text" placeholder="Məhsulun adı" id="warehouseTreeInsert_title" required />
+				<input
+					type="text"
+					placeholder="Məhsulun adı"
+					id="warehouseTreeInsert_title"
+					required
+				/>
 			</div>
 			<div class="block">
 				<p>Ştrixkod:</p>
-				<input type="number" placeholder="Ştrixkod" min="0" id="warehouseTreeInsert_barcode" required />
+				<input
+					type="number"
+					placeholder="Ştrixkod"
+					min="0"
+					id="warehouseTreeInsert_barcode"
+					required
+				/>
 			</div>
 		</div>
 		<div class="row">
 			<p>Kategoriya:</p>
 			<div class="warehouseCategoryDrowdown">
-				<input type="text" placeholder="Kategoriyanın adı" id="warehouseTreeInsert_categoryId" required />
+				<input
+					type="text"
+					placeholder="Kategoriyanın adı"
+					id="warehouseTreeInsert_categoryId"
+					required
+				/>
 				<div class="dropdown">
 					<div id="warehouseCategoryDropdown" class="containerDropdown"></div>
 				</div>
@@ -122,21 +180,40 @@
 		<div class="row kek">
 			<div class="block">
 				<p>Minimal miqdar:</p>
-				<input type="number" placeholder="Minimal" min="0" id="warehouseTreeInsert_minQuantity" />
+				<input
+					type="number"
+					placeholder="Minimal"
+					min="0"
+					id="warehouseTreeInsert_minQuantity"
+				/>
 			</div>
 			<div class="block">
 				<p>Optimal miqdar:</p>
-				<input type="number" placeholder="Optimal" min="0" id="warehouseTreeInsert_optQuantity" />
+				<input
+					type="number"
+					placeholder="Optimal"
+					min="0"
+					id="warehouseTreeInsert_optQuantity"
+				/>
 			</div>
 		</div>
 		<div class="row">
 			<p>Son istifadə tarixi xəbərdarlığı:</p>
-			<input type="number" placeholder="gün" min="1" id="warehouseTreeInsert_expDateWarning" />
+			<input
+				type="number"
+				placeholder="gün"
+				min="1"
+				id="warehouseTreeInsert_expDateWarning"
+			/>
 		</div>
 		<hr />
 		<div class="row special">
 			<div class="warehouseClusterDefaultDrowdown">
-				<input type="text" id="warehouseTreeInsert_clusterTemplate" placeholder="Select cluster's template" />
+				<input
+					type="text"
+					id="warehouseTreeInsert_clusterTemplate"
+					placeholder="Select cluster's template"
+				/>
 
 				<div class="dropdown">
 					<div id="warehouseClusterDefaultDropdown" class="containerDropdown"></div>
@@ -155,7 +232,7 @@
 </div>
 <aside class="treeViewContainer">
 	<div class="searchContainer">
-		<input type="text" placeholder="Axtarış üçün məhsulun/kategoriyanın adını yazın" id="searchInputBox" />
+		<input type="text" placeholder="Axtarış üçün adını yazın" id="searchInputBox" />
 		<p id="clearSearchBox">✖</p>
 	</div>
 </aside>
@@ -165,23 +242,26 @@
 			<p>Ümumi məlumat</p>
 		</div>
 		<div class="btn-type1" id="hideShowTreeView">
-			<p>Ağac görünüşü gizlət/göstər</p>
+			<p>Ağac gizlət/göstər</p>
 		</div>
-		<div class="btn-type1" id="expandTreeView">
-			<p>Ağac görünüşü genişləndir</p>
+		<div class="btn-type1" id="expandCloseTreeView">
+			<p>Ağac bağla</p>
 		</div>
-		<div class="btn-type1" id="closeTreeView">
-			<p>Ağac görünüşü bağla</p>
+		<div class="btn-type1" id="trashBin">
+			<p>TrashBin</p>
 		</div>
 	</div>
 	<div class="screenInfo">
 		<div class="info">
 			<div class="text">
-				<p>Ətraflı məlumatı göstərmək üçün </p>
+				<p>Ətraflı məlumatı göstərmək üçün</p>
 				<p>soldakı Ağacdakı məhsula tıklayın</p>
 			</div>
 			<div class="text">
-				<p>Anbar haqqında ümumi məlumat göstərmək üçün yuxarıdakı <span>"Ümumi məlumat"</span></p>
+				<p>
+					Anbar haqqında ümumi məlumat göstərmək üçün yuxarıdakı
+					<span>"Ümumi məlumat"</span>
+				</p>
 				<p>düyməsini tıklayın</p>
 			</div>
 		</div>
@@ -215,6 +295,11 @@
 				</div>
 			</div>
 		</div>
+		<div class="trash-bin">
+			<div class="trash-bin-data">
+				<h1>Tttttrrrrrrraaaaaaashhhhhhh</h1>
+			</div>
+		</div>
 		<div class="singleProductInfo">
 			<div class="text-data">
 				<div class="row">
@@ -240,6 +325,16 @@
 				</div>
 			</div>
 			<div class="table-data"></div>
+		</div>
+		<div class="singleCategoryInfo">
+			<div class="text-data">
+				<div class="row">
+					<h2>Categorianin adı: <span id="singleCategoryName"></span></h2>
+				</div>
+				<div class="row">
+					<h2>Categorianin id: <span id="singleCategoryId"></span></h2>
+				</div>
+			</div>
 		</div>
 	</div>
 </section>

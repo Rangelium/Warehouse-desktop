@@ -49,48 +49,97 @@ function closeAlert() {
 
 // Function to show Overall info
 function showOverallInfo() {
-	try {
-		new Promise((resolve) => {
-			poolConnect.then((pool) => {
-				pool.request().execute("anbar.dashboard", (err, res) => {
-					if (err != null) console.log(err);
-					console.log(res);
-					if (res.recordset.length !== 0) {
-						resolve(res.recordset[0]);
-					} else {
-						console.log("Anbar is empty!");
-					}
+	if ($("#trashBin").attr("data-isClicked") == "true") {
+		hideTrashBin();
+		setTimeout(() => {
+			try {
+				new Promise((resolve) => {
+					poolConnect.then((pool) => {
+						pool.request().execute("anbar.dashboard", (err, res) => {
+							if (err != null) console.log(err);
+							console.log(res);
+							if (res.recordset.length !== 0) {
+								resolve(res.recordset[0]);
+							} else {
+								console.log("Anbar is empty!");
+							}
+						});
+					});
+				}).then((data) => {
+					$("#products_quantity").html(data.quantity);
+					$("#products_remaining").html(data.remaining_products);
+					$("#anbar_total_cost").html(data.cost);
+
+					$("#add_product_name").html(data.last_in_name);
+					$("#add_product_date").html(
+						moment(data.last_in_date).format("MMMM Do YYYY, h:mm:ss")
+					);
+					$("#add_product_price").html(data.last_in_price);
+					$("#add_product_quantity").html(data.last_in_quantity);
+					$("#add_product_total_price").html(data.last_in_price_total);
+					$("#add_product_currency").html(data.last_in_currency);
+
+					$("#rm_product_name").html(data.last_out_name);
+					$("#rm_product_date").html(
+						moment(data.last_out_date).format("MMMM Do YYYY, h:mm:ss")
+					);
+					$("#rm_product_price").html(data.last_out_price);
+					$("#rm_product_quantity").html(data.last_out_quantity);
+					$("#rm_product_total_price").html(data.last_out_price_total);
+					$("#rm_product_currency").html(data.last_out_currency);
+
+					// Show box after loading content
+					$("#showOverallInfo").attr("data-isClicked", "true");
+					$(".overall-info").attr("data-isShoving", "true");
 				});
+			} catch (error) {
+				console.log(error);
+			}
+		}, 400);
+	} else {
+		try {
+			new Promise((resolve) => {
+				poolConnect.then((pool) => {
+					pool.request().execute("anbar.dashboard", (err, res) => {
+						if (err != null) console.log(err);
+						console.log(res);
+						if (res.recordset.length !== 0) {
+							resolve(res.recordset[0]);
+						} else {
+							console.log("Anbar is empty!");
+						}
+					});
+				});
+			}).then((data) => {
+				$("#products_quantity").html(data.quantity);
+				$("#products_remaining").html(data.remaining_products);
+				$("#anbar_total_cost").html(data.cost);
+
+				$("#add_product_name").html(data.last_in_name);
+				$("#add_product_date").html(
+					moment(data.last_in_date).format("MMMM Do YYYY, h:mm:ss")
+				);
+				$("#add_product_price").html(data.last_in_price);
+				$("#add_product_quantity").html(data.last_in_quantity);
+				$("#add_product_total_price").html(data.last_in_price_total);
+				$("#add_product_currency").html(data.last_in_currency);
+
+				$("#rm_product_name").html(data.last_out_name);
+				$("#rm_product_date").html(
+					moment(data.last_out_date).format("MMMM Do YYYY, h:mm:ss")
+				);
+				$("#rm_product_price").html(data.last_out_price);
+				$("#rm_product_quantity").html(data.last_out_quantity);
+				$("#rm_product_total_price").html(data.last_out_price_total);
+				$("#rm_product_currency").html(data.last_out_currency);
+
+				// Show box after loading content
+				$("#showOverallInfo").attr("data-isClicked", "true");
+				$(".overall-info").attr("data-isShoving", "true");
 			});
-		}).then((data) => {
-			$("#products_quantity").html(data.quantity);
-			$("#products_remaining").html(data.remaining_products);
-			$("#anbar_total_cost").html(data.cost);
-
-			$("#add_product_name").html(data.last_in_name);
-			$("#add_product_date").html(
-				moment(data.last_in_date).format("MMMM Do YYYY, h:mm:ss")
-			);
-			$("#add_product_price").html(data.last_in_price);
-			$("#add_product_quantity").html(data.last_in_quantity);
-			$("#add_product_total_price").html(data.last_in_price_total);
-			$("#add_product_currency").html(data.last_in_currency);
-
-			$("#rm_product_name").html(data.last_out_name);
-			$("#rm_product_date").html(
-				moment(data.last_out_date).format("MMMM Do YYYY, h:mm:ss")
-			);
-			$("#rm_product_price").html(data.last_out_price);
-			$("#rm_product_quantity").html(data.last_out_quantity);
-			$("#rm_product_total_price").html(data.last_out_price_total);
-			$("#rm_product_currency").html(data.last_out_currency);
-
-			// Show box after loading content
-			$("#showOverallInfo").attr("data-isClicked", "true");
-			$(".overall-info").attr("data-isShoving", "true");
-		});
-	} catch (error) {
-		console.log(error);
+		} catch (error) {
+			console.log(error);
+		}
 	}
 }
 // Function to hide Overall info
@@ -107,6 +156,33 @@ $("#showOverallInfo").click(function () {
 	}
 });
 
+// =====================================================================================
+//                                Anbar TRASHBIN part
+// =====================================================================================
+
+function showTrashBin() {
+	if ($("#showOverallInfo").attr("data-isClicked") == "true") {
+		hideOverallInfo();
+		setTimeout(() => {
+			$("#trashBin").attr("data-isClicked", "true");
+			$(".trash-bin").attr("data-isShoving", "true");
+		}, 400);
+	} else {
+		$("#trashBin").attr("data-isClicked", "true");
+		$(".trash-bin").attr("data-isShoving", "true");
+	}
+}
+function hideTrashBin() {
+	$("#trashBin").attr("data-isClicked", "false");
+	$(".trash-bin").attr("data-isShoving", "false");
+}
+$("#trashBin").click(function () {
+	if ($(this).attr("data-isClicked") == "true") {
+		hideTrashBin();
+	} else {
+		showTrashBin();
+	}
+});
 // =====================================================================================
 //                                   TreeView part
 // =====================================================================================
@@ -136,11 +212,19 @@ function feelTree(data) {
 	});
 
 	$(".tv-name").click(function () {
+		$(".tv-groupname").attr("data-isSelected", "false");
 		$(".tv-name").attr("data-isSelected", "false");
 		$(this).attr("data-isSelected", "true");
 
 		showProductInfo(treeView.giveDataOfElement($(this)));
 	});
+	// $(".tv-groupname").click(function () {
+	// 	$(".tv-name").attr("data-isSelected", "false");
+	// 	$(".tv-groupname").attr("data-isSelected", "false");
+	// 	$(this).attr("data-isSelected", "true");
+
+	// 	showCategoryInfo(treeView.giveDataOfElement($(this).parent()));
+	// });
 
 	$(".tv-groupname").contextmenu(function () {
 		showCategoryOptions($(this), treeView.giveDataOfElement($(this).parent()));
@@ -150,30 +234,31 @@ function feelTree(data) {
 	});
 }
 
-$("#expandTreeView").click(function () {
+$("#expandCloseTreeView").attr("data-treeExpanded", "true");
+$("#expandCloseTreeView").click(function () {
 	$(this).attr("data-isClicked", "true");
-	setTimeout(function () {
-		$("#expandTreeView").attr("data-isClicked", "false");
+	setTimeout(() => {
+		$(this).attr("data-isClicked", "false");
 	}, 600);
 
-	let arr = $(".treeView  span");
-	let arr2 = $(".treeView  ul");
-	for (let i = 0; i < arr.length; i++) {
-		$(arr[i]).attr("data-isexpanded", "true");
-		$(arr2[i]).attr("data-isexpanded", "true");
-	}
-});
-$("#closeTreeView").click(function () {
-	$(this).attr("data-isClicked", "true");
-	setTimeout(function () {
-		$("#closeTreeView").attr("data-isClicked", "false");
-	}, 600);
-
-	let arr = $(".treeView  span");
-	let arr2 = $(".treeView  ul");
-	for (let i = 1; i < arr.length; i++) {
-		$(arr[i]).attr("data-isexpanded", "false");
-		$(arr2[i]).attr("data-isexpanded", "false");
+	if ($(this).attr("data-treeExpanded") === "false") {
+		$(this).attr("data-treeExpanded", "true");
+		$(this).find("p").html("Ağac bağla");
+		let arr = $(".treeView  span");
+		let arr2 = $(".treeView  ul");
+		for (let i = 0; i < arr.length; i++) {
+			$(arr[i]).attr("data-isexpanded", "true");
+			$(arr2[i]).attr("data-isexpanded", "true");
+		}
+	} else if ($(this).attr("data-treeExpanded") === "true") {
+		$(this).attr("data-treeExpanded", "false");
+		$(this).find("p").html("Ağac genişləndir");
+		let arr = $(".treeView  span");
+		let arr2 = $(".treeView  ul");
+		for (let i = 1; i < arr.length; i++) {
+			$(arr[i]).attr("data-isexpanded", "false");
+			$(arr2[i]).attr("data-isexpanded", "false");
+		}
 	}
 });
 
@@ -266,6 +351,7 @@ function showCreateCategory(parentId) {
 $("#createCategory").click(function () {
 	$("#createNewCategoryName").val("");
 	showCreateCategory($(this).attr("data-id"));
+	hideCategoryOptions();
 });
 
 // Change Name
@@ -314,6 +400,7 @@ function showEditCategory(id, title) {
 }
 $("#editCategory").click(function () {
 	showEditCategory($(this).attr("data-id"), $(this).attr("data-name"));
+	hideCategoryOptions();
 });
 
 // Delete
@@ -333,6 +420,7 @@ $("#deleteCategory").click(function () {
 		}
 		closeAlert();
 	});
+	hideCategoryOptions();
 });
 
 // Create new product
@@ -578,6 +666,7 @@ function showCreateProduct(parentId, catName) {
 }
 $("#createProduct").click(function () {
 	showCreateProduct($(this).attr("data-id"), $(this).attr("data-name"));
+	hideCategoryOptions();
 });
 function fillAddNewCategotyDropdown(data) {
 	$("#warehouseCategoryDropdown").empty();
@@ -762,7 +851,17 @@ $("#clearCategory").click(async function () {
 		}
 	);
 
-	console.log(data);
+	hideCategoryOptions();
+});
+
+// Show catregori info
+$("#showCategoryInfo").click(function () {
+	$(".tv-name").attr("data-isSelected", "false");
+	$(".tv-groupname").attr("data-isSelected", "false");
+	// $(this).attr("data-isSelected", "true");
+
+	showCategoryInfo(treeView.giveDataOfElement($(this)));
+	hideCategoryOptions();
 });
 
 // =====================================================================================
@@ -807,11 +906,22 @@ $(document).click((el) => {
 var edit_selectedProductData;
 var edit_selectedProductCatData;
 var edit_selectedProductClusterData;
-function edit_warehouseTreeInsertAddNewCluster(cluster, pivot = undefined) {
+var edit_deletedClusterArr = [];
+function edit_warehouseTreeInsertAddNewCluster(
+	cluster,
+	pivot = undefined,
+	newOrder = undefined
+) {
+	let clusterOrder = cluster.cluster_order;
+
+	if (!cluster.cluster_order) {
+		clusterOrder = newOrder;
+	}
+
 	let clusterEl = $(
 		`<div data-id="${
 			cluster.id ? cluster.id : "none"
-		}" class="edit_clusterTemplateElement"></div>`
+		}" data-clusterOrder="${clusterOrder}" class="edit_clusterTemplateElement"></div>`
 	);
 	let defaultCheck =
 		'<div class="item"><p>Default:</p><input type="radio" class="edit_radio" name="edit_default_cluster" /></div>';
@@ -840,7 +950,18 @@ function edit_warehouseTreeInsertAddNewCluster(cluster, pivot = undefined) {
 	clusterEl.append(remove);
 
 	addNew.click((el) => {
-		edit_warehouseTreeInsertAddNewCluster([], $(el.target).parent());
+		let currEl = $(el.target).parent();
+		let nextEl = currEl.next();
+
+		let currOrder = parseFloat($(el.target).parent().attr("data-clusterOrder"));
+		let nextOrder = parseFloat(nextEl.attr("data-clusterOrder"));
+
+		let tmpNewOrder = (currOrder + nextOrder) / 2;
+		if (!nextOrder) {
+			tmpNewOrder = currOrder + 1;
+		}
+
+		edit_warehouseTreeInsertAddNewCluster([], $(el.target).parent(), tmpNewOrder);
 	});
 	remove.click((el) => {
 		let counterActiveClusterTemplate = 0;
@@ -857,7 +978,9 @@ function edit_warehouseTreeInsertAddNewCluster(cluster, pivot = undefined) {
 
 		$(el.target).parent().css("opacity", "0");
 		$(el.target).parent().attr("data-Active", "false");
+		edit_deletedClusterArr.push(parseInt($(el.target).parent().attr("data-id")));
 		setTimeout(() => {
+			$(el.target).parent().detach();
 			$(el.target).parent().css("display", "none");
 		}, 400);
 	});
@@ -905,7 +1028,6 @@ $("#discardEditProductBtn").click(() => {
 function edit_warehouseTreeInsertFormValidation() {
 	if (
 		$("#edit_warehouseTreeInsert_title").val() === "" ||
-		$("#edit_warehouseTreeInsert_barcode").val() === "" ||
 		$("#edit_warehouseTreeInsert_categoryId").val() === ""
 	) {
 		return false;
@@ -947,23 +1069,42 @@ async function edit_createNewClusterName(name) {
 
 	return res;
 }
-async function handleEditCluster(cluster_id, last_order) {
+async function handleEditCluster(cluster_id) {
 	let clusterArr = Array.from(
 		$(".edit_newClusterTemplateContainer .edit_clusterTemplateElement")
 	);
 
-	let order = last_order;
-	clusterArr.forEach(async (cluster, last_order) => {
+	clusterArr.forEach(async (cluster, index) => {
 		if ($(cluster).attr("data-active") !== "false") {
+			index++;
 			let clusterUniqueId = $(cluster).attr("data-id");
-			let cluster_title = $($($(cluster).children()[1]).children()[0]).val();
-			let cluster_capacity = $($(cluster).children()[2]).val();
+			let clusterOrder = $(cluster).attr("data-clusterOrder");
+			let cluster_title = $($($(cluster).children()[1]).children()[0])
+				.val()
+				.trim();
+			let cluster_capacity = $($(cluster).children()[2]).val().trim();
+
 			if (clusterUniqueId !== "none") {
+				let title = await new Promise((resolve) => {
+					edit_selectedProductClusterData.find((el) => {
+						if (el.title === cluster_title) {
+							resolve(el.title_id);
+						}
+					});
+					resolve(undefined);
+				});
+
+				if (!title) {
+					title = $(cluster).attr("data-clusterId")
+						? $(cluster).attr("data-clusterId")
+						: await edit_createNewClusterName(cluster_title);
+				}
+
 				poolConnect.then((pool) => {
 					pool
 						.request()
 						.input("id", clusterUniqueId)
-						.input("title", cluster_title)
+						.input("title", title)
 						.input("capacity", cluster_capacity)
 						.input("user_id", USER.id)
 						.execute("anbar.cluster_update", (err) => {
@@ -973,21 +1114,19 @@ async function handleEditCluster(cluster_id, last_order) {
 			} else {
 				let title =
 					$(cluster).attr("data-clusterId") === undefined
-						? await edit_createNewClusterName(
-								$($($($(cluster).children()[1]).children()[0])).val()
-						  )
+						? await edit_createNewClusterName(cluster_title)
 						: parseInt($(cluster).attr("data-clusterId"));
+
 				poolConnect.then((pool) => {
 					pool
 						.request()
 						.input("cluster_id", BigInt(cluster_id))
 						.input("capacity", cluster_capacity)
-						.input("cluster_order", order)
+						.input("cluster_order", clusterOrder)
 						.input("title", title)
 						.input("user_id", USER.id)
 						.execute("anbar.cluster_insert", (err) => {
 							if (err !== null) console.log(err);
-							order += 1;
 						});
 				});
 			}
@@ -1011,11 +1150,20 @@ $("#editProductBtn").click(async function () {
 		}
 	});
 
-	await handleEditCluster(
-		edit_selectedProductData.cluster,
-		edit_selectedProductClusterData[edit_selectedProductClusterData.length - 1]
-			.cluster_order + 1
-	);
+	await handleEditCluster(edit_selectedProductData.cluster);
+
+	edit_deletedClusterArr.forEach((id) => {
+		if (id !== NaN) {
+			poolConnect.then((pool) => {
+				pool
+					.request()
+					.input("id", id)
+					.execute("anbar.cluster_delete", (err) => {
+						if (err !== null) console.log(err);
+					});
+			});
+		}
+	});
 
 	poolConnect.then((pool) => {
 		pool
@@ -1087,8 +1235,6 @@ async function showEditProduct(productId) {
 	edit_selectedProductData = productData;
 	edit_selectedProductCatData = categoryData;
 	edit_selectedProductClusterData = productClusterData;
-
-	console.log(productClusterData);
 
 	$("#edit_warehouseTreeInsert_title").val(productData.title);
 	$("#edit_warehouseTreeInsert_barcode").val(productData.barcode);
@@ -1244,6 +1390,7 @@ setInterval(() => {
 }, 400);
 $("#editProduct").click(function () {
 	showEditProduct(parseInt($(this).attr("data-productId")));
+	hideProductOptions();
 });
 
 // Delete
@@ -1263,6 +1410,7 @@ $("#deleteProduct").click(function () {
 		}
 		closeAlert();
 	});
+	hideProductOptions();
 });
 
 // =====================================================================================
@@ -1299,6 +1447,38 @@ $("#searchInputBox").focusout(function () {
 		});
 	}
 });
+
+// =====================================================================================
+//                                SingleCategoryInfo part
+// =====================================================================================
+
+async function showCategoryInfo(categoryData) {
+	$("#singleProductId").html("");
+	$(".singleProductInfo").css("opacity", "0");
+	$(".singleProductInfo").css("pointer-events", "unset");
+	$(".singleProductInfo").css("z-index", "-1");
+
+	let tmp = $(".treeView .tv-name");
+	for (let i = 0; i < tmp.length; i++) {
+		$(tmp[i]).attr("data-isselected", "false");
+	}
+	// Check if already opened
+	console.log(categoryData);
+	if ($("#singleCategoryId").html() == categoryData.id) {
+		$("#singleCategoryId").html("");
+		$(".singleCategoryInfo").css("opacity", "0");
+		$(".singleCategoryInfo").css("pointer-events", "none");
+		$(".singleCategoryInfo").css("z-index", "-1");
+		return;
+	}
+
+	$("#singleCategoryName").html(categoryData.title);
+	$("#singleCategoryId").html(categoryData.id);
+
+	$(".singleCategoryInfo").css("opacity", "1");
+	$(".singleCategoryInfo").css("pointer-events", "unset");
+	$(".singleCategoryInfo").css("z-index", "1");
+}
 
 // =====================================================================================
 //                                SingleProductInfo part
@@ -1364,11 +1544,17 @@ function fillSingleProductTable(data) {
 }
 
 async function showProductInfo(productData) {
+	$("#singleCategoryId").html("");
+	$(".singleCategoryInfo").css("opacity", "0");
+	$(".singleCategoryInfo").css("pointer-events", "none");
+	$(".singleCategoryInfo").css("z-index", "-1");
+
 	// Check if already opened
 	if ($("#singleProductId").html() == productData.product_id) {
 		$("#singleProductId").html("");
 		$(".singleProductInfo").css("opacity", "0");
 		$(".singleProductInfo").css("pointer-events", "unset");
+		$(".singleProductInfo").css("z-index", "-1");
 
 		let tmp = $(".treeView .tv-name");
 		for (let i = 0; i < tmp.length; i++) {
@@ -1427,6 +1613,7 @@ async function showProductInfo(productData) {
 
 	$(".singleProductInfo").css("opacity", "1");
 	$(".singleProductInfo").css("pointer-events", "unset");
+	$(".singleProductInfo").css("z-index", "1");
 }
 
 // =====================================================================================
