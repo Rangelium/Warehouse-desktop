@@ -1579,6 +1579,7 @@ async function showProductInfo(productData) {
 	$("#singleProductId").html(productData.product_id);
 	try {
 		$("#singleProductPrice").html(product_info.price);
+		$("#singleProductPriceOut").html(product_info.out_price);
 		$("#singleProductCurrency").html(product_info.currency);
 		$("#singleProductCell").html(product_info.product_cell);
 		$("#singleProductExpDate").html(

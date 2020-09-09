@@ -11,7 +11,7 @@ $session-info-table-header-background-color: #8d560d;
 $session-info-table-row-bacground-color: white;
 
 $anbar-remove-select-session-button-background-color: $primary-color-shade3;
-$anbar-remove-create-session-part-button-color: $primary-color-shade3;
+$anbar-remove-create-session-part-button-color: $stand-out-color;
 $anbar-remove-input-background-color: $primary-color-shade3;
 $anbar-remove-input-border-color: $stand-out-color;
 
@@ -30,8 +30,30 @@ $anbar-remove-input-border-color: $stand-out-color;
   color: #000000;
   user-select: none;
   &:hover{
+    background-color: lighten($anbar-remove-create-session-part-button-color, 20%);
+  }
+}
+
+#createSessionButton{
+  background-color: $primary-color;
+  &:hover{
     background-color: $primary-color-shade2;
   }
+}
+
+#addNewSessionInfo{
+  background-color: $stand-out-color;
+}
+
+#submitSession{
+  background-color: $primary-color;
+  &:hover{
+    background-color: $primary-color-shade2;
+  }
+}
+
+#getBackFromSessionsList{
+  left: 0;
 }
 
 .anbarRemove{
@@ -225,7 +247,7 @@ $anbar-remove-input-border-color: $stand-out-color;
       flex-direction: row;
       // bottom: 0;
       button{
-        background-color: rgb(26, 201, 26);
+        background-color: lighten($primary-color, 10%);
         font-size: 24px;
         padding: 3px;
         width: 100px;
@@ -233,6 +255,7 @@ $anbar-remove-input-border-color: $stand-out-color;
         // margin-right: 1vw;
         border: 1px solid black;
         cursor: pointer;
+        outline: none;
       }
     }
 
@@ -323,12 +346,15 @@ $anbar-remove-input-border-color: $stand-out-color;
     outline: none;
   }
   button.getBackButton{
-    background-color: rgb(165, 112, 42);
+    background-color: $stand-out-color;
     font-size: 20px;
     padding: 5px;
     cursor: pointer;
     border: 1px solid black;
     outline: none;
+    position: absolute;
+    top: 10vh;
+    left: 15px;
   }
 
   .sessionsInfoNewInputs{
@@ -341,7 +367,7 @@ $anbar-remove-input-border-color: $stand-out-color;
     .sessionInfoNewGetBack{
       align-self: flex-start;
       button{
-        background-color: rgb(165, 112, 42);
+        background-color: $stand-out-color;
         border: 1px solid black;
         font-size: 20px;
         padding: 10px;
@@ -444,16 +470,17 @@ $anbar-remove-input-border-color: $stand-out-color;
       }
       button.infoSearchSubmit{
         align-self: center;
-        border: 1px solid black;
+        border: 1px solid $dark-color;
         border-radius: 2px;
-        background-color: rgb(121, 121, 209);
+        background-color: $primary-color;
         font-size: 24px;
         padding: 10px 20px;
         width: 20vw;
         outline: none;
         cursor: pointer;
         &:hover{
-          border-width: 2px;
+          // border-width: 2px;
+          background-color: $primary-color-shade2;
         }
       }
     }
