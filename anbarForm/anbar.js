@@ -18,8 +18,9 @@ var USER = {
 // 	userLoggedIn();
 // 	openPage("productAuth");
 // }, 200);
-//todo CURRENCY POP UP SECTION
 
+//todo CURRENCY POP UP SECTION
+// SETTINGS PART
 $.get(
 	`https://cbar.az/currencies/${moment(new Date()).format("DD.MM.YYYY")}.xml`,
 	{},
