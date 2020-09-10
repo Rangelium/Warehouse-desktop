@@ -35,21 +35,21 @@ $dark: #000;
 
 
 .inventoryMaterialButton{
-  border: none;
+  border: 1px solid $dark-color;
   border-radius: 4px;
-  background-color: #6200EE;
+  background-color: $stand-out-color;
   width: 7vw;
   height: 5vh;
-  color: #fff;
+  color: $dark-color;
   cursor: pointer;
   outline: none;
   margin: 5px;
   &:hover{
-    background-color: #7e3ff2;
+    background-color: lighten($stand-out-color, 10%);
   }
   &:active{
     outline: none;
-    background-color: #9965f4;
+    background-color: lighten($stand-out-color, 15%);
   }
 }
 
@@ -167,7 +167,7 @@ ul.inventoryTable{
     flex-direction: row;
     justify-content: space-between;
     // padding: 12px 8px 12px 40px;
-    background: rgb(238, 169, 74);
+    background: lighten($primary-color-shade2, 10%);
     font-size: 18px;
     color: black;
     transition: 0.4s;
@@ -200,11 +200,11 @@ ul.inventoryTable{
       }
     }
     &:nth-child(odd){
-      background: rgba(156, 95, 9, 1);
-      color: white;
+      background: $primary-color-shade1;
+      // color: white;
     }
-    &:hover{
-      background-color: #fff;
+    &:hover {
+      background-color: white;
       color: black;
     }
     .inventoryItemContainer{
@@ -265,7 +265,7 @@ ul.inventoryTable{
   height: 40vh;
   border: 2px solid black;
   border-radius: 10px;
-  background-color: rgba(156, 95, 9, 1);
+  background-color: $primary-color;
   color: whitesmoke;
   .item{
     display: flex;

@@ -1,17 +1,15 @@
-<div class="sessionsPart">
+<!-- <div class="sessionsPart">
 	<button class="createSessionPartButton" id="createSessionPartButton">
 		Yeni sessiya yarat
 	</button>
 	<div class="sessionSelectionPart">
 		<div class="sessionsInputs">
 			<div class="sessionsInputBlock">
-				<!-- <label for="sessionsDateFrom">Date From</label> -->
 				<p>-dan</p>
 				<input type="date" class="sessionsDateInput" id="sessionsDateFrom" value="mm.dd.yyyy">
 			</div>
 			<div class="sessionsInputBlock">
 				<p>-dək</p>
-				<!-- <label for="sessionsDateTo">Date To</label> -->
 				<input type="date" class="sessionsDateInput" id="sessionsDateTo" value="mm.dd.yyyy">
 			</div>
 		</div>
@@ -66,6 +64,9 @@
 		<button id="acceptNewSessionInfo" style="display: none;">
 			Qəbul et
 		</button>
+		<button id="declineNewSessionInfo" style="display: none">
+			Imtina et
+		</button>
 	</div>
 </div>
 
@@ -77,7 +78,7 @@
 	</div>
 	<div style="align-self: center;">
 		<div class="sessionInfoInputWrapper">
-			<!-- Start Inputs -->
+			
 			<div class="sessionInfoInputBlock">
 				<label for="sessionInfoQuantity">Miqdar</label>
 				<input type="number" class="sessionInfoNewInput" max="100" min="0" id="sessionInfoQuantity">
@@ -90,7 +91,9 @@
 				<label for="sessionInfoPrice">Qiymət</label>
 				<input type="number" class="sessionInfoNewInput" id="sessionInfoPrice" disabled>
 			</div>
+
 		</div>
+
 		<div class="sessionInfoInputWrapper" style="margin-top: 10px;">
 			<div class="sessionInfoInputBlock">
 				<label for="sessionNewCurrencyId">Valyuta</label>
@@ -113,12 +116,13 @@
 				<input type="number" class="sessionInfoNewInput" id="sessionInfoDiscount">
 			</div>
 		</div>
-		<!-- Inputs -->
+
 		<div class="submitSessionInfo">
 			<button id="submitSession">
 				Qəbul etmək
 			</button>
 		</div>
+
 	</div>
 </div>
 
@@ -142,4 +146,163 @@
 		<div class="sessionSearchTables">
 		</div>
 	</div>
-</div>
+</div> -->
+
+<section class="anbarRemoveData">
+
+	<div class="cstmAlertBox">
+		<div class="up">
+			<p class="alertTitle">!Warning!</p>
+			<p id="alertMessage">asdadsad</p>
+		</div>
+		<div class="down">
+			<button id="alertNo">İnkar et</button>
+			<button id="alertYes">Qəbul et</button>
+		</div>
+	</div>
+
+	<div class="anbarRemoveContainer">
+
+		<div id="optionsMenu">
+			<div id="optionsNew" class="optionsBtn">
+				<img src="../stylesGlobal/imgs/new_btn.svg" />
+			</div>
+			<div id="optionsDelete" class="optionsBtn">
+				<img src="../stylesGlobal/imgs/delete_btn.svg" />
+			</div>
+			<div class="optionsBtn" id="optionsAccept">
+				<img src="../stylesGlobal/imgs/accept_btn.svg" />
+			</div>
+			<div class="optionsBtn" id="optionsEndAll">
+				<img src="../stylesGlobal/imgs/endAll_btn.svg" />
+			</div>
+			<div class="optionsBtn" id="optionsEdit">
+				<img src="../stylesGlobal/imgs/edit_btn.svg" />
+			</div>
+		</div>
+
+		<div class="retails">
+
+			<div class="sessionsPart">
+				<div class="sessionsDateInput">
+					<div class="sessionsDate">
+						<div class="sessionGroupDate">
+							<input type="date" name="datefrom" id="dateFrom">
+							<p>-dan</p>
+						</div>
+						<div class="sessionGroupDate">
+							<input type="date" name="dateto" id="dateTo">
+							<p>-dək</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="addNewRetailSessionForm">
+				<h1>Add New Retail Session</h1>
+				<div class="container">
+					<div class="row">
+						<p>Begin Date</p>
+						<input type="date" id="addNewRetailBeginDate">
+					</div>
+					<div class="row">
+						<button id="addNewRetailSessionDiscardBtn">İnkar et</button>
+						<button id="addNewRetailSessionSubmitBtn">Qəbul et</button>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="retailsTable"></div>
+
+		</div>
+
+		<div class="moveableBorder"></div>
+
+		<div class="sessionsInfo">
+			<p id="defaultSessionsText">
+				Sessiya haqqında məlumatı görmək üçün topdan satışa tıklayın
+			</p>
+		
+			<div class="sessionsInfo-table"></div>
+			
+			<div class="addNewSessionInfoForm">
+				<h1>Add new session info</h1>
+				<div class="container" style="width: 100%;height: 100%;">
+					<div class="container" style="width: 100%;height: 45%;">
+						<div class="row">
+							<div class="container" style="padding: 10px">
+								<div class="row">
+									<p>Product Quantity</p>
+									<input type="text" id="productQuantity">
+								</div>
+								<div class="row">
+									<p>Currency</p>
+									<select id="productCurrency"></select>
+								</div>
+								<div class="row" style="visibility: hidden;">
+									<p>Currency</p>
+									<input type="text">
+								</div>
+							</div>
+							<div class="container style="padding: 10px">
+								<div class="row">
+									<p>Extra Charge</p>
+									<input type="number" max="100" min="0" id="productExtraCharge">
+								</div>
+								<div class="row">
+									<p>Discount</p>
+									<input type="number" max="100" min="0" id="productDiscount">
+								</div>
+								<div class="row">
+									<p>Reason</p>
+									<input type="text" id="productReason">
+								</div>
+							</div>
+							<div class="container" style="padding: 10px">
+								<div class="row">
+									<p>Price</p>
+									<input type="number" min="0" id="productPrice">
+								</div>
+								<div class="row">
+									<p>Cluster</p>
+									<select id="productCluster">
+										
+									</select>
+								</div>
+								<div class="row">
+									<p>Total Price</p>
+									<input type="number" id="productTotalPrice" disabled>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="container" style="border-top: 1px solid black; width: 100%;height: 55%;">
+						<div class="row" id="searchInputs" style="height: 100%;">
+							<div class="container" style="height: 100%;justify-content: center;">
+								<div class="searchInputBlock">
+									<input type="text" placeholder="Product id or name" id="valueForSearch" style="width: 100%;padding: 10px">
+									<button id="searchProduct">
+										Search
+									</button>
+								</div>
+							</div>
+						</div>
+						<div class="sessionsInfoSearch-table">
+						</div>
+						<div class="row" data-Buttons="true">
+							<button id="getBackToSearchInput">Back</button>
+							<button id="retailAddNewSessionDiscardBtn">
+								İnkar et
+							</button>
+							<button id="retailAddNewSessionSubmitBtn">
+								Qəbul et
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</section>

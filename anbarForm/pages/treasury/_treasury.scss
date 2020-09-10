@@ -1,5 +1,7 @@
 .treasury{
   background-color: $anbar-info-background-color;
+  display: flex;
+  flex-direction: column;
 }
 
 // exchange Table Part
@@ -9,7 +11,7 @@ select.exchangeSelectCurrency{
   background-color: white;
   font-size: 20px;
   padding: 5px;
-  height: 7vh;
+  // height: 7vh;
   border: 1px solid black;
   outline: none;
   text-align: center;
@@ -125,7 +127,7 @@ select.exchangeSelectCurrency{
           border-bottom: 3px solid black;
           border-right: 2px solid black;
           
-          background-color: transparent;
+          background-color: $primary-color;
           &:nth-child(1){
             border-left: 2px solid black;
           }
@@ -135,7 +137,7 @@ select.exchangeSelectCurrency{
       tbody {
         tr {
           // height: 60px;
-          background-color: rgba(231, 182, 113, 0.568);
+          background-color: $secondary-color-shade1;
           transition: 0.4s;
 
           td {
@@ -156,11 +158,15 @@ select.exchangeSelectCurrency{
           }
 
           &:nth-child(odd) {
-            background-color: rgba(156, 95, 9, 0.61);
+            background-color: $secondary-color-shade2;
           }
 
           &:hover {
-            background-color: white;
+            background-color: $primary-color-shade1;
+
+            td {
+              color: $secondary-color;
+            }
           }
         }
       }
@@ -172,18 +178,20 @@ select.exchangeSelectCurrency{
 // exchange Input Part
 
 .exchangeButtons{
-  position: absolute;
-  transform: translate(20%, 100%);
-  margin: 0 auto !important;
+  // position: absolute;
+  // transform: translate(20%, 100%);
+  // margin: 0 auto !important;
+  margin-top: 7vh;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   width: 73vw;
   z-index: 1000;
+  align-self: center;
 }
 
 .exchangeInputButton{
-  background-color: rgb(45, 201, 39);
+  background-color: $stand-out-color;
   color: black;
   font-size: 24px;
   width: 15vw;
@@ -195,7 +203,7 @@ select.exchangeSelectCurrency{
 }
 
 .exchangeDeleteButton{
-  background-color: rgb(228, 46, 46);
+  background-color: $primary-color-shade1;
   color: black;
   font-size: 24px;
   width: 15vw;
@@ -210,8 +218,8 @@ select.exchangeSelectCurrency{
   padding: 5px;
   border: 1px solid black;
   font-size: 24px;
-  margin-bottom: 5px;
-  height: 7vh;
+  // margin-bottom: 5px;
+  // height: 7vh;
   width: 10vw;
   outline: none;
   &:focus{
