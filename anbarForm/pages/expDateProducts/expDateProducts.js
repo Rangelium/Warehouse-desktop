@@ -10,43 +10,25 @@ async function fillExpDateOverTable() {
 	console.log(data);
 	$(".exp-date-over-table").remove();
 
-	$(".exp-date-over-data").append(
-		"<table class='exp-date-over-table'></table>"
-	);
+	$(".exp-date-over-data").append("<table class='exp-date-over-table'></table>");
 	$(".exp-date-over-table").append("<thead></thead>");
 	$(".exp-date-over-table").append("<tbody></tbody>");
 
-	$(".exp-date-over-table > thead").append(
-		`<th>${languages["exp_date"]}:</th>`
-	);
-	$(".exp-date-over-table > thead").append(
-		`<th>${languages["product_name"]}:</th>`
-	);
+	$(".exp-date-over-table > thead").append(`<th>${languages["exp_date"]}:</th>`);
+	$(".exp-date-over-table > thead").append(`<th>${languages["product_name"]}:</th>`);
 	$(".exp-date-over-table > thead").append(`<th>${languages["barcode"]}:</th>`);
-	$(".exp-date-over-table > thead").append(
-		`<th>${languages["manufacturer"]}:</th>`
-	);
-	$(".exp-date-over-table > thead").append(
-		`<th>${languages["quantity"]}:</th>`
-	);
-	$(".exp-date-over-table > thead").append(
-		`<th>${languages["unit"]}:</th>`
-	);
-	$(".exp-date-over-table > thead").append(
-		`<th>${languages["unit_price"]}:</th>`
-	);
-	$(".exp-date-over-table > thead").append(
-		`<th>${languages["currency"]}:</th>`
-	);
-	$(".exp-date-over-table > thead").append(
-		`<th>${languages["total_price"]}:</th>`
-	);
-	$(".exp-date-over-table > thead").append(`<th>${languages['receipt_num']}:</th>`);
+	$(".exp-date-over-table > thead").append(`<th>${languages["manufacturer"]}:</th>`);
+	$(".exp-date-over-table > thead").append(`<th>${languages["quantity"]}:</th>`);
+	$(".exp-date-over-table > thead").append(`<th>${languages["unit"]}:</th>`);
+	$(".exp-date-over-table > thead").append(`<th>${languages["unit_price"]}:</th>`);
+	$(".exp-date-over-table > thead").append(`<th>${languages["currency"]}:</th>`);
+	$(".exp-date-over-table > thead").append(`<th>${languages["total_price"]}:</th>`);
+	$(".exp-date-over-table > thead").append(`<th>${languages["receipt_num"]}:</th>`);
 
 	data.forEach((el) => {
 		let row = `<tr class="single-expired-row">`;
 
-		row += `<td title="${moment(el.exp_date).format(
+		row += `<td class="" title="${moment(el.exp_date).format(
 			"DD MMMM YYYY, h:mm:ss"
 		)}">${moment(el.exp_date).format("DD MMMM YYYY")}</td>`;
 		row += `<td>${el.product_title}</td>`;
@@ -95,47 +77,27 @@ async function fillExpDateSoCloseTable() {
 
 	$(".exp-date-soclose-table").remove();
 
-	$(".exp-date-soclose-data").append(
-		"<table class='exp-date-soclose-table'></table>"
-	);
+	$(".exp-date-soclose-data").append("<table class='exp-date-soclose-table'></table>");
 	$(".exp-date-soclose-table").append("<thead></thead>");
 	$(".exp-date-soclose-table").append("<tbody></tbody>");
 
-	$(".exp-date-soclose-table > thead").append(
-		`<th>${languages["exp_date"]}:</th>`
-	);
-	$(".exp-date-soclose-table > thead").append(
-		`<th>${languages["product_name"]}:</th>`
-	);
-	$(".exp-date-soclose-table > thead").append(
-		`<th>${languages["barcode"]}:</th>`
-	);
-	$(".exp-date-soclose-table > thead").append(
-		`<th>${languages["manufacturer"]}:</th>`
-	);
-	$(".exp-date-soclose-table > thead").append(
-		`<th>${languages["quantity"]}:</th>`
-	);
-	$(".exp-date-soclose-table > thead").append(
-		`<th>${languages["unit"]}:</th>`
-	);
-	$(".exp-date-soclose-table > thead").append(
-		`<th>${languages["unit_price"]}:</th>`
-	);
-	$(".exp-date-soclose-table > thead").append(
-		`<th>${languages["currency"]}:</th>`
-	);
-	$(".exp-date-soclose-table > thead").append(
-		`<th>${languages["total_price"]}:</th>`
-	);
-	$(".exp-date-soclose-table > thead").append(`<th>${languages['receipt_num']}:</th>`);
+	$(".exp-date-soclose-table > thead").append(`<th>${languages["exp_date"]}:</th>`);
+	$(".exp-date-soclose-table > thead").append(`<th>${languages["product_name"]}:</th>`);
+	$(".exp-date-soclose-table > thead").append(`<th>${languages["barcode"]}:</th>`);
+	$(".exp-date-soclose-table > thead").append(`<th>${languages["manufacturer"]}:</th>`);
+	$(".exp-date-soclose-table > thead").append(`<th>${languages["quantity"]}:</th>`);
+	$(".exp-date-soclose-table > thead").append(`<th>${languages["unit"]}:</th>`);
+	$(".exp-date-soclose-table > thead").append(`<th>${languages["unit_price"]}:</th>`);
+	$(".exp-date-soclose-table > thead").append(`<th>${languages["currency"]}:</th>`);
+	$(".exp-date-soclose-table > thead").append(`<th>${languages["total_price"]}:</th>`);
+	$(".exp-date-soclose-table > thead").append(`<th>${languages["receipt_num"]}:</th>`);
 
 	data.forEach((el) => {
 		let row = `<tr>`;
 
-		row += `<td title="${moment(el.exp_date).format(
-			"DD MMMM YYYY, h:mm:ss"
-		)}">${moment(el.exp_date).format("DD MMMM YYYY")}</td>`;
+		row += `<td title="${moment(el.exp_date).format("DD MMMM YYYY, h:mm:ss")}">${moment(
+			el.exp_date
+		).format("DD MMMM YYYY")}</td>`;
 		row += `<td>${el.product_title}</td>`;
 		row += `<td>${el.barcode}</td>`;
 		row += `<td>${el.manufacturer_title}</td>`;

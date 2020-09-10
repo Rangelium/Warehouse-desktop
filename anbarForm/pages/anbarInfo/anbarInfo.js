@@ -1483,18 +1483,18 @@ function fillSingleCategoryTable(data) {
 	data.forEach((el) => {
 		let row = "<tr>";
 
-		row += `<td>${el.title}</td>`;
-		row += `<td>${el.barcode}</td>`;
-		row += `<td>${el.product_voen}</td>`;
-		row += `<td>${el.quantity}</td>`;
-		row += `<td>${el.price}</td>`;
-		row += `<td>${el.sum_price}</td>`;
+		row += `<td>${el.title ? el.title : "-"}</td>`;
+		row += `<td>${el.barcode ? el.barcode : "-"}</td>`;
+		row += `<td>${el.product_voen ? el.product_voen : "-"}</td>`;
+		row += `<td>${el.quantity ? el.quantity : "-"}</td>`;
+		row += `<td>${el.price ? el.price : "-"}</td>`;
+		row += `<td>${el.sum_price ? el.sum_price : "-"}</td>`;
 
-		row += `<td>${el.currency}</td>`;
-		row += `<td>${el.discount}</td>`;
-		row += `<td>${el.extra_charge}</td>`;
-		row += `<td>${el.product_cell}</td>`;
-		row += `<td>${el.product_manufacturer}</td>`;
+		row += `<td>${el.currency ? el.currency : "-"}</td>`;
+		row += `<td>${el.discount ? el.discount : "-"}</td>`;
+		row += `<td>${el.extra_charge ? el.extra_charge : "-"}</td>`;
+		row += `<td>${el.product_cell ? el.product_cell : "-"}</td>`;
+		row += `<td>${el.product_manufacturer ? el.product_manufacturer : "-"}</td>`;
 
 		row += `<td title="${moment(el.exp_date).format("Da MMMM YYYY, h:mm:ss")}">${moment(
 			el.exp_date
