@@ -3,6 +3,110 @@
 	height: 100vh;
 	overflow: hidden;
 
+	.blur {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		left: 0;
+		background-color: rgba(0, 0, 0, 0.801);
+		z-index: -1;
+	}
+
+	.successContainer {
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		align-items: center;
+		background-color: $stand-out-color;
+		display: flex;
+		justify-content: center;
+		transition: 0.5s;
+
+		z-index: -10;
+		opacity: 0;
+
+		svg {
+			position: relative;
+			top: -25px;
+		}
+
+		$circle-length: 151px;
+		$check-length: 36px;
+		@keyframes scaleAnimation {
+			0% {
+				opacity: 0;
+				transform: scale(1.5);
+			}
+			100% {
+				opacity: 1;
+				transform: scale(1);
+			}
+		}
+		@keyframes drawCircle {
+			0% {
+				stroke-dashoffset: $circle-length;
+			}
+			100% {
+				stroke-dashoffset: 0;
+			}
+		}
+		@keyframes drawCheck {
+			0% {
+				stroke-dashoffset: $check-length;
+			}
+			100% {
+				stroke-dashoffset: 0;
+			}
+		}
+		@keyframes fadeOut {
+			0% {
+				opacity: 1;
+			}
+			100% {
+				opacity: 0;
+			}
+		}
+		@keyframes fadeIn {
+			0% {
+				opacity: 0;
+			}
+			100% {
+				opacity: 1;
+			}
+		}
+
+		#successAnimationCircle {
+			stroke-dasharray: $circle-length $circle-length;
+			stroke: #fff;
+		}
+		#successAnimationCheck {
+			stroke-dasharray: $check-length $check-length;
+			stroke: #fff;
+		}
+		#successAnimationResult {
+			fill: #fff;
+			opacity: 0;
+		}
+		#successAnimation.animated {
+			animation: 1s ease-out 0s 1 both scaleAnimation;
+
+			#successAnimationCircle {
+				animation: 1s cubic-bezier(0.77, 0, 0.175, 1) 0s 1 both drawCircle,
+					0.3s linear 0.9s 1 both fadeOut;
+			}
+
+			#successAnimationCheck {
+				animation: 1s cubic-bezier(0.77, 0, 0.175, 1) 0s 1 both drawCheck,
+					0.3s linear 0.9s 1 both fadeOut;
+			}
+
+			#successAnimationResult {
+				animation: 0.3s linear 0.9s both fadeIn;
+			}
+		}
+	}
+
 	.productAuth-container {
 		width: 100%;
 		height: 100%;
@@ -199,6 +303,7 @@
 				display: flex;
 				justify-content: flex-end;
 				align-items: center;
+				z-index: 1000;
 
 				&:hover {
 					opacity: 1;
@@ -234,8 +339,8 @@
 				margin-bottom: 70px;
 
 				.productCard {
-					width: 400px;
-					height: 350px;
+					width: 330px;
+					height: 400px;
 					background-color: $primary-color;
 					display: flex;
 					flex-direction: column;
@@ -280,15 +385,74 @@
 							text-align: center;
 						}
 
+						.block.special {
+							height: 100%;
+
+							p {
+								font-size: 1.3rem;
+							}
+
+							.radioContainer {
+								.radioBtn {
+									display: block;
+									position: relative;
+									padding-left: 40px;
+									margin-bottom: 8px;
+									cursor: pointer;
+									user-select: none;
+
+									input {
+										position: absolute;
+										opacity: 0;
+										cursor: pointer;
+										height: 0;
+										width: 0;
+
+										&:hover ~ .checkmark {
+											background-color: #ccc;
+										}
+										&:checked ~ .checkmark {
+											background-color: $stand-out-color;
+										}
+										&:checked ~ .checkmark::after {
+											display: block;
+										}
+									}
+									.checkmark {
+										position: absolute;
+										top: -2px;
+										left: 15px;
+										height: 20px;
+										width: 20px;
+										background-color: #eee;
+
+										&::after {
+											content: "";
+											position: absolute;
+											display: none;
+											left: 5px;
+											top: -3px;
+											width: 10px;
+											height: 20px;
+											border: solid white;
+											border-width: 0 3px 3px 0;
+											transform: rotate(45deg);
+										}
+									}
+								}
+							}
+						}
+
 						p {
 							cursor: default;
 							color: #000;
-							font-size: 1.2rem;
+							font-size: 1.1rem;
+							margin: 5px 0;
 
 							span {
 								position: relative;
 								left: 5px;
-								font-size: 1.3rem;
+								font-size: 1.2rem;
 								color: $secondary-color;
 								transition: 0.2s;
 								cursor: default;
@@ -308,7 +472,7 @@
 							font-size: 1.1rem;
 							font-weight: 500;
 							transition: 0.4s;
-							width: 60%;
+							width: 50%;
 							padding: 0 10px;
 
 							&::placeholder {
@@ -336,7 +500,7 @@
 						textarea {
 							resize: none;
 							height: 100px;
-							width: 90%;
+							width: 95%;
 							outline: none;
 							background-color: transparent;
 							border: 2px solid $secondary-color;

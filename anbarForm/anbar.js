@@ -20,7 +20,6 @@ var USER = {
 // }, 200);
 
 //todo CURRENCY POP UP SECTION
-// SETTINGS PART
 $.get(
 	`https://cbar.az/currencies/${moment(new Date()).format("DD.MM.YYYY")}.xml`,
 	{},
@@ -56,12 +55,6 @@ $.get(
 				if (isChanged) $(".sellersPopUpContainer").show();
 			});
 		});
-
-		// $(data)
-		// 	.find('Valute[Code="USD"]')
-		// 	.each(function () {
-		// 		console.log($(this).find("Value").text());
-		// 	});
 	}
 );
 
@@ -89,12 +82,6 @@ $("#acceptCurrencyChanges").click(() => {
 		});
 	});
 });
-
-// =======================================================
-// setTimeout(() => {
-// 	userLoggedIn();
-// 	openPage("anbarRemove");
-// }, 200);
 
 // ====================================================================================
 //  													   Connection system part

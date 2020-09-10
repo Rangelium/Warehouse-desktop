@@ -91,7 +91,7 @@ function startAnbarForm() {
 				},
 			},
 			{
-				label: "Avtorizasiya",
+				label: "M.A.S",
 				name: "productAuth",
 				shortcut: "ctrl+shift+p",
 				click: function () {
@@ -103,7 +103,7 @@ function startAnbarForm() {
 				label: "Siyahı",
 				submenu: [
 					{
-						label: "Bağlaşdırma",
+						label: "Bağlama",
 						name: "packaging",
 						click: function () {
 							mainWindow.webContents.send("changeAnbarPage", "packaging");

@@ -7,6 +7,15 @@ $overall-box-left-shift: 70px;
 $overall-box-animation-time: 0.6s;
 $overall-box-fade-out-animation-delay: $overall-data-fade-in-animation-delay;
 
+$trash-bin-show-top-shift: -50px;
+$trash-bin-animation-time: 0.4s;
+$trash-bin-fade-in-animation-delay: $overall-data-animation-time + 0.1;
+
+$trash-bin-top-shift: -30px;
+$trash-bin-right-shift: 70px;
+$trash-bin-animation-time: 0.6s;
+$trash-bin-fade-out-animation-delay: $overall-data-fade-in-animation-delay;
+
 .anbarInfo {
 	background-color: $anbar-info-background-color;
 	display: flex;
@@ -949,6 +958,7 @@ $overall-box-fade-out-animation-delay: $overall-data-fade-in-animation-delay;
 		.searchContainer {
 			position: sticky;
 			top: 0;
+			z-index: 10000;
 
 			p {
 				font-family: sans-serif;
@@ -972,7 +982,7 @@ $overall-box-fade-out-animation-delay: $overall-data-fade-in-animation-delay;
 				direction: ltr;
 				width: 100%;
 				padding: 10px;
-				font-size: 0.8rem;
+				font-size: 1.2rem;
 				outline: none;
 				border: 3px solid $anbar-info-search-box-border-color;
 				transition: 0.4s;
@@ -1021,8 +1031,8 @@ $overall-box-fade-out-animation-delay: $overall-data-fade-in-animation-delay;
 
 			#showOverallInfo,
 			#hideShowTreeView,
-			#expandTreeView,
-			#closeTreeView {
+			#expandCloseTreeView,
+			#trashBin {
 				z-index: 100;
 				border: 2px solid $anbar-info-small-nav-btn-border-color;
 				background-color: $anbar-info-small-nav-btn-background-color;
@@ -1043,17 +1053,27 @@ $overall-box-fade-out-animation-delay: $overall-data-fade-in-animation-delay;
 
 			#showOverallInfo[data-isClicked="true"],
 			#hideShowTreeView[data-isClicked="true"],
-			#expandTreeView[data-isClicked="true"],
-			#closeTreeView[data-isClicked="true"] {
+			#expandCloseTreeView[data-isClicked="true"],
+			#trashBin[data-isClicked="true"] {
+				border: 2px solid $anbar-info-small-nav-btn-border-clicked-color;
+
 				&::after {
 					width: 230px;
 					height: 230px;
 				}
 
-				border: 2px solid $anbar-info-small-nav-btn-border-clicked-color;
-
 				p {
 					color: $anbar-info-small-nav-btn-text-clicked-color;
+				}
+			}
+
+			#trashBin {
+				position: absolute;
+				right: 0;
+			}
+			#trashBin[data-isClicked="false"] {
+				&::after {
+					transition-delay: $overall-box-fade-out-animation-delay;
 				}
 			}
 
@@ -1195,6 +1215,48 @@ $overall-box-fade-out-animation-delay: $overall-data-fade-in-animation-delay;
 				}
 			}
 
+			.trash-bin {
+				flex-grow: 1;
+				overflow: hidden;
+
+				position: absolute;
+				background-color: $anbar-info-overall-data-background-color;
+
+				.trash-bin-data {
+					position: absolute;
+					left: 0;
+					width: 100%;
+					height: 100%;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					flex-direction: column;
+
+					opacity: 0;
+					pointer-events: none;
+				}
+			}
+			.trash-bin[data-isShoving="true"] {
+				animation: showTrashBox $overall-box-animation-time 1 forwards ease-in;
+
+				.trash-bin-data {
+					pointer-events: all;
+					animation: showTrashData $overall-box-animation-time 1
+						$overall-data-fade-in-animation-delay forwards;
+				}
+			}
+			.trash-bin[data-isShoving="false"] {
+				width: 100%;
+				height: 100%;
+				animation: hideTrashBox $overall-box-animation-time
+					$overall-box-fade-out-animation-delay 1 forwards;
+
+				.trash-bin-data {
+					pointer-events: none;
+					animation: hideTrashData $overall-box-animation-time 1 forwards;
+				}
+			}
+
 			@keyframes showAnimatedBox {
 				from {
 					top: $overall-box-top-shift;
@@ -1247,9 +1309,212 @@ $overall-box-fade-out-animation-delay: $overall-data-fade-in-animation-delay;
 					top: $overall-data-show-top-shift;
 				}
 			}
+
+			@keyframes showTrashBox {
+				from {
+					top: $trash-bin-top-shift;
+					right: $trash-bin-right-shift;
+					width: 0;
+					height: 0;
+					border-radius: 50%;
+				}
+				to {
+					top: 0;
+					right: 0;
+					width: 100%;
+					height: 100%;
+					border-radius: 0;
+				}
+			}
+			@keyframes hideTrashBox {
+				from {
+					top: 0;
+					right: 0;
+					width: 100%;
+					height: 100%;
+					border-radius: 0;
+				}
+				to {
+					top: $trash-bin-top-shift;
+					right: $trash-bin-right-shift;
+					width: 0;
+					height: 0;
+					border-radius: 30%;
+				}
+			}
+			@keyframes showTrashData {
+				from {
+					opacity: 0;
+					top: $trash-bin-show-top-shift;
+				}
+				to {
+					opacity: 1;
+					top: 0;
+				}
+			}
+			@keyframes hideTrashData {
+				from {
+					opacity: 1;
+					top: 0;
+				}
+				to {
+					opacity: 0;
+					top: $trash-bin-show-top-shift;
+				}
+			}
 		}
 
 		.singleProductInfo {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			background-color: $anbar-info-background-color;
+			z-index: -1;
+
+			opacity: 0;
+			pointer-events: none;
+			transition: 0.6s;
+
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+
+			.text-data {
+				display: flex;
+				flex-grow: 1;
+				flex-direction: column;
+				justify-content: space-around;
+				align-items: center;
+				// height: 30%;
+				width: 100%;
+
+				.row {
+					width: 100%;
+					display: flex;
+					align-items: center;
+					justify-content: space-around;
+					
+					h2 {
+						font-size: 1.8rem;
+						color: black;
+						user-select: none;
+
+						span {
+							font-size: 1.8rem;
+						}
+					}
+
+					p {
+						color: black;
+						font-size: 1.4rem;
+						user-select: none;
+						font-weight: bold;
+
+						span {
+							font-size: 1.4rem;
+							font-weight: normal;
+						}
+					}
+
+					span {
+						user-select: initial;
+						color: $dark-color;
+						transition: 0.2s;
+						cursor: default;
+
+						&:hover {
+							color: $primary-color;
+						}
+					}
+				}
+			}
+
+			.table-data {
+				width: 100%;
+				height: 30%;
+				overflow-y: scroll;
+				overflow-x: hidden;
+				transition: 0.4s;
+				position: relative;
+
+				&:hover {
+					height: 60%;
+				}
+
+				&::-webkit-scrollbar {
+					width: 10px;
+				}
+				/* Track */
+				&::-webkit-scrollbar-track {
+					box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+					border-radius: 10px;
+					border-radius: 10px;
+				}
+				/* Handle */
+				&::-webkit-scrollbar-thumb {
+					border-radius: 10px;
+					border-radius: 10px;
+					background: $anbar-info-tree-view-scrollbar-color;
+					box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+				}
+
+				.singleProductTable {
+					width: 100%;
+					border-collapse: collapse;
+					position: relative;
+
+					thead {
+						th {
+							cursor: default;
+							font-size: 1.2rem;
+							padding: 10px 5px;
+
+							border-top: 2px solid black;
+							border-bottom: 3px solid black;
+							border-right: 2px solid black;
+
+							background-color: $primary-color-shade1;
+						}
+					}
+					tbody {
+						tr {
+							// height: 60px;
+							background-color: $secondary-color-shade1;
+							transition: 0.4s;
+
+							td {
+								padding: 5px 10px;
+								text-align: center;
+								font-size: 1.1rem;
+								cursor: default;
+								user-select: none;
+								color: #000;
+
+								border-top: 2px solid black;
+								border-bottom: 2px solid black;
+								border-left: 2px solid rgb(36, 36, 36);
+								border-right: 2px solid rgb(36, 36, 36);
+
+								&:last-child {
+									border-right: none;
+								}
+							}
+
+							&:nth-child(odd) {
+								background-color: $secondary-color-shade2;
+							}
+
+							&:hover {
+								background-color: $stand-out-color;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		.singleCategoryInfo {
 			position: absolute;
 			width: 100%;
 			height: 100%;
