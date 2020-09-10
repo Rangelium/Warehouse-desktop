@@ -136,6 +136,7 @@ function showOverallInfo() {
 				// Show box after loading content
 				$("#showOverallInfo").attr("data-isClicked", "true");
 				$(".overall-info").attr("data-isShoving", "true");
+				$(".overall-info").css("z-index", "10");
 			});
 		} catch (error) {
 			console.log(error);
@@ -146,6 +147,9 @@ function showOverallInfo() {
 function hideOverallInfo() {
 	$("#showOverallInfo").attr("data-isClicked", "false");
 	$(".overall-info").attr("data-isShoving", "false");
+	setTimeout(() => {
+		$(".overall-info").css("z-index", "-1");
+	}, 1000);
 }
 // Handle onclick showOverallInfo
 $("#showOverallInfo").click(function () {
@@ -1451,7 +1455,71 @@ $("#searchInputBox").focusout(function () {
 // =====================================================================================
 //                                SingleCategoryInfo part
 // =====================================================================================
+function fillSingleCategoryTable(data) {
+	$(".singleCategoryTable").remove();
 
+	$(".singleCategoryInfo > .table-data").append(
+		"<table class='singleCategoryTable'></table>"
+	);
+	$(".singleCategoryTable").append("<thead></thead>");
+	$(".singleCategoryTable").append("<tbody></tbody>");
+
+	$(".singleCategoryTable > thead").append(`<th>Title:</th>`);
+	$(".singleCategoryTable > thead").append(`<th>Barcode:</th>`);
+	$(".singleCategoryTable > thead").append(`<th>VOEN:</th>`);
+	$(".singleCategoryTable > thead").append(`<th>Quantity:</th>`);
+	$(".singleCategoryTable > thead").append(`<th>Price:</th>`);
+	$(".singleCategoryTable > thead").append(`<th>Sum Price:</th>`);
+
+	$(".singleCategoryTable > thead").append(`<th>Currency:</th>`);
+	$(".singleCategoryTable > thead").append(`<th>Discount:</th>`);
+	$(".singleCategoryTable > thead").append(`<th>Extra charge:</th>`);
+	$(".singleCategoryTable > thead").append(`<th>Product cell:</th>`);
+	$(".singleCategoryTable > thead").append(`<th>Manufacturer:</th>`);
+
+	$(".singleCategoryTable > thead").append(`<th>Expiration date:</th>`);
+	$(".singleCategoryTable > thead").append(`<th>Comment:</th>`);
+
+	data.forEach((el) => {
+		let row = "<tr>";
+
+		row += `<td>${el.title}</td>`;
+		row += `<td>${el.barcode}</td>`;
+		row += `<td>${el.product_voen}</td>`;
+		row += `<td>${el.quantity}</td>`;
+		row += `<td>${el.price}</td>`;
+		row += `<td>${el.sum_price}</td>`;
+
+		row += `<td>${el.currency}</td>`;
+		row += `<td>${el.discount}</td>`;
+		row += `<td>${el.extra_charge}</td>`;
+		row += `<td>${el.product_cell}</td>`;
+		row += `<td>${el.product_manufacturer}</td>`;
+
+		row += `<td title="${moment(el.exp_date).format("Da MMMM YYYY, h:mm:ss")}">${moment(
+			el.exp_date
+		).format("Da MMMM YYYY")}</td>`;
+		row += `<td>${el.reason}</td>`;
+
+		row += "</tr>";
+		$(".singleCategoryTable > tbody").append(row);
+	});
+
+	// Fill empty tables
+	if (data.length < 7) {
+		for (let i = 0; i < 7 - data.length; i++) {
+			let row = "<tr style='height: 40px'>";
+
+			for (let j = 0; j < 13; j++) {
+				row += "<td></td>";
+			}
+
+			row += "</tr>";
+
+			$(".singleCategoryTable > tbody").append(row);
+		}
+	}
+}
 async function showCategoryInfo(categoryData) {
 	$("#singleProductId").html("");
 	$(".singleProductInfo").css("opacity", "0");
@@ -1463,17 +1531,80 @@ async function showCategoryInfo(categoryData) {
 		$(tmp[i]).attr("data-isselected", "false");
 	}
 	// Check if already opened
-	console.log(categoryData);
-	if ($("#singleCategoryId").html() == categoryData.id) {
-		$("#singleCategoryId").html("");
+	if ($(".singleCategoryInfo").attr("data-id") == categoryData.id) {
+		$(".singleCategoryInfo").attr("data-id", "none");
 		$(".singleCategoryInfo").css("opacity", "0");
 		$(".singleCategoryInfo").css("pointer-events", "none");
 		$(".singleCategoryInfo").css("z-index", "-1");
 		return;
 	}
 
-	$("#singleCategoryName").html(categoryData.title);
-	$("#singleCategoryId").html(categoryData.id);
+	$(".singleCategoryInfo").attr("data-id", categoryData.id);
+	// Preparing data
+	let singleCategoryInfo = await new Promise((resolve) => {
+		poolConnect.then((pool) => {
+			pool
+				.request()
+				.input("id", categoryData.id)
+				.execute("anbar.main_category_click", (err, res) => {
+					if (err !== null) console.log(err);
+					resolve(res.recordset[0]);
+				});
+		});
+	});
+
+	console.log(singleCategoryInfo);
+
+	$("#singleCategory_quantity").html(singleCategoryInfo.quantity);
+	$("#singleCategory_left").html(singleCategoryInfo.remaining_products);
+	$("#singleCategory_cost").html(singleCategoryInfo.cost);
+
+	$("#singleCategory_inName").html(
+		singleCategoryInfo.last_in_name ? singleCategoryInfo.last_in_name : "-"
+	);
+	$("#singleCategory_inPrice").html(
+		singleCategoryInfo.last_in_price ? singleCategoryInfo.last_in_price : "-"
+	);
+	$("#singleCategory_inPriceTotal").html(
+		singleCategoryInfo.last_in_price_total ? singleCategoryInfo.last_in_price_total : "-"
+	);
+	$("#singleCategory_inQuantity").html(
+		singleCategoryInfo.last_in_quantity ? singleCategoryInfo.last_in_quantity : "-"
+	);
+	$("#singleCategory_inCurrency").html(
+		singleCategoryInfo.last_in_currency ? singleCategoryInfo.last_in_currency : "-"
+	);
+
+	$("#singleCategory_outName").html(
+		singleCategoryInfo.last_out_name ? singleCategoryInfo.last_out_name : "-"
+	);
+	$("#singleCategory_outPrice").html(
+		singleCategoryInfo.last_out_price ? singleCategoryInfo.last_out_price : "-"
+	);
+	$("#singleCategory_outPriceTotal").html(
+		singleCategoryInfo.last_out_price_total
+			? singleCategoryInfo.last_out_price_total
+			: "-"
+	);
+	$("#singleCategory_outQuantity").html(
+		singleCategoryInfo.last_out_quantity ? singleCategoryInfo.last_out_quantity : "-"
+	);
+	$("#singleCategory_outCurrency").html(
+		singleCategoryInfo.last_out_currency ? singleCategoryInfo.last_out_currency : "-"
+	);
+
+	let singleCategoryTable = await new Promise((resolve) => {
+		poolConnect.then((pool) => {
+			pool
+				.request()
+				.input("id", categoryData.id)
+				.execute("anbar.main_tree_category_click", (err, res) => {
+					if (err !== null) console.log(err);
+					resolve(res.recordset);
+				});
+		});
+	});
+	fillSingleCategoryTable(singleCategoryTable);
 
 	$(".singleCategoryInfo").css("opacity", "1");
 	$(".singleCategoryInfo").css("pointer-events", "unset");
@@ -1487,7 +1618,9 @@ async function showCategoryInfo(categoryData) {
 function fillSingleProductTable(data) {
 	$(".singleProductTable").remove();
 
-	$(".table-data").append("<table class='singleProductTable'></table>");
+	$(".singleProductInfo > .table-data").append(
+		"<table class='singleProductTable'></table>"
+	);
 	$(".singleProductTable").append("<thead></thead>");
 	$(".singleProductTable").append("<tbody></tbody>");
 
