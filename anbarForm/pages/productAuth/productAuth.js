@@ -58,14 +58,13 @@ function fillTable(data) {
 		let status;
 		switch (el.is_confirmed) {
 			case null:
-				if (el.order_id === null) {
-					status = "------";
-				} else {
-					status = languages["order_processing"];
-				}
+				status = "------";
+				break;
+			case -1:
+				status = languages["order_refused"];
 				break;
 			case 0:
-				status = languages["order_refused"];
+				status = languages["order_processing"];
 				break;
 			case 1:
 				status = languages["order_accepted"];
