@@ -1070,6 +1070,9 @@ $trash-bin-fade-out-animation-delay: $overall-data-fade-in-animation-delay;
 			#trashBin {
 				position: absolute;
 				right: 0;
+
+				display: none !important;
+				pointer-events: none !important;
 			}
 			#trashBin[data-isClicked="false"] {
 				&::after {
@@ -1088,10 +1091,8 @@ $trash-bin-fade-out-animation-delay: $overall-data-fade-in-animation-delay;
 			flex-grow: 1;
 			background-color: transparent;
 			position: relative;
-			z-index: 10;
 
 			.info {
-				z-index: -1;
 				display: flex;
 				flex-direction: column;
 				justify-content: space-between;
@@ -1394,7 +1395,7 @@ $trash-bin-fade-out-animation-delay: $overall-data-fade-in-animation-delay;
 					display: flex;
 					align-items: center;
 					justify-content: space-around;
-					
+
 					h2 {
 						font-size: 1.8rem;
 						color: black;
@@ -1531,49 +1532,57 @@ $trash-bin-fade-out-animation-delay: $overall-data-fade-in-animation-delay;
 			align-items: center;
 
 			.text-data {
-				display: flex;
 				flex-grow: 1;
-				flex-direction: column;
-				justify-content: space-around;
+				display: flex;
+				justify-content: center;
 				align-items: center;
-				// height: 30%;
+				flex-direction: column;
 				width: 100%;
 
-				.row {
-					width: 100%;
-					display: flex;
-					align-items: center;
-					justify-content: space-around;
-
-					h2 {
-						font-size: 1.8rem;
-						color: black;
-						user-select: none;
-
-						span {
-							font-size: 1.8rem;
-						}
-					}
-
-					p {
-						color: black;
-						font-size: 1.4rem;
-						user-select: none;
-
-						span {
-							font-size: 1.4rem;
-						}
-					}
+				h2 {
+					padding: 10px;
+					font-size: 1.6rem;
+					color: $anbar-info-overall-data-header-text-color;
+				}
+				p {
+					color: $anbar-info-overall-data-text-color;
+					padding: 3px;
+					font-size: 1.1rem;
 
 					span {
-						user-select: initial;
-						color: $dark-color;
+						font-size: 1.1rem;
+						font-weight: bold;
+						color: $anbar-info-overall-data-values-color;
 						transition: 0.2s;
 						cursor: default;
 
 						&:hover {
 							color: $primary-color;
 						}
+					}
+				}
+
+				.upper-text {
+					width: 100%;
+					height: 40%;
+					display: flex;
+					flex-direction: column;
+					justify-content: center;
+					align-items: center;
+				}
+
+				.lover-text {
+					height: 60%;
+					display: flex;
+					flex-direction: row;
+
+					.left-text,
+					.right-text {
+						padding: 0 50px;
+						display: flex;
+						flex-direction: column;
+						justify-content: flex-start;
+						align-items: center;
 					}
 				}
 			}
@@ -1607,7 +1616,7 @@ $trash-bin-fade-out-animation-delay: $overall-data-fade-in-animation-delay;
 					box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
 				}
 
-				.singleProductTable {
+				.singleCategoryTable {
 					width: 100%;
 					border-collapse: collapse;
 					position: relative;
@@ -1615,8 +1624,8 @@ $trash-bin-fade-out-animation-delay: $overall-data-fade-in-animation-delay;
 					thead {
 						th {
 							cursor: default;
-							font-size: 1.2rem;
-							padding: 10px 5px;
+							font-size: 1.1rem;
+							padding: 5px 2px;
 
 							border-top: 2px solid black;
 							border-bottom: 3px solid black;
@@ -1632,9 +1641,9 @@ $trash-bin-fade-out-animation-delay: $overall-data-fade-in-animation-delay;
 							transition: 0.4s;
 
 							td {
-								padding: 5px 10px;
+								// padding: 5px 2px;
 								text-align: center;
-								font-size: 1.1rem;
+								font-size: 1rem;
 								cursor: default;
 								user-select: none;
 								color: #000;
