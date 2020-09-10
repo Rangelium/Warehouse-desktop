@@ -812,10 +812,9 @@ function fillRetailsTable(data){
 		row += `<td title="${moment(el.begin_date).format("DD MMMM YYYY hh:mm:ss")}">
 			${moment(el.begin_date).format("DD MMMM YYYY")}
 		</td>`
-
 		row += `<td>${el.cost_price == null ? "Empty" : el.cost_price.toFixed(2)}</td>`
 		row += `<td>${el.default_currency}</td>`
-		row += `<td>${el.is_done}</td>`
+		row += `<td>${el.is_done == true ? "+" : "-"}</td>`
 		row += `<td>${el.whole_price == null ? "Empty" : el.whole_price.toFixed(2)}</td>`
 		row += "</tr>";
 
@@ -1419,7 +1418,7 @@ $("#retailAddNewSessionSubmitBtn").click(() => {
 				.input("product_cell", mssql.Int, retailSearch_productCell)
 				.input("barcode", mssql.BigInt, retailSearch_barcode)
 				.input("product_id", mssql.Int, retailSearch_productId)
-				.input("document_id_as_parent", mssql.BigInt, retailSearch_currencyId)
+				.input("document_id_as_parent", mssql.BigInt, retailSearch_documentId)
 				.input("product_manufacturer", mssql.Int, retailSearch_productManufacturer)
 				.input("retail_sale_session_id", mssql.Int, selectedSession)
 				.input("left", mssql.Int, retailSeatch_productLeft)
