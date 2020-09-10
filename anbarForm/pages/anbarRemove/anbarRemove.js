@@ -1312,19 +1312,20 @@ function fillRetailSessionSearchTable(data){
 	$(".anbarRemoveSessionsInfoSearchTable > thead").append(`<th>${languages['unit']}</th>`)
 	$(".anbarRemoveSessionsInfoSearchTable > thead").append(`<th>${languages['unit_price']}</th>`)
 	$(".anbarRemoveSessionsInfoSearchTable > thead").append(`<th>${languages['currency']}</th>`)
-
+	console.log(data)
 	data.forEach((i) => {
 		let row = `<tr class='retail-single-searchResult'
 			data-productId="${i.product_id}" 
 			data-currencyId="${i.currency_id}" 
 			data-barcode="${i.barcode}" 
 			data-documentId="${i.document_id}" 
-			data-prductCell="${i.product_cell}" 
+			data-productCell="${i.product_cell}" 
 			data-productManufacturer="${i.product_manufacturer}" 
 			data-productUnitPrice="${i.unit_price}"
 			data-productLeft="${i.left}"
 			data-productExpDate="${i.exp_date}"
 		>`;
+		console.log("Product cell:" + `${i.product_cell}`);
 		row += `<td>${i.product_title}</td>`
 		row += `<td title="${moment(i.exp_date).format('DD MMMM YYYY hh:mm:ss')}">
 			${moment(i.exp_date).format("DD MMMM YYYY")}
@@ -1351,6 +1352,7 @@ function fillRetailSessionSearchTable(data){
 	$(".retail-single-searchResult").click(function(){
 		$(".retail-single-searchResult").attr("data-isSelected", "False");
 		$(this).attr("data-isSelected","True");
+		console.log($(this).attr("data-productCell"))
 		retailSearch_productId = $(this).attr("data-productId");
 		retailSearch_currencyId = $(this).attr("data-currencyId");
 		retailSearch_barcode = $(this).attr("data-barcode");
