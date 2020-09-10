@@ -1653,7 +1653,7 @@ function fillSingleProductTable(data) {
 			el.exp_date
 		).format("Da MMMM YYYY")}</td>`;
 		row += `<td>${el.is_out ? "Removed" : "Added"}</td>`;
-		row += `<td>${el.performed_by === undefined ? "-" : el.performed_by}</td>`;
+		row += `<td>${el.performed_by === undefined ? "+" : el.performed_by}</td>`;
 		row += `<td>${el.product_cell}</td>`;
 
 		row += "</tr>";
