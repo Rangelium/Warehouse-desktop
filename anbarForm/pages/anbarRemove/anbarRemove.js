@@ -1222,6 +1222,7 @@ function showAddNewSessionInfoForm(){
 				data.push(i);
 			}
 			console.log(res);
+			$("#productCurrency").empty();
 			for (let result of data) {
 				$("#productCurrency").append(
 					$("<option>", { value: result["id"], text: result["title"] })
@@ -1381,6 +1382,7 @@ function fillClustersDropdown(productId){
 						data.push(i);
 					}
 					console.log(res);
+					$("#productCluster").empty();
 					for (let result of data) {
 						$("#productCluster").append(
 							$("<option>", { value: result["cluster_order"], text: result["title"] })
