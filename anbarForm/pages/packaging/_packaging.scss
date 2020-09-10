@@ -39,6 +39,13 @@
   }
 }
 
+#restoreSection{
+  background-color: $primary-color-shade1 !important;
+  &:hover{
+    background-color: lighten($primary-color-shade1, 10%);
+  }
+}
+
 .packagingProductInfo {
   // margin-top: 5%;
   position: absolute;
@@ -134,13 +141,13 @@
         th {
           cursor: default;
           font-size: 1.2rem;
-          padding: 0 10px;
+          padding: 5px 10px;
 
           border-top: 2px solid black;
           border-bottom: 3px solid black;
           border-right: 2px solid black;
           
-          background-color: transparent;
+          background-color: $primary-color;
           &:nth-child(1){
             border-left: 2px solid black;
           }
@@ -150,7 +157,7 @@
       tbody {
         tr {
           // height: 60px;
-          background-color: rgba(231, 182, 113, 0.568);
+          background-color: $secondary-color-shade1;
           transition: 0.4s;
 
           td {
@@ -171,11 +178,15 @@
           }
 
           &:nth-child(odd) {
-            background-color: rgba(156, 95, 9, 0.61);
+            background-color: $secondary-color-shade2;
           }
 
           &:hover {
-            background-color: white;
+            background-color: $primary-color-shade1;
+
+            td {
+              color: $secondary-color;
+            }
           }
         }
       }
@@ -204,7 +215,7 @@
 }
 
 .packagingInputButton{
-  background-color: rgb(45, 201, 39);
+  background-color: $stand-out-color;
   color: black;
   font-size: 24px;
   width: 10vw;
@@ -213,12 +224,15 @@
   box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 0.308);
   cursor: pointer;
   outline: none;
+  &:hover{
+    background-color: lighten($stand-out-color, 10%);
+  }
 }
 
 
 
 .packagingDeleteButton{
-  background-color: rgb(228, 46, 46);
+  background-color: $primary-color-shade1;
   color: black;
   font-size: 24px;
   width: 15vw;
@@ -227,6 +241,9 @@
   box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 0.308);
   cursor: pointer;
   outline: none;
+  &:hover{
+    background-color: lighten($primary-color-shade1, 10%);
+  }
 }
 
 
@@ -234,7 +251,7 @@
   padding: 5px;
   border: 1px solid black;
   font-size: 24px;
-  margin-bottom: 5px;
+  // margin-bottom: 5px;
   outline: none;
   &:focus{
     outline: 1px solid rgb(7, 7, 65);

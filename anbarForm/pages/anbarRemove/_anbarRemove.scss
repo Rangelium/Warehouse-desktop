@@ -1,661 +1,1448 @@
-$base-spacing-unit: 24px;
-$half-spacing-unit: $base-spacing-unit / 2;
+// $base-spacing-unit: 24px;
+// $half-spacing-unit: $base-spacing-unit / 2;
 
-$color-alpha: #1772FF;
-$color-form-highlight: black;
+// $color-alpha: #1772FF;
+// $color-form-highlight: black;
 
 
-$session-table-header-background-color: #8d560d;
-$session-table-row-bacground-color: white;
-$session-info-table-header-background-color: #8d560d;
-$session-info-table-row-bacground-color: white;
+// $session-table-header-background-color: #8d560d;
+// $session-table-row-bacground-color: white;
+// $session-info-table-header-background-color: #8d560d;
+// $session-info-table-row-bacground-color: white;
 
-$anbar-remove-select-session-button-background-color: $primary-color-shade3;
-$anbar-remove-create-session-part-button-color: $stand-out-color;
-$anbar-remove-input-background-color: $primary-color-shade3;
-$anbar-remove-input-border-color: $stand-out-color;
+// $anbar-remove-select-session-button-background-color: $primary-color-shade3;
+// $anbar-remove-create-session-part-button-color: $stand-out-color;
+// $anbar-remove-input-background-color: $primary-color-shade3;
+// $anbar-remove-input-border-color: $stand-out-color;
 
-#selectSessionsButton{
-  background-color: $anbar-remove-select-session-button-background-color;
-  color: #000000;
-  user-select: none;
-  &:hover{
-    background-color: $primary-color-shade2;
-  }
-  // font-weight: bold;
-}  
+// #selectSessionsButton{
+//   background-color: $anbar-remove-select-session-button-background-color;
+//   color: #000000;
+//   user-select: none;
+//   &:hover{
+//     background-color: $primary-color-shade2;
+//   }
+//   // font-weight: bold;
+// }  
 
-#createSessionPartButton{
-  background-color: $anbar-remove-create-session-part-button-color;
-  color: #000000;
-  user-select: none;
-  &:hover{
-    background-color: lighten($anbar-remove-create-session-part-button-color, 20%);
-  }
-}
+// #createSessionPartButton{
+//   background-color: $anbar-remove-create-session-part-button-color;
+//   color: #000000;
+//   user-select: none;
+//   &:hover{
+//     background-color: lighten($anbar-remove-create-session-part-button-color, 20%);
+//   }
+// }
 
-#createSessionButton{
-  background-color: $primary-color;
-  &:hover{
-    background-color: $primary-color-shade2;
-  }
-}
+// #createSessionButton{
+//   background-color: $primary-color;
+//   &:hover{
+//     background-color: $primary-color-shade2;
+//   }
+// }
 
-#addNewSessionInfo{
-  background-color: $stand-out-color;
-}
+// #addNewSessionInfo{
+//   background-color: $stand-out-color;
+// }
 
-#submitSession{
-  background-color: $primary-color;
-  &:hover{
-    background-color: $primary-color-shade2;
-  }
-}
+// #submitSession{
+//   background-color: $primary-color;
+//   &:hover{
+//     background-color: $primary-color-shade2;
+//   }
+// }
 
-#getBackFromSessionsList{
-  left: 0;
-}
+// #getBackFromSessionsList{
+//   left: 0;
+// }
 
-.anbarRemove{
-  background-color: $anbar-info-background-color;
-  display: flex;
-  flex-direction: column;
-  .sessionSelected{
-    // border-color: rgb(52, 52, 160) !important;
-    // box-shadow: 0px 0px 10px 10px rgba(54, 93, 219, 0.589);
-    border-color: rgb(17, 17, 148) !important;
-    box-shadow: 4px 4px 4px 0px rgba(1, 0, 66, 0.644);
-    border-radius: 0 !important;
-  }
-  .sessionsInputBlock{
-    p{
-      font-size: 24px;
-      font-weight: 600;
-    }
-  }
-  .sessionsPart{
-    overflow: hidden;
-    flex: 1;
-    transition: ease-out 200ms;
-    // &:hover{
-    //   flex: 2;
-    //   transition: ease-in 200ms;
-    // }
-    button.createSessionPartButton{
-      font-size: 18px;
-      background-color: rgb(143, 177, 240);
-      padding: 10px;
-      border: 1px solid black;
-      cursor: pointer;
-      margin-top: 10px;
-      margin-left: 10px;
-      outline: none;
-    }
-    .sessionSelectionPart{
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      .sessionsInputs{
-        width: 45vw;
+// .anbarRemove{
+//   background-color: $anbar-info-background-color;
+//   display: flex;
+//   flex-direction: column;
+//   .sessionSelected{
+//     // border-color: rgb(52, 52, 160) !important;
+//     // box-shadow: 0px 0px 10px 10px rgba(54, 93, 219, 0.589);
+//     border-color: rgb(17, 17, 148) !important;
+//     box-shadow: 4px 4px 4px 0px rgba(1, 0, 66, 0.644);
+//     border-radius: 0 !important;
+//   }
+//   .sessionsInputBlock{
+//     p{
+//       font-size: 24px;
+//       font-weight: 600;
+//     }
+//   }
+//   .sessionsPart{
+//     overflow: hidden;
+//     flex: 1;
+//     transition: ease-out 200ms;
+//     // &:hover{
+//     //   flex: 2;
+//     //   transition: ease-in 200ms;
+//     // }
+//     button.createSessionPartButton{
+//       font-size: 18px;
+//       background-color: rgb(143, 177, 240);
+//       padding: 10px;
+//       border: 1px solid black;
+//       cursor: pointer;
+//       margin-top: 10px;
+//       margin-left: 10px;
+//       outline: none;
+//     }
+//     .sessionSelectionPart{
+//       display: flex;
+//       flex-direction: column;
+//       align-items: center;
+//       .sessionsInputs{
+//         width: 45vw;
+//         display: flex;
+//         justify-content: space-between;
+//         margin: 5vh auto;
+//         .sessionsInputBlock{
+//           display: flex;
+//           flex-direction: column;
+//         }
+//       }
+//     }
+//     .sessionCreatePart{
+//       display: none;
+//       flex-direction: column;
+//       align-items: center;
+//       .sessionInputBlock{
+//         display: flex;
+//         flex-direction: column;
+//       }
+//       .sessionGetBack{
+//         align-self: flex-start;
+//         justify-self: self-start;
+//         margin-left: 5vw;
+//       }
+//     }
+//     label{
+//       font-size: 20px;
+//       font-weight: bold;
+//     }
+//     input.sessionsDateInput{
+//       user-select: none;
+//       margin-top: 3vh;
+//       font-size: 25px;
+//       width: 20vw;
+//       cursor: pointer;
+//       background-color: $anbar-remove-input-background-color;
+//       padding: 5px;
+//       border: 1px solid $dark-color;
+//       // box-shadow: 0 0 0 1px $dark-color;
+//       // transition: all 0.2s;
+//       outline: none;
+//       &:focus,
+//       &:hover,
+//       &:active{
+//         // box-shadow: 0 0 2px 2px $anbar-remove-input-border-color;
+//         background-color: $primary-color-shade2;
+//       }
+//     }
+//     .sessionListPart{
+//       display: none;
+//       // margin-top: 5vh;
+//       height: 100%;
+//       .sessionGetBack{
+//         // margin-bottom: -5vh;
+//         // margin-left: 5vw;
+//         // margin-bottom: 5px;
+//         height: 6vh;
+//       }
+//       .sessionTables{
+//         overflow-y: scroll;
+//         width: 100%;
+//         max-height: calc(100% - 5.5vh);
+//         // padding: 20px 40px;
+//         margin: 0 auto;
+//         .sessionContainer{
+//           max-width: 100%;
+//           margin-right:auto;
+//           margin-left:auto;
+//           display:flex;
+//           justify-content:center;
+//           align-items:center;
+//           border-radius: 13px;
+//           &:not(:first-child){
+//             margin-top: 15px;
+//           }
+//           cursor: pointer;
+//         }
+//         .sessionTable{
+//           width: 100%;
+//           border: 3px solid $color-form-highlight;
+//           border-radius: 13px;
+//         }
+//         .sessionTableHeader{
+//           display: flex;
+//           width: 100%;
+//           color: whitesmoke;
+//           background:  $session-table-header-background-color;
+//           border-top-left-radius: 10px;
+//           border-top-right-radius: 10px;
+//           padding: ($half-spacing-unit * 1.5) 0;
+//         }
+
+//         .sessionTableRow{
+//           display: flex;
+//           background: $session-table-row-bacground-color;
+//           width: 100%;
+//           padding: ($half-spacing-unit * 1.5) 0;
+//           border-bottom-left-radius: 10px;
+//           border-bottom-right-radius: 10px;
+//         }
+//         .sessionTableData, .sessionHeaderItem{
+//           flex: 1 1 20%;
+//           text-align: center;
+//         }
+
+//         .sessionHeaderItem{
+//           text-transform: uppercase;
+//         }
+
+//         &::-webkit-scrollbar {
+//           width: 10px;
+//         }
+//         /* Track */
+//         &::-webkit-scrollbar-track {
+//           box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+//           border-radius: 10px;
+//           border-radius: 10px;
+//         }
+//         /* Handle */
+//         &::-webkit-scrollbar-thumb {
+//           border-radius: 10px;
+//           border-radius: 10px;
+//           background: rgb(121, 121, 121);
+//           box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+//         }
+//       }
+//     }
+//   }
+//   .sessionsInfoPart{
+//     height: 100%;
+//     // margin-top: 5vh;
+//     overflow: hidden;
+//     border-top: 1px solid rgb(36, 35, 35);
+//     flex: 1;
+//     transition: ease-out 200ms;
+//     // &:hover{
+//     //   flex: 2;
+//     //   transition: ease-in 200ms;
+//     // }
+
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: space-between;
+
+//     .addNewSessionInfo{
+//       display: none;
+//       position: absolute;
+//       flex-direction: row;
+//       button{
+//         background-color: lighten($primary-color, 10%);
+//         font-size: 24px;
+//         padding: 3px;
+//         width: 10vw;
+//         // margin-bottom: 5vh;
+//         // margin-right: 1vw;
+//         border: 1px solid black;
+//         cursor: pointer;
+//         outline: none;
+//       }
+//     }
+
+//     .sessionInfoList{
+//       display: none;
+//       margin-top: 5vh;
+//       height: calc(100% - 5vh);
+//       .sessionInfoTables{
+//         overflow-y: scroll;
+//         width: 100%;
+//         max-height: 100%;
+//         // padding: 15px 30px;
+//         // margin: 0 auto;
+//         .sessionInfoContainer{
+//           max-width: 100%;
+//           margin-right:auto;
+//           margin-left:auto;
+//           display:flex;
+//           justify-content:center;
+//           align-items:center;
+//           border-radius: 13px;
+//           &:not(:first-child){
+//             margin-top: 15px;
+//           }
+//           cursor: pointer;
+//         }
+//         .sessionInfoTable{
+//           width: 100%;
+//           border: 3px solid $color-form-highlight;
+//           border-radius: 13px;
+//         }
+//         .sessionInfoTableHeader{
+//           display: flex;
+//           font-size: 16px !important;
+//           width: 100%;
+//           color: whitesmoke;
+//           background:  $session-info-table-header-background-color;
+//           border-top-left-radius: 10px;
+//           border-top-right-radius: 10px;
+//           padding: ($half-spacing-unit * 1.5) 0;
+//         }
+
+//         .sessionInfoTableRow{
+//           display: flex;
+//           background: $session-info-table-row-bacground-color;
+//           width: 100%;
+//           // font-size: 24px;
+//           padding: ($half-spacing-unit * 1.5) 0;
+//           border-bottom-left-radius: 10px;
+//           border-bottom-right-radius: 10px;
+//         }
+//         .sessionInfoTableData, .sessionInfoHeaderItem{
+//           flex: 1 1 20%;
+//           text-align: center;
+//         }
+
+//         .sessionInfoHeaderItem{
+//           text-transform: uppercase;
+//         }
+
+//         &::-webkit-scrollbar {
+//           width: 10px;
+//         }
+//         /* Track */
+//         &::-webkit-scrollbar-track {
+//           box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+//           border-radius: 10px;
+//           border-radius: 10px;
+//         }
+//         /* Handle */
+//         &::-webkit-scrollbar-thumb {
+//           border-radius: 10px;
+//           border-radius: 10px;
+//           background: rgb(121, 121, 121);
+//           box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+//         }
+//       }
+//     }
+//   }
+//   button.sessionAcceptButton{
+//     margin:10px auto;
+//     background-color: rgb(75, 204, 75);
+//     font-size: 24px;
+//     padding: 15px 0;
+//     width: 20vw;
+//     border: 1px solid black;
+//     cursor: pointer;
+//     outline: none;
+//   }
+//   button.getBackButton{
+//     background-color: $stand-out-color;
+//     font-size: 20px;
+//     padding: 5px;
+//     cursor: pointer;
+//     border: 1px solid black;
+//     outline: none;
+//     position: absolute;
+//     top: 10vh;
+//     left: 15px;
+//   }
+
+//   .sessionsInfoNewInputs{
+//     flex: 1;
+//     overflow: hidden;
+//     transition: ease-out 200ms;
+//     display: none;
+//     // display: flex;
+//     flex-direction: column;
+//     .sessionInfoNewGetBack{
+//       align-self: flex-start;
+//       button{
+//         background-color: $stand-out-color;
+//         border: 1px solid black;
+//         font-size: 20px;
+//         padding: 10px;
+//         cursor: pointer;
+//         // margin-top: 3vh;
+//         // margin-left: 2vw;
+//       }
+//     }
+//     .sessionInfoInputWrapper{
+//       align-self: center;
+//       display: flex;
+//       flex-direction: row;
+//       justify-content: space-between;
+//       width: 65vw;
+//     }
+//     .sessionInfoInputBlock{
+//       display: flex;
+//       flex-direction: column;
+//     }
+
+//     input.sessionInfoNewInput{
+//       margin-top: 5px;
+//       font-size: 20px;
+//       width: 15vw;
+//       cursor: pointer;
+//       padding: 5px;
+//       height: 5vh;
+//       &:focus,
+//       &:active{
+//         outline: 2px solid rgb(33, 33, 116);
+//       }
+//     }
+//     select.sessionInfoSelectCurrency{
+//       background-color: white;
+//       font-size: 18px;
+//       padding: 5px;
+//       margin-top: 5px;
+//       height: 5vh;
+//       width: 15vw;
+//       border: 1px solid black;
+//       outline: none;
+//       text-align: center;
+//       cursor: pointer;
+//       option{
+//         outline: none;
+//         font-size: 16px;
+//         text-align: center;
+//         background: rgb(199, 199, 199);
+//         cursor: pointer;
+//         &:hover{
+//           cursor: pointer;
+//         }
+//       }
+//     }
+//     .submitSessionInfo{
+//       margin-top: 1vh;
+//       display: flex;
+//       flex-direction: row;
+//       justify-content: center;
+//       button{
+//         margin: 0 auto;
+//         background-color: rgb(75, 204, 75);
+//         border: 1px solid black;
+//         font-size: 34px;
+//         padding: 10px 20px;
+//         cursor: pointer;
+//         outline: none;
+//       }
+//     }
+//     // &:hover{
+//     //   flex: 2;
+//     //   transition: ease-in 200ms;
+//     // }
+
+//   }
+//   .sessionsInfoSearch{
+//     display: none;
+//     border-top: 1px solid rgb(36, 35, 35);
+//     flex: 1;
+//     overflow: hidden;
+//     transition: ease-out 200ms;
+//     .sessionsInfoSearchInputBlock{
+//       display: flex;
+//       flex-direction: column;
+//       justify-content: space-between;
+//       align-content: center;
+//       height: 20vh;
+//       margin-top: 10vh;
+//       input.infoSearchInput{
+//         font-size: 24px;
+//         padding: 10px;
+//         width: 20vw;
+//         border-radius: 2px;
+//         border: 1px solid black;
+//         cursor: pointer;
+//         &:active,
+//         &:focus{
+//           outline: 2px solid rgb(33, 33, 116);
+//         }
+//       }
+//       button.infoSearchSubmit{
+//         align-self: center;
+//         border: 1px solid $dark-color;
+//         border-radius: 2px;
+//         background-color: $primary-color;
+//         font-size: 24px;
+//         padding: 10px 20px;
+//         width: 20vw;
+//         outline: none;
+//         cursor: pointer;
+//         &:hover{
+//           // border-width: 2px;
+//           background-color: $primary-color-shade2;
+//         }
+//       }
+//     }
+
+//     .sessionSearchResult{
+//       display: none;
+//       margin-top: 5vh;
+//       height: 100%;
+//       .sessionSearchTables{
+//         overflow-y: scroll;
+//         width: 100%;
+//         max-height: 100%;
+//         padding: 15px 30px;
+//         margin: 0 auto;
+//         .sessionSearchContainer{
+//           max-width: 100%;
+//           margin-right:auto;
+//           margin-left:auto;
+//           display:flex;
+//           justify-content:center;
+//           align-items:center;
+//           border-radius: 13px;
+//           &:not(:first-child){
+//             margin-top: 15px;
+//           }
+//           cursor: pointer;
+//         }
+//         .sessionSearchTable{
+//           width: 100%;
+//           border: 3px solid $color-form-highlight;
+//           border-radius: 13px;
+//         }
+//         .sessionSearchTableHeader{
+//           display: flex;
+//           font-size: 16px !important;
+//           width: 100%;
+//           color: whitesmoke;
+//           background:  $session-info-table-header-background-color;
+//           border-top-left-radius: 10px;
+//           border-top-right-radius: 10px;
+//           padding: ($half-spacing-unit * 1.5) 0;
+//         }
+
+//         .sessionSearchTableRow{
+//           display: flex;
+//           background: $session-info-table-row-bacground-color;
+//           width: 100%;
+//           // font-size: 24px;
+//           padding: ($half-spacing-unit * 1.5) 0;
+//           border-bottom-left-radius: 10px;
+//           border-bottom-right-radius: 10px;
+//         }
+//         .sessionSearchTableData, .sessionSearchHeaderItem{
+//           flex: 1 1 20%;
+//           text-align: center;
+//         }
+
+//         .sessionSearchHeaderItem{
+//           text-transform: uppercase;
+//         }
+
+//         &::-webkit-scrollbar {
+//           width: 10px;
+//         }
+//         /* Track */
+//         &::-webkit-scrollbar-track {
+//           box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+//           border-radius: 10px;
+//           border-radius: 10px;
+//         }
+//         /* Handle */
+//         &::-webkit-scrollbar-thumb {
+//           border-radius: 10px;
+//           border-radius: 10px;
+//           background: rgb(121, 121, 121);
+//           box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+//         }
+//       }
+//     }
+//     .sessionSearchGetBack{
+//       display: none;
+//       position: absolute;
+//       button{
+//         background-color: rgb(165, 112, 42);
+//         border: 1px solid black;
+//         font-size: 20px;
+//         padding: 10px;
+//         cursor: pointer;
+//         // margin-top: 3vh;
+//         // margin-left: 2vw;
+//       }
+//     }
+//     // &:hover{
+//     //   flex: 2;
+//     //   transition: ease-in 200ms;
+//     // }
+//   }
+// }
+
+
+// ul.sessionsTable{
+//   margin: 0;
+//   padding: 0;
+//   border: 1px solid black;
+//   li{
+//     // cursor: pointer;
+//     position: relative;
+//     display: flex;
+//     // opacity: 0;
+//     flex-direction: row;
+//     justify-content: space-between;
+//     background: rgb(238, 169, 74);
+//     font-size: 16px;
+//     color: black;
+//     -webkit-user-select: none;
+//     -moz-user-select: none;
+//     -ms-user-select: none;
+//     user-select: none;
+//     &:nth-child(odd){
+//       background: rgba(156, 95, 9, 1);
+//       color: white;
+//     }
+//     &:not(.title){
+//       cursor: pointer;
+//       &:hover{
+//         background-color: #fff;
+//         color: black;
+//       }
+//     }
+//     .inventoryItemContainer{
+//       display: flex;
+//       flex-direction: row;
+//       width: 30vw;
+//       justify-content: space-between;
+//       p{
+//         font-size: 16px;
+//       }
+//     }
+//     .spanDiv{
+//       margin: 0;
+//       height: 100%;
+//     }
+//   }
+//   // .trans{
+//   //   opacity: 1;
+//   //   top: 0;
+//   // }
+//   li.title{
+//     color: black;
+//   }
+//   li.checked{
+//     background: #fff;
+//     color: black;
+//   }
+// }
+
+// ul#sessions{
+//   li{
+//     p{
+//       padding: 12px 16px !important;
+//       width: 20%;
+//       text-align: center;
+//     }
+//   }
+// }
+
+// ul#sessionsInfo{
+//   li{
+//     p{
+//       // padding: 12px 16px !important;
+//       padding: 10px 14px !important;
+//       font-size: 16px;
+//       width: 10%;
+//       overflow-x: auto;
+//       text-align: center;
+//     }
+//   }
+// }
+
+
+.anbarRemoveData{
+  width: 100vw;
+	height: 100vh;
+	background-color: $secondary-color;
+  position: relative;
+  .anbarRemoveContainer{
+    position: relative;
+		height: 100%;
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		overflow-y: hidden;
+		transition: 0.4s;
+		filter: brightness(100%);
+    
+    #optionsMenu {
+			position: absolute;
+			top: 0;
+			left: 0;
+			z-index: 1000000;
+
+			.optionsBtn {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 0;
+				height: 0;
+				opacity: 0;
+				background-color: $stand-out-color;
+				border-radius: 50%;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				transition: 0.5s all, 0.6s left;
+				cursor: pointer;
+
+				img {
+					width: 65%;
+					transition: 0.4s;
+				}
+
+				&:hover {
+					background-color: $stand-out-color;
+
+					img {
+						transform: scale(1.1);
+					}
+				}
+			}
+
+			.optionsBtn[data-isActive="True"] {
+				transition: 0.5s all, 0.6s left;
+				width: 35px;
+				height: 35px;
+				opacity: 1;
+			}
+			#optionsNew[data-isActive="True"] {
+				top: -40px;
+			}
+			#optionsDelete[data-isActive="True"] {
+				left: 33px;
+				top: -10px;
+			}
+			#optionsAccept[data-isActive="True"] {
+				top: 20px;
+			}
+			#optionsEndAll[data-isActive="True"] {
+				left: -33px;
+				top: -10px;
+			}
+			#optionsEdit[data-isActive="True"] {
+				left: -33px;
+				top: -10px;
+			}
+
+			.optionsBtn[data-isActive="False"] {
+				transition: 0s;
+			}
+		}
+    
+    .retails{
+      width: 100%;
+			height: 50%;
+			background: transparent;
+			padding-top: 15px;
+      overflow: hidden;
+      
+      .sessionsDateInput{
         display: flex;
-        justify-content: space-between;
-        margin: 5vh auto;
-        .sessionsInputBlock{
+        justify-content: center;
+        align-items: center;
+        .sessionsDate{
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          width: 40%;
+          .sessionGroupDate{
+            display: inherit;
+            justify-content: space-around;
+            align-items: center;
+    
+            p {
+              color: $dark-color;
+              font-size: 1.3rem;
+              font-weight: 700;
+              user-select: none;
+              margin-right: 5px;
+            }
+    
+            input{
+              outline: none;
+              background-color: transparent;
+              color: $dark-color;
+              border: 2px solid $dark-color;
+              font-size: 1.1rem;
+              font-weight: bold;
+              transition: 0.2s all, 0.4s transform;
+              width: 70%;
+              cursor: pointer;
+              &:hover{
+                color: $stand-out-color;
+                border: 2px solid $stand-out-color;
+                transform: scale(1.1);
+              }
+            }
+          }
+        }  
+      }
+      .retailsTable {
+				padding-top: 15px;
+				width: 100%;
+				height: 100%;
+				overflow-y: scroll;
+				overflow-x: hidden;
+				transition: 0.4s;
+				position: relative;
+
+				&::-webkit-scrollbar {
+					width: 10px;
+				}
+				/* Track */
+				&::-webkit-scrollbar-track {
+					box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+					border-radius: 10px;
+					border-radius: 10px;
+				}
+				/* Handle */
+				&::-webkit-scrollbar-thumb {
+					border-radius: 10px;
+					border-radius: 10px;
+					background: $stand-out-color;
+					box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+				}
+
+				.anbarRemoveRetailTable {
+					width: 100%;
+					border-collapse: collapse;
+					position: relative;
+
+					thead {
+						th {
+							cursor: default;
+							font-size: 1.4rem;
+							padding: 10px 0;
+
+							border-top: 2px solid black;
+							border-bottom: 3px solid black;
+							border-right: 2px solid black;
+
+							background-color: $primary-color;
+						}
+					}
+					tbody {
+						tr {
+							// height: 60px;
+							background-color: $secondary-color-shade1;
+							transition: 0.2s;
+
+							td {
+								padding: 5px 10px;
+								text-align: center;
+								font-size: 1.1rem;
+								cursor: default;
+								user-select: none;
+								color: #000;
+								transition: 0.2s;
+
+								border-top: 2px solid black;
+								border-bottom: 2px solid black;
+								border-left: 2px solid rgb(36, 36, 36);
+								border-right: 2px solid rgb(36, 36, 36);
+
+								&:last-child {
+									border-right: none;
+								}
+							}
+
+							&:nth-child(odd) {
+								background-color: $secondary-color-shade2;
+							}
+
+							&:hover {
+								background-color: $primary-color-shade1;
+
+								td {
+									color: $secondary-color;
+								}
+							}
+						}
+
+						tr[data-isSelected="True"] {
+							background-color: $primary-color-shade1 !important;
+
+							td {
+								color: white !important;
+							}
+						}
+						tr[data-isSelected2="True"] {
+							background-color: $stand-out-color;
+						}
+
+						.single-retail {
+							td {
+								cursor: pointer;
+							}
+						}
+					}
+				}
+      }
+      .addNewRetailSessionForm {
+				position: absolute;
+				top: 40%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				z-index: 1000000000000;
+				width: 30%;
+				height: 30%;
+				opacity: 0;
+				transition: 0.4s;
+				border-radius: 25px;
+				background-color: $primary-color;
+				display: none;
+				flex-direction: column;
+				justify-content: space-around;
+				align-items: center;
+
+				h1 {
+					color: white;
+					font-weight: bold;
+					letter-spacing: 1px;
+					font-size: 1.7rem;
+					padding: 15px 0;
+				}
+
+				.container {
+					display: flex;
+					flex-direction: column;
+					align-items: center;
+					flex-grow: 1;
+
+					.row {
+						padding: 15px 0;
+						width: 100%;
+						display: flex;
+						justify-content: space-around;
+						align-items: center;
+
+						p {
+							color: white;
+							font-size: 1.1rem;
+							font-weight: 500;
+							user-select: none;
+							margin-right: 5px;
+						}
+
+						input {
+							outline: none;
+							background-color: transparent;
+							color: white;
+							border: 2px solid white;
+							font-size: 1.1rem;
+							font-weight: 500;
+							transition: 0.2s all, 0.4s transform;
+							width: 60%;
+							padding: 0 10px;
+							cursor: pointer;
+
+							&:hover {
+								color: $stand-out-color;
+								border: 2px solid $stand-out-color;
+								transform: scale(1.1);
+							}
+						}
+						select {
+							outline: none;
+							font-size: 1.1rem;
+							font-weight: 500;
+							padding: 2px 7px;
+						}
+
+						button {
+							font-size: 1.3rem;
+							font-weight: 500;
+							background-color: rgb(32, 32, 32);
+							border: 2px solid rgb(32, 32, 32);
+							color: white;
+							padding: 5px 20px;
+							transition: 0.3s;
+							cursor: pointer;
+							outline: none;
+
+							&:hover {
+								transform: scale(1.1);
+							}
+						}
+
+						#addNewRetailSessionSubmitBtn {
+							background-color: red;
+							border: 2px solid red;
+						}
+					}
+				}
+			}
+    }
+
+    .sessionsInfo{
+      top: -4px;
+			width: 100%;
+			flex-grow: 1;
+			border-top: 3px solid black;
+			background: $secondary-color-blured;
+			height: 20%;
+
+      .addNewSessionInfoForm {
+        position: absolute;
+        top: 44%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1000000000000;
+        width: 80%;
+        height: 80%;
+        opacity: 0;
+        transition: 0.4s;
+        border-radius: 25px;
+        background-color: $primary-color;
+        display: none;
+        pointer-events: none;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+
+        h1 {
+          color: white;
+          font-weight: bold;
+          letter-spacing: 1px;
+          font-size: 1.7rem;
+          padding: 15px 0;
+        }
+
+        .container {
           display: flex;
           flex-direction: column;
-        }
-      }
-    }
-    .sessionCreatePart{
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      .sessionInputBlock{
-        display: flex;
-        flex-direction: column;
-      }
-      .sessionGetBack{
-        align-self: flex-start;
-        justify-self: self-start;
-        margin-left: 5vw;
-      }
-    }
-    label{
-      font-size: 20px;
-      font-weight: bold;
-    }
-    input.sessionsDateInput{
-      user-select: none;
-      margin-top: 3vh;
-      font-size: 25px;
-      width: 20vw;
-      cursor: pointer;
-      background-color: $anbar-remove-input-background-color;
-      padding: 5px;
-      border: 1px solid $dark-color;
-      // box-shadow: 0 0 0 1px $dark-color;
-      // transition: all 0.2s;
-      outline: none;
-      &:focus,
-      &:hover,
-      &:active{
-        // box-shadow: 0 0 2px 2px $anbar-remove-input-border-color;
-        background-color: $primary-color-shade2;
-      }
-    }
-    .sessionListPart{
-      display: none;
-      // margin-top: 5vh;
-      height: 100%;
-      .sessionGetBack{
-        // margin-bottom: -5vh;
-        // margin-left: 5vw;
-        // margin-bottom: 5px;
-        height: 6vh;
-      }
-      .sessionTables{
-        overflow-y: scroll;
-        width: 100%;
-        max-height: calc(100% - 5.5vh);
-        // padding: 20px 40px;
-        margin: 0 auto;
-        .sessionContainer{
-          max-width: 100%;
-          margin-right:auto;
-          margin-left:auto;
-          display:flex;
-          justify-content:center;
-          align-items:center;
-          border-radius: 13px;
-          &:not(:first-child){
-            margin-top: 15px;
+          align-items: center;
+          flex-grow: 1;
+          padding: 5px;
+
+					.searchInputBlock{
+						display: flex;
+						flex-direction: column;
+						justify-content: space-between;
+						height: 30%;
+						width: 40%;
+						@media only screen and (max-width: 1368px){
+							height: 40%;
+						}
+					}
+					
+					.row[data-Buttons="true"]{
+						justify-content: center;
+						button{
+							&:not(:last-child){
+								margin-right: 20px;
+							}
+						}
+					}
+          .row {
+            padding: 15px 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+						
+            p {
+              color: white;
+              font-size: 1.1rem;
+              font-weight: 500;
+              user-select: none;
+              margin-right: 5px;
+            }
+						select{
+							outline: none;
+              background-color: white;
+              color: $dark-color;
+              border: 1px solid $dark-color;
+              font-size: 1.1rem;
+              font-weight: 500;
+              transition: 0.2s all, 0.2s transform;
+              width: 60%;
+              padding: 5px 10px;
+              cursor: pointer;
+							text-align: center;
+							text-align-last: center;
+							&:hover {
+                color: darken($stand-out-color, 20%);
+                border: 1px solid darken($stand-out-color, 10%);
+                transform: scale(1.05);
+              }
+						}
+            input {
+              outline: none;
+              background-color: white;
+              color: $dark-color;
+              border: 1px solid $dark-color;
+              font-size: 1.1rem;
+              font-weight: 500;
+              transition: 0.2s all, 0.2s transform;
+              width: 60%;
+              padding: 5px 10px;
+              cursor: pointer;
+              text-align: center;
+							&:disabled{
+								background-color: rgb(172, 172, 172);
+							}
+              &:hover {
+                color: darken($stand-out-color, 20%);
+                border: 1px solid darken($stand-out-color, 10%);
+                transform: scale(1.05);
+              }
+            }
+
+            button {
+              font-size: 1.3rem;
+              font-weight: 500;
+              background-color: $stand-out-color;
+              border: 2px solid $dark-color;
+              color: $dark-color;
+              padding: 5px 20px;
+              transition: 0.2s;
+              cursor: pointer;
+              outline: none;
+
+              &:hover {
+                transform: scale(1.05);
+              }
+            }
+
+            #addNewSessionSubmitBtn {
+              background-color: red;
+              border: 2px solid red;
+            }
           }
-          cursor: pointer;
-        }
-        .sessionTable{
+				}
+				
+				#searchProduct{
+					margin-top: 2vh;
+				}
+
+				#getBackToSearchInput{
+					display: none;
+					background-color: lighten($primary-color-shade2, 20%);
+					font-size: 1.1rem;
+					// padding: 10px 20px;
+					// outline: none;
+					// margin-bottom: 5px;
+					// cursor: pointer;
+					// border: 1px solid $dark-color;
+					// border-radius: 4px;
+					// &:hover{
+					// 	background-color: lighten($stand-out-color, 20%);
+					// }
+				}
+
+
+				#retailAddNewSessionDiscardBtn{
+					background-color: lighten(red, 10%);
+					font-size: 1.1rem;
+				}
+				#retailAddNewSessionSubmitBtn{
+					background-color: lighten($color: $stand-out-color, $amount: 15%);
+					font-size: 1.1rem;
+				}
+        .sessionsInfoSearch-table {
+          z-index: 10;
+          // padding-top: 15px;
           width: 100%;
-          border: 3px solid $color-form-highlight;
-          border-radius: 13px;
-        }
-        .sessionTableHeader{
-          display: flex;
-          width: 100%;
-          color: whitesmoke;
-          background:  $session-table-header-background-color;
-          border-top-left-radius: 10px;
-          border-top-right-radius: 10px;
-          padding: ($half-spacing-unit * 1.5) 0;
-        }
-
-        .sessionTableRow{
-          display: flex;
-          background: $session-table-row-bacground-color;
-          width: 100%;
-          padding: ($half-spacing-unit * 1.5) 0;
-          border-bottom-left-radius: 10px;
-          border-bottom-right-radius: 10px;
-        }
-        .sessionTableData, .sessionHeaderItem{
-          flex: 1 1 20%;
-          text-align: center;
-        }
-
-        .sessionHeaderItem{
-          text-transform: uppercase;
-        }
-
-        &::-webkit-scrollbar {
-          width: 10px;
-        }
-        /* Track */
-        &::-webkit-scrollbar-track {
-          box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-          border-radius: 10px;
-          border-radius: 10px;
-        }
-        /* Handle */
-        &::-webkit-scrollbar-thumb {
-          border-radius: 10px;
-          border-radius: 10px;
-          background: rgb(121, 121, 121);
-          box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
-        }
-      }
-    }
-  }
-  .sessionsInfoPart{
-    height: 100%;
-    // margin-top: 5vh;
-    overflow: hidden;
-    border-top: 1px solid rgb(36, 35, 35);
-    flex: 1;
-    transition: ease-out 200ms;
-    // &:hover{
-    //   flex: 2;
-    //   transition: ease-in 200ms;
-    // }
-
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-
-    .addNewSessionInfo{
-      // align-self: flex-end;
-      display: none;
-      position: absolute;
-      // display: flex;
-      flex-direction: row;
-      // bottom: 0;
-      button{
-        background-color: lighten($primary-color, 10%);
-        font-size: 24px;
-        padding: 3px;
-        width: 100px;
-        // margin-bottom: 5vh;
-        // margin-right: 1vw;
-        border: 1px solid black;
-        cursor: pointer;
-        outline: none;
-      }
-    }
-
-    .sessionInfoList{
-      display: none;
-      margin-top: 5vh;
-      height: calc(100% - 5vh);
-      .sessionInfoTables{
-        overflow-y: scroll;
-        width: 100%;
-        max-height: 100%;
-        // padding: 15px 30px;
-        // margin: 0 auto;
-        .sessionInfoContainer{
-          max-width: 100%;
-          margin-right:auto;
-          margin-left:auto;
-          display:flex;
-          justify-content:center;
-          align-items:center;
-          border-radius: 13px;
-          &:not(:first-child){
-            margin-top: 15px;
+          height: 100%;
+          overflow-y: scroll;
+          overflow-x: hidden;
+          transition: 0.4s;
+          position: relative;
+					display: none;
+					&::-webkit-scrollbar {
+            width: 10px;
           }
-          cursor: pointer;
-        }
-        .sessionInfoTable{
-          width: 100%;
-          border: 3px solid $color-form-highlight;
-          border-radius: 13px;
-        }
-        .sessionInfoTableHeader{
-          display: flex;
-          font-size: 16px !important;
-          width: 100%;
-          color: whitesmoke;
-          background:  $session-info-table-header-background-color;
-          border-top-left-radius: 10px;
-          border-top-right-radius: 10px;
-          padding: ($half-spacing-unit * 1.5) 0;
-        }
-
-        .sessionInfoTableRow{
-          display: flex;
-          background: $session-info-table-row-bacground-color;
-          width: 100%;
-          // font-size: 24px;
-          padding: ($half-spacing-unit * 1.5) 0;
-          border-bottom-left-radius: 10px;
-          border-bottom-right-radius: 10px;
-        }
-        .sessionInfoTableData, .sessionInfoHeaderItem{
-          flex: 1 1 20%;
-          text-align: center;
-        }
-
-        .sessionInfoHeaderItem{
-          text-transform: uppercase;
-        }
-
-        &::-webkit-scrollbar {
-          width: 10px;
-        }
-        /* Track */
-        &::-webkit-scrollbar-track {
-          box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-          border-radius: 10px;
-          border-radius: 10px;
-        }
-        /* Handle */
-        &::-webkit-scrollbar-thumb {
-          border-radius: 10px;
-          border-radius: 10px;
-          background: rgb(121, 121, 121);
-          box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
-        }
-      }
-    }
-  }
-  button.sessionAcceptButton{
-    margin:10px auto;
-    background-color: rgb(75, 204, 75);
-    font-size: 24px;
-    padding: 15px 0;
-    width: 20vw;
-    border: 1px solid black;
-    cursor: pointer;
-    outline: none;
-  }
-  button.getBackButton{
-    background-color: $stand-out-color;
-    font-size: 20px;
-    padding: 5px;
-    cursor: pointer;
-    border: 1px solid black;
-    outline: none;
-    position: absolute;
-    top: 10vh;
-    left: 15px;
-  }
-
-  .sessionsInfoNewInputs{
-    flex: 1;
-    overflow: hidden;
-    transition: ease-out 200ms;
-    display: none;
-    // display: flex;
-    flex-direction: column;
-    .sessionInfoNewGetBack{
-      align-self: flex-start;
-      button{
-        background-color: $stand-out-color;
-        border: 1px solid black;
-        font-size: 20px;
-        padding: 10px;
-        cursor: pointer;
-        // margin-top: 3vh;
-        // margin-left: 2vw;
-      }
-    }
-    .sessionInfoInputWrapper{
-      align-self: center;
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      width: 65vw;
-    }
-    .sessionInfoInputBlock{
-      display: flex;
-      flex-direction: column;
-    }
-
-    input.sessionInfoNewInput{
-      margin-top: 5px;
-      font-size: 20px;
-      width: 15vw;
-      cursor: pointer;
-      padding: 5px;
-      height: 5vh;
-      &:focus,
-      &:active{
-        outline: 2px solid rgb(33, 33, 116);
-      }
-    }
-    select.sessionInfoSelectCurrency{
-      background-color: white;
-      font-size: 18px;
-      padding: 5px;
-      margin-top: 5px;
-      height: 5vh;
-      width: 15vw;
-      border: 1px solid black;
-      outline: none;
-      text-align: center;
-      cursor: pointer;
-      option{
-        outline: none;
-        font-size: 16px;
-        text-align: center;
-        background: rgb(199, 199, 199);
-        cursor: pointer;
-        &:hover{
-          cursor: pointer;
-        }
-      }
-    }
-    .submitSessionInfo{
-      margin-top: 1vh;
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      button{
-        margin: 0 auto;
-        background-color: rgb(75, 204, 75);
-        border: 1px solid black;
-        font-size: 34px;
-        padding: 10px 20px;
-        cursor: pointer;
-        outline: none;
-      }
-    }
-    // &:hover{
-    //   flex: 2;
-    //   transition: ease-in 200ms;
-    // }
-
-  }
-  .sessionsInfoSearch{
-    display: none;
-    border-top: 1px solid rgb(36, 35, 35);
-    flex: 1;
-    overflow: hidden;
-    transition: ease-out 200ms;
-    .sessionsInfoSearchInputBlock{
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      align-content: center;
-      height: 20vh;
-      margin-top: 10vh;
-      input.infoSearchInput{
-        font-size: 24px;
-        padding: 10px;
-        width: 20vw;
-        border-radius: 2px;
-        border: 1px solid black;
-        cursor: pointer;
-        &:active,
-        &:focus{
-          outline: 2px solid rgb(33, 33, 116);
-        }
-      }
-      button.infoSearchSubmit{
-        align-self: center;
-        border: 1px solid $dark-color;
-        border-radius: 2px;
-        background-color: $primary-color;
-        font-size: 24px;
-        padding: 10px 20px;
-        width: 20vw;
-        outline: none;
-        cursor: pointer;
-        &:hover{
-          // border-width: 2px;
-          background-color: $primary-color-shade2;
-        }
-      }
-    }
-
-    .sessionSearchResult{
-      display: none;
-      margin-top: 5vh;
-      height: 100%;
-      .sessionSearchTables{
-        overflow-y: scroll;
-        width: 100%;
-        max-height: 100%;
-        padding: 15px 30px;
-        margin: 0 auto;
-        .sessionSearchContainer{
-          max-width: 100%;
-          margin-right:auto;
-          margin-left:auto;
-          display:flex;
-          justify-content:center;
-          align-items:center;
-          border-radius: 13px;
-          &:not(:first-child){
-            margin-top: 15px;
+          /* Track */
+          &::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            border-radius: 10px;
           }
-          cursor: pointer;
-        }
-        .sessionSearchTable{
-          width: 100%;
-          border: 3px solid $color-form-highlight;
-          border-radius: 13px;
-        }
-        .sessionSearchTableHeader{
-          display: flex;
-          font-size: 16px !important;
-          width: 100%;
-          color: whitesmoke;
-          background:  $session-info-table-header-background-color;
-          border-top-left-radius: 10px;
-          border-top-right-radius: 10px;
-          padding: ($half-spacing-unit * 1.5) 0;
+          /* Handle */
+          &::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            border-radius: 10px;
+            background: $stand-out-color;
+            box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+          }
+  
+          .anbarRemoveSessionsInfoSearchTable {
+            width: 100%;
+            border-collapse: collapse;
+            position: relative;
+  
+            thead {
+              th {
+                cursor: default;
+                font-size: 1.4rem;
+                padding: 5px 0;
+                user-select: none;
+  
+                border-top: 2px solid black;
+                border-bottom: 3px solid black;
+                border-right: 2px solid black;
+  
+								background-color: $stand-out-color;
+								@media only screen and (max-width: 1368px){
+									font-size: 1.2rem;
+								}
+              }
+            }
+            tbody {
+              tr {
+                // height: 60px;
+                background-color: $secondary-color-shade1;
+                transition: 0.4s;
+  
+                td {
+                  padding: 5px 10px;
+                  text-align: center;
+                  font-size: 1.1rem;
+                  cursor: default;
+                  user-select: none;
+                  color: #000;
+                  font-weight: 500;
+  
+                  border-top: 2px solid black;
+                  border-bottom: 2px solid black;
+                  border-left: 2px solid rgb(36, 36, 36);
+                  border-right: 2px solid rgb(36, 36, 36);
+  
+                  &:last-child {
+                    border-right: none;
+                  }
+                }
+  
+                &:nth-child(odd) {
+                  background-color: $secondary-color-shade2;
+                }
+  
+                &:hover {
+                  background-color: $primary-color-shade1;
+  
+                  td {
+                    color: $secondary-color;
+                  }
+                }
+              }
+  
+              tr[data-isSelected="True"] {
+                background-color: rgb(129, 148, 158) !important;
+  
+                td {
+                  color: black;
+                }
+              }
+  
+              .retail-single-searchResult {
+                td {
+                  cursor: pointer;
+                }
+              }
+            }
+          }
         }
 
-        .sessionSearchTableRow{
-          display: flex;
-          background: $session-info-table-row-bacground-color;
-          width: 100%;
-          // font-size: 24px;
-          padding: ($half-spacing-unit * 1.5) 0;
-          border-bottom-left-radius: 10px;
-          border-bottom-right-radius: 10px;
-        }
-        .sessionSearchTableData, .sessionSearchHeaderItem{
-          flex: 1 1 20%;
-          text-align: center;
-        }
-
-        .sessionSearchHeaderItem{
-          text-transform: uppercase;
-        }
-
-        &::-webkit-scrollbar {
-          width: 10px;
-        }
-        /* Track */
-        &::-webkit-scrollbar-track {
-          box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-          border-radius: 10px;
-          border-radius: 10px;
-        }
-        /* Handle */
-        &::-webkit-scrollbar-thumb {
-          border-radius: 10px;
-          border-radius: 10px;
-          background: rgb(121, 121, 121);
-          box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
-        }
       }
-    }
-    .sessionSearchGetBack{
-      display: none;
-      position: absolute;
-      button{
-        background-color: rgb(165, 112, 42);
-        border: 1px solid black;
-        font-size: 20px;
-        padding: 10px;
-        cursor: pointer;
-        // margin-top: 3vh;
-        // margin-left: 2vw;
+
+			#defaultSessionsText {
+				z-index: 0;
+				position: absolute;
+				top: 70%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				user-select: none;
+				color: rgb(231, 228, 228);
+				font-size: 1.5rem;
+				text-shadow: 2px 2px 8px rgb(121, 117, 117), -2px -2px 8px rgb(255, 255, 255);
+				transition: 0.4s;
+				opacity: 1;
+			}
+
+			#defaultSessionsText[data-isTableShowing="True"] {
+				opacity: 0;
       }
-    }
-    // &:hover{
-    //   flex: 2;
-    //   transition: ease-in 200ms;
-    // }
-  }
-}
+      
+      .sessionsInfo-table {
+				z-index: 10;
+				// padding-top: 15px;
+				width: 100%;
+				height: 100%;
+				overflow-y: scroll;
+				overflow-x: hidden;
+				transition: 0.4s;
+				position: relative;
+        
+				&::-webkit-scrollbar {
+					width: 10px;
+				}
+				/* Track */
+				&::-webkit-scrollbar-track {
+					box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+					border-radius: 10px;
+					border-radius: 10px;
+				}
+				/* Handle */
+				&::-webkit-scrollbar-thumb {
+					border-radius: 10px;
+					border-radius: 10px;
+					background: $stand-out-color;
+					box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+				}
 
+				.anbarRemoveSessionsInfoTable {
+					width: 100%;
+					border-collapse: collapse;
+					position: relative;
 
-ul.sessionsTable{
-  margin: 0;
-  padding: 0;
-  border: 1px solid black;
-  li{
-    // cursor: pointer;
-    position: relative;
-    display: flex;
-    // opacity: 0;
-    flex-direction: row;
-    justify-content: space-between;
-    background: rgb(238, 169, 74);
-    font-size: 16px;
-    color: black;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    &:nth-child(odd){
-      background: rgba(156, 95, 9, 1);
-      color: white;
-    }
-    &:not(.title){
-      cursor: pointer;
-      &:hover{
-        background-color: #fff;
-        color: black;
-      }
-    }
-    .inventoryItemContainer{
-      display: flex;
-      flex-direction: row;
-      width: 30vw;
-      justify-content: space-between;
-      p{
-        font-size: 16px;
-      }
-    }
-    .spanDiv{
-      margin: 0;
-      height: 100%;
-    }
-  }
-  // .trans{
-  //   opacity: 1;
-  //   top: 0;
-  // }
-  li.title{
-    color: black;
-  }
-  li.checked{
-    background: #fff;
-    color: black;
-  }
-}
+					thead {
+						th {
+							cursor: default;
+							font-size: 1.4rem;
+							padding: 5px 0;
+							user-select: none;
 
-ul#sessions{
-  li{
-    p{
-      padding: 12px 16px !important;
-      width: 20%;
-      text-align: center;
-    }
-  }
-}
+							border-top: 2px solid black;
+							border-bottom: 3px solid black;
+							border-right: 2px solid black;
 
-ul#sessionsInfo{
-  li{
-    p{
-      // padding: 12px 16px !important;
-      padding: 10px 14px !important;
-      font-size: 16px;
-      width: 10%;
-      overflow-x: auto;
-      text-align: center;
+							background-color: $primary-color;
+						}
+					}
+					tbody {
+						tr {
+							// height: 60px;
+							background-color: $secondary-color-shade1;
+							transition: 0.4s;
+
+							td {
+								padding: 5px 10px;
+								text-align: center;
+								font-size: 1.1rem;
+								cursor: default;
+								user-select: none;
+								color: #000;
+								font-weight: 500;
+
+								border-top: 2px solid black;
+								border-bottom: 2px solid black;
+								border-left: 2px solid rgb(36, 36, 36);
+								border-right: 2px solid rgb(36, 36, 36);
+
+								&:last-child {
+									border-right: none;
+								}
+							}
+
+							&:nth-child(odd) {
+								background-color: $secondary-color-shade2;
+							}
+
+							&:hover {
+								background-color: $primary-color-shade1;
+
+								td {
+									color: $secondary-color;
+								}
+							}
+						}
+
+						tr[data-isSelected="True"] {
+							background-color: rgb(129, 148, 158) !important;
+
+							td {
+								color: black;
+							}
+						}
+
+						.retail-single-sessionInfo {
+							td {
+								cursor: pointer;
+							}
+						}
+					}
+				}
+			}
     }
+    .moveableBorder {
+			position: relative;
+			width: 100%;
+			height: 4px;
+			background-color: transparent;
+      // background-color: $stand-out-color;
+      cursor: ns-resize;
+			z-index: 100;
+		}
   }
+  .cstmAlertBox {
+		position: absolute;
+		top: 40%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		z-index: 1000000000000;
+		opacity: 0;
+		transition: 0.4s;
+		border-radius: 25px;
+		background-color: $primary-color;
+		display: none;
+		flex-direction: column;
+		justify-content: space-around;
+		align-items: center;
+
+		.up {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+
+			.alertTitle {
+				font-size: 1.7rem;
+				font-weight: bold;
+				color: white;
+				padding-bottom: 15px;
+			}
+			p {
+				font-size: 1.1rem;
+				color: white;
+				text-align: center;
+			}
+		}
+
+		.down {
+			display: flex;
+			justify-content: space-around;
+			align-items: center;
+			width: 60%;
+
+			button {
+				font-size: 1.3rem;
+				font-weight: 500;
+				background-color: rgb(32, 32, 32);
+				border: 2px solid rgb(32, 32, 32);
+				color: white;
+				padding: 5px 20px;
+				transition: 0.3s;
+				cursor: pointer;
+				outline: none;
+
+				&:hover {
+					transform: scale(1.1);
+				}
+			}
+
+			#alertYes {
+				background-color: red;
+				border: 2px solid red;
+			}
+		}
+	}
 }

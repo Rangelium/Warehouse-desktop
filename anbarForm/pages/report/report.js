@@ -8,6 +8,23 @@ var table_name = null;
 var reportUrl = (format) => `http://172.16.3.42:88/Reports/Report.php?ReportName=${reportType}&Format=${format}&data[dateto]=${dateTo}&data[datefrom]=${dateFrom}`;
 var reportInventoryUrl = (format) => `http://172.16.3.42:88/Reports/Report.php?ReportName=${reportType}&Format=${format}&data[table_name]=${table_name}`;
 
+function getNow(){
+	let now = new Date();
+	now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+	return now;
+}
+
+function getMonthsAgo(numberOfMonths){
+	let currenyDate = getNow();
+	var monthAgo = new Date();
+	monthAgo.setMinutes(currenyDate.getMinutes() - currenyDate.getTimezoneOffset());
+	monthAgo.addMonths(-numberOfMonths);
+	return monthAgo;
+}
+
+$("#dateFrom").val(getMonthsAgo(1).toISOString().slice(0, 10));
+$("#dateTo").val(getNow().toISOString().slice(0, 10));
+
 poolConnect.then((pool) => {
   pool.request()
       .execute("inventory.tables_list", (err, res) => {
