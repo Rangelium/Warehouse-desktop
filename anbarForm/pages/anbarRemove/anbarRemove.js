@@ -1365,7 +1365,6 @@ function fillRetailSessionSearchTable(data){
 		$("#productPrice").val($(this).attr("data-productUnitPrice"));
 		console.log(retailSearch_productId);
 		fillClustersDropdown(retailSearch_productId);
-
 	});
 }
 
