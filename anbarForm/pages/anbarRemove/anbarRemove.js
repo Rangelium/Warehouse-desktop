@@ -1339,8 +1339,8 @@ function fillRetailSessionSearchTable(data){
 		row += '</tr>'
 		$(".anbarRemoveSessionsInfoSearchTable > tbody").append(row);
 	});
-	if(data.length < 4){
-		for(let i = 0;i < 4 - data.length; i++){
+	if(data.length < 3){
+		for(let i = 0;i < 3 - data.length; i++){
 			let row = "<tr class='empty-single-retail-search-product' style='height: 40px'>"
 			for(let j = 0;j < 8; j++){
 				row += "<td></td>";
