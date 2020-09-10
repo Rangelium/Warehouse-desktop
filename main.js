@@ -91,7 +91,7 @@ function startAnbarForm() {
 				},
 			},
 			{
-				label: "M.A.Ş",
+				label: "M.A.S",
 				name: "productAuth",
 				shortcut: "ctrl+shift+p",
 				click: function () {
