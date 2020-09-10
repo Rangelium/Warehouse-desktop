@@ -986,10 +986,10 @@ function ShowSingleRetailOptions(retailEl){
 	});
 	retailEl.attr("data-isSelected", "True");
 	$("#optionsDelete").attr("data-retailId", retailEl.attr("data-id"));
-	$("#optionsDelete").attr("title", "Delete bulk");
+	$("#optionsDelete").attr("title", "Delete Session");
 	$("#optionsEndAll").attr("title", "End Session")
 	$("#optionsEndAll").attr("data-id", retailEl.attr("data-id"));
-	$("#optionsNew").attr("title", "Add new bulk");
+	$("#optionsNew").attr("title", "Add New Session");
 	$(".optionsBtn").attr("data-isActive", "True");
 
 }
@@ -1269,8 +1269,8 @@ function getSearchProducts(value){
 	let parameterType = "";
 
 	if (!isNaN(value)) {
-		parameterName = "product_id";
-		parameterType = mssql.Int;
+		parameterName = "barcode";
+		parameterType = mssql.BigInt;
 	} else {
 		parameterName = "title";
 		parameterType = mssql.NVarChar(250);
