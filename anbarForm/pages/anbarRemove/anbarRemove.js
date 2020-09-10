@@ -678,7 +678,7 @@ function closeAlert() {
 }
 
 
-var selectedSession 	  = null;
+var selectedSession = null;
 var selectedSessionInfo = null;
 
 //======================================================================
@@ -690,7 +690,7 @@ $(document).mousemove(function (event) {
 });
 
 var timeout,
-		clickObj = $(".moveableBorder");
+	clickObj = $(".moveableBorder");
 var prevMouseY = null;
 var moveLineBy = null;
 
@@ -729,13 +729,13 @@ $(document).mouseup(function () {
 //=======================================================================
 // Set dates to input[type='date']
 
-function getNow(){
+function getNow() {
 	let now = new Date();
 	now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
 	return now;
 }
 
-function getMonthsAgo(numberOfMonths){
+function getMonthsAgo(numberOfMonths) {
 	let currenyDate = getNow();
 	var monthAgo = new Date();
 	monthAgo.setMinutes(currenyDate.getMinutes() - currenyDate.getTimezoneOffset());
@@ -752,8 +752,8 @@ getAllRetailSessions($("#dateFrom").val(), $("#dateTo").val())
 
 //========================================================================
 // Change listener for date inputs
-$("#dateFrom").change(function(){
-	if($("#dateTo").val() == ""){
+$("#dateFrom").change(function () {
+	if ($("#dateTo").val() == "") {
 		return;
 	}
 	getAllRetailSessions(
@@ -763,8 +763,8 @@ $("#dateFrom").change(function(){
 })
 
 
-$("#dateTo").change(function(){
-	if($("#dateFrom").val() == ""){
+$("#dateTo").change(function () {
+	if ($("#dateFrom").val() == "") {
 		return;
 	}
 	getAllRetailSessions(
@@ -777,34 +777,34 @@ $("#dateTo").change(function(){
 
 //========================================================================
 // Retail Sessions
-function getAllRetailSessions(dateFrom, dateTo){
+function getAllRetailSessions(dateFrom, dateTo) {
 	poolConnect.then((pool) => {
 		pool.request()
-				.input("date_from", mssql.DateTime, dateFrom)
-				.input("date_to", mssql.DateTime, dateTo)
-				.execute("anbar.retail_sale_session_selection", (err, res) => {
-					if(err != null){
-						console.log(err);
-						return;
-					}
-					console.log(res.recordset);
-					fillRetailsTable(res.recordset);
-				})
+			.input("date_from", mssql.DateTime, dateFrom)
+			.input("date_to", mssql.DateTime, dateTo)
+			.execute("anbar.retail_sale_session_selection", (err, res) => {
+				if (err != null) {
+					console.log(err);
+					return;
+				}
+				console.log(res.recordset);
+				fillRetailsTable(res.recordset);
+			})
 	})
 }
 
-function fillRetailsTable(data){
+function fillRetailsTable(data) {
 	$(".anbarRemoveRetailTable").remove();
 
 	$(".retailsTable").append("<table class='anbarRemoveRetailTable'></table>");
 	$(".anbarRemoveRetailTable").append("<thead></thead>");
 	$(".anbarRemoveRetailTable").append("<tbody></tbody>");
 
-	$(".anbarRemoveRetailTable > thead").append(`<th>Begin Date</th>`);
-	$(".anbarRemoveRetailTable > thead").append(`<th>Cost Price</th>`);
-	$(".anbarRemoveRetailTable > thead").append(`<th>Default Currency</th>`);
-	$(".anbarRemoveRetailTable > thead").append(`<th>Is Done</th>`);
-	$(".anbarRemoveRetailTable > thead").append(`<th>Whole Price</th>`);
+	$(".anbarRemoveRetailTable > thead").append(`<th>${languages['creation_date']}</th>`);
+	$(".anbarRemoveRetailTable > thead").append(`<th>${languages['cost_price']}</th>`);
+	$(".anbarRemoveRetailTable > thead").append(`<th>${languages['currency']}</th>`);
+	$(".anbarRemoveRetailTable > thead").append(`<th>${languages['status']}</th>`);
+	$(".anbarRemoveRetailTable > thead").append(`<th>${languages['total_price']}</th>`);
 
 	data.forEach((el) => {
 		let row = `<tr class="single-retail" data-done='${el.is_done}' data-id='${el.id}'>`;
@@ -861,23 +861,23 @@ function refreshRetailsTable(date_from, date_to, timeout = 0) {
 
 //=======================================================================
 // Retail Session Info 
-function getRetailSessionsInfo(id){
+function getRetailSessionsInfo(id) {
 	selectedSession = id;
 	poolConnect.then((pool) => {
 		pool.request()
-				.input("retail_sale_session_id", mssql.Int, selectedSession)
-				.execute("anbar.retail_sale_session_info", (err, res) => {
-					if(err != null){
-						console.log(err);
-						return;
-					}
-					console.log(res.recordset);
-					fillRetailSessionInfoTable(res.recordset);
-				})
+			.input("retail_sale_session_id", mssql.Int, selectedSession)
+			.execute("anbar.retail_sale_session_info", (err, res) => {
+				if (err != null) {
+					console.log(err);
+					return;
+				}
+				console.log(res.recordset);
+				fillRetailSessionInfoTable(res.recordset);
+			})
 	})
 }
 
-function fillRetailSessionInfoTable(data){
+function fillRetailSessionInfoTable(data) {
 	$("#defaultSessionsText").attr("data-isTableShowing", "True");
 
 	$(".anbarRemoveSessionsInfoTable").remove();
@@ -892,10 +892,10 @@ function fillRetailSessionInfoTable(data){
 	$(".anbarRemoveSessionsInfoTable > thead").append(`<th>${languages['unit_price']}:</th>`);
 	$(".anbarRemoveSessionsInfoTable > thead").append(`<th>${languages['extra_charge']}:</th>`);
 	$(".anbarRemoveSessionsInfoTable > thead").append(`<th>${languages['discount']}(%):</th>`);
-	$(".anbarRemoveSessionsInfoTable > thead").append(`<th>${languages['for_sale_price']}:</th>`);	
+	$(".anbarRemoveSessionsInfoTable > thead").append(`<th>${languages['for_sale_price']}:</th>`);
 	$(".anbarRemoveSessionsInfoTable > thead").append(`<th>${languages['total_price']}:</th>`);
 	$(".anbarRemoveSessionsInfoTable > thead").append(`<th>${languages['currency']}:</th>`);
-	$(".anbarRemoveSessionsInfoTable > thead").append(`<th>${languages['action']}:</th>`);	
+	$(".anbarRemoveSessionsInfoTable > thead").append(`<th>${languages['action']}:</th>`);
 
 	data.forEach((el) => {
 		let row = `<tr class="retail-single-session-info" data-id='${el.id}' data-sessionId='${selectedSession}'>`;
@@ -939,8 +939,8 @@ function fillRetailSessionInfoTable(data){
 	});
 }
 
-function refreshRetailSessionsInfo(timeout = 0, id){
-	
+function refreshRetailSessionsInfo(timeout = 0, id) {
+
 	setTimeout(() => {
 		getRetailSessionsInfo(selectedSession);
 	}, timeout)
@@ -949,11 +949,11 @@ function refreshRetailSessionsInfo(timeout = 0, id){
 
 //=======================================================================
 // Retail Session Optoins Part
-function ShowSingleRetailOptions(retailEl){
+function ShowSingleRetailOptions(retailEl) {
 	$("#optionsAccept").hide();
 	$("#optionsEndAll").hide();
 	$("#optionsEdit").hide();
-	if(retailEl.attr("class") == "empty-single-retail"){
+	if (retailEl.attr("class") == "empty-single-retail") {
 		$(".single-retail").attr("data-isSelected", "False");
 		$(".optionsBtn").attr("data-isActive", "False");
 		$("#optionsDelete").hide();
@@ -1013,7 +1013,7 @@ $("#optionsNew").click(function () {
 	showAddNewRetailSessionForm();
 });
 
-async function showAddNewRetailSessionForm(){
+async function showAddNewRetailSessionForm() {
 	$("#addNewRetailBeginDate").val(getMonthsAgo(1).toISOString().slice(0, 10));
 
 	$(".anbarRemoveContainer").css({
@@ -1027,7 +1027,7 @@ async function showAddNewRetailSessionForm(){
 	$(".addNewRetailSessionForm").attr("data-isActive", "True");
 }
 
-function hideAddNewRetailSessionForm(){
+function hideAddNewRetailSessionForm() {
 	$(".anbarRemoveContainer").css({
 		"pointer-events": "all",
 	});
@@ -1038,41 +1038,41 @@ function hideAddNewRetailSessionForm(){
 	setTimeout(() => {
 		$(".addNewRetailSessionForm").css("display", "none");
 	}, 400);
-} 
+}
 
-function deleteRetailSession(id){
+function deleteRetailSession(id) {
 	poolConnect.then((pool) => {
 		pool.request()
-				.input("id", mssql.Int, id)
-				.input("user_id", mssql.Int, USER['id'])
-				.execute("anbar.retail_sale_session_delete", (err, res) => {
-					if(err != null){
-						console.log(err);
-						return;
-					}
-					refreshRetailsTable($("#dateFrom").val(), $("#dateTo").val());
-				})
+			.input("id", mssql.Int, id)
+			.input("user_id", mssql.Int, USER['id'])
+			.execute("anbar.retail_sale_session_delete", (err, res) => {
+				if (err != null) {
+					console.log(err);
+					return;
+				}
+				refreshRetailsTable($("#dateFrom").val(), $("#dateTo").val());
+			})
 
 	})
 }
 
-$("#addNewRetailSessionDiscardBtn").click(function(){
+$("#addNewRetailSessionDiscardBtn").click(function () {
 	hideAddNewRetailSessionForm();
 })
 
-$("#addNewRetailSessionSubmitBtn").click(function(){
+$("#addNewRetailSessionSubmitBtn").click(function () {
 	poolConnect.then((pool) => {
 		pool.request()
-				.input("begin_date", mssql.DateTime, $("#addNewRetailBeginDate").val())
-				.execute("anbar.retail_sale_create_new_session", (err, res) => {
-					if(err != null){
-						console.log(err);
-						return;
-					}
-					$("#dateFrom").val($("#addNewRetailBeginDate").val());
-					refreshRetailsTable($("#dateFrom").val(), getNow().toISOString().slice(0, 10));
-					hideAddNewRetailSessionForm();
-				})
+			.input("begin_date", mssql.DateTime, $("#addNewRetailBeginDate").val())
+			.execute("anbar.retail_sale_create_new_session", (err, res) => {
+				if (err != null) {
+					console.log(err);
+					return;
+				}
+				$("#dateFrom").val($("#addNewRetailBeginDate").val());
+				refreshRetailsTable($("#dateFrom").val(), getNow().toISOString().slice(0, 10));
+				hideAddNewRetailSessionForm();
+			})
 	})
 })
 
@@ -1095,7 +1095,7 @@ $(document).click((el) => {
 
 //=======================================================================
 // Retail Sessions Info Options part
-function showSingleSessionInfoOptions(sessionEl){
+function showSingleSessionInfoOptions(sessionEl) {
 	$("#optionsEdit").hide();
 	if (sessionEl.attr("class") === "empty-single-retail-session-info") {
 		$(".retail-single-session-info").attr("data-isSelected", "False");
@@ -1177,35 +1177,35 @@ $("#optionsNew").click(function () {
 	showAddNewSessionInfoForm();
 });
 
-function acceptAllInsert(sessionId){
+function acceptAllInsert(sessionId) {
 	poolConnect.then((pool) => {
 		pool.request()
-				.input("retail_sale_session_id", mssql.Int, sessionId)
-				.input("user_id", mssql.Int, USER['id'])
-				.execute("anbar.retail_sale_info_accept_insert", (err, res) => {
-					if(err != null){
-						console.log(err);
-						return;
-					}
-				})
+			.input("retail_sale_session_id", mssql.Int, sessionId)
+			.input("user_id", mssql.Int, USER['id'])
+			.execute("anbar.retail_sale_info_accept_insert", (err, res) => {
+				if (err != null) {
+					console.log(err);
+					return;
+				}
+			})
 	})
 }
 
-function deleteSession(id){
+function deleteSession(id) {
 	poolConnect.then((pool) => {
 		pool.request()
-				.input("id", mssql.Int, id)
-				.input("user_id", mssql.Int, USER['id'])
-				.execute("anbar.retail_sale_session_info_delete", (err, res) => {
-					if(err != null){
-						console.log(err);
-						return;
-					}
-				})
+			.input("id", mssql.Int, id)
+			.input("user_id", mssql.Int, USER['id'])
+			.execute("anbar.retail_sale_session_info_delete", (err, res) => {
+				if (err != null) {
+					console.log(err);
+					return;
+				}
+			})
 	})
 }
 
-function showAddNewSessionInfoForm(){
+function showAddNewSessionInfoForm() {
 	$(".anbarRemoveContainer").css({
 		"pointer-events": "none",
 	});
@@ -1254,15 +1254,15 @@ $(document).click((el) => {
 //=====================================================================
 // Add New Session Info part
 
-$("#searchProduct").click(function(){
-	if($("#valueForSearch").val() != ""){
+$("#searchProduct").click(function () {
+	if ($("#valueForSearch").val() != "") {
 		$("#searchInputs").fadeOut(10);
 		getSearchProducts($("#valueForSearch").val())
 		$("#getBackToSearchInput").fadeIn(10);
 	}
 })
 
-function getSearchProducts(value){
+function getSearchProducts(value) {
 	$(".sessionsInfoSearch-table").fadeIn(10);
 	let parameterName = "";
 	let parameterType = "";
@@ -1277,14 +1277,14 @@ function getSearchProducts(value){
 
 	poolConnect.then((pool) => {
 		pool.request()
-				.input(parameterName, parameterType, value)
-				.execute("anbar.retail_sale_search", (err, res) => {
-					if(err != null){
-						console.log(err);
-						return;
-					}
-					fillRetailSessionSearchTable(res.recordset);
-				})
+			.input(parameterName, parameterType, value)
+			.execute("anbar.retail_sale_search", (err, res) => {
+				if (err != null) {
+					console.log(err);
+					return;
+				}
+				fillRetailSessionSearchTable(res.recordset);
+			})
 	})
 }
 
@@ -1298,7 +1298,7 @@ var retailSeatch_productLeft = null;
 var retailSearch_expDate = null;
 
 
-function fillRetailSessionSearchTable(data){
+function fillRetailSessionSearchTable(data) {
 	$(".anbarRemoveSessionsInfoSearchTable").remove();
 	$(".sessionsInfoSearch-table").append("<table class='anbarRemoveSessionsInfoSearchTable'></table>")
 	$(".anbarRemoveSessionsInfoSearchTable").append("<thead></thead>")
@@ -1338,19 +1338,19 @@ function fillRetailSessionSearchTable(data){
 		row += '</tr>'
 		$(".anbarRemoveSessionsInfoSearchTable > tbody").append(row);
 	});
-	if(data.length < 3){
-		for(let i = 0;i < 3 - data.length; i++){
+	if (data.length < 3) {
+		for (let i = 0; i < 3 - data.length; i++) {
 			let row = "<tr class='empty-single-retail-search-product' style='height: 40px'>"
-			for(let j = 0;j < 8; j++){
+			for (let j = 0; j < 8; j++) {
 				row += "<td></td>";
 			}
 			row += "</tr>";
 			$(".anbarRemoveSessionsInfoSearchTable > tbody").append(row);
 		}
 	}
-	$(".retail-single-searchResult").click(function(){
+	$(".retail-single-searchResult").click(function () {
 		$(".retail-single-searchResult").attr("data-isSelected", "False");
-		$(this).attr("data-isSelected","True");
+		$(this).attr("data-isSelected", "True");
 		retailSearch_productId = $(this).attr("data-productId");
 		retailSearch_currencyId = $(this).attr("data-currencyId");
 		retailSearch_barcode = $(this).attr("data-barcode");
@@ -1367,31 +1367,31 @@ function fillRetailSessionSearchTable(data){
 	});
 }
 
-function fillClustersDropdown(productId){
+function fillClustersDropdown(productId) {
 	poolConnect.then((pool) => {
 		pool.request()
-				.input("product_id", mssql.BigInt, productId)
-				.execute("anbar.cluster_names_select_all_for_specific_product", (err, res) => {
-					if(err != null){
-						console.log(err);
-						return;
-					}
-					let data = [];
-					for (let i of res.recordset) {
-						data.push(i);
-					}
-					console.log(res);
-					$("#productCluster").empty();
-					for (let result of data) {
-						$("#productCluster").append(
-							$("<option>", { value: result["cluster_order"], text: result["title"] })
-						);
-					}
-				})
+			.input("product_id", mssql.BigInt, productId)
+			.execute("anbar.cluster_names_select_all_for_specific_product", (err, res) => {
+				if (err != null) {
+					console.log(err);
+					return;
+				}
+				let data = [];
+				for (let i of res.recordset) {
+					data.push(i);
+				}
+				console.log(res);
+				$("#productCluster").empty();
+				for (let result of data) {
+					$("#productCluster").append(
+						$("<option>", { value: result["cluster_order"], text: result["title"] })
+					);
+				}
+			})
 	})
 }
 
-$("#getBackToSearchInput").click(function(){
+$("#getBackToSearchInput").click(function () {
 	$(".sessionsInfoSearch-table").fadeOut(100);
 	$("#getBackToSearchInput").fadeOut(100);
 	setTimeout(() => {
@@ -1407,31 +1407,31 @@ $("#retailAddNewSessionDiscardBtn").click(() => {
 $("#retailAddNewSessionSubmitBtn").click(() => {
 	poolConnect.then((pool) => {
 		pool.request()
-				.input("extra_charge", mssql.Int, $("#productExtraCharge").val())
-				.input("currency", mssql.Int, $("#productCurrency").val())
-				.input("quantity", mssql.Int, $("#productQuantity").val())
-				.input("discount", mssql.SmallInt, $("#productDiscount").val())
-				.input("reason", mssql.NVarChar(250), $("#productReason").val())
-				.input("cluster_order", mssql.Int, $("#productCluster").val())
-				.input("price", mssql.Float, $("#productPrice").val())
-				.input("exp_date", mssql.DateTime, retailSearch_expDate)
-				.input("product_cell", mssql.Int, retailSearch_productCell)
-				.input("barcode", mssql.BigInt, retailSearch_barcode)
-				.input("product_id", mssql.Int, retailSearch_productId)
-				.input("document_id_as_parent", mssql.BigInt, retailSearch_documentId)
-				.input("product_manufacturer", mssql.Int, retailSearch_productManufacturer)
-				.input("retail_sale_session_id", mssql.Int, selectedSession)
-				.input("left", mssql.Int, retailSeatch_productLeft)
-				.execute("anbar.retail_sale_info_insert", (err, res) => {
-					if(err != null){
-						console.log(err);
-						return;
-					}
-					refreshRetailSessionsInfo(timeout=10, selectedSession)
-					$(".addNewSessionInfoForm input").val("");
-					$("#getBackToSearchInput").trigger("click");
-					$("#productCluster").empty();
-				})
+			.input("extra_charge", mssql.Int, $("#productExtraCharge").val())
+			.input("currency", mssql.Int, $("#productCurrency").val())
+			.input("quantity", mssql.Int, $("#productQuantity").val())
+			.input("discount", mssql.SmallInt, $("#productDiscount").val())
+			.input("reason", mssql.NVarChar(250), $("#productReason").val())
+			.input("cluster_order", mssql.Int, $("#productCluster").val())
+			.input("price", mssql.Float, $("#productPrice").val())
+			.input("exp_date", mssql.DateTime, retailSearch_expDate)
+			.input("product_cell", mssql.Int, retailSearch_productCell)
+			.input("barcode", mssql.BigInt, retailSearch_barcode)
+			.input("product_id", mssql.Int, retailSearch_productId)
+			.input("document_id_as_parent", mssql.BigInt, retailSearch_documentId)
+			.input("product_manufacturer", mssql.Int, retailSearch_productManufacturer)
+			.input("retail_sale_session_id", mssql.Int, selectedSession)
+			.input("left", mssql.Int, retailSeatch_productLeft)
+			.execute("anbar.retail_sale_info_insert", (err, res) => {
+				if (err != null) {
+					console.log(err);
+					return;
+				}
+				refreshRetailSessionsInfo(timeout = 10, selectedSession)
+				$(".addNewSessionInfoForm input").val("");
+				$("#getBackToSearchInput").trigger("click");
+				$("#productCluster").empty();
+			})
 	})
 })
 function hideAddNewSessionInfoForm() {
@@ -1448,25 +1448,25 @@ function hideAddNewSessionInfoForm() {
 }
 
 $("#productQuantity").change(() => {
-	if($("#productPrice").val() != ""){
+	if ($("#productPrice").val() != "") {
 		$("#productTotalPrice").val(getTotalPrice());
 	}
 })
 
 $("#productPrice").change(() => {
-	if($("#prodcuctQuantity").val() != ""){
-		$("#productTotalPrice").val(getTotalPrice());		
+	if ($("#prodcuctQuantity").val() != "") {
+		$("#productTotalPrice").val(getTotalPrice());
 	}
 })
 
 $("#productExtraCharge").change(() => {
-	if($("#productQuantity").val() != "" || $("#productPrice").val() != ""){
+	if ($("#productQuantity").val() != "" || $("#productPrice").val() != "") {
 		$("#productTotalPrice").val(getTotalPrice());
 	}
 })
 
 $("#productDiscount").change(() => {
-	if($("#productQuantity").val() != "" || $("#productPrice").val() != ""){
+	if ($("#productQuantity").val() != "" || $("#productPrice").val() != "") {
 		$("#productTotalPrice").val(getTotalPrice());
 	}
 })
@@ -1475,7 +1475,7 @@ function getTotalPrice() {
 	return parseFloat(
 		$("#productPrice").val() *
 		$("#productQuantity").val() *
-		(1 + parseInt(($("#productExtraCharge").val() == "" ? 0 : $("#productExtraCharge").val() )) / 100) *
+		(1 + parseInt(($("#productExtraCharge").val() == "" ? 0 : $("#productExtraCharge").val())) / 100) *
 		(1 - ($("#productDiscount").val() == "" ? 0 : $("#productDiscount").val()) / 100)
 	).toFixed(2);
 }
