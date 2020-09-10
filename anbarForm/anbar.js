@@ -52,7 +52,7 @@ $.get(
 								`);
 					}
 				});
-				if (isChanged) $(".sellersPopUpContainer").show();
+				if (isChanged) $("#currencyApiPopUp").show();
 			});
 		});
 	}
