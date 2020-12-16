@@ -1,7 +1,7 @@
 let config = {
-	user: "sa",
-	password: "P@$$w0rd",
-	server: "172.16.3.102",
+	user: "user",
+	password: "Passs",
+	server: "server",
 	database: "SalaryDB",
 	options: {
 		encrypt: false,
